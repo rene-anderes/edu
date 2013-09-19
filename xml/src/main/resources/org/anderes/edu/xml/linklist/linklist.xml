@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<Linklist 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:noNamespaceSchemaLocation="linklist.xsd">
+    <Link>
+        <Id>1</Id>
+        <Title>www.jamesnachtwey.com</Title>
+        <Description>James Nachtwey, für mich einer der engagiertesten Fotografen unserer Zeit!</Description>
+        <URL>http://www.jamesnachtwey.com/</URL>
+        <Tags>fotografie</Tags>
+        <ModDatum>1101406381</ModDatum>
+    </Link>
+    <Link>
+        <Id>10</Id>
+        <Title>www.pixelpress.org</Title>
+        <Description>Pixelpress ist ein Forum für Dokumentarfotografie.
+            Hier werden Arbeiten gezeigt, die zum Nachdenken anregen, überraschen und manchmal auch ganz schön unter die Haut gehen.</Description>
+        <URL>http://www.pixelpress.org/</URL>
+        <Tags>fotografie</Tags>
+        <ModDatum>1101406381</ModDatum>
+    </Link>
+    <Link>
+        <Id>20</Id>
+        <Title>Wikipedia Portal Fotografie</Title>
+        <Description>Das Portal der Fotografie in der Wikipedia.
+            Genres und Themenbereiche der Fotografie, Fototechnik, Fotopraxis, Fotografen, Kameras, Digitalfotografie</Description>
+        <URL>http://de.wikipedia.org/wiki/Portal:Fotografie</URL>
+        <Tags>fotografie</Tags>
+        <ModDatum>1101406381</ModDatum>
+    </Link>
+    <Link>
+        <Id>30</Id>
+        <Title>www.fotocommunity.de</Title>
+        <Description>Die Online-Community für Fotografie.
+            Genres und Themenbereiche der Fotografie, Fototechnik, Fotopraxis, Fotografen, Kameras, Digitalfotografie</Description>
+        <URL>http://www.fotocommunity.de/</URL>
+        <Tags>fotografie</Tags>
+        <ModDatum>1101406381</ModDatum>
+    </Link>
+    <Link>
+        <Id>40</Id>
+        <Title>www.nikonpoint.de</Title>
+        <Description>Die wichtigste deutschsprachige Nikon-Community. Bietet Diskussionsforen und hat einen gut ausgebauten Bereich "Wissen".</Description>
+        <URL>http://www.nikonpoint.de/</URL>
+        <Tags>fotografie</Tags>
+        <ModDatum>1101406381</ModDatum>
+    </Link>
+    <Link>
+        <Id>50</Id>
+        <Title>www.nikon-fotografie.de</Title>
+        <Description>Diese deutschsprachige Nikon-Community informiert über neue und gebrauchte Nikon-Produkte. Bietet Diskussionsforen, gibt Hinweise auf Kurse und Problemlösungen. Hostet auch eine Bildergallerie.</Description>
+        <URL>http://www.nikon-fotografie.de/</URL>
+        <Tags>fotografie</Tags>
+        <ModDatum>1101406381</ModDatum>
+    </Link>
+    <Link>
+        <Id>60</Id>
+        <Title>www.nikonians.org</Title>
+        <Description>Die grösste Nikon-Community im Internet. Bietet Diskussionsforen, Grundlageninfos und News.</Description>
+        <URL>http://www.nikonians.org/</URL>
+        <Tags>fotografie</Tags>
+        <ModDatum>1101406381</ModDatum>
+    </Link>
+    <Link>
+        <Id>70</Id>
+        <Title>www.nikonpro.com</Title>
+        <Description>Hinter dieser Website für Profifotografen steht Nikon USA.
+            Der Themenbereich: technische Updates, ausgefallenes Zubehör, kreative Bildideen, Portfolios und Kurse.</Description>
+        <URL>http://www.nikonpro.com/</URL>
+        <Tags>fotografie</Tags>
+        <ModDatum>1101406381</ModDatum>
+    </Link>
+    <Link>
+        <Id>80</Id>
+        <Title>www.nikonlinks.com</Title>
+        <Description>Eine private Linksammlung von vielen Websites, die mit Nikon zu tun haben.</Description>
+        <URL>http://www.nikonlinks.com/</URL>
+        <Tags>forgrafie,nikon</Tags>
+        <ModDatum>1101406381</ModDatum>
+    </Link>
+    <Link>
+        <Id>90</Id>
+        <Title>www.vfdkv.ch</Title>
+        <Description>Verein für Digitalkameraverweigerer.
+            Viele gutes Fotos, News zu Ausstellungen und Infos zum Thema Fotografieren.</Description>
+        <URL>http://www.vfdkv.ch/</URL>
+        <Tags>fotografie</Tags>
+        <ModDatum>1101406381</ModDatum>
+    </Link>
+    <Link>
+        <Id>100</Id>
+        <Title>www.andreashurni.ch</Title>
+        <Description>Eine private Homepage zum Thema Fotografie. Themenbereiche: Bildgestaltung, Technik und etwas Philosophie.</Description>
+        <URL>http://www.andreashurni.ch</URL>
+        <Tags>fotografie</Tags>
+        <ModDatum>1101406381</ModDatum>
+    </Link>
+</Linklist>

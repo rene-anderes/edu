@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:element name="contactlist">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="contact" type="contact" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="contact">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="address">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="phone" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="type" type="phonetype" use="required"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="mail">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="[a-zA-Z0-9.]+@[a-zA-Z0-9.]+"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="phonetype">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="mobile"/>
+			<xs:enumeration value="private"/>
+			<xs:enumeration value="office"/>
+			<xs:enumeration value="fax"/>
+			<!-- und so weiter … -->
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>
