@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<adressbuch xmlns="http://www.anderes.org/namespaces/adressbuch"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:email="http://www.anderes.org/namespaces/email" 
+	xsi:schemaLocation="http://www.anderes.org/namespaces/adressbuch addressbook.xsd">
+	
+	<person id="p4711" institutionen="i5421">
+		<vorname>Hans</vorname>
+		<vorname>Martin</vorname>
+		<nachname>Müller</nachname>
+		<geburtsdatum>25.07.1975</geburtsdatum>
+		<telefon>089-8314587</telefon>
+		<adresse>
+			<strasse>Bahnhofplatz 1</strasse>
+			<ort>München</ort>
+		</adresse>
+		<email:adresse>m.mueller12993@web.de</email:adresse>
+	</person>
+	<person id="p4712">
+		<vorname>Franz</vorname>
+		<nachname>Müller</nachname>
+		<adresse>
+			<strasse>Bahnhofplatz 1</strasse>
+			<plz>80331</plz>
+			<ort>München</ort>
+		</adresse>
+	</person>
+	<institution id="i5421">
+		<name>Fachhochschule Augsburg</name>
+		<adresse>
+			<strasse>Baumgartnerstrasse 16</strasse>
+			<plz>86161</plz>
+			<ort>Augsburg</ort>
+		</adresse>
+	</institution>
+</adressbuch>
