@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns="http://www.anderes.org/namespaces/adressbuch"
+        xmlns:mail="http://www.anderes.org/namespaces/email"
+        targetNamespace="http://www.anderes.org/namespaces/adressbuch"
+        elementFormDefault="qualified">
+  <xs:import namespace="http://www.anderes.org/namespaces/email" schemaLocation="email.xsd" />
+
+  <xs:element name="adressbuch">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:choice minOccurs="0" maxOccurs="unbounded" >
+          <xs:element name="person" type="person"/>
+          <xs:element ref="institution"/>
+        </xs:choice>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="person">
+      <xs:sequence>
+        <xs:element name="vorname" minOccurs="0" maxOccurs="3"/>
+        <xs:element name="nachname"/>
+        <xs:element ref="geburtsdatum" minOccurs="0"/>
+        <xs:element ref="telefon" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="adresse" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="mail:adresse" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:ID" use="required"/>
+      <xs:attribute name="institutionen" type="xs:IDREFS" use="optional"/>
+  </xs:complexType>
+
+  <xs:element name="institution">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="name"/>
+        <xs:element ref="adresse" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:ID" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="adresse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="strasse" minOccurs="0" maxOccurs="2"/>
+        <xs:element name="plz" minOccurs="0"/>
+        <xs:element name="ort"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="geburtsdatum">
+    <xs:simpleType>
+      <xs:restriction  base="xs:token">
+        <xs:pattern value="[0-3]\d\.[01]\d\.[12]\d{3}"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+
+  <xs:element name="telefon" type="telefon" />
+
+  <xs:simpleType name="telefon">
+    <xs:restriction base="xs:token">
+      <xs:pattern value="\+{0,2}[0-9\-]+" />
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
