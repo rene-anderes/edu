@@ -5,14 +5,14 @@
      xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
      http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/persistence/persistence_2_1.xsd">
 
-     <persistence-unit name="defaultDB" transaction-type="JTA">
+     <persistence-unit name="defaultUnit" transaction-type="JTA">
 
           <jta-data-source>java:comp/DefaultDataSource</jta-data-source>   
 
           <!-- Die Registrierung aller Klassen ist in Verbindung mit einem JEE Container nicht zwingen
                Werden mehr als eine Persistence-Unit verwendet, so ist die Registrierung zu empfehlen
                Wird JPA im Java SE Umfeld verwendet, so ist die Registrierung zwingend -->
-          <class>org.anderes.edu.jee.archetype.Person</class>
+          <class>org.anderes.edu.jee.archetype.domain.Person</class>
 
           <!-- shouldn't be valid for java SE per specification, but it works for EclipseLink ... -->
           <!-- <exclude-unlisted-classes>false</exclude-unlisted-classes> -->

@@ -1,4 +1,4 @@
-package org.anderes.edu.jee.archetype;
+package org.anderes.edu.jee.archetype.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
