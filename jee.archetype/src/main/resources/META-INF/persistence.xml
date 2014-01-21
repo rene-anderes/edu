@@ -55,7 +55,7 @@
                 
                <!-- Specifies a java.IO.Reader configured for reading of the SQL load script for database initialization or a
                     string designating a file URL for the script. -->
-               <!-- <property name="javax.persistence.sql-load-script-source" value="META-INF/load.sql" /> -->
+               <property name="javax.persistence.sql-load-script-source" value="META-INF/load.sql" />
 
                <!-- The database platform is auto-detected by default, if you want to set a specific platform this can be set.
                     This specifies the target database. For Oracle database, specify<property name="eclipselink.target-database"
