@@ -7,7 +7,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
 import org.anderes.edu.jee.archetype.application.PersonFacade;
-import org.anderes.edu.jee.archetype.domain.Person;
 
 @Path("/")
 @Stateless
@@ -18,8 +17,8 @@ public class PersonResources {
 
 	@GET
 	@Path("{id}")
-	public Person getPerson(@PathParam("id") Long id) {
-		return facade.findById(id);
+	public String getPerson(@PathParam("id") Long id) {
+		return facade.findById(id).toString();
 	}
 
 }

@@ -7,14 +7,14 @@
     <artifactId>jee.archetype</artifactId>
     <version>7.0.0-SNAPSHOT</version>
 
-    <name>jee71-eclipselink-derby</name>
+    <name>jee7-sample</name>
+    
     <description>JEE7 - Derby als Datenbank</description>
     <organization>
         <name>René Anderes</name>
     </organization>
 
     <packaging>war</packaging>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -50,7 +50,15 @@
             <version>2.5.1</version>
             <scope>provided</scope>
         </dependency>
-         
+
+        <!-- Utilities -->
+        <!-- Commons-Lang -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.2.1</version>
+        </dependency>
+
         <!-- TEST Dependecies -->
         <dependency>
             <groupId>junit</groupId>
@@ -63,6 +71,7 @@
 
 
     <build>
+        <finalName>jee7-sample</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
