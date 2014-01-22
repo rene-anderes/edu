@@ -40,8 +40,8 @@
                <!-- If scripts are to be generated, controls target locations for writing of scripts. Writers are pre-configured
                     for the persistence provider. Need to be specified only if scripts are to be generated. -->
                <!-- 
-               <property name="javax.persistence.schema-generation.scripts.drop-target" value="src/main/scripts/sql/generate-schema-drop.sql" />
-               <property name="javax.persistence.schema-generation.scripts.create-target" value="src/main/scripts/sql/generate-schema-create.sql" />
+               <property name="javax.persistence.schema-generation.scripts.drop-target" value="META-INF/drop.sql" />
+               <property name="javax.persistence.schema-generation.scripts.create-target" value="META-INF/create.sql" />
               	-->
               
                <!-- Specifies whether the creation of database artifacts is to occur on the basis of the object/relational
@@ -53,9 +53,17 @@
                <!-- Valid values for this property: metadata, script, metadata-then-script, script-then-metadata -->
                <property name="javax.persistence.schema-generation.drop-source" value="metadata" />
 
-               <!-- Specifies location of SQL bulk load script. -->
-               <!-- <property name="javax.persistence.sql-load-script-source" value="src/main/resources/sql/initial-data.sql" /> -->
-
+               <!-- Specifies a java.IO.Reader configured for reading of the SQL script or a string designating a file URL for
+                    the SQL script to create or delete database artifacts. -->
+               <!-- 
+               <property name="javax.persistence.schema-generation.create-script-source" value="META-INF/create.sql"/>
+               <property name="javax.persistence.schema-generation.drop-script-source" value="META-INF/drop.sql"/>
+                -->
+               
+               <!-- Specifies a java.IO.Reader configured for reading of the SQL load script for database initialization or a
+                    string designating a file URL for the script. -->
+               <!-- <property name="javax.persistence.sql-load-script-source" value="META-INF/load.sql" />  -->
+               
                <!-- The database platform is auto-detected by default, if you want to set a specific platform this can be set.
                     This specifies the target database. For Oracle database, specify<property name="eclipselink.target-database"
                     value="Oracle"/>
@@ -86,8 +94,8 @@
                <property name="eclipselink.jdbc.connections.max" value="4" />
 
                <!-- In JSE no server platform is used, if you wish to use this example is a JEE server with JTA, then you
-                    need to set this. -->
-               <!-- property name="eclipselink.target-server" value="WebLogic" / -->
+                    need to set this. See http://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_target_server.htm -->
+               <!-- property name="eclipselink.target-server" value="SunAS9" / -->
 
                <!-- Configure cache size. -->
                <!-- <property name="eclipselink.cache.size.default" value="1000" /> -->
