@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cookbook xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:///H:/Wissen/cookbook.xsd">
+	<recipe id="1">
+		<title>Bünder Nusstorte</title>
+		<preample>Einleitung</preample>
+		<image>
+			<url>nusstorte.jpg</url>
+			<description>Nusstorte</description>
+		</image>
+		<noOfPerson>2</noOfPerson>
+		<ingredients>
+			<ingredient>
+				<quantity>200g</quantity>
+				<description>Mehl</description>
+			</ingredient>
+			<ingredient>
+				<quantity>2dl</quantity>
+				<description>Rahm</description>
+				<comment>Vollrahm/Halbrahm</comment>
+			</ingredient>
+		</ingredients>
+		<preparation>So gehts ....</preparation>
+		<modification>2011-12-29</modification>
+	</recipe>
+	<recipe id="2">
+		<title>Pizza</title>
+		<preample>Einleitung</preample>
+		<image>
+			<url>pizza.jpg</url>
+			<description>Pizza</description>
+		</image>
+		<noOfPerson>2</noOfPerson>
+		<ingredients>
+			<ingredient>
+				<quantity>250g</quantity>
+				<description>Mehl</description>
+			</ingredient>
+			<ingredient>
+				<quantity>1.5dl</quantity>
+				<description>Wasser</description>
+				<comment>lauwarm</comment>
+			</ingredient>
+		</ingredients>
+		<preparation>So gehts ....</preparation>
+		<modification>2011-02-22</modification>
+	</recipe>
+</cookbook>
