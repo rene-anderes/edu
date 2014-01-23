@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
 
+import javax.persistence.EntityManager;
 import javax.persistence.PersistenceUnitUtil;
 
 import org.junit.Before;
@@ -34,9 +35,21 @@ public class RecipeRespoitoryTest {
 	}
 	
 	@Test
-	public void saveNewRecipe() {
+	public void shouldBeSaveNewRecipe() {
 		final Recipe savedRecipe = repository.save(RecipeBuilder.buildRecipe());
 		assertThat(savedRecipe, is(not(nullValue())));
+		assertThat(savedRecipe.getId(), is(not(nullValue())));
+	}
+	
+	@Test
+	@Ignore("Neues recipe erstellen und dieses löschen")
+	public void shouldBeDelete() {
+		final Recipe toDelete = repository.findOne(Long.valueOf(10001L));
+		repository.remove(toDelete);
+		
+		final Collection<Recipe> recipes = repository.getRecipesByTitle("Dies");
+		assertNotNull(recipes);
+		assertThat(recipes.size(), is(0));
 	}
 	
 	@Test

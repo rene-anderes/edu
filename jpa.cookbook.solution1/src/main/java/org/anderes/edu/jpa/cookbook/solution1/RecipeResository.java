@@ -2,7 +2,6 @@ package org.anderes.edu.jpa.cookbook.solution1;
 
 import java.util.Collection;
 
-import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -22,6 +21,10 @@ public class RecipeResository {
 		return new RecipeResository();
 	}
 
+	public Recipe findOne(final Long databaseidentity) {
+		return entityManager.find(Recipe.class, databaseidentity);
+	}
+	
 	public Collection<Recipe> getRecipesByTitle(final String title) {
 		final TypedQuery<Recipe> query = entityManager.createNamedQuery(Recipe.RECIPE_QUERY_BYTITLE, Recipe.class);
 		query.setParameter("title", "%" + title + "%");
@@ -34,6 +37,10 @@ public class RecipeResository {
         return query.getResultList();
 	}
 
+	/**
+	 * Nur für Testzwecke
+	 * @return Persistence-Util
+	 */
 	/*package*/ PersistenceUnitUtil getPersistenceUnitUtil() {
 		return entityManager.getEntityManagerFactory().getPersistenceUnitUtil();
 	}
@@ -43,5 +50,11 @@ public class RecipeResository {
 		final Recipe recipe = entityManager.merge(entity);
 		entityManager.getTransaction().commit();
 		return recipe;
+	}
+	
+	public void remove(final Recipe entity) {
+		entityManager.getTransaction().begin();
+		entityManager.remove(entity);
+		entityManager.getTransaction().commit();
 	}
 }
