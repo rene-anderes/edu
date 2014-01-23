@@ -1,0 +1,5 @@
+insert into "RECIPE" ("ID", "LASTUPDATE", "NOOFPERSON", "PREAMPLE", "PREPARATION", "TITLE", "IMAGE_DESCRIPTION", "IMAGE_URL") values(10001, '2014-01-22 23:03:20', 2, 'Preample', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque convallis lacus at sagittis scelerisque. Donec at mauris ac mi pharetra.', 'Dies und Das', null, null)
+insert into "INGREDIENT" ("ID", "COMMENT", "DESCRIPTION", "QUANTITY", "RECIPE_ID") values(100, '', 'Pfeffer', 'etwas', 10001)
+insert into "INGREDIENT" ("ID", "COMMENT", "DESCRIPTION", "QUANTITY", "RECIPE_ID") values(101, 'ev. Mehrsalz', 'Salz', 'priese', 10001)
+insert into "INGREDIENT" ("ID", "COMMENT", "DESCRIPTION", "QUANTITY", "RECIPE_ID") values(102, 'kalt gepresst', 'Olivenöl', '2 TL', 10001)
+insert into "INGREDIENT" ("ID", "COMMENT", "DESCRIPTION", "QUANTITY", "RECIPE_ID") values(103, '', 'Ingwer', 'nach Lust & Laune', 10001)
