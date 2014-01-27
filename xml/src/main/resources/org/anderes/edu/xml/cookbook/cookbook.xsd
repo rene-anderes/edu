@@ -8,7 +8,6 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-
 	<xs:element name="recipe">
 		<!-- Definition eines Rezepts -->
 		<xs:complexType>
@@ -16,15 +15,14 @@
 				<xs:element ref="title"/>
 				<xs:element name="preample" type="description" minOccurs="0"/>
 				<xs:element ref="image" minOccurs="0"/>
-				<xs:element name="noOfPerson" type="xs:positiveInteger"/>
+				<xs:element ref="noOfPerson"/>
 				<xs:element ref="ingredients"/>
 				<xs:element name="preparation" type="description"/>
 				<xs:element ref="modification"/>
 			</xs:sequence>
-			<xs:attribute name="id" use="required" type="xs:positiveInteger"/>
+			<xs:attribute name="id" type="xs:positiveInteger" use="required"/>
 		</xs:complexType>
 	</xs:element>
-
 	<xs:element name="ingredients">
 		<!-- Definition der Zutatenliste -->
 		<xs:complexType>
@@ -33,7 +31,6 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	
 	<xs:element name="ingredient">
 		<!-- Definition einer Zutat -->
 		<xs:complexType>
@@ -44,30 +41,37 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	
-	<xs:element name="title">
-		<xs:simpleType>
-			<xs:restriction base="xs:string">
-				<xs:minLength value="5"></xs:minLength>
-				<xs:maxLength value="150"></xs:maxLength>
-			</xs:restriction>
-		</xs:simpleType>
-	</xs:element>
 	<xs:element name="quantity">
 		<xs:simpleType>
 			<xs:restriction base="xs:string">
-				<xs:minLength value="1"></xs:minLength>
-				<xs:maxLength value="15"></xs:maxLength>
+				<xs:minLength value="1"/>
+				<xs:maxLength value="15"/>
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
-	
+	<xs:element name="title">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="5"/>
+				<xs:maxLength value="150"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="noOfPerson">
+		<xs:simpleType>
+			<xs:restriction base="xs:positiveInteger">
+				<xs:enumeration value="2"/>
+				<xs:enumeration value="4"/>
+				<xs:enumeration value="6"/>
+				<xs:enumeration value="8"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
 	<xs:element name="modification">
 		<xs:simpleType>
 			<xs:restriction base="xs:date"/>
 		</xs:simpleType>
 	</xs:element>
-	
 	<xs:element name="image">
 		<xs:complexType>
 			<xs:sequence>
@@ -76,28 +80,25 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	
 	<xs:element name="url">
 		<xs:simpleType>
 			<xs:restriction base="xs:string">
-				 <xs:pattern value="[\w]+[.](jpeg|jpg|png)+"/>
+				<xs:pattern value="[\w]+[.](jpeg|jpg|png)+"/>
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
-	
 	<xs:element name="comment">
 		<xs:simpleType>
 			<xs:restriction base="xs:string">
-				<xs:minLength value="1"></xs:minLength>
-				<xs:maxLength value="50"></xs:maxLength>
+				<xs:minLength value="1"/>
+				<xs:maxLength value="50"/>
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
-	
 	<xs:simpleType name="description">
 		<xs:restriction base="xs:string">
-			<xs:minLength value="1"></xs:minLength>
-			<xs:maxLength value="1000"></xs:maxLength>
+			<xs:minLength value="1"/>
+			<xs:maxLength value="1000"/>
 		</xs:restriction>
 	</xs:simpleType>
 </xs:schema>

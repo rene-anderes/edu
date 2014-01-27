@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE addressbook [
+  <!ELEMENT person (firstname*, lastname, (address, mail:address)?)>
+  <!ELEMENT lastname (#PCDATA)>
+  <!ELEMENT firstname (#PCDATA)>
   <!ELEMENT addressbook (person*, institution*)>
   <!ATTLIST addressbook xmlns CDATA #FIXED "http://www.anderes.org/namespaces/addressbook"
    					    xmlns:mail CDATA #FIXED "http://www.anderes.org/namespaces/mail">
-  <!ELEMENT person (firstname*, lastname, portrait?, address*, mail:address*)>
-  <!ATTLIST person id ID #REQUIRED
-                   institutions IDREFS #IMPLIED>
-  <!ELEMENT institution (name, address*, mail:address*)>
+  
+  <!ATTLIST person id ID #REQUIRED institutions IDREFS #IMPLIED>
+  <!ELEMENT institution (bezeichnung, (address*, mail:address*)?)>
+  <!ELEMENT bezeichnung (#PCDATA)>
   <!ATTLIST institution id ID #REQUIRED>
   <!ELEMENT address (street?, pobox?, city?)>
   <!ATTLIST address type (real|postal) "real">
@@ -22,7 +25,7 @@
 	<person id="p4711" institutions="i2391">
 		<firstname>Hans</firstname>
 		<lastname>Müller</lastname>
-		<address>
+		<address type="real">
 			<street>Bahnhofplatz 1</street>
 			<city>München</city>
 		</address>
@@ -34,6 +37,6 @@
 		<lastname>Meier</lastname>
 	</person>
 	<institution id="i2391">
-		<name>Fachhochschule Augsburg</name>
+		<bezeichnung>Fachhochschule Augsburg</bezeichnung>
 	</institution>
 </addressbook>
