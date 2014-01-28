@@ -8,6 +8,8 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnitUtil;
 import javax.persistence.TypedQuery;
 
+import org.apache.commons.lang3.Validate;
+
 public class RecipeResository {
 
 	private EntityManager entityManager; 
@@ -22,6 +24,7 @@ public class RecipeResository {
 	}
 
 	public Recipe findOne(final Long databaseidentity) {
+		Validate.notNull(databaseidentity, "Der Parameter darf nicht null sein.");
 		return entityManager.find(Recipe.class, databaseidentity);
 	}
 	
@@ -46,6 +49,8 @@ public class RecipeResository {
 	}
 
 	public Recipe save(final Recipe entity) {
+		Validate.notNull(entity, "Der Parameter darf nicht null sein.");
+		
 		entityManager.getTransaction().begin();
 		final Recipe recipe = entityManager.merge(entity);
 		entityManager.getTransaction().commit();
@@ -53,6 +58,11 @@ public class RecipeResository {
 	}
 	
 	public void remove(final Recipe entity) {
+		Validate.notNull(entity, "Der Parameter darf nicht null sein.");
+		if (!entityManager.contains(entity)) {
+			throw new IllegalArgumentException("Die Entität besitzt nicht den Status managed");
+		}
+		
 		entityManager.getTransaction().begin();
 		entityManager.remove(entity);
 		entityManager.getTransaction().commit();

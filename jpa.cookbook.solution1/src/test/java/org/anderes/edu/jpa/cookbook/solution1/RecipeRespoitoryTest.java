@@ -1,13 +1,14 @@
 package org.anderes.edu.jpa.cookbook.solution1;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
 
-import javax.persistence.EntityManager;
 import javax.persistence.PersistenceUnitUtil;
 
 import org.junit.Before;
@@ -42,12 +43,21 @@ public class RecipeRespoitoryTest {
 	}
 	
 	@Test
-	@Ignore("Neues recipe erstellen und dieses löschen")
+	public void shouldBeUpdateRecipe() {
+		final Recipe updateRecipe = repository.findOne(Long.valueOf(10001L));
+		updateRecipe.setPreample("Neuer Preample vom Test");
+		final Recipe savedRecipe = repository.save(updateRecipe);
+		
+		assertThat(savedRecipe, is(not(nullValue())));
+		assertThat(savedRecipe.getPreample(), is("Neuer Preample vom Test"));
+	}
+	
+	@Test
 	public void shouldBeDelete() {
-		final Recipe toDelete = repository.findOne(Long.valueOf(10001L));
+		final Recipe toDelete = repository.findOne(Long.valueOf(10002L));
 		repository.remove(toDelete);
 		
-		final Collection<Recipe> recipes = repository.getRecipesByTitle("Dies");
+		final Collection<Recipe> recipes = repository.getRecipesByTitle("Pasta");
 		assertNotNull(recipes);
 		assertThat(recipes.size(), is(0));
 	}
