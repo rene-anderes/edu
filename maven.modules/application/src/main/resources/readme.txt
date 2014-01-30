@@ -1,0 +1,1 @@
+src/main/resources -->	Application/Library resources
