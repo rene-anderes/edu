@@ -41,7 +41,7 @@ public class RecipeResository {
 
 		/* Das Laden des Graphs funktioniert noch nicht wie erwartet --> Check */ 
 		EntityGraph<?> ingredientsGraph = entityManager.createEntityGraph(Recipe.class);
-		ingredientsGraph.addAttributeNodes("ingredients");
+		ingredientsGraph.addSubgraph(Recipe_.ingredients.getName()).addAttributeNodes(Ingredient_.comment.getName());;
 		
 		final TypedQuery<Recipe> query = entityManager.createNamedQuery(Recipe.RECIPE_QUERY_BYTITLE, Recipe.class);
 		query.setParameter("title", "%" + title + "%").setHint("javax.persistence.loadgraph", ingredientsGraph);
