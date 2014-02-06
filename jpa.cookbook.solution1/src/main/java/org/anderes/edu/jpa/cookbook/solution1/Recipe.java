@@ -5,6 +5,7 @@
 
 package org.anderes.edu.jpa.cookbook.solution1;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.HashSet;
@@ -14,6 +15,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,12 +34,11 @@ import org.apache.commons.lang3.text.StrBuilder;
 		@NamedQuery(name = "Recipe.All", query = "Select r from Recipe r"),
 		@NamedQuery(name = "Recipe.ByTitle", query = "Select r from Recipe r where r.title like :title")
 		})
-public class Recipe {
-
+public class Recipe implements Serializable {
+	
 	public final static String RECIPE_QUERY_ALL = "Recipe.All";
 	public final static String RECIPE_QUERY_BYTITLE = "Recipe.ByTitle";
 
-	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -54,7 +55,7 @@ public class Recipe {
 	@Column(nullable = true)
 	private Image image;
 
-	@OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
+	@OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "RECIPE_ID")
 	private Set<Ingredient> ingredients = new HashSet<Ingredient>();
 

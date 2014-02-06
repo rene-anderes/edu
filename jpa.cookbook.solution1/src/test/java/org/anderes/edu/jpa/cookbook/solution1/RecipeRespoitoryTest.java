@@ -11,6 +11,7 @@ import java.util.Collection;
 
 import javax.persistence.PersistenceUnitUtil;
 
+import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -30,9 +31,23 @@ public class RecipeRespoitoryTest {
 		
 		assertNotNull(recipes);
 		assertThat(recipes.size(), is(1));
-		Recipe recipe = recipes.iterator().next();
+		final Recipe recipe = recipes.iterator().next();
 		assertThat(recipe.getTitle(), is("Dies und Das"));
 		assertThat(recipe.getIngredients().size(), is(4));
+	}
+	
+	@Test
+	public void getDetachedRecipe() {
+		final Collection<Recipe> recipes = repository.getRecipesByTitle("Dies");
+		assertNotNull(recipes);
+		assertThat(recipes.size(), is(1));
+		final Recipe recipe = recipes.iterator().next();
+
+		// Detached durch die Serialisierung 
+		final Recipe clone = SerializationUtils.clone(recipe);
+		
+		assertThat(clone.getTitle(), is("Dies und Das"));
+		assertThat(clone.getIngredients().size(), is(4));
 	}
 	
 	@Test
@@ -65,11 +80,16 @@ public class RecipeRespoitoryTest {
 	@Test
 	@Ignore("Offen Punkte betreffend EntityGraph klären")
 	public void ingredientsShouldBeloaded() {
-		RecipeResository repository = RecipeResository.build();
-		Collection<Recipe> recipes = repository.getRecipesByTitle("Dies");
+		final Collection<Recipe> recipes = repository.getRecipesByTitleJpa("Dies");
+		assertNotNull(recipes);
+		assertThat(recipes.size(), is(1));
+		final Recipe recipe = recipes.iterator().next();
+
+		// Detached durch die Serialisierung 
+		final Recipe clone = SerializationUtils.clone(recipe);
 		
-		PersistenceUnitUtil util = repository.getPersistenceUnitUtil();
-		assertTrue(util.isLoaded(recipes, "ingredients"));
+		assertThat(clone.getTitle(), is("Dies und Das"));
+		assertThat(clone.getIngredients().size(), is(4));
 	}
 
 }

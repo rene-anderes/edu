@@ -5,6 +5,8 @@
 
 package org.anderes.edu.jpa.cookbook.solution1;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -12,8 +14,9 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 @Embeddable
-public class Image {
+public class Image implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	@Column(name = "image_url")
     private String url;
     @Column(name = "image_description", length = 50)

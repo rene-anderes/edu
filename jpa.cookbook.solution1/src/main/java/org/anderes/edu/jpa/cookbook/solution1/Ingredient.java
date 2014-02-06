@@ -1,6 +1,8 @@
 
 package org.anderes.edu.jpa.cookbook.solution1;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,9 +12,8 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 @Entity
-public class Ingredient {
+public class Ingredient implements Serializable {
 
-    @SuppressWarnings("unused")
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -2,6 +2,7 @@ package org.anderes.edu.jpa.cookbook.solution1;
 
 import java.util.Collection;
 
+import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -9,6 +10,7 @@ import javax.persistence.PersistenceUnitUtil;
 import javax.persistence.TypedQuery;
 
 import org.apache.commons.lang3.Validate;
+import org.eclipse.persistence.config.QueryHints;
 
 public class RecipeResository {
 
@@ -28,14 +30,36 @@ public class RecipeResository {
 		return entityManager.find(Recipe.class, databaseidentity);
 	}
 	
-	public Collection<Recipe> getRecipesByTitle(final String title) {
-		final TypedQuery<Recipe> query = entityManager.createNamedQuery(Recipe.RECIPE_QUERY_BYTITLE, Recipe.class);
-		query.setParameter("title", "%" + title + "%");
+	/**
+	 * Gibt alle Rezepte zurück die im Titel den übergeben Wert enthalten.
+	 * </p>
+	 * Fetch-Strategie: EntityGraph (JPA 2.1)
+	 * @param title
+	 * @return Rezept
+	 */
+	public Collection<Recipe> getRecipesByTitleJpa(final String title) {
 
 		/* Das Laden des Graphs funktioniert noch nicht wie erwartet --> Check */ 
-//		EntityGraph<?> ingredientsGraph = entityManager.createEntityGraph(Recipe.class);
-//		ingredientsGraph.addAttributeNodes("ingredients");
-//		query.setHint("javax.persistence.loadgraph", ingredientsGraph);
+		EntityGraph<?> ingredientsGraph = entityManager.createEntityGraph(Recipe.class);
+		ingredientsGraph.addAttributeNodes("ingredients");
+		
+		final TypedQuery<Recipe> query = entityManager.createNamedQuery(Recipe.RECIPE_QUERY_BYTITLE, Recipe.class);
+		query.setParameter("title", "%" + title + "%").setHint("javax.persistence.loadgraph", ingredientsGraph);
+		
+        return query.getResultList();
+	}
+	
+	/**
+	 * Gibt alle Rezepte zurück die im Titel den übergeben Wert enthalten.
+	 * </p>
+	 * Fetch-Strategie: setHint(...) (EclipseLink spezifisch)
+	 * @param title
+	 * @return Rezept
+	 */
+	public Collection<Recipe> getRecipesByTitle(final String title) {
+		
+		final TypedQuery<Recipe> query = entityManager.createNamedQuery(Recipe.RECIPE_QUERY_BYTITLE, Recipe.class);
+		query.setParameter("title", "%" + title + "%").setHint(QueryHints.BATCH, "r.ingredients").setHint(QueryHints.LOAD_GROUP_ATTRIBUTE, "ingredients");
 		
         return query.getResultList();
 	}
