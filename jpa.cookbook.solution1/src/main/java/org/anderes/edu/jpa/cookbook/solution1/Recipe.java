@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2012 VRSG | Verwaltungsrechenzentrum AG, St.Gallen
- * All Rights Reserved.
- */
-
 package org.anderes.edu.jpa.cookbook.solution1;
 
 import java.io.Serializable;
@@ -12,7 +7,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -67,6 +64,10 @@ public class Recipe implements Serializable {
 
 	@Column(nullable = false, length = 2)
 	private Integer noOfPerson;
+	
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="TAGS", joinColumns=@JoinColumn(name="RECIPE_ID"))
+	private Set<String> tags = new HashSet<String>();
 
 	public Image getImage() {
 		return image;
@@ -95,11 +96,15 @@ public class Recipe implements Serializable {
 	@Override
 	public String toString() {
 		return new StrBuilder().append(title).append(preample).append(image).append(noOfPerson)
-				.appendAll(ingredients).append(preparation).toString();
+				.appendAll(ingredients).append(preparation).appendAll(tags).toString();
 	}
 
 	public void addIngredient(final Ingredient ingredient) {
 		ingredients.add(ingredient);
+	}
+	
+	public void removeIngredient(final Ingredient ingredient) {
+		ingredients.remove(ingredient);
 	}
 
 	public Set<Ingredient> getIngredients() {
@@ -130,11 +135,23 @@ public class Recipe implements Serializable {
 		this.noOfPerson = noOfPerson;
 	}
 
+	public Set<String> getTags() {
+		return Collections.unmodifiableSet(tags);
+	}
+
+	public void addTag(final String tag) {
+		this.tags.add(tag);
+	}
+	
+	public void removeTag(final String tag) {
+		this.tags.remove(tag);
+	}
+
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder(17, 37).append(title).append(image)
 				.append(preample).append(preparation).append(noOfPerson)
-				.append(ingredients.toArray()).toHashCode();
+				.append(ingredients.toArray()).append(tags.toArray()).toHashCode();
 	}
 
 	@Override
