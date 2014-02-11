@@ -1,0 +1,22 @@
+insert into "PERSON" ("ID", "PERSON_TYPE", "PERSON_NR") values(10001, 'JP', 10001);
+insert into "PERSON" ("ID", "PERSON_TYPE", "PERSON_NR") values(10002, 'NP', 10002);
+insert into "PERSON" ("ID", "PERSON_TYPE", "PERSON_NR") values(10003, 'NP', 10003);
+
+insert into "JP" ("ID", "LEGALFORM") values(10001, 'GmbH');
+insert into "NP" ("ID", "LASTNAME") values(10002, 'Schläpfer');
+insert into "NP" ("ID", "LASTNAME") values(10003, 'Müller');
+
+insert into "ADDRESS" ("ID", "PERSON_ID", "ADDRESS_LINE1", "ADDRESS_LINE2") values(20001, 10001, 'Zürcherstrasse', '');
+insert into "ADDRESS" ("ID", "PERSON_ID", "ADDRESS_LINE1", "ADDRESS_LINE2") values(20002, 10001, 'Rorschacherstrasse', null);
+insert into "ADDRESS" ("ID", "PERSON_ID", "ADDRESS_LINE1", "ADDRESS_LINE2") values(20003, 10002, 'Langstrasse', '');
+insert into "ADDRESS" ("ID", "PERSON_ID", "ADDRESS_LINE1", "ADDRESS_LINE2") values(20004, 10003, 'Hechtackerstrasse', null);
+
+insert into "ADDRESS_REGISTRATION" ("ID", "DESCRIPTION", "ADDRESS_ID") values(30001, 'Hauptwohnsitz', 20001);
+insert into "ADDRESS_REGISTRATION" ("ID", "DESCRIPTION", "ADDRESS_ID") values(30002, 'Nebenwohnsitz', 20002);
+insert into "ADDRESS_REGISTRATION" ("ID", "DESCRIPTION", "ADDRESS_ID") values(30003, 'Hauptwohnsitz', 20003);
+insert into "ADDRESS_REGISTRATION" ("ID", "DESCRIPTION", "ADDRESS_ID") values(30004, 'Hauptwohnsitz', 20004);
+
+insert into "ADDRESS_STATE" ("ID", "DESCRIPTION", "ADDRESS_ID") values(40001, 'Open', 20001);
+insert into "ADDRESS_STATE" ("ID", "DESCRIPTION", "ADDRESS_ID") values(40002, 'Open', 20002);
+insert into "ADDRESS_STATE" ("ID", "DESCRIPTION", "ADDRESS_ID") values(40003, 'Open', 20003);
+insert into "ADDRESS_STATE" ("ID", "DESCRIPTION", "ADDRESS_ID") values(40004, 'Open', 20004);
