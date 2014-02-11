@@ -19,9 +19,13 @@
 
           <properties>
                <!-- JPA connection information for the database -->
-               <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
+               <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" /> <!-- Embedded-Driver -->
                <!-- <property name="javax.persistence.jdbc.url" value="jdbc:derby:testDB;create=true" />  Embedded Database -->
                <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:testDB;create=true" /> <!-- In-Memory -->
+               <!-- Access for the default Derby-Database -->
+               <!-- <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver" /> --><!-- Client-Driver --> 
+               <!-- <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/sun-appserv-samples;create=true" /> -->
+               <!-- User and Password (Database-Schema) -->
                <property name="javax.persistence.jdbc.user" value="" />
                <property name="javax.persistence.jdbc.password" value="" />
                
