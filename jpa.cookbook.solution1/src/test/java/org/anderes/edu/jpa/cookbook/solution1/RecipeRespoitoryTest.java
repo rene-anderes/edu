@@ -5,11 +5,8 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
-
-import javax.persistence.PersistenceUnitUtil;
 
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Before;
