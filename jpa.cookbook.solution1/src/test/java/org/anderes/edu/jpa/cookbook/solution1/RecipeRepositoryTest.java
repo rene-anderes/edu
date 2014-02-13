@@ -11,13 +11,13 @@ import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
 
-public class RecipeRespoitoryTest {
+public class RecipeRepositoryTest {
 	
-	private RecipeResository repository;
+	private RecipeRepository repository;
 	
 	@Before
 	public void setup() {
-		repository = RecipeResository.build();
+		repository = RecipeRepository.build();
 	}
 
 	@Test

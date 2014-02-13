@@ -10,17 +10,17 @@ import javax.persistence.TypedQuery;
 
 import org.apache.commons.lang3.Validate;
 
-public class RecipeResository {
+public class RecipeRepository {
 
 	private EntityManager entityManager; 
 	
-	private RecipeResository() {
+	private RecipeRepository() {
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("testDB");
         entityManager = entityManagerFactory.createEntityManager();
 	}
 	
-	public static RecipeResository build() {
-		return new RecipeResository();
+	public static RecipeRepository build() {
+		return new RecipeRepository();
 	}
 
 	public Recipe findOne(final Long databaseidentity) {
