@@ -7,8 +7,8 @@
   <artifactId>jpa.cookbook.solution1</artifactId>
   <version>1.0.0-SNAPSHOT</version>
 
-  <name>jpa2.1-eclipselink-derby</name>
-  <description>JPA 2.1 mit EclipseLink als JPA-Provider. Derby als Datenbank</description>
+  <name>jpa.cookbook.solution1</name>
+  <description>Beispiellösung für das Kochbuch mit @Embedded, @OneToMany und @ElementCollection</description>
   <organization>
     <name>René Anderes</name>
   </organization>

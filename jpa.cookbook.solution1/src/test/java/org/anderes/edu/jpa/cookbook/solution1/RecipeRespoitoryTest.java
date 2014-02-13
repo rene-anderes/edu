@@ -8,9 +8,7 @@ import static org.junit.Assert.assertThat;
 
 import java.util.Collection;
 
-import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class RecipeRespoitoryTest {
@@ -31,20 +29,6 @@ public class RecipeRespoitoryTest {
 		final Recipe recipe = recipes.iterator().next();
 		assertThat(recipe.getTitle(), is("Dies und Das"));
 		assertThat(recipe.getIngredients().size(), is(4));
-	}
-	
-	@Test
-	public void getDetachedRecipe() {
-		final Collection<Recipe> recipes = repository.getRecipesByTitle("Dies");
-		assertNotNull(recipes);
-		assertThat(recipes.size(), is(1));
-		final Recipe recipe = recipes.iterator().next();
-
-		// Detached durch die Serialisierung 
-		final Recipe clone = SerializationUtils.clone(recipe);
-		
-		assertThat(clone.getTitle(), is("Dies und Das"));
-		assertThat(clone.getIngredients().size(), is(4));
 	}
 	
 	@Test
@@ -73,20 +57,4 @@ public class RecipeRespoitoryTest {
 		assertNotNull(recipes);
 		assertThat(recipes.size(), is(0));
 	}
-	
-	@Test
-	@Ignore("Offen Punkte betreffend EntityGraph klären")
-	public void ingredientsShouldBeloaded() {
-		final Collection<Recipe> recipes = repository.getRecipesByTitleJpa("Dies");
-		assertNotNull(recipes);
-		assertThat(recipes.size(), is(1));
-		final Recipe recipe = recipes.iterator().next();
-
-		// Detached durch die Serialisierung 
-		final Recipe clone = SerializationUtils.clone(recipe);
-		
-		assertThat(clone.getTitle(), is("Dies und Das"));
-		assertThat(clone.getIngredients().size(), is(4));
-	}
-
 }
