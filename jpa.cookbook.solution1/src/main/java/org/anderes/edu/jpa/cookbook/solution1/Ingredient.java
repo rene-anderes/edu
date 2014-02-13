@@ -10,6 +10,7 @@ import javax.persistence.Id;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.text.StrBuilder;
 
 @Entity
 public class Ingredient implements Serializable {
@@ -78,6 +79,6 @@ public class Ingredient implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("Zutat: [portion='%s'], [description='%s'], [comment='%s']", quantity, description, comment);
+    	return new StrBuilder().append(quantity).append(description).append(comment).build();
     }
 }

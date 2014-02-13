@@ -96,7 +96,7 @@ public class Recipe implements Serializable {
 	@Override
 	public String toString() {
 		return new StrBuilder().append(title).append(preample).append(image).append(noOfPerson)
-				.appendAll(ingredients).append(preparation).appendAll(tags).toString();
+				.append(ingredients).append(preparation).append(tags).toString();
 	}
 
 	public void addIngredient(final Ingredient ingredient) {

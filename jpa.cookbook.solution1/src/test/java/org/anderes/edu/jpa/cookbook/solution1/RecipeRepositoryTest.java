@@ -21,6 +21,16 @@ public class RecipeRepositoryTest {
 	}
 
 	@Test
+	public void shouldBeOneRecipe() {
+		final Recipe recipe = repository.findOne(10001l);
+		
+		assertNotNull(recipe);
+		assertThat(recipe.getTitle(), is("Dies und Das"));
+		assertThat(recipe.getIngredients().size(), is(4));
+		System.out.println(recipe);
+	}
+	
+	@Test
 	public void getRecipesByTitle() {
 		final Collection<Recipe> recipes = repository.getRecipesByTitle("Dies");
 		
