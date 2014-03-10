@@ -9,15 +9,9 @@
 
           <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
-          <!-- Die Registrierung aller Klassen ist in Verbindung mit einem JEE Container nicht zwingen
-               Werden mehr als eine Persistence-Unit verwendet, so ist die Registrierung zu empfehlen
-               Wird JPA im Java SE Umfeld verwendet, so ist die Registrierung zwingend -->
           <class>org.anderes.edu.jpa.inheritance.mappedsuperclasses.Person</class>
           <class>org.anderes.edu.jpa.inheritance.mappedsuperclasses.NaturalPerson</class>
           <class>org.anderes.edu.jpa.inheritance.mappedsuperclasses.LegalPerson</class>
-
-          <!-- shouldn't be valid for java SE per specification, but it works for EclipseLink ... -->
-          <!-- <exclude-unlisted-classes>false</exclude-unlisted-classes> -->
 
           <properties>
                <!-- JPA connection information for the database -->
@@ -66,81 +60,16 @@
                     string designating a file URL for the script. -->
                <!-- <property name="javax.persistence.sql-load-script-source" value="META-INF/load.sql" />  -->
                
-               <!-- The database platform is auto-detected by default, if you want to set a specific platform this can be set.
-                    This specifies the target database. For Oracle database, specify<property name="eclipselink.target-database"
-                    value="Oracle"/>
-                    A value of AUTO specifies that EclipseLink determine the target database from the JDBC metadata obtained
-                    by accessing the database.
-                    Applies to JDBC drivers that support the the database metadata. -->
                <!-- see http://www.eclipse.org/eclipselink/api/2.5/index.html?org/eclipse/persistence/config/TargetDatabase.html -->
                <property name="eclipselink.target-database" value="Derby" />
-
                <!-- This specifies if generation of database-platform-specific SQL should be enabled -->
                <property name="eclipselink.jdbc.native-sql" value="true" />
 
-               <!--
-                    This specifies the use of batch writing to optimize transactions with multiple writes. The following values may be specified:
-                    JDBC: Use JDBC batch writing.
-                    Oracle-JDBC: Use JDBC batch writing and Oracle native platform batch writing.
-                    Buffered: Do not use either JDBC batch writing or native platform batch writing.
-                    None: Do not use batch writing. (default)
-               -->
-               <!-- <property name="eclipselink.jdbc.batch-writing" value="JDBC" /> -->
-
-               <!-- Avoids flush being triggered before every query execution. -->
-               <property name="eclipselink.persistence-context.flush-mode" value="commit" />
-
-               <!-- Configure connection pool. -->
-               <property name="eclipselink.jdbc.connections.initial" value="1" />
-               <property name="eclipselink.jdbc.connections.min" value="1" />
-               <property name="eclipselink.jdbc.connections.max" value="4" />
-
-               <!-- In JSE no server platform is used, if you wish to use this example is a JEE server with JTA, then you
-                    need to set this. See http://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_target_server.htm -->
-               <!-- property name="eclipselink.target-server" value="SunAS9" / -->
-
-               <!-- Configure cache size. -->
-               <!-- <property name="eclipselink.cache.size.default" value="1000" /> -->
-               <!-- If desired, this option would disable caching. -->
-               <!-- property name="eclipselink.cache.shared.default" value="false" / -->
-
-               <!-- If desired, this option would force a JDBC connection to be held for the duration of an EntityManager,
-                    instead of
-                    returned to the pool in between queries/transactions. -->
-               <!-- property name="eclipselink.jdbc.exclusive-connection.mode" value="Always" -->
-
-               <!--
-                    This specifies the type of logger to use. The following values may be specified:
-                    DefaultLogger (default)
-                    JavaLogger
-                    ServerLogger Most Java EE application servers have their own logging. To integrate with an application servers logging set the logger type to
-                    ServerLogger
-                    class name of custom logger
-               -->
                <property name="eclipselink.logging.logger﻿﻿" value="org.eclipse.persistence.logging.DefaultSessionLog" />
-               <!--
-                    This specifies the logging level. The following values may be specified. The following are some of the values used:
-                    OFF: This disables logging. It is recommended for production.
-                    SEVERE: This logs exceptions of level severe and terminates EclipseLink. It includes a stack trace.
-                    WARNING: This logs exceptions of type warning and does not terminate EclipseLink. It does not include a stack trace.
-                    INFO: This logs the info about login/logout. (default)
-                    CONFIG: This level enables logging of such configuration details as your database login information and some metadata information. You may want
-                    to use the CONFIG log level at deployment time.
-                    FINE: This level enables logging of the first level of the debugging information and SQL. You may want to use this log level during debugging
-                    and testing, but not at production.
-                    FINER: This level enables logging of more debugging information than the FINE setting. For example, the transaction information is logged at
-                    this level. You may want to use this log level during debugging and testing, but not at production.
-                    FINEST: This level enables logging of more debugging information than the FINER setting, such as a very detailed information about certain features
-                    (for example, sequencing). You may want to use this log level during debugging and testing, but not at production.
-                    ALL: This level currently logs at the same level as FINEST.
-               -->
                <property name="eclipselink.logging.level" value="FINE" />
                <property name="eclipselink.logging.level.sql" value="FINE" />
-               <!-- The logging of SQL parameters can be enabled, or disabled through the following properties -->
                <property name="eclipselink.logging.parameters" value="true" />
-               <!-- This specifies if timestamp is logged in each log entry. -->
                <property name="eclipselink.logging.timestamp" value="true" />
-
                <property name="eclipselink.logging.thread" value="false" />
                <property name="eclipselink.logging.session" value="false" />
                <property name="eclipselink.logging.exceptions" value="false" />
