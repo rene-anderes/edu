@@ -25,7 +25,7 @@ public class Company implements Serializable {
 	@GeneratedValue
 	private Long id;
 	
-	@OneToMany(mappedBy="company", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="company", cascade = CascadeType.ALL)
 	private Collection<Person> employees = new ArrayList<Person>();
 
 	public Company() {
@@ -49,6 +49,11 @@ public class Company implements Serializable {
 			person.getCompany().getEmployees().remove(person);
 		}
 		person.setCompany(this);
+	}
+	
+	public void removeEmployee(final Person person) {
+		employees.remove(person);
+		person.setCompany(null);
 	}
 
 }
