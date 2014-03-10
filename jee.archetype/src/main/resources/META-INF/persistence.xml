@@ -6,7 +6,8 @@
      http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/persistence/persistence_2_1.xsd">
 
      <persistence-unit name="defaultUnit" transaction-type="JTA">
-
+     
+          <!-- Unter JEE 7 ist eine Default-Datasource eingerichtet, diese wird hiermit benutzt -->
           <jta-data-source>java:comp/DefaultDataSource</jta-data-source>   
 
           <!-- Die Registrierung aller Klassen ist in Verbindung mit einem JEE Container nicht zwingen
@@ -57,6 +58,12 @@
                     string designating a file URL for the script. -->
                <property name="javax.persistence.sql-load-script-source" value="META-INF/load.sql" />
 
+               <!-- 
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                  Ab hier folgen EclipseLink spezifische Properties für die Persistence-Unit
+                  Doku dazu siehe http://www.eclipse.org/eclipselink/api/2.5/index.html?org/eclipse/persistence/config/PersistenceUnitProperties.html
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                -->
                <!-- The database platform is auto-detected by default, if you want to set a specific platform this can be set.
                     This specifies the target database. For Oracle database, specify<property name="eclipselink.target-database"
                     value="Oracle"/>
@@ -78,22 +85,11 @@
                -->
                <!-- <property name="eclipselink.jdbc.batch-writing" value="JDBC" /> -->
 
-               <!-- Avoids flush being triggered before every query execution. -->
-               <!-- <property name="eclipselink.persistence-context.flush-mode" value="commit" /> -->
-
                <!-- In JSE no server platform is used, if you wish to use this example is a JEE server with JTA, then you
                     need to set this. See http://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_target_server.htm -->
                <property name="eclipselink.target-server" value="SunAS9" />
 
-               <!-- Configure cache size. -->
-               <!-- <property name="eclipselink.cache.size.default" value="1000" /> -->
-               <!-- If desired, this option would disable caching. -->
-               <!-- property name="eclipselink.cache.shared.default" value="false" / -->
-
-               <!-- If desired, this option would force a JDBC connection to be held for the duration of an EntityManager,
-                    instead of returned to the pool in between queries/transactions. -->
-               <!-- property name="eclipselink.jdbc.exclusive-connection.mode" value="Always" -->
-
+               <!-- How To Configure Logging: https://wiki.eclipse.org/EclipseLink/Examples/JPA/Logging -->
                <!--
                     This specifies the type of logger to use. The following values may be specified:
                     DefaultLogger (default)
@@ -122,11 +118,20 @@
                <property name="eclipselink.logging.level.sql" value="FINE" />
                <!-- The logging of SQL parameters can be enabled, or disabled through the following properties -->
                <property name="eclipselink.logging.parameters" value="true" />
-               <!-- This specifies if timestamp is logged in each log entry. -->
+               <!-- Print Timestamp — you can set it in the persistence.xml file (see the following example) to determine when a log output was printed. 
+                    The default value for this setting is true -->
                <property name="eclipselink.logging.timestamp" value="true" />
-
+               <!-- Print Thread — you can set it in the persistence.xml file (see the following example) when you are running multithreaded applications 
+                    to print the hashcode of the thread, which wrote the message. 
+                    The default value for this setting is false -->
                <property name="eclipselink.logging.thread" value="false" />
+               <!-- Print Session — you can set it in the persistence.xml file (see the following example) to determine on which underlying session (if any) the message was sent. 
+                    This setting is applicable to messages that require a database connection such as SQL, and the transaction information. 
+                    The default value for this setting is true -->
                <property name="eclipselink.logging.session" value="false" />
+               <!-- Print Exceptions — you can set it in the persistence.xml file (see the following example) to enable logging of 
+                    the exceptions's messages at the time when these exceptions are thrown. 
+                    The default value for this setting is true -->
                <property name="eclipselink.logging.exceptions" value="false" />
 
           </properties>
