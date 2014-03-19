@@ -43,6 +43,12 @@
             <version>2.5.1</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>2.5.1</version>
+            <scope>provided</scope>
+        </dependency>
         <!-- Diese Abhängigkeit sorgt dafür, dass der Kompiler auch die JPA Metadaten generiert -->
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
