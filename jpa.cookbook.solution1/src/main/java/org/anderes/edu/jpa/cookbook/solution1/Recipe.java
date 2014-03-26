@@ -52,7 +52,7 @@ public class Recipe implements Serializable {
 	@Column(nullable = true)
 	private Image image;
 
-	@OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "RECIPE_ID")
 	private Set<Ingredient> ingredients = new HashSet<Ingredient>();
 

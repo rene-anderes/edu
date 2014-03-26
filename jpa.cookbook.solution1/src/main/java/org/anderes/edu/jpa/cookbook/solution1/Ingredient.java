@@ -21,16 +21,16 @@ public class Ingredient implements Serializable {
     private Long id;
     private String quantity;
     private String description;
-    private String comment;
+    private String annotation;
 
     public Ingredient() {
     }
 
-    public Ingredient(final String quantity, final String description, final String comment) {
+    public Ingredient(final String quantity, final String description, final String annotation) {
         super();
         this.quantity = quantity;
         this.description = description;
-        this.comment = comment;
+        this.annotation = annotation;
     }
 
     public String getQuantity() {
@@ -49,17 +49,17 @@ public class Ingredient implements Serializable {
         this.description = description;
     }
 
-    public String getComment() {
-        return comment;
+    public String getAnnotation() {
+        return annotation;
     }
 
-    public void setComment(final String comment) {
-        this.comment = comment;
+    public void setAnnotation(final String annotation) {
+        this.annotation = annotation;
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37).append(quantity).append(description).append(comment).toHashCode();
+        return new HashCodeBuilder(17, 37).append(quantity).append(description).append(annotation).toHashCode();
     }
 
     @Override
@@ -74,11 +74,11 @@ public class Ingredient implements Serializable {
             return false;
         }
         Ingredient rhs = (Ingredient) obj;
-        return new EqualsBuilder().append(quantity, rhs.quantity).append(description, rhs.description).append(comment, rhs.comment).isEquals();
+        return new EqualsBuilder().append(quantity, rhs.quantity).append(description, rhs.description).append(annotation, rhs.annotation).isEquals();
     }
 
     @Override
     public String toString() {
-    	return new StrBuilder().append(quantity).append(description).append(comment).build();
+    	return new StrBuilder().append(quantity).append(description).append(annotation).build();
     }
 }

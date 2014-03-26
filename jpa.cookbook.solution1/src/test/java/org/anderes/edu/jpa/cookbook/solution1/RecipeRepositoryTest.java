@@ -46,6 +46,7 @@ public class RecipeRepositoryTest {
 		final Recipe savedRecipe = repository.save(RecipeBuilder.buildRecipe());
 		assertThat(savedRecipe, is(not(nullValue())));
 		assertThat(savedRecipe.getId(), is(not(nullValue())));
+		assertThat(savedRecipe.getIngredients().size(), is(3));
 	}
 	
 	@Test
@@ -56,6 +57,7 @@ public class RecipeRepositoryTest {
 		
 		assertThat(savedRecipe, is(not(nullValue())));
 		assertThat(savedRecipe.getPreample(), is("Neuer Preample vom Test"));
+		assertThat(savedRecipe.getIngredients().size(), is(4));
 	}
 	
 	@Test

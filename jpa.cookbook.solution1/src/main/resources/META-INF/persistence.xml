@@ -15,11 +15,19 @@
 
           <properties>
                <!-- JPA connection information for the database -->
+               <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ DERBY Instanz ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
                <!-- Derby muss gestartet sein: ..\glassfish4\glassfish\bin\asadmin.bat start-database ... -->
                <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver" />
                <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/sun-appserv-samples;create=true" />
                <property name="javax.persistence.jdbc.user" value="APP" />
                <property name="javax.persistence.jdbc.password" value="APP" />
+               <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Oracle XE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+               <!-- 
+               <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver" />
+               <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:XE" />
+               <property name="javax.persistence.jdbc.user" value="developer" />
+               <property name="javax.persistence.jdbc.password" value="developer" />
+               -->
                
                <!-- Specifies the action to be taken by the persistence provider with regard to the database artifacts -->
                <!-- Valid values for this property: none, create, drop-and-create, drop -->
@@ -62,6 +70,7 @@
                
                <!-- see http://www.eclipse.org/eclipselink/api/2.5/index.html?org/eclipse/persistence/config/TargetDatabase.html -->
                <property name="eclipselink.target-database" value="Derby" />
+               
                <!-- This specifies if generation of database-platform-specific SQL should be enabled -->
                <property name="eclipselink.jdbc.native-sql" value="true" />
 
