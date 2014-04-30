@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<contactlist
+	xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:address="http://www.anderes.org/namespaces/postaladdress"
+    xs:noNamespaceSchemaLocation="contacts_advanced.xsd">
+    
+	<contact>
+		<name>Leonardo Da Vinci</name>
+        <address:postaladdress>
+            <address:street>Rosenbergstrasse 3</address:street>
+            <address:zip>9000</address:zip>
+            <address:city>St.Gallen</address:city>
+        </address:postaladdress>
+		<phone type="mobile">+41 79 333 44 55</phone>
+		<phone type="private">+41 71 245 43 23</phone>
+		<mail>l.davinci@gmail.com</mail>
+        
+	</contact>
+	<contact>
+		<name>Mario Maler</name>
+        <address:postaladdress>
+            <address:street>Heimatstrasse 5</address:street>
+            <address:zip>9000</address:zip>
+            <address:city>St.Gallen</address:city>
+        </address:postaladdress>
+		<phone type="office">+41 71 345 67 88</phone>
+		<phone type="fax">+41 71 345 67 89</phone>
+		<mail>maler@gmail.com</mail>
+	</contact>
+</contactlist>
