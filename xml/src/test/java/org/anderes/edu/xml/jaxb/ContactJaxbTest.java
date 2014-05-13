@@ -13,8 +13,8 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import org.anderes.edu.xml.jaxb.generated.Contact;
-import org.anderes.edu.xml.jaxb.generated.Contact.Phone;
 import org.anderes.edu.xml.jaxb.generated.Contactlist;
+import org.anderes.edu.xml.jaxb.generated.Phone;
 import org.anderes.edu.xml.jaxb.generated.Phonetype;
 import org.junit.Test;
 
