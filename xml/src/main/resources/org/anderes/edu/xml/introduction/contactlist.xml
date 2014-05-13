@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<contactlist
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xsi:noNamespaceSchemaLocation="contacts.xsd">
+<contactlist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="contacts.xsd">
 	<contact>
 		<name>Leonardo Da Vinci</name>
 		<address>Rosenbergstrasse 3, 9000 St.Gallen</address>

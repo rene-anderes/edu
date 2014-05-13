@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Mit XMLSpy v2014 sp1 (x64) (http://www.altova.com) von ﻿VRSG (Verwaltungsrechenzentrum AG St. Gallen) bearbeitet -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-
 	<xs:element name="contactlist">
 		<xs:complexType>
 			<xs:sequence>
@@ -8,7 +8,6 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-
 	<xs:complexType name="contact">
 		<xs:sequence>
 			<xs:element name="name" type="xs:string"/>
@@ -19,15 +18,7 @@
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
-			<xs:element name="phone" minOccurs="0" maxOccurs="unbounded">
-				<xs:complexType>
-					<xs:simpleContent>
-						<xs:extension base="xs:string">
-							<xs:attribute name="type" type="phonetype" use="required"/>
-						</xs:extension>
-					</xs:simpleContent>
-				</xs:complexType>
-			</xs:element>
+			<xs:element ref="phone" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="mail">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -38,6 +29,7 @@
 		</xs:sequence>
 	</xs:complexType>
 
+	<!-- eigener Typ -->
 	<xs:simpleType name="phonetype">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="mobile"/>
@@ -48,4 +40,21 @@
 		</xs:restriction>
 	</xs:simpleType>
 
+	<!-- eigenes Element -->
+	<xs:element name="phone">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="phonenumber">
+					<xs:attribute name="type" type="phonetype" use="required"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	
+	<!-- eigener Typ -->
+	<xs:simpleType name="phonenumber">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[+][0-9 ]+"/>
+		</xs:restriction>
+	</xs:simpleType>
 </xs:schema>
