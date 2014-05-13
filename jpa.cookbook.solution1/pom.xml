@@ -55,13 +55,15 @@
         </dependency>
 
         <!-- Oracle Database Driver -->
+        <!-- 
         <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc6</artifactId>
             <version>11.2.0.3</version>
             <scope>compile</scope>
         </dependency>
-
+         -->
+         
         <!-- Weitere Dependencies -->
         <dependency>
             <groupId>org.apache.commons</groupId>

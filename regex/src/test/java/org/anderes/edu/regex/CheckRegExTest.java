@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +20,8 @@ public class CheckRegExTest {
     
     private enum Parameter {
         REGEX_1("q[^u]", "WordList.txt", 7),
-        REGEX_2("<[h|H][r|R] ?((size|SIZE)? ?= ?\"[0-9]+\" ?)?>", "RegEx.html", 4);
+        REGEX_2("<[h|H][r|R] ?((size|SIZE)? ?= ?\"[0-9]+\" ?)?>", "RegEx.html", 4),
+        REGEX_3("<b>.*?</b>", "EchtFett.txt", 2);
         
         private String regEx;
         private String fileName;
@@ -54,9 +56,16 @@ public class CheckRegExTest {
     
     @Before
     public void setup() {
+    	System.out.println("~~~~~~~~~ " + fileName + "~~~~~~~~~");
+    	System.out.println(">>>>> Pattern: " + regEx + '\n');
         pattern = Pattern.compile(regEx);
         FileHandlerRule handler = new FileHandlerRule(fileName);
         content = handler.getContent();
+    }
+    
+    @After
+    public void shutdown() {
+    	System.out.println("\n~~~~~~~~~ \\ " + fileName + "~~~~~~~~~");
     }
 
 	@Parameters
@@ -72,6 +81,7 @@ public class CheckRegExTest {
 		int counter = 0;
 		while (matcher.find()) {
 			counter++;
+			System.out.println("Gefunden: " + matcher.group());
 		}
 		assertThat(counter, is(noOfFinds));
 	}
