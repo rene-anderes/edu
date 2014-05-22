@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Mit XMLSpy v2014 sp1 (x64) (http://www.altova.com) von ﻿VRSG (Verwaltungsrechenzentrum AG St. Gallen) bearbeitet -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	<xs:element name="contactlist">
 		<xs:complexType>

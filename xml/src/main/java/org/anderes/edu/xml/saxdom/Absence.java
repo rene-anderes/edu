@@ -18,8 +18,6 @@ public interface Absence {
 	
 	public Calendar getDate();
 
-	public void parseFile(final String file) throws Exception;
-
 	public void setAbsenceDate(final Calendar absenceDate);
 
 	public void setPeriod(final String period);

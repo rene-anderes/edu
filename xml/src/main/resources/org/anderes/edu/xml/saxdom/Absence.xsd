@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- W3C Schema erstellt mit XMLSpy v2014 sp1 (x64) (http://www.altova.com) -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	<xs:element name="Title">
 		<xs:simpleType>
 			<xs:restriction base="xs:string">
 				<xs:enumeration value="Herr"/>
+                <xs:enumeration value="Frau"/>
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
