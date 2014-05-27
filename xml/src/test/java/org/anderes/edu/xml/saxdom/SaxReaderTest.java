@@ -36,6 +36,11 @@ public class SaxReaderTest {
         SaxReader.parseFile("/org/anderes/edu/xml/saxdom/Absence_NotValid.xml", "/org/anderes/edu/xml/saxdom/Absence.xsd");
     }
     
+    @Test(expected = Exception.class)
+    public void shouldBeReadAExceptionWrongCharacter() throws Exception {
+        SaxReader.parseFile("/org/anderes/edu/xml/saxdom/Absence_wrong_character.xml", "/org/anderes/edu/xml/saxdom/Absence.xsd");
+    }
+    
 	private Calendar truncateDate(final int year, final int month, final int day) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(year, month, day);
