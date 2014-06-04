@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence version="2.1" 
+     xmlns="http://xmlns.jcp.org/xml/ns/persistence" 
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+     http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/persistence/persistence_2_1.xsd">
+	
+    <persistence-unit name="employee" transaction-type="JTA">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <jta-data-source>jdbc/empl</jta-data-source>
+
+        <class>ch.vrsg.base.employee.domain.SmallProject</class>
+        <class>ch.vrsg.base.employee.domain.Project</class>
+        <class>ch.vrsg.base.employee.domain.PhoneNumber</class>
+        <class>ch.vrsg.base.employee.domain.LargeProject</class>
+        <class>ch.vrsg.base.employee.domain.EmploymentPeriod</class>
+        <class>ch.vrsg.base.employee.domain.Employee</class>
+        <class>ch.vrsg.base.employee.domain.Address</class>
+        <class>ch.vrsg.base.employee.domain.EmailAddress</class>
+        <class>ch.vrsg.base.employee.domain.JobTitle</class>
+        <class>ch.vrsg.base.employee.domain.Degree</class>
+
+        <shared-cache-mode>NONE</shared-cache-mode>
+        <validation-mode>NONE</validation-mode>
+
+        <properties>
+
+            <!-- Oracle Datenbankeinstellungen -->
+            <property name="eclipselink.jdbc.native-sql" value="true"/>
+            <property name="eclipselink.target-database" value="Derby"/>
+            
+            <property name="eclipselink.weaving" value="true" />
+
+            <!-- <property name="eclipselink.ddl-generation" value="create-tables" /> -->
+            
+            <!-- Logging -->
+            <!-- Also see EclipseLink logging JPA page http://wiki.eclipse.org/EclipseLink/Examples/JPA/Logging -->
+            <property name="eclipselink.logging.logger" value="org.eclipse.persistence.logging.DefaultSessionLog"/>
+            <property name="eclipselink.logging.level" value="FINE" />
+            <property name="eclipselink.logging.level.sql" value="FINE" />
+            <property name="eclipselink.logging.parameters" value="true" />
+            <property name="eclipselink.logging.timestamp" value="true" />
+            <property name="eclipselink.logging.thread" value="false"/>
+            <property name="eclipselink.logging.session" value="false"/>
+            <property name="eclipselink.logging.exceptions" value="true" />
+                       
+        </properties>
+    </persistence-unit>
+</persistence>

@@ -1,0 +1,50 @@
+{
+    "SALARY": [{
+        "EMP_ID": 50,
+        "SALARY": 35000
+    },
+    {
+        "EMP_ID": 56,
+        "SALARY": 54300
+    },
+    {
+        "EMP_ID": 57,
+        "SALARY": 43000
+    },
+    {
+        "EMP_ID": 59,
+        "SALARY": 50000
+    },
+    {
+        "EMP_ID": 65,
+        "SALARY": 75000
+    },
+    {
+        "EMP_ID": 70,
+        "SALARY": 55005
+    },
+    {
+        "EMP_ID": 85,
+        "SALARY": 500000
+    },
+    {
+        "EMP_ID": 86,
+        "SALARY": 49631
+    },
+    {
+        "EMP_ID": 88,
+        "SALARY": 500001
+    },
+    {
+        "EMP_ID": 96,
+        "SALARY": 56232
+    },
+    {
+        "EMP_ID": 97,
+        "SALARY": 31000
+    },
+    {
+        "EMP_ID": 98,
+        "SALARY": 87000
+    }]
+}

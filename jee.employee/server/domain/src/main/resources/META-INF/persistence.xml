@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+                        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	
+    <persistence-unit name="employee" transaction-type="JTA">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <jta-data-source>jdbc/employee</jta-data-source>
+
+        <class>org.anderes.edu.employee.domain.SmallProject</class>
+        <class>org.anderes.edu.employee.domain.Project</class>
+        <class>org.anderes.edu.employee.domain.PhoneNumber</class>
+        <class>org.anderes.edu.employee.domain.LargeProject</class>
+        <class>org.anderes.edu.employee.domain.EmploymentPeriod</class>
+        <class>org.anderes.edu.employee.domain.Employee</class>
+        <class>org.anderes.edu.employee.domain.Address</class>
+        <class>org.anderes.edu.employee.domain.EmailAddress</class>
+        <class>org.anderes.edu.employee.domain.JobTitle</class>
+        <class>org.anderes.edu.employee.domain.Degree</class>
+
+        <shared-cache-mode>NONE</shared-cache-mode>
+        <validation-mode>AUTO</validation-mode>
+
+        <properties>
+            <property name="eclipselink.deploy-on-startup" value="true" />
+            <property name="eclipselink.jdbc.native-sql" value="true" />
+            <property name="eclipselink.target-database" value="Oracle11" />
+            <property name="eclipselink.jdbc.batch-writing" value="Oracle-JDBC" />
+            <property name="eclipselink.target-server" value="WebLogic_10" />
+            <property name="eclipselink.weaving" value="true" />
+            <property name="eclipselink.logging.logger" value="org.eclipse.persistence.logging.DefaultSessionLog" />
+        </properties>
+    </persistence-unit>
+    
+</persistence>

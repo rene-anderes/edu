@@ -1,0 +1,50 @@
+{
+    "PROJ_EMP": [{
+        "EMP_ID": 56,
+        "PROJ_ID": 77
+    },
+    {
+        "EMP_ID": 57,
+        "PROJ_ID": 66
+    },
+    {
+        "EMP_ID": 57,
+        "PROJ_ID": 73
+    },
+    {
+        "EMP_ID": 57,
+        "PROJ_ID": 94
+    },
+    {
+        "EMP_ID": 70,
+        "PROJ_ID": 73
+    },
+    {
+        "EMP_ID": 70,
+        "PROJ_ID": 74
+    },
+    {
+        "EMP_ID": 70,
+        "PROJ_ID": 84
+    },
+    {
+        "EMP_ID": 97,
+        "PROJ_ID": 77
+    },
+    {
+        "EMP_ID": 98,
+        "PROJ_ID": 66
+    },
+    {
+        "EMP_ID": 98,
+        "PROJ_ID": 73
+    },
+    {
+        "EMP_ID": 98,
+        "PROJ_ID": 81
+    },
+    {
+        "EMP_ID": 98,
+        "PROJ_ID": 83
+    }]
+}

@@ -1,0 +1,62 @@
+{
+    "DEGREE": [{
+        "DEGREE_ID": 58,
+        "NAME": "Bachelor Arts",
+        "EMP_ID": 88
+    },
+    {
+        "DEGREE_ID": 60,
+        "NAME": "Bachelor Computer Science",
+        "EMP_ID": 96
+    },
+    {
+        "DEGREE_ID": 61,
+        "NAME": "Bachelor Computer Science",
+        "EMP_ID": 56
+    },
+    {
+        "DEGREE_ID": 63,
+        "NAME": "Masters Business",
+        "EMP_ID": 85
+    },
+    {
+        "DEGREE_ID": 67,
+        "NAME": "Masters Engineering",
+        "EMP_ID": 88
+    },
+    {
+        "DEGREE_ID": 68,
+        "NAME": "Bachelor Business",
+        "EMP_ID": 85
+    },
+    {
+        "DEGREE_ID": 72,
+        "NAME": "PHD Computer Science",
+        "EMP_ID": 96
+    },
+    {
+        "DEGREE_ID": 76,
+        "NAME": "PHD Philosophy",
+        "EMP_ID": 88
+    },
+    {
+        "DEGREE_ID": 87,
+        "NAME": "Bachelor Computer Science",
+        "EMP_ID": 70
+    },
+    {
+        "DEGREE_ID": 89,
+        "NAME": "Bachelor Computer Science",
+        "EMP_ID": 65
+    },
+    {
+        "DEGREE_ID": 90,
+        "NAME": "Masters Computer Science",
+        "EMP_ID": 56
+    },
+    {
+        "DEGREE_ID": 92,
+        "NAME": "Masters Computer Science",
+        "EMP_ID": 96
+    }]
+}

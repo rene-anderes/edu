@@ -1,0 +1,122 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.anderes.edu</groupId>
+        <artifactId>jee.employee</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <name>JEE Employee - Server</name>
+
+    <artifactId>jee.employee.server</artifactId>
+
+    <packaging>pom</packaging>
+
+    <description>Beispielprojekt Employee das als Grundlage für Weiterbildungen ums Thema JPA / EJB / JEE diehnt.</description>
+
+     <developers>
+        <developer>
+            <name>René Anderes</name>
+        </developer>
+    </developers>
+
+    <dependencies>
+        <!-- JPA 2.0 API -->
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>javax.persistence</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Diese Version muss mit dem verwendeten Application-Server abgestimmt sein.
+            In diesem Fall mit WebLigic 12c
+            siehe dazu http://www.oracle.com/technetwork/middleware/ias/jpa-082702.html -->
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Java Bean Validation JSR303 -->
+        <!-- Diese Abhängigkeiten werden vom Container zu Verfügung gestellt: provided -->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Java Bean Validation Provider für Bean Validation 1.0 -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- JEE 7 -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <!-- Testabhägigkeiten -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Arquillian Test-Enviroment -->
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Arquillian Database / Persistence Extension -->
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-persistence-dbunit</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <testResources>
+            <testResource>
+                <directory>${basedir}/src/test/resources-glassfish-embedded</directory>
+                <filtering>true</filtering>
+            </testResource>
+            <testResource>
+                <directory>${basedir}/src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
+    </build>
+
+    <modules>
+        <module>application</module>
+        <module>domain</module>
+        <module>infrastructure</module>
+        <module>assembly</module>
+    </modules>
+</project>

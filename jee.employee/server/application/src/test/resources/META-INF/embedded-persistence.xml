@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+                        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+    <persistence-unit name="employee" transaction-type="JTA">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+
+        <jta-data-source>jdbc/employee</jta-data-source>
+
+        <class>ch.vrsg.base.example.jpa.domain.SmallProject</class>
+        <class>ch.vrsg.base.example.jpa.domain.Project</class>
+        <class>ch.vrsg.base.example.jpa.domain.PhoneNumber</class>
+        <class>ch.vrsg.base.example.jpa.domain.LargeProject</class>
+        <class>ch.vrsg.base.example.jpa.domain.EmploymentPeriod</class>
+        <class>ch.vrsg.base.example.jpa.domain.Employee</class>
+        <class>ch.vrsg.base.example.jpa.domain.Address</class>
+        <class>ch.vrsg.base.example.jpa.domain.EmailAddress</class>
+        <class>ch.vrsg.base.example.jpa.domain.JobTitle</class>
+        <class>ch.vrsg.base.example.jpa.domain.Degree</class>
+
+        <shared-cache-mode>NONE</shared-cache-mode>
+        
+        <properties>
+            <!-- Oracle Datenbankeinstellungen -->
+            <property name="eclipselink.jdbc.native-sql" value="true"/>
+            <property name="eclipselink.target-database" value="Oracle11"/>
+            <property name="eclipselink.jdbc.batch-writing" value="Oracle-JDBC"/>
+
+            <!-- Logging -->
+            <!-- Also see EclipseLink logging JPA page http://wiki.eclipse.org/EclipseLink/Examples/JPA/Logging -->
+            <property name="eclipselink.logging.logger" value="org.eclipse.persistence.logging.DefaultSessionLog"/>
+            <property name="eclipselink.logging.level" value="FINE" />
+            <property name="eclipselink.logging.level.sql" value="FINE" />
+            <property name="eclipselink.logging.parameters" value="true" />
+            <property name="eclipselink.logging.timestamp" value="true" />
+            <property name="eclipselink.logging.thread" value="false"/>
+            <property name="eclipselink.logging.session" value="false"/>
+            <property name="eclipselink.logging.exceptions" value="true" />
+        </properties>
+        
+    </persistence-unit>
+</persistence>

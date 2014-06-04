@@ -1,0 +1,119 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.anderes.edu</groupId>
+        <artifactId>jee.employee.server.assembly</artifactId>
+	    <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <name>JEE Employee - Server - Assembly - EAR-Packager</name>
+
+    <artifactId>jee.employee.server.assemblyEar</artifactId>
+
+    <packaging>ear</packaging>
+	
+	<properties>
+        <!-- Variablen für das Deployment auf dem WebLogic-Server -->
+        <!-- ~~~~~~~~~~~~ Einige diese Variablen sind besser im settings.xml unter gebracht -->
+        <weblogic.url>t3://localhost:7001</weblogic.url>
+        <weblogic.user>weblogic</weblogic.user>
+        <weblogic.password>welcome1</weblogic.password>
+        <weblogic.name>jee-employee</weblogic.name>
+        <weblogic.targets>AdminServer</weblogic.targets>
+        <middleware.home>c:\Java-Entwicklung\oracle\Middleware</middleware.home>
+        <weblogic.home>${middleware.home}\wlserver_12.1</weblogic.home>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.anderes.edu</groupId>
+            <artifactId>jee.employee.server.application</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>org.anderes.edu</groupId>
+            <artifactId>jee.employee.server.domain</artifactId>
+            <version>${project.version}</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.anderes.edu</groupId>
+            <artifactId>jee.employee.server.infrastructure</artifactId>
+            <version>${project.version}</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>jee-employee</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <configuration>
+                    <version>6</version>
+                    <defaultLibBundleDir>APP-INF/lib</defaultLibBundleDir>
+                    <modules>
+                        <jarModule>
+                            <groupId>org.anderes.edu</groupId>
+                            <artifactId>jee.employee.server.infrastructure</artifactId>
+                        </jarModule>
+                        <jarModule>
+                            <groupId>org.anderes.edu</groupId>
+                            <artifactId>jee.employee.server.domain</artifactId>
+                        </jarModule>
+                        <ejbModule>
+                            <groupId>org.anderes.edu</groupId>
+                            <artifactId>jee.employee.server.application</artifactId>
+                        </ejbModule>
+                    </modules>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+			<!-- Dieses Profil kann dazu benutzt werden das EAR-File auf einen WebLogic-Server zu deployen -->
+            <id>deploy-weblogic</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.oracle.weblogic</groupId>
+                        <artifactId>wls-maven-plugin</artifactId>
+                        <configuration>
+                            <adminurl>${weblogic.url}</adminurl>
+                            <user>${weblogic.user}</user>
+                            <password>${weblogic.password}</password>
+                            <action>redeploy</action>
+                            <upload>true</upload>
+                            <remote>false</remote>
+                            <verbose>true</verbose>
+                            <name>${weblogic.name}</name>
+                            <middlewareHome>${middleware.home}</middlewareHome>
+                            <weblogicHome>${weblogic.home}</weblogicHome>
+                            <targets>${weblogic.targets}</targets>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>deploy</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

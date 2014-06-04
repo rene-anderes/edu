@@ -1,0 +1,80 @@
+{
+    "EMAIL": [{
+    	"EMAIL_ID": 10,
+        "EMAIL_TYPE": "Work",
+        "EMAIL_ADDRESS": "jill.may@acme.com",
+        "EMP_ID": 96
+    },
+    {
+    	"EMAIL_ID": 11,
+        "EMAIL_TYPE": "Mobile",
+        "EMAIL_ADDRESS": "jill.lewis.may@sprint.com",
+        "EMP_ID": 96
+    },
+    {
+    	"EMAIL_ID": 12,
+        "EMAIL_TYPE": "Home",
+        "EMAIL_ADDRESS": "jim-bob@jim-bob.com",
+        "EMP_ID": 59
+    },
+    {
+    	"EMAIL_ID": 13,
+        "EMAIL_TYPE": "Work",
+        "EMAIL_ADDRESS": "john.way@acme.com",
+        "EMP_ID": 70
+    },
+    {
+    	"EMAIL_ID": 14,
+        "EMAIL_TYPE": "Work",
+        "EMAIL_ADDRESS": "charles.chanley@acme.com",
+        "EMP_ID": 57
+    },
+    {
+    	"EMAIL_ID": 15,
+        "EMAIL_TYPE": "Work",
+        "EMAIL_ADDRESS": "emanual.smith@acme.com",
+        "EMP_ID": 86
+    },
+    {
+    	"EMAIL_ID": 16,
+        "EMAIL_TYPE": "Home",
+        "EMAIL_ADDRESS": "sarah-lou.smitty@rogers.com",
+        "EMP_ID": 65
+    },
+    {
+    	"EMAIL_ID": 17,
+        "EMAIL_TYPE": "Work",
+        "EMAIL_ADDRESS": "sarah.way@acme.com",
+        "EMP_ID": 98
+    },
+    {
+    	"EMAIL_ID": 18,
+        "EMAIL_TYPE": "Work",
+        "EMAIL_ADDRESS": "fred.jones@acme.com",
+        "EMP_ID": 85
+    },
+    {
+    	"EMAIL_ID": 19,
+        "EMAIL_TYPE": "Work",
+        "EMAIL_ADDRESS": "marcus.saunders@acme.com",
+        "EMP_ID": 56
+    },
+    {
+    	"EMAIL_ID": 20,
+        "EMAIL_TYPE": "Work",
+        "EMAIL_ADDRESS": "nancy.white@acme.com",
+        "EMP_ID": 97
+    },
+    {
+    	"EMAIL_ID": 21,
+        "EMAIL_TYPE": "Work",
+        "EMAIL_ADDRESS": "betty.jones@acme.com",
+        "EMP_ID": 88
+    },
+    {
+    	"EMAIL_ID": 22,
+        "EMAIL_TYPE": "Home",
+        "EMAIL_ADDRESS": "betty.cleo.jones@rogers.com",
+        "EMP_ID": 88
+    }]
+}

@@ -1,0 +1,32 @@
+{
+    "RESPONSE": [{
+        "EMP_ID": 70,
+        "RESPONSIBILITY": "Hire people when more people are required.",
+        "PRIORITY": 0
+    },
+    {
+        "EMP_ID": 70,
+        "RESPONSIBILITY": "Lay off employees when less people are required.",
+        "PRIORITY": 1
+    },
+    {
+        "EMP_ID": 57,
+        "RESPONSIBILITY": "Perform code reviews as required.",
+        "PRIORITY": 0
+    },
+    {
+        "EMP_ID": 86,
+        "RESPONSIBILITY": "Have to fix the Database problem.",
+        "PRIORITY": 0
+    },
+    {
+        "EMP_ID": 98,
+        "RESPONSIBILITY": "Write code documentation.",
+        "PRIORITY": 0
+    },
+    {
+        "EMP_ID": 56,
+        "RESPONSIBILITY": "Write user specifications.",
+        "PRIORITY": 0
+    }]
+}

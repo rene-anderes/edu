@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN"
+        "http://glassfish.java.net/dtds/glassfish-resources_1_5.dtd">
+
+<resources>
+
+	<jdbc-resource pool-name="OraclePool" jndi-name="jdbc/employee" />
+    <jdbc-connection-pool name="OraclePool" res-type="javax.sql.XADataSource" datasource-classname="oracle.jdbc.xa.client.OracleXADataSource">
+    
+        <property name="user" value="${db.user}"/>
+        <property name="password" value="${db.pw}"/>
+        <property name="url" value="${db.url}"/>
+        
+    </jdbc-connection-pool>
+
+</resources>

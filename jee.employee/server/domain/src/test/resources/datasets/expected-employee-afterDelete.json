@@ -1,0 +1,123 @@
+{
+    "EMPLOYEE": [{
+        "EMP_ID": 70,
+        "F_NAME": "John",
+        "GENDER": "Male",
+        "L_NAME": "Way",
+        "VERSION": 1,
+        "END_DATE": [null],
+        "START_DATE": "1991-12-11 00:00:00",
+        "MANAGER_ID": [null],
+        "ADDR_ID": 68
+    },
+    {
+        "EMP_ID": 96,
+        "F_NAME": "Jill",
+        "GENDER": "Female",
+        "L_NAME": "May",
+        "VERSION": 1,
+        "END_DATE": [null],
+        "START_DATE": "1991-12-11 00:00:00",
+        "MANAGER_ID": [null],
+        "ADDR_ID": 87
+    },
+    {
+        "EMP_ID": 56,
+        "F_NAME": "Marcus",
+        "GENDER": "Male",
+        "L_NAME": "Saunders",
+        "VERSION": 1,
+        "END_DATE": "2002-01-31 00:00:00",
+        "START_DATE": "1995-02-12 00:00:00",
+        "MANAGER_ID": 70,
+        "ADDR_ID": 56
+    },
+    {
+        "EMP_ID": 57,
+        "F_NAME": "Charles",
+        "GENDER": "Male",
+        "L_NAME": "Chanley",
+        "VERSION": 1,
+        "END_DATE": "2002-01-31 00:00:00",
+        "START_DATE": "1995-02-01 00:00:00",
+        "MANAGER_ID": 96,
+        "ADDR_ID": 59
+    },
+    {
+        "EMP_ID": 59,
+        "F_NAME": "Jim-Bob",
+        "GENDER": "Male",
+        "L_NAME": "Jefferson",
+        "VERSION": 1,
+        "END_DATE": "2002-01-31 00:00:00",
+        "START_DATE": "1995-02-12 00:00:00",
+        "MANAGER_ID": 96,
+        "ADDR_ID": 65
+    },
+    {
+        "EMP_ID": 65,
+        "F_NAME": "Sarah-Lou",
+        "GENDER": "Female",
+        "L_NAME": "Smitty",
+        "VERSION": 1,
+        "END_DATE": "1996-02-01 00:00:00",
+        "START_DATE": "1993-02-01 00:00:00",
+        "MANAGER_ID": [null],
+        "ADDR_ID": 67
+    },
+    {
+        "EMP_ID": 85,
+        "F_NAME": "Fred",
+        "GENDER": "Male",
+        "L_NAME": "Jones",
+        "VERSION": 1,
+        "END_DATE": "2002-01-31 00:00:00",
+        "START_DATE": "1995-02-01 00:00:00",
+        "MANAGER_ID": [null],
+        "ADDR_ID": 73
+    },
+    {
+        "EMP_ID": 86,
+        "F_NAME": "Emanual",
+        "GENDER": "Male",
+        "L_NAME": "Smith",
+        "VERSION": 1,
+        "END_DATE": "2002-01-31 00:00:00",
+        "START_DATE": "1995-02-01 00:00:00",
+        "MANAGER_ID": 70,
+        "ADDR_ID": 78
+    },
+    {
+        "EMP_ID": 88,
+        "F_NAME": "Betty",
+        "GENDER": "Female",
+        "L_NAME": "Jones",
+        "VERSION": 1,
+        "END_DATE": "1995-02-01 00:00:00",
+        "START_DATE": "2002-01-31 00:00:00",
+        "MANAGER_ID": 70,
+        "ADDR_ID": 86
+    },
+    {
+        "EMP_ID": 97,
+        "F_NAME": "Nancy",
+        "GENDER": "Female",
+        "L_NAME": "White",
+        "VERSION": 1,
+        "END_DATE": "1996-02-01 00:00:00",
+        "START_DATE": "1993-02-01 00:00:00",
+        "MANAGER_ID": 59,
+        "ADDR_ID": 88
+    },
+    {
+        "EMP_ID": 98,
+        "F_NAME": "Sarah",
+        "GENDER": "Female",
+        "L_NAME": "Way",
+        "VERSION": 1,
+        "END_DATE": "2001-08-31 00:00:00",
+        "START_DATE": "1995-06-01 00:00:00",
+        "MANAGER_ID": 59,
+        "ADDR_ID": 96
+    }]
+}
