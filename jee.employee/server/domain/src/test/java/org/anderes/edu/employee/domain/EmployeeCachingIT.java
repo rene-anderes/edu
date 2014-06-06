@@ -31,8 +31,6 @@ import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
 @Cleanup(phase = NONE, strategy = DEFAULT)
-/** ohne Transaktion klappt das mit dem Batch Fetching nicht (WebLogic 12.1.1, EclipseLink 2.3) */
-@Transactional(value = TransactionMode.DEFAULT) 
 public class EmployeeCachingIT {
 
     @Inject
@@ -117,27 +115,7 @@ public class EmployeeCachingIT {
             repository.findOneQueryCache(ids[random.nextInt(ids.length)]);
         }
         timer.stop();
-        logger.info("/---------------------- und hier gibt es 12 SQL Abfragen, da der Query-Cache aktiviert ist.");
-        logger.info(String.format("Zeit fuer %s Abfragen: %s ms", interations, timer.getTime()));
-    }
-    
-    /**
-     * Demonstriert das Verhalten des Query-Cache.<br>
-     * Bei eingeschalteten Query-Result-Cache werden keine Abfragen an die Database gemacht.
-     */
-    @Test
-    @InSequence(5)
-    public void ShouldBeZeroSQLStatement() {
-        final Long[] ids = { 50L,56L,57L,59L,65L,85L,86L,88L,97L,98L,70L,96L };
-        final int interations = 50;
-        
-        logger.info("----------------------- zwischen hier ....");
-        timer.start();
-        for (int i = 0 ; i < interations; i++) {
-            repository.findOneQueryCache(ids[random.nextInt(ids.length)]);
-        }
-        timer.stop();
-        logger.info("/---------------------- und hier gibt es keine SQL Abfragen, da der Query-Cache aktiviert ist.");
-        logger.info(String.format("Zeit fuer %s Abfragen: %s ms", interations, timer.getTime()));
+        logger.info(String.format("----------------------- Zeit fuer %s Abfragen: %s ms", interations, timer.getTime()));
+        logger.info("/---------------------- und hier gibt es 12 SQL Abfragen an die Datanebank (für 50 Anfragen), wenn der Query-Cache aktiviert ist.");
     }
 }

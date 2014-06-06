@@ -51,7 +51,7 @@ public class SmallProjectFacadeBeanManagedTransactionIT {
             // Logger Producer
             .addClass(LoggerProducer.class)
             // Resourcen
-            .addAsManifestResource(new File("target/test-classes/META-INF/embedded-persistence.xml"), "persistence.xml")
+            .addAsManifestResource(new File("target/test-classes/META-INF/derby-persistence.xml"), "persistence.xml")
             .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
     
@@ -100,9 +100,12 @@ public class SmallProjectFacadeBeanManagedTransactionIT {
 
     @Test
     @InSequence(4)
-    @ShouldMatchDataSet(value = { "prepare-address.json", "prepare-degree.json", "prepare-email.json", "prepare-emp_job.json",
-        "prepare-employee.json", "prepare-jobtitle.json", "prepare-lproject.json", "prepare-phone.json",
-        "prepare-proj_emp.json", "prepare-project.json", "prepare-response.json", "prepare-salary.json" })
+    @ShouldMatchDataSet(value = { 
+            "prepare-address.json", "prepare-employee.json", "prepare-degree.json",
+            "prepare-email.json", "prepare-jobtitle.json", "prepare-emp_job.json",
+            "prepare-project.json", "prepare-lproject.json", "prepare-phone.json",
+            "prepare-proj_emp.json", "prepare-response.json", "prepare-salary.json"
+            })
     public void shouldBeDeleteSmallProject() throws Exception {
         facade.delete("Laboro");
     }

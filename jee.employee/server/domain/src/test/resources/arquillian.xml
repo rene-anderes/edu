@@ -5,9 +5,8 @@
         <property name="deploymentExportPath">target/</property>
     </engine>
 
-    <container qualifier="glassfish" default="true">
+    <container qualifier="glassfish-remote" default="true">
         <configuration>
-            <property name="glassFishHome">${glassfish.home}</property>
             <property name="adminHost">${glassfish.admin.host}</property>
             <property name="adminPort">${glassfish.admin.port}</property>
         </configuration>

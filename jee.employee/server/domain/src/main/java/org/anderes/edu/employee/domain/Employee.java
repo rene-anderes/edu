@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Basic;
@@ -69,7 +70,7 @@ import javax.persistence.Version;
     @NamedQuery(
         name="findAllEmployeeBySalary", 
         query="Select e from Employee e where e.salary > :salary")
-})
+	})
 public class Employee implements Serializable {
     
     public final static String FINDALLEMPLOYEE_BY_SALARY = "findAllEmployeeBySalary";
@@ -346,6 +347,6 @@ public class Employee implements Serializable {
     }
 
     public String toString() {
-        return "Employee(" + getId() + ": " + getLastName() + ", " + getFirstName() + ")";
+        return "Employee(" + id + ": " + lastName + ", " + firstName + ")";
     }
 }

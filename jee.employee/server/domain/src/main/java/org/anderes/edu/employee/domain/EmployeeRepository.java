@@ -1,9 +1,10 @@
 package org.anderes.edu.employee.domain;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Logger;
+import java.util.Map;
 
-import javax.inject.Inject;
+import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -15,11 +16,9 @@ import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.anderes.edu.employee.domain.Address_;
-import org.anderes.edu.employee.domain.Employee_;
 import org.eclipse.persistence.annotations.BatchFetchType;
-import org.eclipse.persistence.config.CacheUsage;
 import org.eclipse.persistence.config.QueryHints;
+import org.eclipse.persistence.queries.LoadGroup;
 
 /**
  * Repository für den Zugriff auf die Entität "Employee".
@@ -39,8 +38,6 @@ public class EmployeeRepository implements Repository<Employee, Long> {
 
     @PersistenceContext(unitName="employee")
     private EntityManager entityManager;
-    @Inject
-    private Logger logger;
     
     /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ CRUD - Functions  */
     
@@ -220,24 +217,61 @@ public class EmployeeRepository implements Repository<Employee, Long> {
     }
     
     /**
-     * Sample with join fetch by EclispeLink Batch Fetching
+     * Sample with join fetch by EclipseLink Load Group and Batch
+     * </p>
+     * deprecated See JPA 2.1 Entity-Graph 
      */
-    public Employee findOneEmployeeAddressQueryHint(final Long id) {
+    public Employee findOneEmployeeAddressLoadGroup(final Long id) {
         
         final TypedQuery<Employee> query = 
             entityManager.createQuery("Select e from Employee e where e.id = :id", Employee.class);
         query.setParameter("id", id);
        
-        /* Batch fetch query hint */
+        /* load group */
+        final LoadGroup group = new LoadGroup();
+        group.addAttribute("address");
+        group.addAttribute("jobTitle");
+        query.setHint(QueryHints.LOAD_GROUP, group);
+        
+        /* Specify the use of batch loading to reduce the number of SQL statements */
+        query.setHint(QueryHints.BATCH, "e.jobTitle");
         query.setHint(QueryHints.BATCH, "e.address");
         /*  EclipseLink supports three different batch fetching types, JOIN, EXISTS, IN */
         query.setHint(QueryHints.BATCH_TYPE, BatchFetchType.EXISTS);
-        query.setHint(QueryHints.LOAD_GROUP_ATTRIBUTE, "address");
-        query.setHint(QueryHints.BATCH, "e.jobTitle");
-        query.setHint(QueryHints.BATCH_TYPE, BatchFetchType.EXISTS);
-        query.setHint(QueryHints.LOAD_GROUP_ATTRIBUTE, "jobTitle");
         
         return query.getSingleResult();
+    }
+
+    /**
+     *	Sample with Entity-Graph (LoadGraph)</p>
+     *  @since JPA 2.1
+     */
+	public Employee findOneEmployeeAddressLoadGraph(final Long id) {
+		
+		final EntityGraph<Employee> entityGraph = entityManager.createEntityGraph(Employee.class);
+    	entityGraph.addAttributeNodes(Employee_.address.getName());
+    	entityGraph.addAttributeNodes(Employee_.jobTitle.getName());
+    	final Map<String, Object> hints = new HashMap<>(1);
+    	hints.put("javax.persistence.loadgraph", entityGraph);
+
+    	return entityManager.find(Employee.class, id, hints);
+	}
+    
+    /**
+     *	Sample with Entity-Graph (FetchGraph)</p>
+     *  @since JPA 2.1
+     */
+    public Employee findOneEmployeeAddressFetchGraph(final Long id) {
+   
+		final EntityGraph<Employee> entityGraph = entityManager.createEntityGraph(Employee.class);
+		entityGraph.addAttributeNodes(Employee_.firstName.getName());
+		entityGraph.addAttributeNodes(Employee_.lastName.getName());
+    	entityGraph.addAttributeNodes(Employee_.address.getName());
+    	entityGraph.addAttributeNodes(Employee_.jobTitle.getName());
+    	final Map<String, Object> hints = new HashMap<>(1);
+    	hints.put("javax.persistence.fetchgraph", entityGraph);
+
+    	return entityManager.find(Employee.class, id, hints);
     }
     
     /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / Fetch Strategien */
@@ -252,13 +286,13 @@ public class EmployeeRepository implements Repository<Employee, Long> {
         query.setParameter("id", id);
         
         /* ----- query cache */
-        query.setHint(QueryHints.CACHE_USAGE, CacheUsage.CheckCacheThenDatabase);
+        query.setHint(QueryHints.QUERY_RESULTS_CACHE, "true");
+        query.setHint(QueryHints.QUERY_RESULTS_CACHE_SIZE, "333");
         /* ----- / query cache */
-        
-        logger.fine("-> cache usage: " + query.getHints().get(QueryHints.CACHE_USAGE));
+
         return query.getSingleResult();
     }
-    
+
     /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / Caching */
     
 }

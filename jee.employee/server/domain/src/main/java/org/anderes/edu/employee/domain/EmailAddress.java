@@ -24,7 +24,7 @@ import javax.persistence.Id;
 @Entity(name="EMAIL")
 public class EmailAddress {
 
-    @Id
+	@Id
     @Column(name = "EMAIL_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;

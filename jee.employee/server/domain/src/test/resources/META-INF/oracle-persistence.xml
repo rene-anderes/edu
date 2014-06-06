@@ -9,16 +9,16 @@
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <jta-data-source>jdbc/employee</jta-data-source>
 
-        <class>ch.vrsg.base.employee.domain.SmallProject</class>
-        <class>ch.vrsg.base.employee.domain.Project</class>
-        <class>ch.vrsg.base.employee.domain.PhoneNumber</class>
-        <class>ch.vrsg.base.employee.domain.LargeProject</class>
-        <class>ch.vrsg.base.employee.domain.EmploymentPeriod</class>
-        <class>ch.vrsg.base.employee.domain.Employee</class>
-        <class>ch.vrsg.base.employee.domain.Address</class>
-        <class>ch.vrsg.base.employee.domain.EmailAddress</class>
-        <class>ch.vrsg.base.employee.domain.JobTitle</class>
-        <class>ch.vrsg.base.employee.domain.Degree</class>
+        <class>org.anderes.edu.employee.domain.SmallProject</class>
+        <class>org.anderes.edu.employee.domain.Project</class>
+        <class>org.anderes.edu.employee.domain.PhoneNumber</class>
+        <class>org.anderes.edu.employee.domain.LargeProject</class>
+        <class>org.anderes.edu.employee.domain.EmploymentPeriod</class>
+        <class>org.anderes.edu.employee.domain.Employee</class>
+        <class>org.anderes.edu.employee.domain.Address</class>
+        <class>org.anderes.edu.employee.domain.EmailAddress</class>
+        <class>org.anderes.edu.employee.domain.JobTitle</class>
+        <class>org.anderes.edu.employee.domain.Degree</class>
 
         <shared-cache-mode>NONE</shared-cache-mode>
         <validation-mode>NONE</validation-mode>

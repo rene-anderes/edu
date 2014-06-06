@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.anderes.edu.employee.domain;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import javax.persistence.Embeddable;
@@ -26,9 +27,10 @@ import javax.persistence.TemporalType;
  * @author djclarke
  */
 @Embeddable
-public class EmploymentPeriod {
+public class EmploymentPeriod implements Serializable {
 
-    @Temporal(TemporalType.TIMESTAMP)
+	private static final long serialVersionUID = 1L;
+	@Temporal(TemporalType.TIMESTAMP)
     private Calendar startDate;
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar endDate;

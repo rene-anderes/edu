@@ -48,7 +48,7 @@ public class EmployeeFacadeIT {
             // Logger Producer
             .addClass(LoggerProducer.class)
             // Resourcen
-            .addAsManifestResource(new File("target/test-classes/META-INF/embedded-persistence.xml"), "persistence.xml")
+            .addAsManifestResource(new File("target/test-classes/META-INF/derby-persistence.xml"), "persistence.xml")
             .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
     

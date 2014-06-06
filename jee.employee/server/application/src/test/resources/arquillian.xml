@@ -5,13 +5,20 @@
         <property name="deploymentExportPath">target/</property>
     </engine>
 
+    <container qualifier="glassfish-remote" default="true">
+        <configuration>
+            <property name="adminHost">${glassfish.admin.host}</property>
+            <property name="adminPort">${glassfish.admin.port}</property>
+        </configuration>
+    </container>
+
     <container qualifier="glassfish-embedded">
         <configuration>
             <property name="resourcesXml">target/test-classes/glassfish-resources.xml</property>
         </configuration>
     </container>
 
-    <container qualifier="wls" default="true">
+    <container qualifier="wls">
         <configuration>
             <property name="adminUrl">${weblogic.url}</property>
             <property name="adminUserName">${weblogic.user}</property>
@@ -22,12 +29,12 @@
     </container>
 
     <extension qualifier="persistence">
-        <property name="defaultDataSource">jdbc/employee</property>
+        <property name="defaultDataSource">jdbc/empl</property>
     </extension>
 
     <extension qualifier="persistence-dbunit">
-
-        <property name="datatypeFactory">org.dbunit.ext.oracle.Oracle10DataTypeFactory</property>
+        <!-- <property name="datatypeFactory">org.dbunit.ext.oracle.Oracle10DataTypeFactory</property> -->
+        
         <!-- Default-Pfad: [Classpath]/datasets -->
         <property name="defaultDataSetFormat">JSON</property>
         <!-- New feature: Apache POI exclusion. If you are not using excel based data sets you

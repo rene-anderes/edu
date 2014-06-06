@@ -71,6 +71,12 @@
                 <artifactId>javaee-api</artifactId>
                 <version>7.0</version>
             </dependency>
+            <!-- Glassfish für Integrationstests -->
+            <dependency>
+                <groupId>org.glassfish.main.extras</groupId>
+                <artifactId>glassfish-embedded-all</artifactId>
+                <version>4.0</version>
+            </dependency>
             <!-- Testing -->
             <dependency>
                 <groupId>junit</groupId>
@@ -341,13 +347,6 @@
                 <dependency>
                     <groupId>org.glassfish.main.extras</groupId>
                     <artifactId>glassfish-embedded-all</artifactId>
-                    <scope>test</scope>
-                </dependency>
-                <!-- slf4j version muss mit Glassfish-Embedded übereinstimmen -->
-                <dependency>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                    <version>1.5.6</version><!--$NO-MVN-MAN-VER$ -->
                     <scope>test</scope>
                 </dependency>
             </dependencies>

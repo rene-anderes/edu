@@ -11,21 +11,19 @@ import java.io.File;
 
 import javax.inject.Inject;
 
-import org.anderes.edu.employee.domain.Employee;
-import org.anderes.edu.employee.domain.EmployeeRepository;
 import org.anderes.edu.employee.domain.logger.LoggerProducer;
 import org.anderes.edu.employee.persistence.EntityManagerProducer;
+import org.apache.commons.lang3.SerializationUtils;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.persistence.Cleanup;
 import org.jboss.arquillian.persistence.CleanupUsingScript;
 import org.jboss.arquillian.persistence.UsingDataSet;
-import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
-import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -72,11 +70,7 @@ public class EmployeeFetchStrategieIT {
         final Employee employee = repository.findOneEmployeeAddress(70L);
         
         // then
-        assertThat(employee, is(notNullValue()));
-        assertThat(employee.getFirstName(), is("John"));
-        assertThat(employee.getLastName(), is("Way"));
-        assertThat(employee.getJobTitle().getTitle(), is("Manager"));
-        assertThat(employee.getAddress().getProvince(), is("ONT"));
+        assertEmployee(getDetachedEmployee(employee));
     }
     
     @Test
@@ -87,27 +81,72 @@ public class EmployeeFetchStrategieIT {
         final Employee employee = repository.findOneEmployeeAddressJpql(70L);
         
         // then
-        assertThat(employee, is(notNullValue()));
-        assertThat(employee.getFirstName(), is("John"));
-        assertThat(employee.getLastName(), is("Way"));
-        assertThat(employee.getJobTitle().getTitle(), is("Manager"));
-        assertThat(employee.getAddress().getProvince(), is("ONT"));
+        assertEmployee(getDetachedEmployee(employee));
+    }
+
+    @Ignore("Unter EclipseLink funktioniert 'javax.persistence.loadgraph' (noch) nicht richtig!")
+    @Test
+    @InSequence(5)
+    public void shouldBeFindOneEmployeeAddressLoadGraph() {
+    	
+    	// when
+    	final Employee employee = repository.findOneEmployeeAddressLoadGraph(70L);
+    	
+        // then
+    	assertEmployee(getDetachedEmployee(employee));
+    }
+
+    
+    @Test
+    @InSequence(5)
+    public void shouldBeFindOneEmployeeAddressFetchGraph() {
+    	
+    	// when
+    	final Employee employee = repository.findOneEmployeeAddressFetchGraph(70L);
+    	
+        // then
+    	assertEmployee(getDetachedEmployee(employee));
+    }
+    
+    /**
+     * Der Versuch auf ein nicht aufgelösten Objekt-Graphen zuzugreifen.
+     */
+    @Test(expected = IllegalStateException.class)
+    @InSequence(6)
+    public void shouldBeIllegalStateException() {
+    	
+    	// when
+    	final Employee employee = repository.findOneEmployeeAddressFetchGraph(70L);
+    	final Employee employeeClone = getDetachedEmployee(employee);
+    	
+        // then
+    	assertThat(employeeClone, is(notNullValue()));
+        assertThat(employeeClone.getManagedEmployees().size(), is(0));
     }
     
     @Test
-    @InSequence(4)
-    /** ohne Transaktion klappt das mit dem Batch Fetching nicht (WebLogic 12.1.1, EclipseLink 2.3) */
-    @Transactional(value = TransactionMode.DEFAULT) 
+    @InSequence(7)
     public void shouldBeFindOneEmployeeAddressBatchFetching() {
         
         // when
-        final Employee employee = repository.findOneEmployeeAddressQueryHint(70L);
+        final Employee employee = repository.findOneEmployeeAddressLoadGroup(70L);
         
         // then
-        assertThat(employee, is(notNullValue()));
+        assertEmployee(getDetachedEmployee(employee));
+    }
+    
+    /**
+     * Die Entität aus dem EntityManager "detachen" via Serialisation
+     */
+    private Employee getDetachedEmployee(final Employee employee) {
+    	return SerializationUtils.clone(employee);
+    }
+    
+    private void assertEmployee(final Employee employee) {
+    	assertThat(employee, is(notNullValue()));
         assertThat(employee.getFirstName(), is("John"));
         assertThat(employee.getLastName(), is("Way"));
-        assertThat(employee.getJobTitle().getTitle(), is("Manager"));
         assertThat(employee.getAddress().getProvince(), is("ONT"));
+        assertThat(employee.getJobTitle().getTitle(), is("Manager"));
     }
 }

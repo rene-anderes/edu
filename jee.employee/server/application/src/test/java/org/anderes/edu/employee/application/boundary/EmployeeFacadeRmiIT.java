@@ -45,7 +45,7 @@ import org.junit.runner.RunWith;
 public class EmployeeFacadeRmiIT {
     
     /** Wird der JEE-Container gewechselt, auch arquillian.xml anpassen */
-    private final static boolean GLASSFISH = false;
+    private final static boolean GLASSFISH = true;
     
     private static EmployeeFacadeRemote facadeRemote;
  
@@ -64,7 +64,7 @@ public class EmployeeFacadeRmiIT {
             // Logger Producer
             .addClass(LoggerProducer.class)
             // Resourcen
-            .addAsManifestResource(new File("target/test-classes/META-INF/embedded-persistence.xml"), "persistence.xml")
+            .addAsManifestResource(new File("target/test-classes/META-INF/derby-persistence.xml"), "persistence.xml")
             .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
     
@@ -118,7 +118,7 @@ public class EmployeeFacadeRmiIT {
         properties.put(Context.PROVIDER_URL, "jnp://localhost:3700");
         final Context ctx = new InitialContext(properties);
 
-        final String lookup = String.format("java:global/test/%s!%s", EmployeeFacadeRmi.class.getSimpleName(), EmployeeFacadeRemote.class.getName());
+        final String lookup = String.format("java:global/test/%s", EmployeeFacadeRmi.class.getSimpleName());
         return (EmployeeFacadeRemote) ctx.lookup(lookup);
     }
     
