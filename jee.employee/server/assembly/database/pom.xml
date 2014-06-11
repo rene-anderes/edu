@@ -8,7 +8,7 @@
 
     <name>JEE Employee - Server - Assembly - Database</name>
 
-    <artifactId>jee.employee.server.assemblyDatabase</artifactId>
+    <artifactId>jee.employee.server.assembly.database</artifactId>
 
     <packaging>jar</packaging>
 

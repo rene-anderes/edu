@@ -4,27 +4,14 @@
     <parent>
         <groupId>org.anderes.edu</groupId>
         <artifactId>jee.employee.server.assembly</artifactId>
-	    <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
     <name>JEE Employee - Server - Assembly - EAR-Packager</name>
 
-    <artifactId>jee.employee.server.assemblyEar</artifactId>
+    <artifactId>jee.employee.server.assembly.ear</artifactId>
 
     <packaging>ear</packaging>
-	
-	<properties>
-        <!-- Variablen für das Deployment auf dem WebLogic-Server -->
-        <!-- ~~~~~~~~~~~~ Einige diese Variablen sind besser im settings.xml unter gebracht -->
-        <weblogic.url>t3://localhost:7001</weblogic.url>
-        <weblogic.user>weblogic</weblogic.user>
-        <weblogic.password>welcome1</weblogic.password>
-        <weblogic.name>jee-employee</weblogic.name>
-        <weblogic.targets>AdminServer</weblogic.targets>
-        <middleware.home>c:\Java-Entwicklung\oracle\Middleware</middleware.home>
-        <weblogic.home>${middleware.home}\wlserver_12.1</weblogic.home>
-        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    </properties>
 
     <dependencies>
         <dependency>
@@ -83,7 +70,46 @@
 
     <profiles>
         <profile>
-			<!-- Dieses Profil kann dazu benutzt werden das EAR-File auf einen WebLogic-Server zu deployen -->
+            <!-- Dieses Profil kann dazu benutzt werden das EAR-File auf einen Glassfish-Server zu deployen -->
+            <id>deploy-glassfish</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.glassfish.maven.plugin</groupId>
+                        <artifactId>maven-glassfish-plugin</artifactId>
+                        <configuration>
+                            <terse>false</terse>
+                            <echo>true</echo>
+                            <debug>true</debug>
+                            <glassfishDirectory>${glassfish.home}</glassfishDirectory>
+                            <user>${glassfish.admin.user}</user>
+                            <adminPassword>${glassfish.admin.password}</adminPassword>
+                            <domain>
+                                <name>${glassfish.domain}</name>
+                                <host>${glassfish.admin.host}</host>
+                                <adminPort>${glassfish.admin.port}</adminPort>
+                            </domain>
+                            <components>
+                                <component>
+                                    <name>${project.artifactId}</name>
+                                    <artifact>${project.build.directory}/${project.build.finalName}.war</artifact>
+                                </component>
+                            </components>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>deploy</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <!-- Dieses Profil kann dazu benutzt werden das EAR-File auf einen WebLogic-Server zu deployen -->
             <id>deploy-weblogic</id>
             <build>
                 <plugins>
