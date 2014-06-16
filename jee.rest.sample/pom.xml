@@ -20,6 +20,12 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
+        <!-- Commons-Lang -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.3.2</version>
+        </dependency>
 
         <!-- JAX-RS Client 2.0 Implementation -->
         <dependency>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	
+	<xs:element name="employees">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="employee" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="employee">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="title"/>
+				<xs:element ref="lastname"/>
+				<xs:element ref="firstname"/>
+				<xs:element ref="personnelNo"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="title">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="Herr"/>
+				<xs:enumeration value="Frau"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	
+	<xs:element name="lastname">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="100"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	
+	<xs:element name="firstname">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="100"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="personnelNo">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="[0-9]{2}[-][0-9]{4}[-][0-9]"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+</xs:schema>
