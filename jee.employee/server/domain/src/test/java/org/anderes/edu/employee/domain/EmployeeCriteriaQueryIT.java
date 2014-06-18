@@ -105,6 +105,18 @@ public class EmployeeCriteriaQueryIT {
     
     @Test
     @InSequence(3)
+    public void shouldBeFindByGenderAndPhoneType() {
+
+        // when
+        List<Employee> employees = repository.findEmployeeByGenderAndPhoneType(Male, "Home");
+
+        // then
+        assertThat("Die Liste der Mitarbeiter darf nicht null sein.", employees, is(not(nullValue())));
+        assertThat(employees.size(), is(1));
+    }
+    
+    @Test
+    @InSequence(4)
     public void shouldBeMaxSalary() {
         
         // when
@@ -115,7 +127,7 @@ public class EmployeeCriteriaQueryIT {
     }
     
     @Test
-    @InSequence(4)
+    @InSequence(5)
     public void shouldBeAllFirstnames() {
         
         // when
@@ -126,7 +138,7 @@ public class EmployeeCriteriaQueryIT {
     }
     
     @Test
-    @InSequence(5)
+    @InSequence(6)
     public void shouldBeAllNames() {
         
         // when
@@ -139,7 +151,7 @@ public class EmployeeCriteriaQueryIT {
     }
     
     @Test
-    @InSequence(6)
+    @InSequence(7)
     public void shouldBeGroupedAvarageSalaries() {
         
         // when

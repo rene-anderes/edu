@@ -13,6 +13,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -84,7 +85,8 @@ public class EmployeeRepository implements Repository<Employee, Long> {
     }
 
     /**
-     * CriteriaQuery-sample for a list of objects
+     * CriteriaQuery-sample for a list of objects<br>
+     * Query works with one Predicate
      */
     public List<Employee> findEmployeeByGender(final Gender gender) {
         
@@ -93,6 +95,25 @@ public class EmployeeRepository implements Repository<Employee, Long> {
         final Root<Employee> entity = criteria.from(Employee.class);
         final Predicate hasSex = cb.equal(entity.get(Employee_.gender), gender);
         criteria.where(hasSex); // with Predicate
+        final TypedQuery<Employee> query = entityManager.createQuery(criteria);
+        return query.getResultList();
+    }
+    
+    /**
+     * CriteriaQuery-sample for a list of objects</br>
+     * Query works with two Predicate
+     */
+    public List<Employee> findEmployeeByGenderAndPhoneType(final Gender gender, final String phoneType) {
+        
+        final CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        final CriteriaQuery<Employee> criteria = cb.createQuery(Employee.class);
+        final Root<Employee> entity = criteria.from(Employee.class);
+        final Predicate hasSex = cb.equal(entity.get(Employee_.gender), gender);
+        
+        final Path<String> phoneTypePath = entity.get(Employee_.phoneNumbers.getName()).get(PhoneNumber_.type.getName());
+        final Predicate hasPhoneType = cb.equal(phoneTypePath, phoneType);
+        
+        criteria.where(hasSex, hasPhoneType); // with two Predicates
         final TypedQuery<Employee> query = entityManager.createQuery(criteria);
         return query.getResultList();
     }
