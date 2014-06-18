@@ -25,11 +25,11 @@
         <properties>
             <property name="eclipselink.deploy-on-startup" value="true" />
             <property name="eclipselink.jdbc.native-sql" value="true" />
-            <property name="eclipselink.target-database" value="Oracle11" />
-            <property name="eclipselink.jdbc.batch-writing" value="Oracle-JDBC" />
-            <property name="eclipselink.target-server" value="WebLogic_10" />
+            <property name="eclipselink.target-database" value="Derby" />
+            <property name="eclipselink.target-server" value="SunAS9" />
             <property name="eclipselink.weaving" value="true" />
             <property name="eclipselink.logging.logger" value="org.eclipse.persistence.logging.DefaultSessionLog" />
+            <property name="eclipselink.jdbc.batch-writing" value="Oracle-JDBC"/>
         </properties>
     </persistence-unit>
     

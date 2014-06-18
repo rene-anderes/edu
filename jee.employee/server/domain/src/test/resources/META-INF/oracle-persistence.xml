@@ -28,6 +28,7 @@
             <!-- Oracle Datenbankeinstellungen -->
             <property name="eclipselink.jdbc.native-sql" value="true"/>
             <property name="eclipselink.target-database" value="Oracle11"/>
+            
             <property name="eclipselink.weaving" value="true" />
 
             <!-- Logging -->
