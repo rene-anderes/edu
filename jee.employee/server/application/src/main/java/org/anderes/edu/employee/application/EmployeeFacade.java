@@ -8,10 +8,6 @@ package org.anderes.edu.employee.application;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
 import javax.inject.Inject;
 
 import org.anderes.edu.employee.domain.Employee;
@@ -35,7 +31,7 @@ public class EmployeeFacade {
         Validate.notNull(salary, "Der Parameter 'salary' darf nicht null sein.");
         Validate.isTrue(salary.doubleValue() > 0.0, "Der Wert muss grösser als 0 sein: %s", salary.doubleValue());
         
-        return repository.findEmployeeBySalary(salary);
+        return repository.findEmployeeBySalaryFetchJobtitle(salary);
     }
     
     public Employee findOne(final Long employeeId) {

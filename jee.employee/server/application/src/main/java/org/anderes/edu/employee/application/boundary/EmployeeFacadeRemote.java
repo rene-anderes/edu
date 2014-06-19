@@ -1,15 +1,10 @@
-/*
- * Copyright (c) 2013 VRSG | Verwaltungsrechenzentrum AG, St.Gallen
- * All Rights Reserved.
- */
-
 package org.anderes.edu.employee.application.boundary;
 
 import java.util.List;
 
 import javax.ejb.Remote;
 
-import org.anderes.edu.employee.application.boundary.dto.EmployeeSalary;
+import org.anderes.edu.employee.application.boundary.dto.EmployeeDto;
 
 /**
  * Remote-Interface für den JNDI-Lookup
@@ -26,5 +21,5 @@ public interface EmployeeFacadeRemote {
      *            Jahreslohn
      * @return Mitarbeiterliste mit Jahreslohn
      */
-    public List<EmployeeSalary> getSalaryList(final Double salary);
+    public List<EmployeeDto> getSalaryList(final Double salary);
 }

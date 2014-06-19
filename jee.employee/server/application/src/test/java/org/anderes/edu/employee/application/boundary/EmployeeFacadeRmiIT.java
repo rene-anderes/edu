@@ -20,9 +20,7 @@ import javax.naming.NamingException;
 import javax.rmi.PortableRemoteObject;
 
 import org.anderes.edu.employee.application.EmployeeFacade;
-import org.anderes.edu.employee.application.boundary.EmployeeFacadeRemote;
-import org.anderes.edu.employee.application.boundary.EmployeeFacadeRmi;
-import org.anderes.edu.employee.application.boundary.dto.EmployeeSalary;
+import org.anderes.edu.employee.application.boundary.dto.EmployeeDto;
 import org.anderes.edu.employee.domain.Employee;
 import org.anderes.edu.employee.domain.logger.LoggerProducer;
 import org.anderes.edu.employee.persistence.EntityManagerProducer;
@@ -56,7 +54,7 @@ public class EmployeeFacadeRmiIT {
             // Application-Layer
             .addClasses(EmployeeFacade.class, EmployeeFacadeRemote.class, EmployeeFacadeRmi.class)
             // DTO's
-            .addClass(EmployeeSalary.class)
+            .addClass(EmployeeDto.class)
             // Domain-Layer-Klassen
             .addPackage(Employee.class.getPackage())
             // EntityManager-Producer
@@ -100,14 +98,13 @@ public class EmployeeFacadeRmiIT {
         // Daten aus der Datenbank
         
         // when
-        List<EmployeeSalary> salaryList = facadeRemote.getSalaryList(Double.valueOf(45000D));
+        List<EmployeeDto> salaryList = facadeRemote.getSalaryList(Double.valueOf(45000D));
         
         // then
         assertThat(salaryList, is(not(nullValue())));
         assertThat(salaryList.size(), is(9));
-        for (EmployeeSalary employee : salaryList) {
-            assertThat(employee.getSalary() > 45000D, is(true));
-            assertThat(employee.getCurrency(), is("CHF"));
+        for (EmployeeDto employee : salaryList) {
+            assertThat(employee.getSalary().doubleValue() > 45000D, is(true));
         }
     }
     
@@ -143,7 +140,7 @@ public class EmployeeFacadeRmiIT {
     
     private static Context getInitialContext(final String url) throws NamingException {
         try {
-            Properties h = new Properties();
+            final Properties h = new Properties();
             h.put(Context.INITIAL_CONTEXT_FACTORY, "weblogic.jndi.WLInitialContextFactory");
             h.put(Context.PROVIDER_URL, url);
             return new InitialContext(h);

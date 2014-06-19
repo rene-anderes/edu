@@ -1,10 +1,6 @@
-/*
- * Copyright (c) 2013 VRSG | Verwaltungsrechenzentrum AG, St.Gallen
- * All Rights Reserved.
- */
-
 package org.anderes.edu.employee.application.boundary;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,11 +10,11 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
 import org.anderes.edu.employee.application.EmployeeFacade;
-import org.anderes.edu.employee.application.boundary.dto.EmployeeSalary;
+import org.anderes.edu.employee.application.boundary.dto.EmployeeDto;
 import org.anderes.edu.employee.domain.Employee;
 
 /**
- * Beispielimplementation um via RMI auf die Facade zugrieffen zu können.
+ * Beispielimplementation um via RMI auf die Facade zugreifen zu können.
  */
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NEVER)
@@ -28,20 +24,19 @@ public class EmployeeFacadeRmi implements EmployeeFacadeRemote {
     private EmployeeFacade facade;
      
     @Override
-    public List<EmployeeSalary> getSalaryList(final Double salary) {
+    public List<EmployeeDto> getSalaryList(final Double salary) {
         
-        final List<EmployeeSalary> salaryList = new ArrayList<EmployeeSalary>();
+        final List<EmployeeDto> salaryList = new ArrayList<>();
         final List<Employee> employees = facade.findEmployeeBySalary(salary);
-        final String currency = "CHF";
         
         for (Employee employee : employees) {
-            String jobTitle = "";
+            final EmployeeDto entry = new EmployeeDto();
             if (employee.getJobTitle() != null) {
-                jobTitle = employee.getJobTitle().getTitle();
+                entry.setJobtitle(employee.getJobTitle().getTitle());
             }
-            System.out.println(employee.getPhoneNumbers().size());
-            EmployeeSalary entry = 
-                new EmployeeSalary(employee.getId(), employee.getFirstName(), employee.getLastName(), employee.getSalary(), currency, jobTitle);
+            entry.setSalary(new BigDecimal(employee.getSalary()));
+            entry.setFirstname(employee.getFirstName());
+            entry.setLastname(employee.getLastName());
             salaryList.add(entry);
         }
         

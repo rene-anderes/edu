@@ -10,8 +10,6 @@ import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
-import org.anderes.edu.employee.domain.Employee;
-import org.anderes.edu.employee.domain.EmployeeRepository;
 import org.anderes.edu.employee.domain.logger.LoggerProducer;
 import org.anderes.edu.employee.persistence.EntityManagerProducer;
 import org.apache.commons.lang3.time.StopWatch;
@@ -21,8 +19,6 @@ import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.persistence.Cleanup;
 import org.jboss.arquillian.persistence.CleanupUsingScript;
 import org.jboss.arquillian.persistence.UsingDataSet;
-import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
-import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;

@@ -78,8 +78,7 @@ public class EmployeeRepository implements Repository<Employee, Long> {
       final CriteriaBuilder cb = entityManager.getCriteriaBuilder();
       final CriteriaQuery<Employee> criteria = cb.createQuery(Employee.class);
       final Root<Employee> entity = criteria.from(Employee.class);
-      criteria.select(entity);
-      criteria.where(cb.equal(entity.get(Employee_.id), id));
+      criteria.select(entity).where(cb.equal(entity.get(Employee_.id), id));
       final TypedQuery<Employee> query = entityManager.createQuery(criteria);
       return query.getSingleResult();
     }
@@ -114,6 +113,8 @@ public class EmployeeRepository implements Repository<Employee, Long> {
         final Predicate hasPhoneType = cb.equal(phoneTypePath, phoneType);
         
         criteria.where(hasSex, hasPhoneType); // with two Predicates
+        
+        criteria.orderBy(cb.asc(cb.upper(entity.get(Employee_.lastName)))); // order by
         final TypedQuery<Employee> query = entityManager.createQuery(criteria);
         return query.getResultList();
     }
@@ -182,7 +183,7 @@ public class EmployeeRepository implements Repository<Employee, Long> {
     /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Java Persistence Query Language (JPQL) */
     
     /**
-     * Beispiel mittels Named-Query
+     * Sample with Named-Query
      */
     public List<Employee> findEmployeeBySalary(final Double salary) {
         
@@ -193,7 +194,7 @@ public class EmployeeRepository implements Repository<Employee, Long> {
     }
     
     /**
-     * Beispiel mit statischer JPQL-Query
+     * Sample with static JPQL-Query
      */
     public List<Employee> findEmployeeByCity(final String city) {
         
@@ -225,6 +226,22 @@ public class EmployeeRepository implements Repository<Employee, Long> {
         return query.getSingleResult();
     }
        
+    /**
+     * Sample with join fetch by Criteria Query
+     */
+    public List<Employee> findEmployeeBySalaryFetchJobtitle(final Double salary) {
+        final CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        final CriteriaQuery<Employee> criteria = cb.createQuery(Employee.class);
+        final Root<Employee> entity = criteria.from(Employee.class);
+        criteria.select(entity).where(cb.greaterThanOrEqualTo(entity.get(Employee_.salary), salary));
+        /* ----- join fetch */
+        entity.fetch(Employee_.jobTitle, JoinType.LEFT);
+        /* ----- / join fetch */
+        criteria.orderBy(cb.asc(cb.upper(entity.get(Employee_.lastName))));
+        final TypedQuery<Employee> query = entityManager.createQuery(criteria);
+        return query.getResultList();
+    }
+    
     /**
      * Sample with join fetch by JPQL
      */
