@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2012 VRSG | Verwaltungsrechenzentrum AG, St.Gallen
- * All Rights Reserved.
- */
 
 package org.anderes.edu.jpa.cookbook.solution1;
 
@@ -17,9 +13,9 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 public class Image implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	@Column(name = "image_url")
+	@Column(name = "IMAGE_URL")
     private String url;
-    @Column(name = "image_description", length = 50)
+    @Column(name = "IMAGE_DESCRIPTION", length = 50)
     private String description;
 
     public Image() {
