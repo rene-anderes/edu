@@ -1,5 +1,5 @@
 
-package org.anderes.edu.employee.application.boundary;
+package org.anderes.edu.employee.application.boundary.rmi;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -21,6 +21,8 @@ import javax.rmi.PortableRemoteObject;
 
 import org.anderes.edu.employee.application.EmployeeFacade;
 import org.anderes.edu.employee.application.boundary.dto.EmployeeDto;
+import org.anderes.edu.employee.application.boundary.rmi.EmployeeFacadeRemote;
+import org.anderes.edu.employee.application.boundary.rmi.EmployeeFacadeRmi;
 import org.anderes.edu.employee.domain.Employee;
 import org.anderes.edu.employee.domain.logger.LoggerProducer;
 import org.anderes.edu.employee.persistence.EntityManagerProducer;

@@ -36,7 +36,7 @@
                 <artifactId>javax.persistence</artifactId>
                 <version>2.1.0</version>
             </dependency>
-            <!-- Diese Version muss mit dem verwendeten Application-Server abgestimmt sein. In diesem Fall mit WebLigic 12c siehe dazu http://www.oracle.com/technetwork/middleware/ias/jpa-082702.html -->
+            <!-- Diese Version muss mit dem verwendeten Application-Server abgestimmt sein. -->
             <dependency>
                 <groupId>org.eclipse.persistence</groupId>
                 <artifactId>eclipselink</artifactId>
@@ -52,7 +52,7 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>3.2.1</version>
+                <version>3.3.2</version>
             </dependency>
             <!-- Java Bean Validation Provider für Bean Validation 1.0 -->
             <dependency>

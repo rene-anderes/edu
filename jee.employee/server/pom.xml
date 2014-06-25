@@ -22,22 +22,19 @@
     </developers>
 
     <dependencies>
-        <!-- JPA 2.0 API -->
+        <!-- JPA 2.1 API -->
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>javax.persistence</artifactId>
             <scope>provided</scope>
         </dependency>
-
-        <!-- Diese Version muss mit dem verwendeten Application-Server abgestimmt sein.
-            In diesem Fall mit WebLigic 12c
-            siehe dazu http://www.oracle.com/technetwork/middleware/ias/jpa-082702.html -->
+        <!-- Für Eclipselink sepzifische Query-Hints -->
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>eclipselink</artifactId>
             <scope>provided</scope>
         </dependency>
-
+         
         <!-- Java Bean Validation JSR303 -->
         <!-- Diese Abhängigkeiten werden vom Container zu Verfügung gestellt: provided -->
         <dependency>

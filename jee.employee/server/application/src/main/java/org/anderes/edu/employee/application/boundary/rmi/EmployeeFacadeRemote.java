@@ -1,4 +1,4 @@
-package org.anderes.edu.employee.application.boundary;
+package org.anderes.edu.employee.application.boundary.rmi;
 
 import java.util.List;
 
