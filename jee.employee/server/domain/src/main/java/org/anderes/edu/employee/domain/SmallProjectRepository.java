@@ -1,7 +1,14 @@
 package org.anderes.edu.employee.domain;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 
 public class SmallProjectRepository implements Repository<SmallProject, Long> {
@@ -37,4 +44,16 @@ public class SmallProjectRepository implements Repository<SmallProject, Long> {
         return false;
     }
 
+    /**
+     * Findet alle Projekte mit dem übergebenen Projektnamen
+     */
+    public List<SmallProject> find(final String projectName) {
+        final CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        final CriteriaQuery<SmallProject> criteria = cb.createQuery(SmallProject.class);
+        final Root<SmallProject> entity = criteria.from(SmallProject.class);
+        final Predicate thisName = cb.like(entity.get(SmallProject_.name), projectName);
+        criteria.where(thisName);
+        final TypedQuery<SmallProject> query = entityManager.createQuery(criteria);
+        return query.getResultList();
+    }
 }

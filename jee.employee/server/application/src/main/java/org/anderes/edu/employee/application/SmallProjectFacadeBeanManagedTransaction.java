@@ -13,12 +13,8 @@ import org.anderes.edu.employee.domain.SmallProjectRepositoryBeanManagedTransact
 @TransactionManagement(TransactionManagementType.BEAN)
 public class SmallProjectFacadeBeanManagedTransaction {
     
+	@Inject
     private SmallProjectRepositoryBeanManagedTransaction repository;
-    
-    @Inject
-    /*package*/ void setRepository(final SmallProjectRepositoryBeanManagedTransaction repository) {
-        this.repository = repository;
-    }
 
     public SmallProject save(final SmallProject project) throws Exception {
         return repository.save(project);
