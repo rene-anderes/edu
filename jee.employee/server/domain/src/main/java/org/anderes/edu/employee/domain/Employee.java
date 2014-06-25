@@ -34,6 +34,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -45,10 +46,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderColumn;
 import javax.persistence.SecondaryTable;
+import javax.persistence.Table;
 import javax.persistence.Version;
 
 /**
- * The Employee class demonstrates several JPA, JPA 2.0, and EclipseLink mapping features including:
+ * The Employee class demonstrates several JPA features including:
  * <ul>
  * <li>Generated Id
  * <li>Version locking
@@ -62,9 +64,11 @@ import javax.persistence.Version;
  * <li>OrderColumn (JPA 2.0)
  * <li>MapKeyColumn (JPA 2.0)
  * <li>orphanRemoval (JPA 2.0)
+ * <li>@Index (JPA 2.1)
  * </ul>
  */
 @Entity
+@Table(indexes = {@Index(columnList="F_NAME"), @Index(columnList="L_NAME")})
 @SecondaryTable(name = "SALARY")
 @NamedQueries({
     @NamedQuery(
