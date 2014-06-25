@@ -8,8 +8,8 @@ import javax.transaction.Transactional.TxType;
 /**
  * Repository für den CRUD Zugriff auf die Job-Title.
  * </p>
- * JPA 2.1: Die Annotation @Transactional verwendet um sicher zu stellen,
- * das die entsprechenden Methoden mittels Transaktion ablaufen.
+ * JTA 1.2 (JEE 7) : Die Annotation @Transactional verwendet um sicher 
+ * zu stellen, das die entsprechenden Methoden mittels Transaktion ablaufen.
  */
 public class JobTitleRepository implements Repository<JobTitle, Long> {
 
