@@ -20,6 +20,8 @@ import javax.naming.NamingException;
 import javax.rmi.PortableRemoteObject;
 
 import org.anderes.edu.employee.application.EmployeeFacade;
+import org.anderes.edu.employee.application.boundary.DtoMapper;
+import org.anderes.edu.employee.application.boundary.DtoMapperCopy;
 import org.anderes.edu.employee.application.boundary.dto.EmployeeDto;
 import org.anderes.edu.employee.application.boundary.rmi.EmployeeFacadeRemote;
 import org.anderes.edu.employee.application.boundary.rmi.EmployeeFacadeRmi;
@@ -56,7 +58,8 @@ public class EmployeeFacadeRmiIT {
             // Application-Layer
             .addClasses(EmployeeFacade.class, EmployeeFacadeRemote.class, EmployeeFacadeRmi.class)
             // DTO's
-            .addClass(EmployeeDto.class)
+            .addPackage(EmployeeDto.class.getPackage())
+            .addClasses(DtoMapper.class, DtoMapperCopy.class)
             // Domain-Layer-Klassen
             .addPackage(Employee.class.getPackage())
             // EntityManager-Producer

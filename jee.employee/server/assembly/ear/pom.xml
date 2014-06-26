@@ -18,7 +18,7 @@
             <groupId>org.anderes.edu</groupId>
             <artifactId>jee.employee.server.application</artifactId>
             <version>${project.version}</version>
-            <type>ejb</type>
+            <type>war</type>
         </dependency>
         <dependency>
             <groupId>org.anderes.edu</groupId>
@@ -44,6 +44,11 @@
                     <version>7</version>
                     <defaultLibBundleDir>APP-INF/lib</defaultLibBundleDir>
                     <modules>
+                        <webModule>
+                            <groupId>org.anderes.edu</groupId>
+                            <artifactId>jee.employee.server.application</artifactId>
+                            <contextRoot>/jee-employee</contextRoot>
+                        </webModule>
                         <jarModule>
                             <groupId>org.anderes.edu</groupId>
                             <artifactId>jee.employee.server.infrastructure</artifactId>
@@ -52,10 +57,6 @@
                             <groupId>org.anderes.edu</groupId>
                             <artifactId>jee.employee.server.domain</artifactId>
                         </jarModule>
-                        <ejbModule>
-                            <groupId>org.anderes.edu</groupId>
-                            <artifactId>jee.employee.server.application</artifactId>
-                        </ejbModule>
                     </modules>
                     <archive>
                         <manifest>
