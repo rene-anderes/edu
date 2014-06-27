@@ -45,12 +45,11 @@
             <artifactId>jee.employee.server.infrastructure</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <!-- Testabhängigkeiten (RMI Client) -->
+        <!-- Testabhängigkeiten (RMI Client / Jersey-Client) -->
         <dependency>
             <groupId>org.glassfish.main.extras</groupId>
             <artifactId>glassfish-embedded-all</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 </project>
