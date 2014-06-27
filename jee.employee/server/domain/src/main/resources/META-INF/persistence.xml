@@ -7,7 +7,7 @@
 	
     <persistence-unit name="employee" transaction-type="JTA">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <jta-data-source>jdbc/employee</jta-data-source>
+        <jta-data-source>jdbc/empl</jta-data-source>
 
         <class>org.anderes.edu.employee.domain.SmallProject</class>
         <class>org.anderes.edu.employee.domain.Project</class>
