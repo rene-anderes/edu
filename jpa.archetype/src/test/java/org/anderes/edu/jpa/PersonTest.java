@@ -1,10 +1,14 @@
 package org.anderes.edu.jpa;
 
+import static java.util.Calendar.JANUARY;
+import static org.anderes.edu.jpa.Person.Gender.FEMALE;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
+import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Collection;
 
 import javax.persistence.EntityManager;
@@ -30,7 +34,7 @@ public class PersonTest {
     public void tearDown() throws Exception {
         entityManager.close();
     }
-
+    
     @Test
     public void simpleTest() {
         addPersonToDatabase();
@@ -47,11 +51,21 @@ public class PersonTest {
     }
 
     private void addPersonToDatabase() {
-        final Person person = new Person("Mona-Lisa", "DaVinci");
+    	final Person person = new Person("Mona-Lisa", "DaVinci");
+    	person.setBirthday(birthday());
+    	person.setSalary(BigDecimal.valueOf(45000D));
+    	person.setGender(FEMALE);
 
+    	// when
         entityManager.getTransaction().begin();
         entityManager.persist(person);
         entityManager.getTransaction().commit();
     }
 
+    private Calendar birthday() {
+    	final Calendar birthday = Calendar.getInstance();
+    	birthday.clear();
+    	birthday.set(1973, JANUARY, 1);
+    	return birthday;
+    }
 }
