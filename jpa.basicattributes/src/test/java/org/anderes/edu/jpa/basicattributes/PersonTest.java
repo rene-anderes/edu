@@ -1,5 +1,7 @@
 package org.anderes.edu.jpa.basicattributes;
 
+import static java.util.Calendar.JANUARY;
+import static org.anderes.edu.jpa.basicattributes.Person.Gender.FEMALE;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
@@ -12,7 +14,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import org.anderes.edu.jpa.basicattributes.Person.Gender;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,7 +40,7 @@ public class PersonTest {
     	final Person person = new Person("Mona-Lisa", "DaVinci");
     	person.setBirthday(birthday());
     	person.setSalary(BigDecimal.valueOf(45000D));
-    	person.setGender(Gender.FEMALE);
+    	person.setGender(FEMALE);
 
     	// when
         entityManager.getTransaction().begin();
@@ -53,13 +54,13 @@ public class PersonTest {
         assertThat(storedPerson.getBirthday(), is(birthday()));
         assertThat(storedPerson.getSalary(), is(BigDecimal.valueOf(45000D)));
         assertThat(storedPerson.getState(), is(nullValue()));
-        assertThat(storedPerson.getGender(), is(Gender.FEMALE));
+        assertThat(storedPerson.getGender(), is(FEMALE));
     }
     
     private Calendar birthday() {
     	final Calendar birthday = Calendar.getInstance();
     	birthday.clear();
-    	birthday.set(1973, Calendar.JANUARY, 1);
+    	birthday.set(1973, JANUARY, 1);
     	return birthday;
     }
     
