@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 
 import org.anderes.edu.employee.domain.Employee;
 import org.anderes.edu.employee.domain.EmployeeRepository;
@@ -36,7 +37,10 @@ public class EmployeeFacade {
     
     public Employee findOne(final Long employeeId) {
         Validate.notNull(employeeId, "Der Parameter 'employeeId' darf nicht null sein.");
-        
-        return repository.findOne(employeeId);
+        try {
+        	return repository.findOneEmployeeAddress(employeeId);
+        } catch (NoResultException e) {
+        	return null;
+        }
     }
 }

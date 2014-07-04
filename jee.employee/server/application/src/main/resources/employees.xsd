@@ -14,6 +14,7 @@
 				<xs:element ref="firstname"/>
 				<xs:element ref="jobtitle"/>
 				<xs:element ref="salary"/>
+                <xs:element ref="addressDto"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -41,4 +42,20 @@
 		</xs:simpleType>
 	</xs:element>
 	<xs:element name="salary" type="xs:decimal"/>
+    <xs:element name="addressDto">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="city"/>
+                <xs:element ref="country"/>
+                <xs:element ref="province"/>
+                <xs:element ref="postalCode"/>
+                <xs:element ref="street"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="city" type="xs:string"/>
+    <xs:element name="country" type="xs:string"/>
+    <xs:element name="province" type="xs:string"/>
+    <xs:element name="postalCode" type="xs:string"/>
+    <xs:element name="street" type="xs:string"/>
 </xs:schema>

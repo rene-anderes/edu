@@ -3,6 +3,7 @@ package org.anderes.edu.employee.application.boundary.rest;
 import static javax.ejb.TransactionAttributeType.NEVER;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
+import static javax.ws.rs.core.Response.*;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 import org.anderes.edu.employee.application.EmployeeFacade;
@@ -37,7 +39,7 @@ public class EmployeeResource {
 	public Response findEmployee(@PathParam("id") final Long employeeId) {
 		final Employee employee = facade.findOne(employeeId);
 		if (employee == null) {
-			return Response.noContent().build();
+			throw new WebApplicationException(Status.NOT_FOUND);
 		}
 		return Response.ok().entity(mapper.mapToEmployeeDto(employee)).build();
 	}
