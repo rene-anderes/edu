@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2013 VRSG | Verwaltungsrechenzentrum AG, St.Gallen
- * All Rights Reserved.
- */
-
 package org.anderes.edu.employee.application;
 
 import java.util.List;
