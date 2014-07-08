@@ -1,5 +1,6 @@
 package org.anderes.edu.employee.application;
 
+import static java.lang.Boolean.FALSE;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.jboss.arquillian.persistence.CleanupStrategy.DEFAULT;
@@ -89,6 +90,7 @@ public class SmallProjectFacadeIT {
     public void shouldBeSaveNewSmallProject() throws Exception {
 
         final SmallProject project = facade.save(createSmallProject());
+        
         assertThat(project, is(notNullValue()));
         assertThat(project.getId(), is(notNullValue()));
         assertThat(project.getId() > 100, is(true));
@@ -109,6 +111,7 @@ public class SmallProjectFacadeIT {
     
     private SmallProject createSmallProject() {
         final SmallProject project = new SmallProject("Laboro", "Ein Produkt für die Auftragsabwicklung");
+        project.setIsActive(FALSE);
         return project;
     }
 }

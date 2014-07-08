@@ -68,7 +68,10 @@ import javax.persistence.Version;
  * </ul>
  */
 @Entity
-@Table(indexes = {@Index(columnList="F_NAME"), @Index(columnList="L_NAME")})
+@Table(indexes = { 
+        @Index(columnList = "F_NAME"), 
+        @Index(columnList = "L_NAME") 
+    })
 @SecondaryTable(name = "SALARY")
 @NamedQueries({
     @NamedQuery(

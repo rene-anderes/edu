@@ -13,13 +13,30 @@
  ******************************************************************************/
 package org.anderes.edu.employee.domain;
 
+import static java.lang.Boolean.TRUE;
+
 import java.io.Serializable;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Version;
 
 /**
  * This class represent a project that a group of employees work on.
  * This demonstrates JOINED inheritance.
+ * </p>
+ * Die Klasse demonstriert die Möglichkeit eines Konverterts (JPA 2.1)
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -42,6 +59,10 @@ public abstract class Project implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "LEADER_ID")
     private Employee teamLeader;
+    // JPA 2.1 Converter
+    @Convert(converter = BooleanActiveConverter.class)
+    @Column(name = "STATUS")
+    private Boolean isActive = TRUE;
 
     public Project() {
     }
@@ -76,5 +97,13 @@ public abstract class Project implements Serializable {
 
     public void setTeamLeader(Employee employee) {
         this.teamLeader = employee;
+    }
+
+    public Boolean isActive() {
+        return isActive;
+    }
+
+    public void setIsActive(final Boolean isActive) {
+        this.isActive = isActive;
     }
 }

@@ -1,5 +1,6 @@
 package org.anderes.edu.employee.application;
 
+import static java.lang.Boolean.FALSE;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.jboss.arquillian.persistence.CleanupStrategy.DEFAULT;
@@ -11,7 +12,6 @@ import java.io.File;
 
 import javax.ejb.EJB;
 
-import org.anderes.edu.employee.application.SmallProjectFacadeBeanManagedTransaction;
 import org.anderes.edu.employee.domain.SmallProject;
 import org.anderes.edu.employee.domain.logger.LoggerProducer;
 import org.anderes.edu.employee.persistence.EntityManagerProducer;
@@ -92,10 +92,12 @@ public class SmallProjectFacadeBeanManagedTransactionIT {
     public void shouldBeSaveNewSmallProject() throws Exception {
 
         final SmallProject project = facade.save(createSmallProject());
+        
         assertThat(project, is(notNullValue()));
         assertThat(project.getId(), is(notNullValue()));
         assertThat(project.getId() > 100, is(true));
         assertThat(project.getName(), is("Laboro"));
+        assertThat(project.isActive(), is(false));
     }
 
     @Test
@@ -112,6 +114,7 @@ public class SmallProjectFacadeBeanManagedTransactionIT {
     
     private SmallProject createSmallProject() {
         final SmallProject project = new SmallProject("Laboro", "Ein Produkt für die Auftragsabwicklung");
+        project.setIsActive(FALSE);
         return project;
     }
 }

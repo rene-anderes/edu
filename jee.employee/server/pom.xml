@@ -13,7 +13,7 @@
 
     <packaging>pom</packaging>
 
-    <description>Beispielprojekt Employee das als Grundlage für Weiterbildungen ums Thema JPA / EJB / JEE diehnt.</description>
+    <description>Beispielprojekt Employee das als Grundlage für Weiterbildungen ums Thema JPA / EJB / JEE dient.</description>
 
      <developers>
         <developer>
@@ -22,39 +22,19 @@
     </developers>
 
     <dependencies>
-        <!-- JPA 2.1 API -->
-        <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>javax.persistence</artifactId>
-            <scope>provided</scope>
-        </dependency>
+        <!-- JEE 7 API (inkl. JPA 2.1, Bean Validation etc.) -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
         <!-- Für Eclipselink sepzifische Query-Hints -->
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>eclipselink</artifactId>
             <scope>provided</scope>
         </dependency>
-         
-        <!-- Java Bean Validation JSR303 -->
-        <!-- Diese Abhängigkeiten werden vom Container zu Verfügung gestellt: provided -->
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <!-- Java Bean Validation Provider für Bean Validation 1.0 -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- JEE 7 -->
-		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>

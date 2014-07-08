@@ -5,7 +5,8 @@
         "DESCRIP": "A tool to help marketing query various things.",
         "PROJ_NAME": "Marketing Query Tool",
         "VERSION": 1,
-        "LEADER_ID": [null]
+        "LEADER_ID": [null],
+        "STATUS": "active"
     },
     {
         "PROJ_ID": 52,
@@ -13,7 +14,8 @@
         "DESCRIP": "A tool to help shipping query various things.",
         "PROJ_NAME": "Shipping Query Tool",
         "VERSION": 1,
-        "LEADER_ID": [null]
+        "LEADER_ID": [null],
+        "STATUS": "active"
     },
     {
         "PROJ_ID": 53,
@@ -21,7 +23,8 @@
         "DESCRIP": "A tool to help accounting query various things.",
         "PROJ_NAME": "Accounting Query Tool",
         "VERSION": 1,
-        "LEADER_ID": [null]
+        "LEADER_ID": [null],
+        "STATUS": "active"
     },
     {
         "PROJ_ID": 54,
@@ -29,7 +32,8 @@
         "DESCRIP": "A tool to help staff query various things.",
         "PROJ_NAME": "Staff Query Tool",
         "VERSION": 1,
-        "LEADER_ID": [null]
+        "LEADER_ID": [null],
+        "STATUS": "active"
     },
     {
         "PROJ_ID": 55,
@@ -37,7 +41,8 @@
         "DESCRIP": "A reporting application to report on the corporations database through TopLink.",
         "PROJ_NAME": "Sales Reporting",
         "VERSION": 1,
-        "LEADER_ID": 70
+        "LEADER_ID": 70,
+        "STATUS": "active"
     },
     {
         "PROJ_ID": 66,
@@ -45,7 +50,8 @@
         "DESCRIP": "A PRS application to report on the corporations database through TopLink.",
         "PROJ_NAME": "Problem Reporting System",
         "VERSION": 1,
-        "LEADER_ID": 57
+        "LEADER_ID": 57,
+        "STATUS": "active"
     },
     {
         "PROJ_ID": 73,
@@ -53,7 +59,8 @@
         "DESCRIP": "A PRS application to report on the corporations database through TopLink.",
         "PROJ_NAME": "Problem Reporter",
         "VERSION": 1,
-        "LEADER_ID": [null]
+        "LEADER_ID": [null],
+        "STATUS": "active"
     },
     {
         "PROJ_ID": 74,
@@ -61,7 +68,8 @@
         "DESCRIP": "A enterprise wide application to report on the corporations database through TopLink.",
         "PROJ_NAME": "Enterprise",
         "VERSION": 1,
-        "LEADER_ID": [null]
+        "LEADER_ID": [null],
+        "STATUS": "active"
     },
     {
         "PROJ_ID": 77,
@@ -69,7 +77,8 @@
         "DESCRIP": "A lightweight application to report on the corporations database through TopLink.",
         "PROJ_NAME": "Light Reporter",
         "VERSION": 1,
-        "LEADER_ID": [null]
+        "LEADER_ID": [null],
+        "STATUS": "active"
     },
     {
         "PROJ_ID": 80,
@@ -77,7 +86,8 @@
         "DESCRIP": "A management application to report on the corporations database through TopLink.",
         "PROJ_NAME": "TOP-Employee Manager",
         "VERSION": 1,
-        "LEADER_ID": [null]
+        "LEADER_ID": [null],
+        "STATUS": "active"
     },
     {
         "PROJ_ID": 81,
@@ -85,7 +95,8 @@
         "DESCRIP": "A management application to report on the corporations database through TopLink.",
         "PROJ_NAME": "TOPEmployee Management",
         "VERSION": 1,
-        "LEADER_ID": [null]
+        "LEADER_ID": [null],
+        "STATUS": "active"
     },
     {
         "PROJ_ID": 83,
@@ -93,7 +104,8 @@
         "DESCRIP": "A reporting application using JDK to report on the corporations database through TopLink.",
         "PROJ_NAME": "Sales Reporter",
         "VERSION": 1,
-        "LEADER_ID": [null]
+        "LEADER_ID": [null],
+        "STATUS": "active"
     },
     {
         "PROJ_ID": 84,
@@ -101,7 +113,8 @@
         "DESCRIP": "An extremely lightweight application to report on the corporations database through TopLink.",
         "PROJ_NAME": "Feather Reporter",
         "VERSION": 1,
-        "LEADER_ID": [null]
+        "LEADER_ID": [null],
+        "STATUS": "active"
     },
     {
         "PROJ_ID": 94,
@@ -109,7 +122,8 @@
         "DESCRIP": "A enterprise wide application to report on the corporations database through TopLink.",
         "PROJ_NAME": "Enterprise System",
         "VERSION": 1,
-        "LEADER_ID": 57
+        "LEADER_ID": 57,
+        "STATUS": "active"
     },
     {
         "PROJ_ID": 1000,
@@ -117,6 +131,7 @@
         "DESCRIP": "Ein Produkt für die Auftragsabwicklung",
         "PROJ_NAME": "Laboro",
         "VERSION": 1,
-        "LEADER_ID": [null]
+        "LEADER_ID": [null],
+        "STATUS": "inactive"
     }]
 }

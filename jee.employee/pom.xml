@@ -30,11 +30,11 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- JPA 2.0 API -->
+            <!-- JEE 7 API (inkl. JPA, Bean Validation etc.)-->
             <dependency>
-                <groupId>org.eclipse.persistence</groupId>
-                <artifactId>javax.persistence</artifactId>
-                <version>2.1.0</version>
+                <groupId>javax</groupId>
+                <artifactId>javaee-api</artifactId>
+                <version>7.0</version>
             </dependency>
             <!-- Diese Version muss mit dem verwendeten Application-Server abgestimmt sein. -->
             <dependency>
@@ -54,22 +54,11 @@
                 <artifactId>commons-lang3</artifactId>
                 <version>3.3.2</version>
             </dependency>
-            <!-- Java Bean Validation Provider für Bean Validation 1.0 -->
-            <dependency>
-                <groupId>javax.validation</groupId>
-                <artifactId>validation-api</artifactId>
-                <version>1.0.0.GA</version>
-            </dependency>
+            <!-- Bean Validation Implementation -->
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
-                <version>4.3.1.Final</version>
-            </dependency>
-            <!-- JEE 7 -->
-            <dependency>
-                <groupId>javax</groupId>
-                <artifactId>javaee-api</artifactId>
-                <version>7.0</version>
+                <version>5.1.1.Final</version>
             </dependency>
             <!-- Glassfish für Integrationstests -->
             <dependency>
@@ -139,7 +128,7 @@
                     <artifactId>wls-maven-plugin</artifactId>
                     <version>12.1.1.0</version>
                 </plugin>
-                 <plugin>
+                <plugin>
                     <groupId>org.glassfish.maven.plugin</groupId>
                     <artifactId>maven-glassfish-plugin</artifactId>
                     <version>2.1</version>

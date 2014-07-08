@@ -107,7 +107,8 @@
 	"DESCRIP" VARCHAR2(255 CHAR), 
 	"PROJ_NAME" VARCHAR2(255 CHAR), 
 	"VERSION" NUMBER(19,0), 
-	"LEADER_ID" NUMBER(19,0)
+	"LEADER_ID" NUMBER(19,0),
+	"STATUS" VARCHAR2(8)
    );
 --------------------------------------------------------
 --  DDL for Table RESPONS

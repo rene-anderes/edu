@@ -11,6 +11,7 @@
 
         <class>org.anderes.edu.employee.domain.SmallProject</class>
         <class>org.anderes.edu.employee.domain.Project</class>
+        <class>org.anderes.edu.employee.domain.BooleanActiveConverter</class>
         <class>org.anderes.edu.employee.domain.PhoneNumber</class>
         <class>org.anderes.edu.employee.domain.LargeProject</class>
         <class>org.anderes.edu.employee.domain.EmploymentPeriod</class>
