@@ -12,6 +12,6 @@ public interface DtoMapper {
 	
 	public Employees mapToEmployees(final List<Employee> employees);
 	
-	public List<EmployeeDto> mapToEmployeeCollection(final List<Employee> employees);
+	public List<EmployeeDto> mapToEmployeeDtoCollection(final List<Employee> employees);
 
 }

@@ -29,7 +29,7 @@ public class EmployeeFacadeRmi implements EmployeeFacadeRemote {
     public List<EmployeeDto> getSalaryList(final Double salary) {
         
         final List<Employee> employees = facade.findEmployeeBySalary(salary);
-        return mapper.mapToEmployeeCollection(employees);
+        return mapper.mapToEmployeeDtoCollection(employees);
     }
 
 }

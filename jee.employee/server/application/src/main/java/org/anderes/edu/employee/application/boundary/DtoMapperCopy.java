@@ -40,7 +40,7 @@ public class DtoMapperCopy implements DtoMapper {
 	}
 
 	@Override
-	public List<EmployeeDto> mapToEmployeeCollection(final List<Employee> employees) {
+	public List<EmployeeDto> mapToEmployeeDtoCollection(final List<Employee> employees) {
 		final List<EmployeeDto> list = new ArrayList<>(employees.size());
 		for (Employee employee : employees) {
 			list.add(mapToEmployeeDto(employee));
