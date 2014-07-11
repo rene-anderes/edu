@@ -25,7 +25,7 @@ import org.junit.Test;
  * Arquillian getestet werden kann.
  * </p>
  * Dieser Test setzt voraus, dass die Testdaten geladen wurden:<br>
- * Module Database: {@code mvn flyway:migrate verify -Ptestdata}
+ * Module Database: {@code mvn flyway:migrate verify -Pderby,testdata}
  * </p>
  * Für diesen Test ist es natürlich möglich dbUnit einzusetzen 
  * um die Datenbank mit Testdaten zu füllen und nach dem Test
@@ -81,5 +81,20 @@ public class SmallProjectRepositoryOutsideContainerIT {
         assertThat(project, is(notNullValue()));
         assertThat(project.getName(), is("Accounting Query Tool"));
     }
-
+    
+    @Test
+    public void shouldBeStoreNewSmallProject() {
+        // given
+        final SmallProject newProject = new SmallProject("Laboro", "Ein Projekt für die Auftragsbearbeitung");
+        
+        // when
+        entityManager.getTransaction().begin();
+        final SmallProject project = repository.save(newProject);
+        entityManager.getTransaction().commit();
+        
+        // then
+        assertThat(project, is(notNullValue()));
+        assertThat(project.getId(), is(notNullValue()));
+        assertThat(project.getId() > 0, is(true));
+    }
 }
