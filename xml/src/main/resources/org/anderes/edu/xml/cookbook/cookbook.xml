@@ -1,47 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cookbook xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cookbook.xsd">
 	<recipe id="1">
-		<title>Bünder Nusstorte</title>
-		<preample>Einleitung</preample>
+		<title>Bananen-Cappuccino</title>
+		<preample>Immer wieder fein</preample>
 		<image>
-			<url>nusstorte.jpg</url>
-			<description>Nusstorte</description>
+			<url>bananen.jpg</url>
+			<description>Bananen-Cappuccino</description>
 		</image>
-		<noOfPerson>2</noOfPerson>
+		<noOfPerson>4</noOfPerson>
 		<ingredients>
 			<ingredient>
-				<quantity>200g</quantity>
-				<description>Mehl</description>
+				<quantity>2.5dl</quantity>
+				<description>Vollrahm</description>
+                <comment>ev. Halbrahm</comment>
 			</ingredient>
 			<ingredient>
-				<quantity>2dl</quantity>
-				<description>Rahm</description>
-				<comment>Vollrahm/Halbrahm</comment>
+				<quantity>150g</quantity>
+				<description>Saurer Halbrahm</description>
 			</ingredient>
+            <ingredient>
+                <quantity>180g</quantity>
+                <description>Naturejoghurt</description>
+            </ingredient>
+            <ingredient>
+                <quantity>50g</quantity>
+                <description>Zucker</description>
+            </ingredient>
+            <ingredient>
+                <quantity>1-2</quantity>
+                <description>Banene(n)</description>
+            </ingredient>
+            <ingredient>
+                <quantity>1-2EL</quantity>
+                <description>Löslicher Kaffee</description>
+            </ingredient>
+            <ingredient>
+                <quantity>1-2EL</quantity>
+                <description>Zitronensaft</description>
+            </ingredient>
 		</ingredients>
-		<preparation>So gehts ....</preparation>
+		<preparation>Die Bananen in kleine Würfel schneiden und mit Zitronensaft beträufeln und ziehen lassen. In der Zwischenzeit den Rahm steife schlagen und den löslichen Kaffee darin auflösen. Anschliessend den sauren Halbrahm, Joghurt und Zucker verrühren und mit dem geschlagenen Rahm mischen. Die Crème im Kühlschrank für einige Stunden kühl stellen.
+Vor dem Servieren, die Crème nochmals durchmischen, da sich die Bananstücke am Boden absetzen.</preparation>
 		<modification>2011-12-29</modification>
 	</recipe>
 	<recipe id="2">
-		<title>Pizza</title>
-		<preample>Einleitung</preample>
+		<title>Humus</title>
 		<image>
-			<url>pizza.jpg</url>
-			<description>Pizza</description>
+			<url>humus.jpg</url>
+			<description>Humus</description>
 		</image>
-		<noOfPerson>2</noOfPerson>
+		<noOfPerson>4</noOfPerson>
 		<ingredients>
 			<ingredient>
-				<quantity>250g</quantity>
-				<description>Mehl</description>
+				<quantity>2 Dosen</quantity>
+				<description>Kichererbsen</description>
+				<comment>je 250g Abtropfgewicht</comment>
 			</ingredient>
 			<ingredient>
-				<quantity>1.5dl</quantity>
-				<description>Wasser</description>
-				<comment>lauwarm</comment>
+				<quantity>1</quantity>
+				<description>Zitrone</description>
 			</ingredient>
+            <ingredient>
+                <quantity>4 EL</quantity>
+                <description>Sesampaste (Tahin)</description>
+            </ingredient>
+            <ingredient>
+                <quantity>1</quantity>
+                <description>Zitrone</description>
+            </ingredient>
+            <ingredient>
+                <quantity>1 Prise </quantity>
+                <description>Kreuzkümmel</description>
+            </ingredient>
+            <ingredient>
+                <quantity>2</quantity>
+                <description>Knoblizehen</description>
+            </ingredient>
+            <ingredient>
+                <quantity>1 TL</quantity>
+                <description>süsser Paprikapulver</description>
+            </ingredient>
+            <ingredient>
+                <quantity>1 Bund </quantity>
+                <description>Peterli</description>
+            </ingredient>
+            <ingredient>
+                <quantity>5-6 EL</quantity>
+                <description>Olivenöl</description>
+            </ingredient>
+            <ingredient>
+                <quantity>etwas</quantity>
+                <description>Salz</description>
+            </ingredient>
 		</ingredients>
-		<preparation>So gehts ....</preparation>
+		<preparation>Die Kichererbsen zusammen mit dem Zitronensaft, Kreuzkümmel, Knobli, Paprikapulver, Peterli, Olivenöl und etwas Salz in einem Mixer zu einer feinen Paste mixen. Soviel Wasser dazu verwenden, dass die gewünscht Konsistenz erreicht wird. Allenfalls portionenweise mixen. Zum Schluss noch das Tahin dazu geben und abschmecken. Die Masse für mehrere Stunden in den Kühlschrank stellen.
+Zusammen mit einem Oliven- oder  Ruchbrot servieren.</preparation>
 		<modification>2011-02-22</modification>
 	</recipe>
 </cookbook>
