@@ -23,7 +23,7 @@ import org.anderes.edu.employee.application.EmployeeFacade;
 import org.anderes.edu.employee.application.boundary.DtoMapper;
 import org.anderes.edu.employee.domain.Employee;
 
-@Path("/employee")
+@Path("/employees")
 @Stateless
 @TransactionAttribute(NEVER)
 @Produces({APPLICATION_JSON, APPLICATION_XML})
@@ -45,7 +45,7 @@ public class EmployeeResource {
 	}
 	
 	@GET
-	@Path("/GetEmployeesBySalary")
+	@Path("/")
 	public Response findEmployeesBySalary(@QueryParam("salary") final Double salary) {
 		final List<Employee> employees = facade.findEmployeeBySalary(salary);
 		return Response.ok().entity(mapper.mapToEmployees(employees)).build();

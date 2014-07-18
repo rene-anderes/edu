@@ -86,7 +86,7 @@ public class EmployeeResourceIT {
     @RunAsClient
     public void shouldBeFindOne(@ArquillianResource URL deploymentUrl) throws Exception {
     	// given
-    	final UriBuilder uri = createUri(deploymentUrl).path("70");
+    	final UriBuilder uri = createUriFromDeploymentPath(deploymentUrl).path("70");
     	final WebTarget target = ClientBuilder.newClient().target(uri).register(JacksonFeature.class);
     	
     	// when
@@ -115,7 +115,7 @@ public class EmployeeResourceIT {
     @RunAsClient
     public void shouldBeNotFindOne(@ArquillianResource URL deploymentUrl) throws Exception {
     	// given
-    	final UriBuilder uri = createUri(deploymentUrl).path("1007");
+    	final UriBuilder uri = createUriFromDeploymentPath(deploymentUrl).path("1007");
     	final WebTarget target = ClientBuilder.newClient().target(uri).register(JacksonFeature.class);
     	
     	// when
@@ -130,7 +130,7 @@ public class EmployeeResourceIT {
     @RunAsClient
     public void shouldBeWrongUrl(@ArquillianResource URL deploymentUrl) throws Exception {
     	// given
-    	final UriBuilder uri = createUri(deploymentUrl).path("A70");
+    	final UriBuilder uri = createUriFromDeploymentPath(deploymentUrl).path("A70");
     	final WebTarget target = ClientBuilder.newClient().target(uri).register(JacksonFeature.class);
     	
     	// when
@@ -145,7 +145,7 @@ public class EmployeeResourceIT {
     @RunAsClient
     public void shouldBeFindBySalary(@ArquillianResource URL deploymentUrl) throws Exception {
     	// given
-    	final UriBuilder uri = createUri(deploymentUrl).path("GetEmployeesBySalary").queryParam("salary", 45000D);
+    	final UriBuilder uri = createUriFromDeploymentPath(deploymentUrl).queryParam("salary", 45000D);
     	final WebTarget target = ClientBuilder.newClient().target(uri).register(JacksonFeature.class);
     	
     	// when
@@ -161,10 +161,10 @@ public class EmployeeResourceIT {
         }
     }
     
-    private UriBuilder createUri(final URL deploymentUrl) {
+    private UriBuilder createUriFromDeploymentPath(final URL deploymentUrl) {
     	final UriBuilder uri = UriBuilder.fromPath(deploymentUrl.getPath()).scheme(deploymentUrl.getProtocol())
     			.host(deploymentUrl.getHost()).port(deploymentUrl.getPort())
-    			.path("rest").path("employee");
+    			.path("rest").path("employees");
     	return uri;
     }
 }
