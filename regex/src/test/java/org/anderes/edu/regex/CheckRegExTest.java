@@ -22,7 +22,8 @@ public class CheckRegExTest {
         REGEX_1("q[^u]", "WordList.txt", 7),
         REGEX_2("<[h|H][r|R] ?((size|SIZE)? ?= ?\"[0-9]+\" ?)?>", "RegEx.html", 4),
         REGEX_3("<b>.*?</b>", "EchtFett.txt", 2),
-        REGEX_4("\\b\\w{0,}[äöü]\\w{0,}\\b", "HelpText.txt", 7);
+        REGEX_4("\\b\\w{0,}[äöü]\\w{0,}\\b", "HelpText.txt", 7),
+        REGEX_5("\\b[A-Z]\\w+[A-Z]\\b", "Cloud.txt", 10);
         
         
         private String regEx;
