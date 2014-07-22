@@ -36,26 +36,30 @@ public class Cal {
 
     private void writeOneWeek(final OutputStream outputStream) throws IOException {
         final int firstDayOfWeek = date.getFirstDayOfWeek();
-        final Deque<Integer> deque = getDeque(firstDayOfWeek);
-        final StringBuffer buffer = new StringBuffer(7);
+        final Deque<Integer> weekDeque = createWeekDeque(firstDayOfWeek);
+        final StringBuilder buffer = new StringBuilder(7);
         final int month = date.get(MONTH);
-        while(!deque.isEmpty()) {
-            final Integer index = deque.remove();
-            if (index.equals(date.get(DAY_OF_WEEK)) && month == date.get(MONTH)) {
-                final int day = date.get(DAY_OF_MONTH);
-                if (day < 10) {
-                    buffer.append(" ");
-                }
-                buffer.append(day);
+        while(!weekDeque.isEmpty()) {
+            final Integer actDayOfWeek = weekDeque.remove();
+            if (actDayOfWeek.equals(date.get(DAY_OF_WEEK)) && month == date.get(MONTH)) {
+                appendDayOfMonth(buffer);
                 date.add(DAY_OF_MONTH, 1);
             } else {
                 buffer.append("  ");
             }
-            if (!deque.isEmpty()) {
+            if (!weekDeque.isEmpty()) {
                 buffer.append(" ");
             }
         }
         outputStream.write(buffer.toString().getBytes());
+    }
+
+    private void appendDayOfMonth(final StringBuilder buffer) {
+        final int day = date.get(DAY_OF_MONTH);
+        if (day < 10) {
+            buffer.append(" ");
+        }
+        buffer.append(day);
     }
     
     private void writeDayOfWeek(final OutputStream outputStream) throws IOException {
@@ -65,18 +69,18 @@ public class Cal {
             indexMap.put(map.get(key), key);
         }
         final int firstDayOfWeek = date.getFirstDayOfWeek();
-        final StringBuffer buffer = new StringBuffer(7);
-        final Deque<Integer> deque = getDeque(firstDayOfWeek);
-        while(!deque.isEmpty()) {
-            buffer.append(indexMap.get(deque.remove()));
-            if (!deque.isEmpty()) {
+        final StringBuilder buffer = new StringBuilder(7);
+        final Deque<Integer> weekDeque = createWeekDeque(firstDayOfWeek);
+        while(!weekDeque.isEmpty()) {
+            buffer.append(indexMap.get(weekDeque.remove()));
+            if (!weekDeque.isEmpty()) {
                 buffer.append(" ");
             }
         }
         outputStream.write(buffer.toString().getBytes());
     }
     
-    private Deque<Integer> getDeque(final int firstIndex) {
+    private Deque<Integer> createWeekDeque(final int firstIndex) {
         final Deque<Integer> deque = new LinkedList<>();
         for (int i = firstIndex; i <= 8; i++) {
             if (i == 8) {
