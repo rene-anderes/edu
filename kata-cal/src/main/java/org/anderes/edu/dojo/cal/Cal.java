@@ -95,7 +95,7 @@ public class Cal {
     }
     
     private void writeCalendarHeader(final OutputStream outputStream) throws IOException {
-        final String header = String.format("    %1$tB %1$tY", date);
+        final String header = String.format(local, "    %1$tB %1$tY", date);
         outputStream.write(header.getBytes());
     }
 }
