@@ -7,8 +7,9 @@
     <packaging>jar</packaging>
 
     <name>kata-bowling</name>
-    <url>http://maven.apache.org</url>
-
+ 
+    <description>Beschreibung der Aufgabe siehe Ordner resources</description>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
