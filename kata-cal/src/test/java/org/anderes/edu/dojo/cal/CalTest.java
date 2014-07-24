@@ -6,6 +6,7 @@ import static java.util.Calendar.*;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Calendar;
+import java.util.Locale;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -70,14 +71,16 @@ public class CalTest {
     }
 
     private Calendar februaryUsa(int year) {
-        final Calendar date = Calendar.getInstance();
+        final Calendar date = Calendar.getInstance(Locale.GERMAN);
+        date.clear();
         date.set(year, Calendar.FEBRUARY, 1);
         date.setFirstDayOfWeek(SUNDAY);
         return date;
     }
     
     private Calendar februaryEu(int year) {
-        final Calendar date = Calendar.getInstance();
+        final Calendar date = Calendar.getInstance(Locale.GERMAN);
+        date.clear();
         date.set(year, Calendar.FEBRUARY, 1);
         date.setFirstDayOfWeek(MONDAY);
         return date;

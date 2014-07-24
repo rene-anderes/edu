@@ -21,29 +21,34 @@ public class Cal {
     }
 
     public void printTo(final OutputStream outputStream) throws IOException {
-        final int month = date.get(MONTH);
-        final int year = date.get(YEAR);
-        writeCalendarHeader(outputStream);
+        final Calendar cal = createCopy();
+        writeCalendarHeader(cal, outputStream);
         writeLineSeparator(outputStream);
-        writeDayOfWeek(outputStream);
+        writeDayOfWeek(cal, outputStream);
         writeLineSeparator(outputStream);
-        while (date.get(MONTH) == month) {
-            writeOneWeek(outputStream);
+        while (date.get(MONTH) == cal.get(MONTH)) {
+            writeOneWeek(cal, outputStream);
             writeLineSeparator(outputStream);
         }
-        date.set(year, month, 1);
+    }
+    
+    private Calendar createCopy() {
+        final Calendar copy = Calendar.getInstance(date.getTimeZone());
+        copy.setTime(date.getTime());
+        copy.setFirstDayOfWeek(date.getFirstDayOfWeek());
+        return copy;
     }
 
-    private void writeOneWeek(final OutputStream outputStream) throws IOException {
-        final int firstDayOfWeek = date.getFirstDayOfWeek();
+    private void writeOneWeek(final Calendar cal, final OutputStream outputStream) throws IOException {
+        final int firstDayOfWeek = cal.getFirstDayOfWeek();
         final Deque<Integer> weekDeque = createWeekDeque(firstDayOfWeek);
         final StringBuilder buffer = new StringBuilder(7);
-        final int month = date.get(MONTH);
+        final int month = cal.get(MONTH);
         while(!weekDeque.isEmpty()) {
             final Integer actDayOfWeek = weekDeque.remove();
-            if (actDayOfWeek.equals(date.get(DAY_OF_WEEK)) && month == date.get(MONTH)) {
-                appendDayOfMonth(buffer);
-                date.add(DAY_OF_MONTH, 1);
+            if (actDayOfWeek.equals(cal.get(DAY_OF_WEEK)) && month == cal.get(MONTH)) {
+                appendDayOfMonth(cal, buffer);
+                cal.add(DAY_OF_MONTH, 1);
             } else {
                 buffer.append("  ");
             }
@@ -54,21 +59,21 @@ public class Cal {
         outputStream.write(buffer.toString().getBytes());
     }
 
-    private void appendDayOfMonth(final StringBuilder buffer) {
-        final int day = date.get(DAY_OF_MONTH);
+    private void appendDayOfMonth(final Calendar cal, final StringBuilder buffer) {
+        final int day = cal.get(DAY_OF_MONTH);
         if (day < 10) {
             buffer.append(" ");
         }
         buffer.append(day);
     }
     
-    private void writeDayOfWeek(final OutputStream outputStream) throws IOException {
+    private void writeDayOfWeek(final Calendar cal, final OutputStream outputStream) throws IOException {
         final Map<Integer, String> indexMap = new HashMap<>(7);
-        final Map<String, Integer> map = date.getDisplayNames(DAY_OF_WEEK, SHORT, local);
+        final Map<String, Integer> map = cal.getDisplayNames(DAY_OF_WEEK, SHORT, local);
         for (String key : map.keySet()) {
             indexMap.put(map.get(key), key);
         }
-        final int firstDayOfWeek = date.getFirstDayOfWeek();
+        final int firstDayOfWeek = cal.getFirstDayOfWeek();
         final StringBuilder buffer = new StringBuilder(7);
         final Deque<Integer> weekDeque = createWeekDeque(firstDayOfWeek);
         while(!weekDeque.isEmpty()) {
@@ -98,8 +103,13 @@ public class Cal {
         outputStream.write(System.lineSeparator().getBytes());
     }
     
-    private void writeCalendarHeader(final OutputStream outputStream) throws IOException {
-        final String header = String.format(local, "    %1$tB %1$tY", date);
+    private void writeCalendarHeader(final Calendar cal, final OutputStream outputStream) throws IOException {
+        final String header = String.format(local, "    %1$tB %1$tY", cal);
         outputStream.write(header.getBytes());
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%1$tc", date);
     }
 }
