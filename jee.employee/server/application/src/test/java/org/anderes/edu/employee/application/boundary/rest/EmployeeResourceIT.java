@@ -2,7 +2,6 @@
 package org.anderes.edu.employee.application.boundary.rest;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON_TYPE;
-import static javax.ws.rs.core.Response.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.jboss.arquillian.persistence.CleanupStrategy.DEFAULT;
@@ -17,6 +16,7 @@ import java.net.URL;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 
 import org.anderes.edu.employee.application.EmployeeFacade;
