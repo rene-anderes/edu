@@ -1,8 +1,7 @@
 package org.anderes.edu.dbc.cd;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,12 +14,12 @@ import org.junit.Test;
 public class TrackTest {
 
     private Track track = new TrackImpl();
-    
+
     @Before
     public void setUp() throws Exception {
-	track.setDescription("Track eins");
-	track.setTime(5);
-	track.setTrackNo(1);
+        track.setDescription("Track eins");
+        track.setTime(5);
+        track.setTrackNo(1);
     }
 
     /**
@@ -28,33 +27,33 @@ public class TrackTest {
      */
     @Test
     public void shouldBeComplete() {
-	assertEquals("Track-Beschreibung ist falsch!", "Track eins", track.getDescription());
-	assertEquals("Track-Zeit ist falsch!", 5, track.getTime());
-	assertEquals("Tracknummer ist falsch!", 1, track.getTrackNo());
-    }
-    
-    @Test (expected = NullPointerException.class)
-    public void descriptionNullPointerException() {
-	track.setDescription(null);
+        assertEquals("Track-Beschreibung ist falsch!", "Track eins", track.getDescription());
+        assertEquals("Track-Zeit ist falsch!", 5, track.getTime());
+        assertEquals("Tracknummer ist falsch!", 1, track.getTrackNo());
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
+    public void descriptionNullPointerException() {
+        track.setDescription(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
     public void descriptionToShortException() {
-	track.setDescription("");
+        track.setDescription("");
     }
-    
-    @Test (expected = IllegalArgumentException.class)
+
+    @Test(expected = IllegalArgumentException.class)
     public void descriptionToLongException() {
-	track.setDescription("Der Titel kann auch viel zu lang sein was nicht OK ist!");
+        track.setDescription("Der Titel kann auch viel zu lang sein was nicht OK ist!");
     }
-    
-    @Test (expected = IllegalArgumentException.class)
+
+    @Test(expected = IllegalArgumentException.class)
     public void timeIsNotOkException() {
-	track.setTime(0);
+        track.setTime(0);
     }
-    
-    @Test (expected = IllegalArgumentException.class)
+
+    @Test(expected = IllegalArgumentException.class)
     public void trackIsNotOkException() {
-	track.setTrackNo(0);
+        track.setTrackNo(0);
     }
 }
