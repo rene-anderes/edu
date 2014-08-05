@@ -20,30 +20,30 @@ public class DeleteFileTest {
 
     @Before
     public void setupBefore() {
-	try {
-	    tempFile = File.createTempFile("test", ".tmp");
-	} catch (IOException e) {
-	    fail(e.getMessage());
-	}
+        try {
+            tempFile = File.createTempFile("test", ".tmp");
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
     }
 
     @After
     public void shutdown() {
-	if (tempFile.exists()) {
-	    assertTrue(tempFile.delete());
-	}
+        if (tempFile.exists()) {
+            assertTrue(tempFile.delete());
+        }
     }
 
     @Test
     public void shouldBeDeleteTempFile() {
-	assertTrue(deleteTempFile(tempFile.getPath()));
+        assertTrue(deleteTempFile(tempFile.getPath()));
     }
 
     @Test
     public void cannotDeleteTempFile() {
-	assertFalse(deleteTempFile("File_Not_Exists.tmp"));
+        assertFalse(deleteTempFile("File_Not_Exists.tmp"));
     }
-    
+
     /**
      * Löschen von temporärer Datei.
      * 
@@ -52,8 +52,8 @@ public class DeleteFileTest {
      * @return {@code true}, wenn das File gelöscht werden konnte.
      */
     public boolean deleteTempFile(final String file) {
-	File delFile = new File(file);
-	return delFile.delete();
+        File delFile = new File(file);
+        return delFile.delete();
     }
 
 }

@@ -20,40 +20,40 @@ public class DeleteFileTestSolution {
 
     @Before
     public void setupBefore() {
-	try {
-	    tempFile = File.createTempFile("test", ".tmp");
-	} catch (IOException e) {
-	    fail(e.getMessage());
-	}
+        try {
+            tempFile = File.createTempFile("test", ".tmp");
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
     }
 
     @After
     public void shutdown() {
-	if (tempFile.exists()) {
-	    assertTrue(tempFile.delete());
-	}
+        if (tempFile.exists()) {
+            assertTrue(tempFile.delete());
+        }
     }
 
     @Test
     public void shouldBeDeleteTempFile() {
-	assertTrue(deleteTempFile(tempFile.getPath()));
-	assertFalse(tempFile.exists());
+        assertTrue(deleteTempFile(tempFile.getPath()));
+        assertFalse(tempFile.exists());
     }
 
     @Test(expected = NullPointerException.class)
     public void shoulBeFailed() {
-	deleteTempFile(null);
+        deleteTempFile(null);
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void shoulBeFailedWrongFile() throws IOException {
-	File txtFile = File.createTempFile("test", ".txt");
-	deleteTempFile(txtFile.getPath());
+        File txtFile = File.createTempFile("test", ".txt");
+        deleteTempFile(txtFile.getPath());
     }
-    
+
     @Test
     public void cannotDelete() {
-	assertFalse(deleteTempFile("Test_Not_Exists.tmp"));
+        assertFalse(deleteTempFile("Test_Not_Exists.tmp"));
     }
 
     /**
@@ -64,16 +64,16 @@ public class DeleteFileTestSolution {
      * @return {@code true}, wenn das File gelöscht werden konnte.
      */
     public boolean deleteTempFile(final String file) {
-	if (file == null) {
-	    throw new NullPointerException("Der Parameter ist null");
-	} else {
-	    if (!file.matches("\\p{Graph}+[.]tmp")) {
-		String message = String.format("Es handelt sich nicht um ein Temp-File '%1$s'", file);
-		throw new IllegalArgumentException(message);
-	    }
-	}
-	File delFile = new File(file);
-	return delFile.delete();
+        if (file == null) {
+            throw new NullPointerException("Der Parameter ist null");
+        } else {
+            if (!file.matches("\\p{Graph}+[.]tmp")) {
+                String message = String.format("Es handelt sich nicht um ein Temp-File '%1$s'", file);
+                throw new IllegalArgumentException(message);
+            }
+        }
+        File delFile = new File(file);
+        return delFile.delete();
     }
 
 }
