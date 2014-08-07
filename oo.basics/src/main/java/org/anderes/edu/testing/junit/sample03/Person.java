@@ -17,7 +17,7 @@ public class Person {
 	 * @param name
 	 *            Name der Person
 	 */
-	public Person(String name) {
+    public Person(String name) {
 		this.name = name;
 	}
 

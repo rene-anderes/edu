@@ -11,60 +11,61 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Einfache Demonstration der JUnit-Annotation
- * {@code @Before} & {@code @After}
+ * Einfache Demonstration der JUnit-Annotation {@code @Before} & {@code @After}
  * 
- * @author Ren� Anderes
+ * @author René Anderes
  */
 public class BeforeAfterDemo {
 
-    /** Tempor�res File f�r den oder die Test's */
+    /** Temporäres File für den oder die Test's */
     private File tempFile;
 
     /**
-     * Wird vor jeder Testmethode ausgef�hrt.
-     * @throws Exception Wenn ein Fehler auftritt 
-     * 		beim erstellen des temor�ren Files
+     * Wird vor jeder Testmethode ausgeführt.
+     * 
+     * @throws Exception
+     *             Wenn ein Fehler auftritt beim erstellen des temorären Files
      */
     @Before
     public void setUp() throws Exception {
-	tempFile = File.createTempFile("test", "txt");
-	assertTrue(tempFile.canWrite());
+        tempFile = File.createTempFile("test", "txt");
+        assertTrue(tempFile.canWrite());
     }
 
     /**
-     * Wird nach jeder Testmethode ausgef�hrt.
-     * @throws Exception Wenn ein fehler beim l�schen
-     * 		des Files auftritt
+     * Wird nach jeder Testmethode ausgeführt.
+     * 
+     * @throws Exception
+     *             Wenn ein fehler beim löschen des Files auftritt
      */
     @After
     public void tearDown() throws Exception {
-	tempFile.delete();
+        tempFile.delete();
     }
 
     /**
      * Die eigentliche Testmethode.<br>
-     * Diese schreibt einen Text in das
-     * File und �berpr�ft die L�nge des Files.
+     * Diese schreibt einen Text in das File und überprüft die Länge des Files.
      */
     @Test
     public void writeFile() {
-	writeFile("Software-Engineering");
-	assertEquals(20, tempFile.length());
+        writeFile("Software-Engineering");
+        assertEquals(20, tempFile.length());
     }
- 
+
     /**
-     * Diese Methode schreibt den �bergebenen Text
-     * in das tempor�re File.
-     * @param message Text
+     * Diese Methode schreibt den übergebenen Text in das temporäre File.
+     * 
+     * @param message
+     *            Text
      */
     private void writeFile(final String message) {
-	try {
-	    Writer writer = new FileWriter(tempFile);
-	    writer.write(message);
-	    writer.close();
-	} catch (IOException e) {
-	    fail(e.getMessage());
-	}
+        try {
+            Writer writer = new FileWriter(tempFile);
+            writer.write(message);
+            writer.close();
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
     }
 }

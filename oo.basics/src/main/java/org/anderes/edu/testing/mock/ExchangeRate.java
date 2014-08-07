@@ -2,7 +2,7 @@ package org.anderes.edu.testing.mock;
 
 /**
  * Wechslekurs
- * @author Ren� Anderes
+ * @author René Anderes
  */
 public interface ExchangeRate {
 

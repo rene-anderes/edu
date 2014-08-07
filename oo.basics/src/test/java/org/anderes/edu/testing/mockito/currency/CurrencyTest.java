@@ -20,23 +20,25 @@ public class CurrencyTest {
      */
     @Test
     public void toEuro() {
-	
-	/* Mock-Objekt von der Klasse bzw. Schnittstelle,
-	 * die simuliert werden soll, erzeugen */
-	ExchangeRate mock = mock(ExchangeRate.class);
-	when(mock.getRate("CHF", "EUR")).thenReturn(1.2);
 
-	Currency currency = new Currency(22.45, "CHF");
-	/* Mock-Objekt benutzen */
-	Currency actual = currency.toEuros(mock);
+        /*
+         * Mock-Objekt von der Klasse bzw. Schnittstelle, die simuliert werden soll, erzeugen
+         */
+        ExchangeRate mock = mock(ExchangeRate.class);
+        when(mock.getRate("CHF", "EUR")).thenReturn(1.2);
 
-	/* Normaler Junit-Test */ 
-	Currency expected = new Currency(26.94, "EUR");
-	assertEquals(expected, actual);
-	
-	/* Verifizieren ob das Mock-Objekt 
-	 * so benutzt wurde wie vorgesehen */
-	verify(mock).getRate("CHF", "EUR");
-	
+        Currency currency = new Currency(22.45, "CHF");
+        /* Mock-Objekt benutzen */
+        Currency actual = currency.toEuros(mock);
+
+        /* Normaler Junit-Test */
+        Currency expected = new Currency(26.94, "EUR");
+        assertEquals(expected, actual);
+
+        /*
+         * Verifizieren ob das Mock-Objekt so benutzt wurde wie vorgesehen
+         */
+        verify(mock).getRate("CHF", "EUR");
+
     }
 }

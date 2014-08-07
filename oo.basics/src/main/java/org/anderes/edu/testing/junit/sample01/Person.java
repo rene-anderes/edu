@@ -31,7 +31,7 @@ public class Person {
 	}
 	
 	/**
-	 * Gibt das Datum f�r den Geburtstag zur�ck.
+	 * Gibt das Datum für den Geburtstag zurück.
 	 * 
 	 * @return Datum des Geburtstag
 	 */

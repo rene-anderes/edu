@@ -13,9 +13,9 @@ public class PersonTest {
 
     @Test
     public void test() {
-        Person person = new Person("Ren�");
+        Person person = new Person("René");
         person.setBirthday(december(29, 1967));
-        assertEquals("Ren�", person.name);
+        assertEquals("René", person.name);
         assertTrue(person.hasBirthday(Calendar.DECEMBER));
         
 //        assertFalse(person.hasBirthday(-1));

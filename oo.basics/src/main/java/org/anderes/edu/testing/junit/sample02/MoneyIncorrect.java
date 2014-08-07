@@ -10,7 +10,7 @@ public class MoneyIncorrect {
 	 * Konstruktor
 	 * 
 	 * @param value Wert
-	 * @param currency W�hrung
+	 * @param currency Währung
 	 */
 	public MoneyIncorrect(int value, String currency) {
 		super();
@@ -21,8 +21,8 @@ public class MoneyIncorrect {
 	/**
 	 * Addiert das Geld hinzu.
 	 * 
-	 * @param money Zus�tzliches Geld 
-	 * @return Aktuelles Verm�gen
+	 * @param money Zusätzliches Geld 
+	 * @return Aktuelles Vermögen
 	 */
 	public MoneyIncorrect add(MoneyIncorrect money) {
 		if (currency.equalsIgnoreCase(money.getCurrency())) {
@@ -39,7 +39,6 @@ public class MoneyIncorrect {
 		return value;
 	}
 
-	/** {@inheritDoc} */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -50,7 +49,6 @@ public class MoneyIncorrect {
 		return result;
 	}
 
-	/** {@inheritDoc} */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
