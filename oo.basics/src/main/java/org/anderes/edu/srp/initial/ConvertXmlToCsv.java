@@ -1,10 +1,8 @@
 package org.anderes.edu.srp.initial;
 
 /**
- * Diese Klasse konvertiert den Inhalt eins XML-Files in ein CSV-File.
- * </p>
- * Es wird ein neues CSV-File angelegt, welches den gleichen 
- * Pfad und Namen hat wie das ursprüngliche XML-File.
+ * Diese Klasse konvertiert den Inhalt eins XML-Files in ein CSV-File. </p>
+ * Es wird ein neues CSV-File angelegt, welches den gleichen Pfad und Namen hat wie das ursprüngliche XML-File.<br>
  * Die Fileendung wird jedoch angepasst: myFile.xml --> myFile.csv
  *
  * @author René Anderes
