@@ -1,7 +1,7 @@
 package org.anderes.edu.calc;
 
 /**
- * Copyright(c) 2008 Ren� Anderes
+ * Copyright(c) 2008 René Anderes
  * created date: 31.07.2008
  */
 
@@ -10,11 +10,10 @@ import java.util.Arrays;
 /**
  * Primzahlenberechnung nach dem Sieb des Eratosthenes
  *
- * @author Ren� Anderes
+ * @author René Anderes
  */
 public class CalcEratosthenes extends Calc {
 
-    /** {@inheritDoc} */
     public boolean isPrimeNumber(int number) {
         boolean[] primeNoArray = new boolean[number+1];
         int len = primeNoArray.length;
