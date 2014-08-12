@@ -1,8 +1,6 @@
 package org.anderes.edu.testing.junit.sample01;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
 
 
 public class Person {
@@ -10,7 +8,7 @@ public class Person {
 	/** Der Name der Person */
 	public String name = "";
 	/** Geburtstag */
-	private Date birthday = new Date();
+	private LocalDate birthday = LocalDate.MIN;
 	
 	/**
 	 * Konstruktor
@@ -26,7 +24,7 @@ public class Person {
 	 * 
 	 * @param Datum
 	 */
-	public void setBirthday(Date date) {
+	public void setBirthday(LocalDate date) {
 		birthday = date;
 	}
 	
@@ -35,7 +33,7 @@ public class Person {
 	 * 
 	 * @return Datum des Geburtstag
 	 */
-	public Date getBirthday() {
+	public LocalDate getBirthday() {
 		return birthday;
 	}
 		
@@ -45,8 +43,6 @@ public class Person {
 	 * @return {@code true},wenn die Person im angegeben Monat Geburtstag hat, sonst {@code false}
 	 */
 	public boolean hasBirthday(int month) {
-		Calendar calendar = new GregorianCalendar();
-		calendar.setTime(birthday);
-		return calendar.get(Calendar.MONTH) == month;
+	    return birthday.getMonth().getValue() == month;
 	}
 }

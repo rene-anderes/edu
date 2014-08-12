@@ -6,14 +6,14 @@ import java.util.Deque;
 /**
  * Einfacher Taschenrechner mit UPN
  * 
- * @author René Anderes
+ * @author RenÃ© Anderes
  */
 public class Calc {
 
     private Deque<BigDecimal> stack = new ArrayDeque<BigDecimal>();
     
     /**
-     * Fügt die Zahl zuoberts auf den Stack hinzu.
+     * FÃ¼gt die Zahl zuoberts auf den Stack hinzu.
      * @param bigDecimal Zahl
      */
     public void addToStack(BigDecimal bigDecimal) {
@@ -29,7 +29,7 @@ public class Calc {
     }
 
     /**
-     * Löscht den obersten Wert des Stacks
+     * LÃ¶scht den obersten Wert des Stacks
      */
     public void removeFromStack() {
         stack.remove();

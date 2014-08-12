@@ -1,11 +1,11 @@
 package org.anderes.edu.testing.junit.sample01;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.Month;
 
-import org.anderes.edu.testing.junit.sample01.Person;
 import org.junit.Test;
 
 
@@ -13,16 +13,13 @@ public class PersonTest {
 
     @Test
     public void test() {
-        Person person = new Person("Ren�");
+        Person person = new Person("René");
         person.setBirthday(december(29, 1967));
-        assertEquals("Ren�", person.name);
-        assertTrue(person.hasBirthday(Calendar.DECEMBER));
+        assertEquals("René", person.name);
+        assertTrue(person.hasBirthday(Month.DECEMBER.getValue()));
     }
     
-    private Date december(int day, int year) {
-        Calendar c = Calendar.getInstance();
-        c.set(year, Calendar.DECEMBER, day);
-        Date d = c.getTime(); 
-        return d;
+    private LocalDate december(int day, int year) {
+        return LocalDate.of(year, Month.DECEMBER, day);
     }
 }

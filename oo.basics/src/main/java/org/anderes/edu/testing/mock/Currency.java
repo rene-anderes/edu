@@ -58,13 +58,36 @@ public class Currency {
         }
     }
 
+
     @Override
-    public boolean equals(Object o) {
-        if (o instanceof Currency) {
-            Currency other = (Currency) o;
-            return this.units.equals(other.units) && this.amount == other.amount && this.cents == other.cents;
-        }
-        return false;
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int) (amount ^ (amount >>> 32));
+        result = prime * result + cents;
+        result = prime * result + ((units == null) ? 0 : units.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Currency other = (Currency) obj;
+        if (amount != other.amount)
+            return false;
+        if (cents != other.cents)
+            return false;
+        if (units == null) {
+            if (other.units != null)
+                return false;
+        } else if (!units.equals(other.units))
+            return false;
+        return true;
     }
 
     @Override

@@ -63,7 +63,7 @@ public class TestTemplate {
      */
     @Test
     public void theFirstTest() {
-	assertTrue("Test nicht OK", true);
-	assertEquals("Test", "Test");
+        assertTrue("Test nicht OK", true);
+        assertEquals("Test", "Test");
     }
 }

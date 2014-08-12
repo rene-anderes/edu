@@ -1,9 +1,10 @@
 package org.anderes.edu.testing.junit.sample01;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -13,7 +14,7 @@ import org.junit.Test;
 
 public class JunitBasics {
 
-	private Collection<String> collection;
+	private List<String> collection;
 
 	@BeforeClass
 	public static void oneTimeSetUp() {
@@ -48,5 +49,11 @@ public class JunitBasics {
 		collection.add("itemA");
 		assertEquals(1, collection.size());
 		System.out.println("@Test - shouldBeOneItemCollection");
+	}
+	
+	@Test(expected = IndexOutOfBoundsException.class)
+	public void shouldBeException() {
+	    collection.add("itemA");
+	    collection.get(3);
 	}
 }
