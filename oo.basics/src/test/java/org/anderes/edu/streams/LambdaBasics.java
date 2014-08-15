@@ -26,9 +26,7 @@ public class LambdaBasics {
 
         int factor = 1000; // 1
 
-        IntUnaryOperator times1000 = (int x) -> {
-            return x * factor;
-        }; // 2
+        IntUnaryOperator times1000 = (int x) -> { return x * factor; }; // 2
 
         Arrays.stream(new int[] { 1, 2, 3, 4, 5 }).map(times1000).forEach(System.out::println); // 3
     }
