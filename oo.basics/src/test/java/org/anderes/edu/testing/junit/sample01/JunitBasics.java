@@ -42,6 +42,7 @@ public class JunitBasics {
 	public void shouldBeEmptyCollection() {
 		assertTrue(collection.isEmpty());
 		System.out.println("@Test - shouldBeEmptyCollection");
+		
 	}
 
 	@Test
