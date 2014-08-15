@@ -45,7 +45,7 @@ public class LambdaBasics {
      * </p>
      * <pre>
      *  {@code @FunctionalInterface}
-     *  public interface Function<T, R> {
+     *  public interface Function&lt;T, R&gt; {
      *      R apply(T t);
      *  }
      * </pre>
