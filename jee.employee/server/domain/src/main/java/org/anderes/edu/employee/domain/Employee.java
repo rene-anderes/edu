@@ -76,11 +76,15 @@ import javax.persistence.Version;
 @NamedQueries({
     @NamedQuery(
         name="findAllEmployeeBySalary", 
-        query="Select e from Employee e where e.salary > :salary")
+        query="Select e from Employee e where e.salary > :salary"),
+    @NamedQuery(
+        name="findEmployeeInLargeProject", 
+        query="Select e from Employee e where exists (Select p from LargeProject p where p member of e.projects and p.budget >= :budget)")
 	})
 public class Employee implements Serializable {
     
     public final static String FINDALLEMPLOYEE_BY_SALARY = "findAllEmployeeBySalary";
+    public final static String FINDEMPLOYEE_IN_LARGEPROJECT = "findEmployeeInLargeProject";
     
     private static final long serialVersionUID = 1L;
 

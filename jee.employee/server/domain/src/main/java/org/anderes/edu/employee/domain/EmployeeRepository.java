@@ -1,5 +1,7 @@
 package org.anderes.edu.employee.domain;
 
+import static org.anderes.edu.employee.domain.Employee.*;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -187,7 +189,7 @@ public class EmployeeRepository implements Repository<Employee, Long> {
      */
     public List<Employee> findEmployeeBySalary(final Double salary) {
         
-        final TypedQuery<Employee> query = entityManager.createNamedQuery(Employee.FINDALLEMPLOYEE_BY_SALARY, Employee.class);
+        final TypedQuery<Employee> query = entityManager.createNamedQuery(FINDALLEMPLOYEE_BY_SALARY, Employee.class);
         query.setParameter("salary", salary);
         
         return query.getResultList();
@@ -200,6 +202,17 @@ public class EmployeeRepository implements Repository<Employee, Long> {
         
         final TypedQuery<Employee> query = entityManager.createQuery("Select e from Employee e where e.address.city = :city", Employee.class);
         query.setParameter("city", city);
+        
+        return query.getResultList();
+    }
+    
+    /**
+     * Sample with complex JPQL-Query with Subquery
+     */
+    public List<Employee> findEmployeeInLargeProject(final int budget) {
+        
+        final TypedQuery<Employee> query = entityManager.createNamedQuery(FINDEMPLOYEE_IN_LARGEPROJECT, Employee.class);
+        query.setParameter("budget", budget);
         
         return query.getResultList();
     }

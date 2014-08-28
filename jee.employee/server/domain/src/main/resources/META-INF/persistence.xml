@@ -30,7 +30,6 @@
             <property name="eclipselink.target-server" value="SunAS9" />
             <property name="eclipselink.weaving" value="true" />
             <property name="eclipselink.logging.logger" value="org.eclipse.persistence.logging.DefaultSessionLog" />
-            <property name="eclipselink.jdbc.batch-writing" value="Oracle-JDBC"/>
         </properties>
     </persistence-unit>
     

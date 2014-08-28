@@ -89,4 +89,16 @@ public class EmployeeQueryIT {
         assertThat(employees.size(), is(1));
 
     }
+    
+    @Test
+    @InSequence(4)
+    public void shouldBeFindByLargeProject() {
+        
+        // when
+        List<Employee> employees = repository.findEmployeeInLargeProject(1000);
+        
+        // then
+        assertThat("Die Liste der Mitarbeiter darf nicht null sein.", employees, is(not(nullValue())));
+        assertThat(employees.size(), is(1));
+    }
 }
