@@ -72,7 +72,7 @@ public class EmployeeCriteriaQueryIT {
     }
  
     @Test
-    @InSequence(1)
+    @InSequence(2)
     public void shouldBeFindOne() {
         
         // when
@@ -85,7 +85,7 @@ public class EmployeeCriteriaQueryIT {
     }
     
     @Test
-    @InSequence(2)
+    @InSequence(3)
     public void shouldBeFindByGender() {
 
         // when
@@ -104,7 +104,7 @@ public class EmployeeCriteriaQueryIT {
     }
     
     @Test
-    @InSequence(3)
+    @InSequence(4)
     public void shouldBeFindByGenderAndPhoneType() {
 
         // when
@@ -116,7 +116,7 @@ public class EmployeeCriteriaQueryIT {
     }
     
     @Test
-    @InSequence(4)
+    @InSequence(5)
     public void shouldBeMaxSalary() {
         
         // when
@@ -127,7 +127,7 @@ public class EmployeeCriteriaQueryIT {
     }
     
     @Test
-    @InSequence(5)
+    @InSequence(6)
     public void shouldBeAllFirstnames() {
         
         // when
@@ -138,7 +138,7 @@ public class EmployeeCriteriaQueryIT {
     }
     
     @Test
-    @InSequence(6)
+    @InSequence(7)
     public void shouldBeAllNames() {
         
         // when
@@ -151,7 +151,7 @@ public class EmployeeCriteriaQueryIT {
     }
     
     @Test
-    @InSequence(7)
+    @InSequence(8)
     public void shouldBeGroupedAvarageSalaries() {
         
         // when
@@ -171,5 +171,19 @@ public class EmployeeCriteriaQueryIT {
             final String log = String.format("City: %s - avarage salaries: %s", values[1], values[0]);
             logger.info(log);
         }
+    }
+    
+    @Test
+    @InSequence(9)
+    public void shouldBeFindByLargeProjectWithSubquery() {
+        
+        // when
+        List<Employee> employees = repository.findEmployeeInLargeProjectByCriteriaWithSubquery(1000);
+        
+        // then
+        assertThat("Die Liste der Mitarbeiter darf nicht null sein.", employees, is(not(nullValue())));
+        assertThat(employees.size(), is(1));
+        final Employee employee = employees.get(0);
+        assertThat(employee.getId(), is(98L));
     }
 }

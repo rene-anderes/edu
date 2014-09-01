@@ -100,5 +100,7 @@ public class EmployeeQueryIT {
         // then
         assertThat("Die Liste der Mitarbeiter darf nicht null sein.", employees, is(not(nullValue())));
         assertThat(employees.size(), is(1));
+        final Employee employee = employees.get(0);
+        assertThat(employee.getId(), is(98L));
     }
 }
