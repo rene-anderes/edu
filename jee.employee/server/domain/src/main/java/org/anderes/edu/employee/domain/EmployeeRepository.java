@@ -203,7 +203,7 @@ public class EmployeeRepository implements Repository<Employee, Long> {
         final TypedQuery<Employee> query = entityManager.createQuery(cq);
         return query.getResultList();
     }
-   
+ 
     /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / Criteria-Query - Functions */
     
     /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Java Persistence Query Language (JPQL) */

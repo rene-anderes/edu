@@ -176,7 +176,6 @@ public class EmployeeCriteriaQueryIT {
     @Test
     @InSequence(9)
     public void shouldBeFindByLargeProjectWithSubquery() {
-        
         // when
         List<Employee> employees = repository.findEmployeeInLargeProjectByCriteriaWithSubquery(1000);
         
