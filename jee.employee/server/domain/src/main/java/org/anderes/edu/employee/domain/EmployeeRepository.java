@@ -18,6 +18,7 @@ import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Subquery;
 
 import org.eclipse.persistence.annotations.BatchFetchType;
 import org.eclipse.persistence.config.QueryHints;
@@ -178,6 +179,27 @@ public class EmployeeRepository implements Repository<Employee, Long> {
         cq.groupBy(e.get(Employee_.address).get(Address_.city));
         cq.orderBy(cb.asc(avg));
         final Query query = entityManager.createQuery(cq);
+        return query.getResultList();
+    }
+    
+    /**
+     * Gibt alle Employee (Mitarbeiter) zurück die in einem Projekt, mit
+     * einem Budget das gleich oder grösser dem übergebenen Wert liegt, beteiligt sind.
+     */
+    public List<Employee> findEmployeeInLargeProjectByCriteria(final int budget) {
+        
+        final CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        final CriteriaQuery<Employee> cq = cb.createQuery(Employee.class);
+        final Root<Employee> e = cq.from(Employee.class);
+        
+        final Subquery<LargeProject> subquery = cq.subquery(LargeProject.class);
+        final Root<LargeProject> fromLargeProject = subquery.from(LargeProject.class);
+        final Predicate geBudget = cb.ge(fromLargeProject.get(LargeProject_.budget), budget);
+        subquery.where(geBudget);
+        final Predicate isInCollection = cb.equal(e.get(Employee_.projects), cb.any(subquery));
+        
+        cq.where(isInCollection);
+        final TypedQuery<Employee> query = entityManager.createQuery(cq);
         return query.getResultList();
     }
     /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / Criteria-Query - Functions */
