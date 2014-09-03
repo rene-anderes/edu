@@ -8,6 +8,7 @@ import static org.jboss.arquillian.persistence.CleanupStrategy.DEFAULT;
 import static org.jboss.arquillian.persistence.TestExecutionPhase.BEFORE;
 import static org.jboss.arquillian.persistence.TestExecutionPhase.NONE;
 import static org.junit.Assert.assertThat;
+import static org.apache.commons.lang3.StringUtils.*;
 
 import java.io.File;
 import java.util.List;
@@ -17,7 +18,6 @@ import javax.inject.Inject;
 import org.anderes.edu.employee.domain.logger.LoggerProducer;
 import org.anderes.edu.employee.persistence.EntityManagerProducer;
 import org.apache.commons.lang3.SerializationUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
@@ -153,7 +153,27 @@ public class EmployeeFetchStrategieIT {
         	final Employee detachedEmployee = getDetachedEmployee(employee);
             assertThat(detachedEmployee.getSalary().doubleValue() > 45000D, is(true));
             if (detachedEmployee.getJobTitle() != null) {
-            	assertThat(StringUtils.isNoneEmpty(detachedEmployee.getJobTitle().getTitle()), is(true));
+            	assertThat(isNoneEmpty(detachedEmployee.getJobTitle().getTitle()), is(true));
+            }
+        }
+    }
+    
+    @Test
+    @InSequence(8)
+    public void shouldBeFindEmployees() {
+        
+        // when
+        List<Employee> employees = repository.findEmployees();
+        
+        // then
+        assertThat(employees, is(not(nullValue())));
+        assertThat(employees.size(), is(12));
+        for (Employee employee : employees) {
+            final Employee detachedEmployee = getDetachedEmployee(employee);
+            assertThat(isNoneEmpty(detachedEmployee.getFirstName()), is(true));
+            assertThat(isNoneEmpty(detachedEmployee.getLastName()), is(true));
+            if (detachedEmployee.getJobTitle() != null) {
+                assertThat(isNoneEmpty(detachedEmployee.getJobTitle().getTitle()), is(true));
             }
         }
     }

@@ -20,9 +20,6 @@ import javax.naming.NamingException;
 import javax.rmi.PortableRemoteObject;
 
 import org.anderes.edu.employee.application.EmployeeFacade;
-import org.anderes.edu.employee.application.boundary.DtoMapper;
-import org.anderes.edu.employee.application.boundary.DtoMapperCopy;
-import org.anderes.edu.employee.application.boundary.dto.EmployeeDto;
 import org.anderes.edu.employee.domain.Employee;
 import org.anderes.edu.employee.domain.logger.LoggerProducer;
 import org.anderes.edu.employee.persistence.EntityManagerProducer;
@@ -53,11 +50,10 @@ public class EmployeeFacadeRmiIT {
     public static JavaArchive createDeployment() {
         return ShrinkWrap
             .create(JavaArchive.class, "test.jar")
+            // Boundery
+            .addPackage(EmployeeFacadeRemote.class.getPackage())
             // Application-Layer
-            .addClasses(EmployeeFacade.class, EmployeeFacadeRemote.class, EmployeeFacadeRmi.class)
-            // DTO's
-            .addPackage(EmployeeDto.class.getPackage())
-            .addClasses(DtoMapper.class, DtoMapperCopy.class)
+            .addClasses(EmployeeFacade.class)
             // Domain-Layer-Klassen
             .addPackage(Employee.class.getPackage())
             // EntityManager-Producer
@@ -101,14 +97,11 @@ public class EmployeeFacadeRmiIT {
         // Daten aus der Datenbank
         
         // when
-        List<EmployeeDto> salaryList = facadeRemote.getSalaryList(Double.valueOf(45000D));
+        List<EmployeeRmiDto> employees = facadeRemote.getSalaryList(Double.valueOf(45000D));
         
         // then
-        assertThat(salaryList, is(not(nullValue())));
-        assertThat(salaryList.size(), is(9));
-        for (EmployeeDto employee : salaryList) {
-            assertThat(employee.getSalary().doubleValue() > 45000D, is(true));
-        }
+        assertThat(employees, is(not(nullValue())));
+        assertThat(employees.size(), is(9));
     }
     
     private static EmployeeFacadeRemote lookupGlassfish() throws NamingException {
