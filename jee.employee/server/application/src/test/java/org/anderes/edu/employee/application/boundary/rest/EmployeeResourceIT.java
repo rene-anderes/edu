@@ -22,9 +22,9 @@ import javax.ws.rs.core.UriBuilder;
 import org.anderes.edu.employee.application.EmployeeFacade;
 import org.anderes.edu.employee.application.boundary.DtoMapper;
 import org.anderes.edu.employee.application.boundary.DtoMapperCopy;
-import org.anderes.edu.employee.application.boundary.dto.AddressDto;
 import org.anderes.edu.employee.application.boundary.dto.EmployeeDto;
 import org.anderes.edu.employee.application.boundary.dto.Employees;
+import org.anderes.edu.employee.application.boundary.dto.Links.Link;
 import org.anderes.edu.employee.domain.Employee;
 import org.anderes.edu.employee.domain.logger.LoggerProducer;
 import org.anderes.edu.employee.persistence.EntityManagerProducer;
@@ -101,13 +101,7 @@ public class EmployeeResourceIT {
     	assertThat(employee.getLastname(), is("Way"));
     	assertThat(employee.getJobtitle(), is("Manager"));
     	assertThat(employee.getSalary(), is(BigDecimal.valueOf(53005)));
-    	final AddressDto address = employee.getAddressDto();
-    	assertThat(address, is(notNullValue()));
-    	assertThat(address.getCity(), is("Perth"));
-    	assertThat(address.getCountry(), is("Canada"));
-    	assertThat(address.getPostalCode(), is("Y3Q2N9"));
-    	assertThat(address.getProvince(), is("ONT"));
-    	assertThat(address.getStreet(), is("234 Caledonia Lane"));
+    	assertThat(employee.getGender(), is("Male"));
     }
     
     @Test
@@ -155,9 +149,36 @@ public class EmployeeResourceIT {
     	assertThat(response.getStatus(), is(Status.OK.getStatusCode()));
     	assertThat(response.hasEntity(), is(true));
 		final Employees employees = response.readEntity(Employees.class);
-    	assertThat(employees.getEmployeeDto().size(), is(9));
-    	for (EmployeeDto employee : employees.getEmployeeDto()) {
-            assertThat(employee.getSalary().doubleValue() > 45000D, is(true));
+    	assertThat(employees.getEmployee().size(), is(9));
+    	for (Employees.Employee employee : employees.getEmployee()) {
+            assertThat(employee.getLinks().getLink().size(), is(1));
+            final Link link = employee.getLinks().getLink().get(0);
+            assertThat(link.getRel(), is("employee"));
+            assertThat(link.getUrl().matches(deploymentUrl.toString() + "rest/employees/" + "[0-9]{2,2}"), is(true));
+        }
+    }
+    
+    @Test
+    @InSequence(4)
+    @RunAsClient
+    public void shouldBeFindEmployees(@ArquillianResource URL deploymentUrl) throws Exception {
+        // given
+        final UriBuilder uri = createUriFromDeploymentPath(deploymentUrl);
+        final WebTarget target = ClientBuilder.newClient().target(uri).register(JacksonFeature.class);
+        
+        // when
+        final Response response = target.request(APPLICATION_JSON_TYPE).buildGet().invoke();
+
+        // then
+        assertThat(response.getStatus(), is(Status.OK.getStatusCode()));
+        assertThat(response.hasEntity(), is(true));
+        final Employees employees = response.readEntity(Employees.class);
+        assertThat(employees.getEmployee().size(), is(12));
+        for (Employees.Employee employee : employees.getEmployee()) {
+            assertThat(employee.getLinks().getLink().size(), is(1));
+            final Link link = employee.getLinks().getLink().get(0);
+            assertThat(link.getRel(), is("employee"));
+            assertThat(link.getUrl().matches(deploymentUrl.toString() + "rest/employees/" + "[0-9]{2,2}"), is(true));
         }
     }
     

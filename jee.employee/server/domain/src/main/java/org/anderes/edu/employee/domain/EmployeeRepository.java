@@ -349,6 +349,25 @@ public class EmployeeRepository implements Repository<Employee, Long> {
     	return entityManager.find(Employee.class, id, hints);
     }
     
+    public List<Employee> findEmployees() {
+        
+        final EntityGraph<Employee> entityGraph = entityManager.createEntityGraph(Employee.class);
+        entityGraph.addAttributeNodes(Employee_.id.getName());
+        entityGraph.addAttributeNodes(Employee_.firstName.getName());
+        entityGraph.addAttributeNodes(Employee_.lastName.getName());
+        entityGraph.addAttributeNodes(Employee_.jobTitle.getName());
+        
+        final CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        final CriteriaQuery<Employee> criteria = cb.createQuery(Employee.class);
+        final Root<Employee> entity = criteria.from(Employee.class);
+        criteria.select(entity);
+        
+        final TypedQuery<Employee> query = entityManager.createQuery(criteria);
+        query.setHint("javax.persistence.fetchgraph", entityGraph);
+        
+        return query.getResultList();
+    }
+    
     /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / Fetch Strategien */
     
     /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Caching */

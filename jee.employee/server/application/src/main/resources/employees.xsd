@@ -1,61 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<!-- Mit XMLSpy v2014 sp1 (x64) (http://www.altova.com) von ﻿VRSG (Verwaltungsrechenzentrum AG St. Gallen) bearbeitet -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://info.firma.org/employees" targetNamespace="http://info.firma.org/employees">
+	<xs:import schemaLocation="links.xsd"/>
 	<xs:element name="employees">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="employeeDto" maxOccurs="unbounded"/>
+				<xs:element name="employee" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="lastname" type="xs:string"/>
+							<xs:element name="firstname" type="xs:string"/>
+							<xs:element name="jobtitle" type="xs:string"/>
+							<xs:element ref="links"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="employeeDto">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="lastname"/>
-				<xs:element ref="firstname"/>
-				<xs:element ref="jobtitle"/>
-				<xs:element ref="salary"/>
-                <xs:element ref="addressDto"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="jobtitle">
-		<xs:simpleType>
-			<xs:restriction base="xs:string">
-				<xs:maxLength value="255"/>
-			</xs:restriction>
-		</xs:simpleType>
-	</xs:element>
-	<xs:element name="lastname">
-		<xs:simpleType>
-			<xs:restriction base="xs:string">
-				<xs:minLength value="2"/>
-				<xs:maxLength value="255"/>
-			</xs:restriction>
-		</xs:simpleType>
-	</xs:element>
-	<xs:element name="firstname">
-		<xs:simpleType>
-			<xs:restriction base="xs:string">
-				<xs:minLength value="2"/>
-				<xs:maxLength value="255"/>
-			</xs:restriction>
-		</xs:simpleType>
-	</xs:element>
-	<xs:element name="salary" type="xs:decimal"/>
-    <xs:element name="addressDto">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element ref="city"/>
-                <xs:element ref="country"/>
-                <xs:element ref="province"/>
-                <xs:element ref="postalCode"/>
-                <xs:element ref="street"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="city" type="xs:string"/>
-    <xs:element name="country" type="xs:string"/>
-    <xs:element name="province" type="xs:string"/>
-    <xs:element name="postalCode" type="xs:string"/>
-    <xs:element name="street" type="xs:string"/>
 </xs:schema>

@@ -38,4 +38,8 @@ public class EmployeeFacade {
         	return null;
         }
     }
+    
+    public List<Employee> findEmployees() {
+        return repository.findEmployees();
+    }
 }
