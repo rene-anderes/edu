@@ -128,11 +128,15 @@ public class EmployeeResourceIT {
         // when
         final Response response = target.request(APPLICATION_JSON_TYPE).buildGet().invoke();
         
-     // then
+        // then
         assertThat(response.getStatus(), is(Status.OK.getStatusCode()));
         assertThat(response.hasEntity(), is(true));
         final AddressDto address = response.readEntity(AddressDto.class);
         assertThat(address, is(notNullValue()));
+        assertThat(address.getCity(), is("Perth"));
+        assertThat(address.getCountry(), is("Canada"));
+        assertThat(address.getStreet(), is("234 Caledonia Lane"));
+        assertThat(address.getProvince(), is("ONT"));
     }
     
     @Test
