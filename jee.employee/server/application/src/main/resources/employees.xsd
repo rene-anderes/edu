@@ -10,7 +10,8 @@
 						<xs:sequence>
 							<xs:element name="lastname" type="xs:string"/>
 							<xs:element name="firstname" type="xs:string"/>
-							<xs:element name="jobtitle" type="xs:string"/>
+							<xs:element name="jobtitle" type="xs:string" minOccurs="0"/>
+							<xs:element name="id" type="xs:unsignedLong"/>
 							<xs:element ref="links"/>
 						</xs:sequence>
 					</xs:complexType>

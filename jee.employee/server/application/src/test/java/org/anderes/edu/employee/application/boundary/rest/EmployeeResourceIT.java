@@ -11,6 +11,8 @@ import static org.junit.Assert.assertThat;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 
 import javax.ws.rs.client.ClientBuilder;
@@ -22,6 +24,7 @@ import javax.ws.rs.core.UriBuilder;
 import org.anderes.edu.employee.application.EmployeeFacade;
 import org.anderes.edu.employee.application.boundary.DtoMapper;
 import org.anderes.edu.employee.application.boundary.DtoMapperCopy;
+import org.anderes.edu.employee.application.boundary.dto.AddressDto;
 import org.anderes.edu.employee.application.boundary.dto.EmployeeDto;
 import org.anderes.edu.employee.application.boundary.dto.Employees;
 import org.anderes.edu.employee.application.boundary.dto.Links.Link;
@@ -48,6 +51,9 @@ import org.junit.runner.RunWith;
 @Cleanup(phase = NONE, strategy = DEFAULT)
 public class EmployeeResourceIT {
 	
+    private static final String REST = "rest";
+    private static final String EMPLOYEES = "employees";
+
     @Deployment(name = "test")
     public static JavaArchive createDeployment() {
         return ShrinkWrap
@@ -102,10 +108,35 @@ public class EmployeeResourceIT {
     	assertThat(employee.getJobtitle(), is("Manager"));
     	assertThat(employee.getSalary(), is(BigDecimal.valueOf(53005)));
     	assertThat(employee.getGender(), is("Male"));
+    	assertThat(employee.getLinks().getLink().size(), is(2));
+    	Link link = employee.getLinks().getLink().get(0);
+    	assertThat(link.getRel(), is("address"));
+    	assertThat(link.getUrl(), is(getResourcesPathAsString(deploymentUrl) + employee.getId() + "/address"));
+    	link = employee.getLinks().getLink().get(1);
+        assertThat(link.getRel(), is("projects"));
+        assertThat(link.getUrl(), is(getResourcesPathAsString(deploymentUrl) + employee.getId() + "/projects"));
     }
     
     @Test
-    @InSequence(2)
+    @InSequence(3)
+    @RunAsClient
+    public void shouldBeFindAddress(@ArquillianResource URL deploymentUrl) throws Exception {
+     // given
+        final UriBuilder uri = createUriFromDeploymentPath(deploymentUrl).path("70").path("/address");
+        final WebTarget target = ClientBuilder.newClient().target(uri).register(JacksonFeature.class);
+        
+        // when
+        final Response response = target.request(APPLICATION_JSON_TYPE).buildGet().invoke();
+        
+     // then
+        assertThat(response.getStatus(), is(Status.OK.getStatusCode()));
+        assertThat(response.hasEntity(), is(true));
+        final AddressDto address = response.readEntity(AddressDto.class);
+        assertThat(address, is(notNullValue()));
+    }
+    
+    @Test
+    @InSequence(4)
     @RunAsClient
     public void shouldBeNotFindOne(@ArquillianResource URL deploymentUrl) throws Exception {
     	// given
@@ -120,7 +151,7 @@ public class EmployeeResourceIT {
     }
     
     @Test
-    @InSequence(3)
+    @InSequence(5)
     @RunAsClient
     public void shouldBeWrongUrl(@ArquillianResource URL deploymentUrl) throws Exception {
     	// given
@@ -135,7 +166,7 @@ public class EmployeeResourceIT {
     }
     
     @Test
-    @InSequence(3)
+    @InSequence(6)
     @RunAsClient
     public void shouldBeFindBySalary(@ArquillianResource URL deploymentUrl) throws Exception {
     	// given
@@ -154,12 +185,17 @@ public class EmployeeResourceIT {
             assertThat(employee.getLinks().getLink().size(), is(1));
             final Link link = employee.getLinks().getLink().get(0);
             assertThat(link.getRel(), is("employee"));
-            assertThat(link.getUrl().matches(deploymentUrl.toString() + "rest/employees/" + "[0-9]{2,2}"), is(true));
+            assertThat(link.getUrl().matches(getResourcesPathAsString(deploymentUrl) + "[0-9]{2,2}"), is(true));
         }
+    }
+
+    private String getResourcesPathAsString(URL deploymentUrl) throws MalformedURLException {
+        final UriBuilder expectedUri = createUriFromDeploymentPath(deploymentUrl);
+        return expectedUri.build().toURL().toString() + "/";
     }
     
     @Test
-    @InSequence(4)
+    @InSequence(7)
     @RunAsClient
     public void shouldBeFindEmployees(@ArquillianResource URL deploymentUrl) throws Exception {
         // given
@@ -178,14 +214,17 @@ public class EmployeeResourceIT {
             assertThat(employee.getLinks().getLink().size(), is(1));
             final Link link = employee.getLinks().getLink().get(0);
             assertThat(link.getRel(), is("employee"));
-            assertThat(link.getUrl().matches(deploymentUrl.toString() + "rest/employees/" + "[0-9]{2,2}"), is(true));
+            assertThat(link.getUrl().matches(getResourcesPathAsString(deploymentUrl) + "[0-9]{2,2}"), is(true));
         }
     }
     
     private UriBuilder createUriFromDeploymentPath(final URL deploymentUrl) {
-    	final UriBuilder uri = UriBuilder.fromPath(deploymentUrl.getPath()).scheme(deploymentUrl.getProtocol())
-    			.host(deploymentUrl.getHost()).port(deploymentUrl.getPort())
-    			.path("rest").path("employees");
-    	return uri;
+    	return UriBuilder.fromPath(getResourcePath(deploymentUrl).toString()).
+  	                scheme(deploymentUrl.getProtocol()).host(deploymentUrl.getHost()).port(deploymentUrl.getPort());
+    }
+    
+    private URI getResourcePath(final URL deploymentUrl) {
+        return UriBuilder.fromPath(deploymentUrl.getPath()).path(REST).path(EMPLOYEES).build();
+        
     }
 }

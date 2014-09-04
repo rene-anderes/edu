@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -22,7 +23,10 @@ import javax.ws.rs.core.UriInfo;
 
 import org.anderes.edu.employee.application.EmployeeFacade;
 import org.anderes.edu.employee.application.boundary.DtoMapper;
-import org.anderes.edu.employee.application.boundary.DtoMapperCopy;
+import org.anderes.edu.employee.application.boundary.dto.EmployeeDto;
+import org.anderes.edu.employee.application.boundary.dto.Employees;
+import org.anderes.edu.employee.application.boundary.dto.Links;
+import org.anderes.edu.employee.application.boundary.dto.ObjectFactory;
 import org.anderes.edu.employee.domain.Employee;
 
 @Path("/employees")
@@ -35,6 +39,8 @@ public class EmployeeResource {
 	private EmployeeFacade facade;
 	@Context
 	private UriInfo uriInfo;
+	@Inject
+	private DtoMapper mapper;
 	
 	@GET
     @Path("/")
@@ -47,14 +53,14 @@ public class EmployeeResource {
 	
     private Response findEmployees() {
 	    final List<Employee> employees = facade.findEmployees();
-        final DtoMapper mapper = DtoMapperCopy.build(baseUrl());
-        return Response.ok().entity(mapper.mapToEmployees(employees)).build();
+	    final Employees dto = createLinksForEmployees(mapper.mapToEmployees(employees));
+        return Response.ok().entity(dto).build();
 	}
 	
     private Response findEmployeesBySalary(final Double salary) {
         final List<Employee> employees = facade.findEmployeeBySalary(salary);
-        final DtoMapper mapper = DtoMapperCopy.build(baseUrl());
-        return Response.ok().entity(mapper.mapToEmployees(employees)).build();
+        final Employees dto = createLinksForEmployees(mapper.mapToEmployees(employees));
+        return Response.ok().entity(dto).build();
     }
     
 	@GET
@@ -64,11 +70,54 @@ public class EmployeeResource {
 		if (employee == null) {
 			throw new WebApplicationException(Status.NOT_FOUND);
 		}
-		final DtoMapper mapper = DtoMapperCopy.build(baseUrl());
-		return Response.ok().entity(mapper.mapToEmployeeDto(employee)).build();
+		final EmployeeDto dto = mapper.mapToEmployeeDto(employee);
+		dto.setLinks(createLinksForEmployee());
+		return Response.ok().entity(dto).build();
 	}
+	
+	@GET
+	@Path("/{id: [0-9]+}/address")
+	public Response findAddressForEmployee(@PathParam("id") final Long employeeId) {
+	    final Employee employee = facade.findOne(employeeId);
+        if (employee == null) {
+            throw new WebApplicationException(Status.NOT_FOUND);
+        }
+        return Response.ok().entity(mapper.mapToAddressDto(employee.getAddress())).build();
+	}
+	
 	
 	private String baseUrl() {
 	    return uriInfo.getAbsolutePath().toString();
 	}
+	
+	private Links createLinksForEmployee() {
+	    final ObjectFactory factory = new ObjectFactory();
+        final Links links = factory.createLinks();
+        final Links.Link addressLink = factory.createLinksLink();
+        addressLink.setRel("address");
+        addressLink.setUrl(baseUrl() + "/address");
+        links.getLink().add(addressLink);
+        final Links.Link projectsLink = factory.createLinksLink();
+        projectsLink.setRel("projects");
+        projectsLink.setUrl(baseUrl() + "/projects");
+        links.getLink().add(projectsLink);
+        return links;
+    }
+	
+	private Employees createLinksForEmployees(final Employees employees) {
+	    for (Employees.Employee employee : employees.getEmployee()) {
+            employee.setLinks(createLinksForEmployees(employee));
+        }
+	    return employees;
+	}
+	
+	private Links createLinksForEmployees(final Employees.Employee employee) {
+	    final ObjectFactory factory = new ObjectFactory();
+        final Links links = factory.createLinks();
+        final Links.Link link = factory.createLinksLink();
+        link.setRel("employee");
+        link.setUrl(baseUrl() + "/" + employee.getId());
+        links.getLink().add(link);
+        return links;
+    }
 }
