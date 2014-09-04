@@ -14,7 +14,10 @@ Derby:
 	
 Datenbank mit Testdaten anlegen:
 	Im Verzeichnis:  ..\server\assembly\database 
-	mvn flyway:migrate verify -P testdata aufrufen
+	mvn flyway:clean
+	und
+	mvn flyway:migrate verify -P testdata 
+	aufrufen
 
 Projekt bauen:
 	Im Stammverzeichnis mvn clean install aufrufen
