@@ -26,6 +26,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <oracle.db.driver>11.2.0.3</oracle.db.driver>
         <derby.db.driver>10.10.1.1</derby.db.driver>
+        <glassfish.installation.path>c:\Java\glassfish4</glassfish.installation.path>
     </properties>
 
     <dependencyManagement>
@@ -139,11 +140,13 @@
                     <version>2.3.1</version>
                     <dependencies>
                         <!-- Oracle Datenbank -->
+                        <!-- 
                         <dependency>
                             <groupId>com.oracle</groupId>
                             <artifactId>ojdbc6</artifactId>
                             <version>${oracle.db.driver}</version>
                         </dependency>
+                         -->
                         <!-- Derby Database Client Driver -->
                         <dependency>
                             <groupId>org.apache.derby</groupId>
@@ -180,11 +183,13 @@
                     <version>1.5</version>
                     <dependencies>
                         <!-- Oracle Datenbank -->
+                        <!-- 
                         <dependency>
                             <groupId>com.oracle</groupId>
                             <artifactId>ojdbc6</artifactId>
                             <version>${oracle.db.driver}</version>
                         </dependency>
+                         -->
                         <!-- Derby Database Client Driver -->
                         <dependency>
                             <groupId>org.apache.derby</groupId>
@@ -241,7 +246,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <glassfish.home>c:\Java-Entwicklung\glassfish4</glassfish.home>
+                <glassfish.home>${glassfish.installation.path}</glassfish.home>
                 <glassfish.admin.host>localhost</glassfish.admin.host>
                 <glassfish.admin.port>4848</glassfish.admin.port>
                 <glassfish.admin.user></glassfish.admin.user>
