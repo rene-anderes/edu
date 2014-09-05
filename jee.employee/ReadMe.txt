@@ -5,6 +5,8 @@ Glassfish 4
  - Im pom.xml '<glassfish.home>[Installationspfad Glassfish]</glassfish.home>' entsprechend anpassen.
  - via settings.xml auch möglich
  - Glassfish starten
+ - Im Browser auf die Glassfish-Administration zugreiffen: http://localhost:4848
+ - JDBC Resource einrichten, Name: jdbc/empl (Connection Pool: DerbyPool)
  
 Derby: 
  - Derby wird mit Glassfish und/oder Java JDK mitinstalliert
