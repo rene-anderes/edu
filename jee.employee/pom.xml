@@ -26,7 +26,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <oracle.db.driver>11.2.0.3</oracle.db.driver>
         <derby.db.driver>10.10.1.1</derby.db.driver>
-        <glassfish.installation.path>c:\Java\glassfish4</glassfish.installation.path>
+        <glassfish.installation.path>c:\Java-Entwicklung\glassfish4</glassfish.installation.path>
     </properties>
 
     <dependencyManagement>
