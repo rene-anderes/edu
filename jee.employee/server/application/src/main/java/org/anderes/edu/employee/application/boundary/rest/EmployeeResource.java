@@ -24,9 +24,10 @@ import javax.ws.rs.core.UriInfo;
 import org.anderes.edu.employee.application.EmployeeFacade;
 import org.anderes.edu.employee.application.boundary.DtoMapper;
 import org.anderes.edu.employee.application.boundary.dto.EmployeeDto;
-import org.anderes.edu.employee.application.boundary.dto.Employees;
+import org.anderes.edu.employee.application.boundary.dto.EmployeesDto;
 import org.anderes.edu.employee.application.boundary.dto.Links;
 import org.anderes.edu.employee.application.boundary.dto.ObjectFactory;
+import org.anderes.edu.employee.application.boundary.dto.ProjectsDto;
 import org.anderes.edu.employee.domain.Employee;
 
 @Path("/employees")
@@ -53,13 +54,13 @@ public class EmployeeResource {
 	
     private Response findEmployees() {
 	    final List<Employee> employees = facade.findEmployees();
-	    final Employees dto = createLinksForEmployees(mapper.mapToEmployees(employees));
+	    final EmployeesDto dto = createLinksForEmployees(mapper.mapToEmployeesDto(employees));
         return Response.ok().entity(dto).build();
 	}
 	
     private Response findEmployeesBySalary(final Double salary) {
         final List<Employee> employees = facade.findEmployeeBySalary(salary);
-        final Employees dto = createLinksForEmployees(mapper.mapToEmployees(employees));
+        final EmployeesDto dto = createLinksForEmployees(mapper.mapToEmployeesDto(employees));
         return Response.ok().entity(dto).build();
     }
     
@@ -85,6 +86,16 @@ public class EmployeeResource {
         return Response.ok().entity(mapper.mapToAddressDto(employee.getAddress())).build();
 	}
 	
+	@GET
+    @Path("/{id: [0-9]+}/projects")
+    public Response findProjectsForEmployee(@PathParam("id") final Long employeeId) {
+        final Employee employee = facade.findProjectsByEmployee(employeeId);
+        if (employee == null) {
+            throw new WebApplicationException(Status.NOT_FOUND);
+        }
+        final ProjectsDto projects = createLinksForProjects(mapper.mapToProjectsDto(employee.getProjects()));
+        return Response.ok().entity(projects).build();
+    }
 	
 	private String baseUrl() {
 	    return uriInfo.getAbsolutePath().toString();
@@ -104,14 +115,14 @@ public class EmployeeResource {
         return links;
     }
 	
-	private Employees createLinksForEmployees(final Employees employees) {
-	    for (Employees.Employee employee : employees.getEmployee()) {
+	private EmployeesDto createLinksForEmployees(final EmployeesDto employees) {
+	    for (EmployeesDto.Employee employee : employees.getEmployee()) {
             employee.setLinks(createLinksForEmployees(employee));
         }
 	    return employees;
 	}
 	
-	private Links createLinksForEmployees(final Employees.Employee employee) {
+	private Links createLinksForEmployees(final EmployeesDto.Employee employee) {
 	    final ObjectFactory factory = new ObjectFactory();
         final Links links = factory.createLinks();
         final Links.Link link = factory.createLinksLink();
@@ -120,4 +131,21 @@ public class EmployeeResource {
         links.getLink().add(link);
         return links;
     }
+	
+	private ProjectsDto createLinksForProjects(final ProjectsDto projects) {
+	    for (ProjectsDto.Project project : projects.getProject()) {
+	        project.setLinks(createLinksForProject(project));
+	    }
+	    return projects;
+	}
+	
+	private Links createLinksForProject(final ProjectsDto.Project project) {
+	    final ObjectFactory factory = new ObjectFactory();
+	    final Links links = factory.createLinks();
+        final Links.Link link = factory.createLinksLink();
+        link.setRel("project");
+        link.setUrl(uriInfo.getBaseUri().toString() + "/projects/" + project.getId());
+        links.getLink().add(link);
+        return links;
+	}
 }

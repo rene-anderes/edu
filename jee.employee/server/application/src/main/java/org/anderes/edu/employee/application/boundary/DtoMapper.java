@@ -4,16 +4,20 @@ import java.util.List;
 
 import org.anderes.edu.employee.application.boundary.dto.AddressDto;
 import org.anderes.edu.employee.application.boundary.dto.EmployeeDto;
-import org.anderes.edu.employee.application.boundary.dto.Employees;
+import org.anderes.edu.employee.application.boundary.dto.EmployeesDto;
+import org.anderes.edu.employee.application.boundary.dto.ProjectsDto;
 import org.anderes.edu.employee.domain.Address;
 import org.anderes.edu.employee.domain.Employee;
+import org.anderes.edu.employee.domain.Project;
 
 public interface DtoMapper {
 	
 	EmployeeDto mapToEmployeeDto(final Employee employee);
 	
-	Employees mapToEmployees(final List<Employee> employees);
+	EmployeesDto mapToEmployeesDto(final List<Employee> employees);
 	
     AddressDto mapToAddressDto(final Address address);
+    
+    ProjectsDto mapToProjectsDto(final List<Project> projects);
 
 }

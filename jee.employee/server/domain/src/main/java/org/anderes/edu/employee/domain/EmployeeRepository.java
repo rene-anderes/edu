@@ -262,7 +262,21 @@ public class EmployeeRepository implements Repository<Employee, Long> {
         
         return query.getSingleResult();
     }
-       
+
+    public Employee findProjectsByEmployee(Long id) {
+        final CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        final CriteriaQuery<Employee> criteria = cb.createQuery(Employee.class);
+        final Root<Employee> entity = criteria.from(Employee.class);
+        criteria.where(cb.equal(entity.get(Employee_.id), id));
+        /* ----- join fetch */
+        entity.fetch(Employee_.projects, JoinType.LEFT);
+        /* ----- / join fetch */
+        criteria.distinct(true);
+        final TypedQuery<Employee> query = entityManager.createQuery(criteria);
+        
+        return query.getSingleResult();
+    }
+    
     /**
      * Sample with join fetch by Criteria Query
      */

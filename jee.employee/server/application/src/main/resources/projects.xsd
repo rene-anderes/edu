@@ -2,15 +2,14 @@
 <!-- Mit XMLSpy v2014 sp1 (x64) (http://www.altova.com) von ﻿VRSG (Verwaltungsrechenzentrum AG St. Gallen) bearbeitet -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://info.firma.org/employees" targetNamespace="http://info.firma.org/employees">
 	<xs:import schemaLocation="links.xsd"/>
-	<xs:element name="employeesDto">
+	<xs:element name="projectsDto">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="employee" maxOccurs="unbounded">
+				<xs:element name="project" maxOccurs="unbounded">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="lastname" type="xs:string"/>
-							<xs:element name="firstname" type="xs:string"/>
-							<xs:element name="jobtitle" type="xs:string" minOccurs="0"/>
+							<xs:element name="description" type="xs:string"/>
+							<xs:element name="name" type="xs:string"/>
 							<xs:element name="id" type="xs:unsignedLong"/>
 							<xs:element ref="links"/>
 						</xs:sequence>

@@ -26,8 +26,9 @@ import org.anderes.edu.employee.application.boundary.DtoMapper;
 import org.anderes.edu.employee.application.boundary.DtoMapperCopy;
 import org.anderes.edu.employee.application.boundary.dto.AddressDto;
 import org.anderes.edu.employee.application.boundary.dto.EmployeeDto;
-import org.anderes.edu.employee.application.boundary.dto.Employees;
+import org.anderes.edu.employee.application.boundary.dto.EmployeesDto;
 import org.anderes.edu.employee.application.boundary.dto.Links.Link;
+import org.anderes.edu.employee.application.boundary.dto.ProjectsDto;
 import org.anderes.edu.employee.domain.Employee;
 import org.anderes.edu.employee.domain.logger.LoggerProducer;
 import org.anderes.edu.employee.persistence.EntityManagerProducer;
@@ -121,7 +122,7 @@ public class EmployeeResourceIT {
     @InSequence(3)
     @RunAsClient
     public void shouldBeFindAddress(@ArquillianResource URL deploymentUrl) throws Exception {
-     // given
+        // given
         final UriBuilder uri = createUriFromDeploymentPath(deploymentUrl).path("70").path("/address");
         final WebTarget target = ClientBuilder.newClient().target(uri).register(JacksonFeature.class);
         
@@ -142,6 +143,24 @@ public class EmployeeResourceIT {
     @Test
     @InSequence(4)
     @RunAsClient
+    public void shouldBeFindProjects(@ArquillianResource URL deploymentUrl) throws Exception {
+        // given
+        final UriBuilder uri = createUriFromDeploymentPath(deploymentUrl).path("70").path("/projects");
+        final WebTarget target = ClientBuilder.newClient().target(uri).register(JacksonFeature.class);
+        
+        // when
+        final Response response = target.request(APPLICATION_JSON_TYPE).buildGet().invoke();
+        
+        // then
+        assertThat(response.getStatus(), is(Status.OK.getStatusCode()));
+        assertThat(response.hasEntity(), is(true));
+        final ProjectsDto projectsDto = response.readEntity(ProjectsDto.class);
+        assertThat(projectsDto.getProject().size(), is(3));
+    }
+    
+    @Test
+    @InSequence(5)
+    @RunAsClient
     public void shouldBeNotFindOne(@ArquillianResource URL deploymentUrl) throws Exception {
     	// given
     	final UriBuilder uri = createUriFromDeploymentPath(deploymentUrl).path("1007");
@@ -155,7 +174,7 @@ public class EmployeeResourceIT {
     }
     
     @Test
-    @InSequence(5)
+    @InSequence(6)
     @RunAsClient
     public void shouldBeWrongUrl(@ArquillianResource URL deploymentUrl) throws Exception {
     	// given
@@ -170,7 +189,7 @@ public class EmployeeResourceIT {
     }
     
     @Test
-    @InSequence(6)
+    @InSequence(7)
     @RunAsClient
     public void shouldBeFindBySalary(@ArquillianResource URL deploymentUrl) throws Exception {
     	// given
@@ -183,9 +202,9 @@ public class EmployeeResourceIT {
     	// then
     	assertThat(response.getStatus(), is(Status.OK.getStatusCode()));
     	assertThat(response.hasEntity(), is(true));
-		final Employees employees = response.readEntity(Employees.class);
+		final EmployeesDto employees = response.readEntity(EmployeesDto.class);
     	assertThat(employees.getEmployee().size(), is(9));
-    	for (Employees.Employee employee : employees.getEmployee()) {
+    	for (EmployeesDto.Employee employee : employees.getEmployee()) {
             assertThat(employee.getLinks().getLink().size(), is(1));
             final Link link = employee.getLinks().getLink().get(0);
             assertThat(link.getRel(), is("employee"));
@@ -199,7 +218,7 @@ public class EmployeeResourceIT {
     }
     
     @Test
-    @InSequence(7)
+    @InSequence(8)
     @RunAsClient
     public void shouldBeFindEmployees(@ArquillianResource URL deploymentUrl) throws Exception {
         // given
@@ -212,9 +231,9 @@ public class EmployeeResourceIT {
         // then
         assertThat(response.getStatus(), is(Status.OK.getStatusCode()));
         assertThat(response.hasEntity(), is(true));
-        final Employees employees = response.readEntity(Employees.class);
+        final EmployeesDto employees = response.readEntity(EmployeesDto.class);
         assertThat(employees.getEmployee().size(), is(12));
-        for (Employees.Employee employee : employees.getEmployee()) {
+        for (EmployeesDto.Employee employee : employees.getEmployee()) {
             assertThat(employee.getLinks().getLink().size(), is(1));
             final Link link = employee.getLinks().getLink().get(0);
             assertThat(link.getRel(), is("employee"));

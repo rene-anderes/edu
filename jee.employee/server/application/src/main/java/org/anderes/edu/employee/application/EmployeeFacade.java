@@ -42,4 +42,9 @@ public class EmployeeFacade {
     public List<Employee> findEmployees() {
         return repository.findEmployees();
     }
+
+    public Employee findProjectsByEmployee(final Long employeeId) {
+        Validate.notNull(employeeId, "Der Parameter 'employeeId' darf nicht null sein.");
+        return repository.findProjectsByEmployee(employeeId);
+    }
 }
