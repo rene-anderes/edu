@@ -11,7 +11,7 @@ import org.anderes.edu.jee.rest.sample.dto.Employee;
 import org.anderes.edu.jee.rest.sample.dto.Employees;
 import org.apache.commons.lang3.RandomStringUtils;
 
-@Path("/employee")
+@Path("/employees")
 public class EmployeeResource {
 
 	
