@@ -70,7 +70,8 @@ public class EmployeeCrudIT {
         "prepare-degree.json", "prepare-email.json", "prepare-emp_job.json",
         "prepare-jobtitle.json", "prepare-lproject.json", "prepare-phone.json",
         "prepare-proj_emp.json", "prepare-project.json", "prepare-response.json" },
-        excludeColumns = { "ADDRESS.ADDRESS_ID", "EMPLOYEE.ADDR_ID", "EMPLOYEE.EMP_ID", "SALARY.EMP_ID" })
+        excludeColumns = { "ADDRESS.ADDRESS_ID", "EMPLOYEE.ADDR_ID", "EMPLOYEE.EMP_ID", "SALARY.EMP_ID" },
+        orderBy = { "ADDRESS.CITY", "SALARY.SALARY" })
     public void shoullBeSaveNewEmployee() {
 
         repository.save(createNewEmployee());

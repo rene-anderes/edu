@@ -42,6 +42,17 @@
 	"TITLE_ID" NUMBER(19,0)
    );
 --------------------------------------------------------
+--  DDL for Table PARKINGSPACE
+--------------------------------------------------------
+
+  CREATE TABLE "PARKINGSPACE" 
+   (	
+    "PS_ID" NUMBER(19,0), 
+	"PARKNO" NUMBER(19,0),
+	"GPSDATA" VARCHAR2(255 CHAR), 
+	"DESCRIPTION" VARCHAR2(255 CHAR)
+   );
+--------------------------------------------------------
 --  DDL for Table EMPLOYEE
 --------------------------------------------------------
 
@@ -55,7 +66,8 @@
 	"END_DATE" TIMESTAMP (6), 
 	"START_DATE" TIMESTAMP (6), 
 	"MANAGER_ID" NUMBER(19,0), 
-	"ADDR_ID" NUMBER(19,0)
+	"ADDR_ID" NUMBER(19,0),
+	"PARKINGKSPACE_ID" NUMBER(19,0)
    );
 --------------------------------------------------------
 --  DDL for Table JOBTITLE
@@ -149,6 +161,12 @@
   ALTER TABLE "EMP_JOB" MODIFY ("TITLE_ID" NOT NULL ENABLE);
   ALTER TABLE "EMP_JOB" MODIFY ("EMP_ID" NOT NULL ENABLE);
 --------------------------------------------------------
+--  Constraints for Table PARKINGSPACE
+--------------------------------------------------------
+
+  ALTER TABLE "PARKINGSPACE" ADD PRIMARY KEY ("PS_ID");
+  ALTER TABLE "PARKINGSPACE" MODIFY ("PS_ID" NOT NULL ENABLE);
+--------------------------------------------------------
 --  Constraints for Table EMPLOYEE
 --------------------------------------------------------
 
@@ -220,6 +238,8 @@
 	  REFERENCES "ADDRESS" ("ADDRESS_ID") ENABLE;
   ALTER TABLE "EMPLOYEE" ADD CONSTRAINT "FK_EMPLOYEE_MANAGER_ID" FOREIGN KEY ("MANAGER_ID")
 	  REFERENCES "EMPLOYEE" ("EMP_ID") ENABLE;
+  ALTER TABLE "EMPLOYEE" ADD CONSTRAINT "FK_EMPLOYEE_PARKINGSPACE_ID" FOREIGN KEY ("PARKINGKSPACE_ID")
+	  REFERENCES "PARKINGSPACE" ("PS_ID") ENABLE;
 --------------------------------------------------------
 --  Ref Constraints for Table LPROJECT
 --------------------------------------------------------

@@ -1,5 +1,14 @@
 {
-    "ADDRESS": [{
+    "ADDRESS": [
+    {
+        "ADDRESS_ID": 2,
+        "CITY": "Avignon",
+        "COUNTRY": "France",
+        "P_CODE": [null],
+        "PROVINCE": [null],
+        "STREET": "11 rue de la république"
+    },
+    {
         "ADDRESS_ID": 38,
         "CITY": "Toronto",
         "COUNTRY": "Canada",
@@ -94,13 +103,5 @@
         "P_CODE": "K5J2B5",
         "PROVINCE": "ONT",
         "STREET": "12 Merivale Rd., Suite 5"
-    },
-    {
-        "ADDRESS_ID": 2000,
-        "CITY": "Avignon",
-        "COUNTRY": "France",
-        "P_CODE": [null],
-        "PROVINCE": [null],
-        "STREET": "11 rue de la république"
     }]
 }

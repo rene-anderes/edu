@@ -152,6 +152,10 @@ public class Employee implements Serializable {
     @JoinColumn(name="EMP_ID")
     @MapKeyColumn(name = "EMAIL_TYPE")
     private Map<String, EmailAddress> emailAddresses = new HashMap<String, EmailAddress>();
+    
+    @OneToOne
+    @JoinColumn(name = "PARKINGSPACE_ID")
+    private ParkingSpace parkingSpace;
 
     public Employee() {
     }
