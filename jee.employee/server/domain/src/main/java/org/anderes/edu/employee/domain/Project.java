@@ -1,16 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 1998, 2012 Oracle and/or its affiliates. All rights reserved.
- * This program and the accompanying materials are made available under the 
- * terms of the Eclipse Public License v1.0 and Eclipse Distribution License v. 1.0 
- * which accompanies this distribution. 
- * The Eclipse Public License is available at http://www.eclipse.org/legal/epl-v10.html
- * and the Eclipse Distribution License is available at 
- * http://www.eclipse.org/org/documents/edl-v10.php.
- *
- * Contributors:
- *              dclarke - initial JPA Employee example using XML (bug 217884)
- *              mbraeuer - annotated version
- ******************************************************************************/
 package org.anderes.edu.employee.domain;
 
 import static java.lang.Boolean.TRUE;
@@ -33,8 +20,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
 /**
- * This class represent a project that a group of employees work on.
- * This demonstrates JOINED inheritance.
+ * Diese Klasse repräsentiert ein Projekt in dem eine Gruppe von Mitarbeitern tätig ist.
+ * <p>
+ * Beispiel für JOINED inheritance.
  * </p>
  * Die Klasse demonstriert die Möglichkeit eines Konverterts (JPA 2.1)
  */

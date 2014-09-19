@@ -1,16 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 1998, 2012 Oracle and/or its affiliates. All rights reserved.
- * This program and the accompanying materials are made available under the 
- * terms of the Eclipse Public License v1.0 and Eclipse Distribution License v. 1.0 
- * which accompanies this distribution. 
- * The Eclipse Public License is available at http://www.eclipse.org/legal/epl-v10.html
- * and the Eclipse Distribution License is available at 
- * http://www.eclipse.org/org/documents/edl-v10.php.
- *
- * Contributors:
- *              dclarke - initial JPA Employee example using XML (bug 217884)
- *              mbraeuer - annotated version
- ******************************************************************************/
 package org.anderes.edu.employee.domain;
 
 import java.io.Serializable;
@@ -18,8 +5,10 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 /**
- * Represents the phone number an employee.
- * This demonstrates the usage of a composite Id, and Id using a ManyToOne relationship.
+ * Repräsentiert eine Telefonnummer
+ * <p>
+ * Hierbei wird ein zusammengesetzer Schlüssel verwendet und dieser
+ * Schlüssel wird für die ManyToOne Beziehung genutzt.
  */
 @Entity
 @Table(name = "PHONE")

@@ -7,6 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+/**
+ * Repräsentiert einen Parkplatz
+ * <b>
+ * Beispiel für bidirektionale One-To-One Beziehung
+ */
 @Entity
 public class ParkingSpace {
 

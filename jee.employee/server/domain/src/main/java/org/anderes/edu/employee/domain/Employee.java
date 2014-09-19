@@ -1,16 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 1998, 2012 Oracle and/or its affiliates. All rights reserved.
- * This program and the accompanying materials are made available under the 
- * terms of the Eclipse Public License v1.0 and Eclipse Distribution License v. 1.0 
- * which accompanies this distribution. 
- * The Eclipse Public License is available at http://www.eclipse.org/legal/epl-v10.html
- * and the Eclipse Distribution License is available at 
- * http://www.eclipse.org/org/documents/edl-v10.php.
- *
- * Contributors:
- *              dclarke - initial JPA Employee example using XML (bug 217884)
- *              mbraeuer - annotated version, transformation
- ******************************************************************************/
 package org.anderes.edu.employee.domain;
 
 import java.io.Serializable;
@@ -50,7 +37,9 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 /**
- * The Employee class demonstrates several JPA features including:
+ * Ein Mitarbeiter
+ * </p>
+ * Demonstriert unterschiedliche JPA Techniken:
  * <ul>
  * <li>Generated Id
  * <li>Version locking
@@ -59,12 +48,13 @@ import javax.persistence.Version;
  * <li>ManyToMany relationship
  * <li>OneToMany relationship (dependent, and independent)
  * <li>Embedded relationship
- * <li>ElementCollection relationships (Basic, and Embeddable) (JPA 2.0)
+ * <li>ElementCollection relationships (Basic, and Embeddable)
  * <li>enums
- * <li>OrderColumn (JPA 2.0)
- * <li>MapKeyColumn (JPA 2.0)
- * <li>orphanRemoval (JPA 2.0)
- * <li>@Index (JPA 2.1)
+ * <li>OrderColumn
+ * <li>MapKeyColumn
+ * <li>orphanRemoval
+ * <li>@Index (Index für die Datenbank)
+ * <li>Named Queries
  * </ul>
  */
 @Entity
