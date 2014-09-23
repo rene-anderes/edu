@@ -1,5 +1,5 @@
 /**
- * 
+ * Lesen der Daten vom Server via REST
  */
 angular.module('service.storage', [])
     .factory('storage', function ($http) {
@@ -16,36 +16,6 @@ angular.module('service.storage', [])
 	    		}
 	    		callback(undefined);
 	    	});
-        };
- 
-        var getEmployeesStub = function (callback) {
-        	data = {
-        			"employee": [{
-        				"lastname": "Way",
-        				"firstname": "John",
-        				"jobtitle": "Manager",
-        				"id": 70,
-        				"links": {
-        					"link": [{
-        						"rel": "employee",
-        						"url": "http://localhost:8088/jee-employee/rest/employees/70"
-        					}]
-        				}
-        			},
-        			{
-        				"lastname": "May",
-        				"firstname": "Jill",
-        				"jobtitle": "CEO",
-        				"id": 96,
-        				"links": {
-        					"link": [{
-        						"rel": "employee",
-        						"url": "http://localhost:8088/jee-employee/rest/employees/96"
-        					}]
-        				}
-        			}]
-        		};
-        	callback(data.employee);
         };
         
         // Reveal public API.
