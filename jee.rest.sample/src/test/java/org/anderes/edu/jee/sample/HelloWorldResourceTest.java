@@ -1,9 +1,10 @@
 package org.anderes.edu.jee.sample;
 
-import static javax.ws.rs.core.MediaType.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-import static javax.ws.rs.core.Response.*;
+import static javax.ws.rs.core.MediaType.TEXT_HTML;
+import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
+import static javax.ws.rs.core.MediaType.TEXT_PLAIN_TYPE;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -11,16 +12,24 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.Variant;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
+/**
+ * Dieser test läuft erst, wenn die Applikation auf dem entsprechenden
+ * JEE Container deployed ist. Die Variable 'uri' muss mit den Angaben
+ * des Servers überein stimmen.
+ */
 public class HelloWorldResourceTest {
 	
 	final UriBuilder uri = UriBuilder.fromPath("rest-sample")
 			.scheme("http").host("localhost").port(8088).path("services").path("helloworld");
 	
+	@Ignore("Dieser Test funktioniert dann, wenn das WAR-File auf dem Server deployed ist")
 	@Test
 	public void shouldBeTextResponse() {
 		
@@ -39,6 +48,7 @@ public class HelloWorldResourceTest {
 
 	}
 	
+	@Ignore("Dieser Test funktioniert dann, wenn das WAR-File auf dem Server deployed ist")
 	@Test
 	public void shouldBeHtmlResponse() {
 		
@@ -57,6 +67,7 @@ public class HelloWorldResourceTest {
 
 	}
 	
+	@Ignore("Dieser Test funktioniert dann, wenn das WAR-File auf dem Server deployed ist")
 	@Test 
 	public void shouldBeStoreTheMessage() {
 

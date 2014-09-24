@@ -68,8 +68,7 @@ public class SmallProjectRepositoryBeanManagedTransaction {
 	 */
 	public void delete(final String projectName) throws Exception {
 		final EntityManager entityManager = emf.createEntityManager();
-		final List<SmallProject> projects = findByNameLocal(projectName,
-				entityManager);
+		final List<SmallProject> projects = findByNameLocal(projectName, entityManager);
 		for (final SmallProject smallProject : projects) {
 			deleteLocal(smallProject, entityManager);
 		}
@@ -83,8 +82,7 @@ public class SmallProjectRepositoryBeanManagedTransaction {
 		final CriteriaQuery<SmallProject> criteria = cb
 				.createQuery(SmallProject.class);
 		final Root<SmallProject> entity = criteria.from(SmallProject.class);
-		final Predicate thisName = cb.like(entity.get(SmallProject_.name),
-				projectName);
+		final Predicate thisName = cb.like(entity.get(SmallProject_.name), projectName);
 		criteria.where(thisName);
 		final TypedQuery<SmallProject> query = entityManager
 				.createQuery(criteria);

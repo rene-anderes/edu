@@ -20,6 +20,7 @@
         <class>org.anderes.edu.employee.domain.EmailAddress</class>
         <class>org.anderes.edu.employee.domain.JobTitle</class>
         <class>org.anderes.edu.employee.domain.Degree</class>
+        <class>org.anderes.edu.employee.domain.ParkingSpace</class>
 
         <shared-cache-mode>NONE</shared-cache-mode>
         <validation-mode>NONE</validation-mode>
@@ -31,8 +32,6 @@
             <property name="eclipselink.target-database" value="Derby"/>
             
             <property name="eclipselink.weaving" value="true" />
-
-            <!-- <property name="eclipselink.ddl-generation" value="create-tables" /> -->
             
             <!-- Logging -->
             <!-- Also see EclipseLink logging JPA page http://wiki.eclipse.org/EclipseLink/Examples/JPA/Logging -->

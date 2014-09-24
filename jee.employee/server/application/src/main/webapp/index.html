@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="employeeApp">
+<head>
+<meta charset="UTF-8">
+<title>JEE Employee Application</title>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<h1>JEE Employee Application</h1>
+	
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular.min.js"></script>
+	    <script src="app-storage-stub.js"></script>
+	    <script src="app.js"></script>
+	    
+	   	<div ng-controller="employeesCtrl">
+	   		<p>Liste aller Mitarbeiter</p>
+	   		<dl class="dl-horizontal" ng-repeat="employee in employees">
+			  <dt>{{employee.firstname}} {{employee.lastname}}</dt>
+			  <dd>{{employee.jobtitle}}</dd>
+			</dl>
+	   	</div> 
+   	</div>
+</body>
+</html>

@@ -11,7 +11,9 @@ import javax.persistence.criteria.Root;
 import org.anderes.edu.employee.domain.Employee_;
 import org.anderes.edu.employee.domain.LargeProject_;
 
-
+/**
+ * Zugriff auf Objekte vom Typ LargeProject
+ */
 public class LargeProjectRepository implements Repository<LargeProject, Long> {
 
     @Inject

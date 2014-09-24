@@ -19,6 +19,7 @@
         <class>org.anderes.edu.employee.domain.EmailAddress</class>
         <class>org.anderes.edu.employee.domain.JobTitle</class>
         <class>org.anderes.edu.employee.domain.Degree</class>
+        <class>org.anderes.edu.employee.domain.ParkingSpace</class>
         
         <shared-cache-mode>NONE</shared-cache-mode>
         <validation-mode>NONE</validation-mode>
