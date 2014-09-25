@@ -1,26 +1,19 @@
 package org.anderes.edu.employee.domain;
 
 import static org.anderes.edu.employee.domain.Gender.Female;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.jboss.arquillian.persistence.CleanupStrategy.DEFAULT;
 import static org.jboss.arquillian.persistence.TestExecutionPhase.BEFORE;
 import static org.jboss.arquillian.persistence.TestExecutionPhase.NONE;
 import static org.junit.Assert.assertThat;
 
 import java.io.File;
-import java.util.Calendar;
+import java.time.LocalDate;
 
 import javax.inject.Inject;
 
-import org.anderes.edu.employee.domain.Address;
-import org.anderes.edu.employee.domain.Employee;
-import org.anderes.edu.employee.domain.EmployeeRepository;
-import org.anderes.edu.employee.domain.EmploymentPeriod;
 import org.anderes.edu.employee.domain.logger.LoggerProducer;
 import org.anderes.edu.employee.persistence.EntityManagerProducer;
-import org.apache.commons.lang3.time.DateUtils;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.persistence.Cleanup;
@@ -73,8 +66,15 @@ public class EmployeeCrudIT {
         excludeColumns = { "ADDRESS.ADDRESS_ID", "EMPLOYEE.ADDR_ID", "EMPLOYEE.EMP_ID", "SALARY.EMP_ID" },
         orderBy = { "ADDRESS.CITY", "SALARY.SALARY" })
     public void shoullBeSaveNewEmployee() {
-
-        repository.save(createNewEmployee());
+        
+        // when
+        final Employee employee = repository.save(createNewEmployee());
+        
+        // then
+        final LocalDate expectedDate = LocalDate.of(2014, 5, 1);
+        assertThat(employee.getPeriod().getStartDate(), is(expectedDate));
+        assertThat(employee.getPeriod().getEndDate(), is(LocalDate.MAX));
+        assertThat(employee.getParkingSpace().isPresent(), is(false));
         
     }
 
@@ -85,7 +85,7 @@ public class EmployeeCrudIT {
         employee.setGender(Female);
         employee.setAddress(createNewAddress());
         employee.setSalary(56900D);
-        employee.setPeriod(createPeriod());
+        employee.getPeriod().setStartDate(2014, 5, 1);
         return employee;
     }
 
@@ -95,18 +95,6 @@ public class EmployeeCrudIT {
         address.setCountry("France");
         address.setStreet("11 rue de la république");
         return address;
-    }
-
-    private EmploymentPeriod createPeriod() {
-        final EmploymentPeriod period = new EmploymentPeriod();
-        period.setStartDate(truncateDate(2014, Calendar.MAY, 1));
-        return period;
-    }
-
-    private Calendar truncateDate(final int year, final int month, final int day) {
-        final Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
-        return DateUtils.truncate(calendar, Calendar.DAY_OF_MONTH);
     }
 
     @Test
@@ -178,7 +166,7 @@ public class EmployeeCrudIT {
     public void shouldBeFindOne() {
 
         // when
-        Employee employee = repository.findOne(Long.valueOf(70));
+        final Employee employee = repository.findOne(Long.valueOf(70));
 
         // then
         assertThat("Mitarbeiter nicht gefunden.", employee, is(not(nullValue())));

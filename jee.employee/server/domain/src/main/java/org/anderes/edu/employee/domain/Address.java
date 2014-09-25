@@ -1,7 +1,12 @@
 package org.anderes.edu.employee.domain;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * Einfache Adresse mit Basic-Mapping
@@ -74,5 +79,28 @@ public class Address implements Serializable {
 
     public void setStreet(String street) {
         this.street = street;
+    }
+    
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37).append(street).append(postalCode).append(province).append(city).append(country).toHashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) { return false; }
+        if (obj == this) { return true; }
+        if (obj.getClass() != getClass()) {
+          return false;
+        }
+        final Address rhs = (Address) obj;
+        return new EqualsBuilder().append(street, rhs.street).append(postalCode, rhs.postalCode)
+                        .append(province, rhs.province).append(city, rhs.city).append(country, rhs.country).isEquals();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this).append("street", street).append("postalCode", postalCode)
+                        .append("province", province).append("city", city).append("country", country).toString();
     }
 }

@@ -3,6 +3,7 @@ package org.anderes.edu.employee.domain;
 import static java.lang.Boolean.TRUE;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -79,8 +80,8 @@ public abstract class Project implements Serializable {
         return version;
     }
 
-    public Employee getTeamLeader() {
-        return this.teamLeader;
+    public Optional<Employee> getTeamLeader() {
+        return Optional.ofNullable(teamLeader);
     }
 
     public void setTeamLeader(Employee employee) {

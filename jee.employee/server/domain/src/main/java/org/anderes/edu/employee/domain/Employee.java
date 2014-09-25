@@ -2,9 +2,11 @@ package org.anderes.edu.employee.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -104,7 +106,7 @@ public class Employee implements Serializable {
     @AttributeOverrides( {
         @AttributeOverride(name = "startDate", column = @Column(name = "START_DATE")),
         @AttributeOverride(name = "endDate", column = @Column(name = "END_DATE")) })
-    private EmploymentPeriod period;
+    private EmploymentPeriod period = new EmploymentPeriod();
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "ADDR_ID")
@@ -187,11 +189,7 @@ public class Employee implements Serializable {
     }
     
     public List<Degree> getDegrees() {
-        return degrees;
-    }
-
-    public void setDegrees(final List<Degree> degrees) {
-        this.degrees = degrees;
+        return Collections.unmodifiableList(degrees);
     }
 
     public Degree addDegree(final String degree) {
@@ -199,7 +197,7 @@ public class Employee implements Serializable {
     }
 
     public Degree addDegree(final Degree degree) {
-        getDegrees().add(degree);
+        degrees.add(degree);
         return degree;
     }
 
@@ -209,14 +207,10 @@ public class Employee implements Serializable {
     }
 
     public List<Project> getProjects() {
-        return projects;
+        return Collections.unmodifiableList(projects);
     }
 
-    public void setProjects(final List<Project> projectList) {
-        this.projects = projectList;
-    }
-
-    public Project addProject(Project project) {
+    public Project addProject(final Project project) {
         getProjects().add(project);
         return project;
     }
@@ -235,11 +229,7 @@ public class Employee implements Serializable {
     }
 
     public List<Employee> getManagedEmployees() {
-        return this.managedEmployees;
-    }
-
-    public void setManagedEmployees(final List<Employee> employeeList) {
-        this.managedEmployees = employeeList;
+        return Collections.unmodifiableList(managedEmployees);
     }
 
     public Employee addManagedEmployee(final Employee employee) {
@@ -255,11 +245,7 @@ public class Employee implements Serializable {
     }
 
     public List<PhoneNumber> getPhoneNumbers() {
-        return phoneNumbers;
-    }
-
-    public void setPhoneNumbers(final List<PhoneNumber> phoneNumberList) {
-        this.phoneNumbers = phoneNumberList;
+        return Collections.unmodifiableList(phoneNumbers);
     }
 
     public PhoneNumber addPhoneNumber(final PhoneNumber phoneNumber) {
@@ -279,6 +265,21 @@ public class Employee implements Serializable {
         return phoneNumber;
     }
 
+    public Optional<ParkingSpace> getParkingSpace() {
+        return Optional.ofNullable(this.parkingSpace);
+    }
+    
+    public ParkingSpace setParkingSpace(final ParkingSpace parkingSpace) {
+        this.parkingSpace = parkingSpace;
+        this.parkingSpace.setOwner(this);
+        return this.parkingSpace;
+    }
+    
+    public void removeParkingSpace(final ParkingSpace parkingSpace) {
+        this.parkingSpace = null;
+        parkingSpace.setOwner(null);
+    }
+    
     public void setAddress(final Address address) {
         this.address = address;
     }
@@ -304,27 +305,19 @@ public class Employee implements Serializable {
     }
 
     public List<String> getResponsibilities() {
-        return this.responsibilities;
-    }
-
-    public void setResponsibilities(final List<String> responsibilities) {
-        this.responsibilities = responsibilities;
+        return Collections.unmodifiableList(responsibilities);
     }
 
     public void addResponsibility(final String responsibility) {
-        getResponsibilities().add(responsibility);
+        responsibilities.add(responsibility);
     }
 
     public void removeResponsibility(final String responsibility) {
-        getResponsibilities().remove(responsibility);
+        responsibilities.remove(responsibility);
     }
     
     public Map<String, EmailAddress> getEmailAddresses() {
         return emailAddresses;
-    }
-
-    public void setEmailAddresses(final Map<String, EmailAddress> emailAddresses) {
-        this.emailAddresses = emailAddresses;
     }
 
     public EmailAddress addEmailAddress(final String type, final String newAddress) {
@@ -332,15 +325,15 @@ public class Employee implements Serializable {
     }
 
     public EmailAddress addEmailAddress(final String type, final EmailAddress newAddress) {
-        return getEmailAddresses().put(type, newAddress);
+        return emailAddresses.put(type, newAddress);
     }
 
     public EmailAddress removeEmailAddress(final String type) {
-        return getEmailAddresses().remove(type);
+        return emailAddresses.remove(type);
     }
 
     public EmailAddress getEmailAddress(final String type) {
-        return getEmailAddresses().get(type);
+        return emailAddresses.get(type);
     }
     
     public JobTitle getJobTitle() {
@@ -351,6 +344,7 @@ public class Employee implements Serializable {
         this.jobTitle = jobTitle;
     }
 
+    @Override
     public String toString() {
         return "Employee(" + id + ": " + lastName + ", " + firstName + ")";
     }

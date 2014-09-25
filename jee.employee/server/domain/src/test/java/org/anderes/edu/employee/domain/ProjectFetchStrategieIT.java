@@ -71,8 +71,9 @@ public class ProjectFetchStrategieIT {
         
         // then
         assertThat(project, is(notNullValue()));
-        assertThat(project.getTeamLeader().getFirstName(), is("Charles"));
-        assertThat(project.getTeamLeader().getAddress().getCity(), is("Yellowknife"));
+        assertThat(project.getTeamLeader().isPresent(), is(true));
+        assertThat(project.getTeamLeader().get().getFirstName(), is("Charles"));
+        assertThat(project.getTeamLeader().get().getAddress().getCity(), is("Yellowknife"));
         assertThat(project.isActive(), is(true));
     }
 }
