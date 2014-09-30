@@ -325,7 +325,7 @@
         <profile>
             <id>arquillian-glassfish-remote</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <arquillian.container>glassfish-remote</arquillian.container>
@@ -343,7 +343,7 @@
         <profile>
             <id>arquillian-glassfish-embedded</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
                 <arquillian.container>glassfish-embedded</arquillian.container>

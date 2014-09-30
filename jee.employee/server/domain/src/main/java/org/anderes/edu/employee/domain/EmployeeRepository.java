@@ -363,6 +363,10 @@ public class EmployeeRepository implements Repository<Employee, Long> {
     	return entityManager.find(Employee.class, id, hints);
     }
     
+    /**
+     *  Sample with Entity-Graph (FetchGraph)</p>
+     *  @since JPA 2.1
+     */
     public List<Employee> findEmployees() {
         
         final EntityGraph<Employee> entityGraph = entityManager.createEntityGraph(Employee.class);

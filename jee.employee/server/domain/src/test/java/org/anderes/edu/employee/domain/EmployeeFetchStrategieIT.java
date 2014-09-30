@@ -100,7 +100,7 @@ public class EmployeeFetchStrategieIT {
     	assertEmployee(getDetachedEmployee(employee));
     }
 
-    
+    @Ignore("Läuft zur Zeit nur, wenn via Glassfish Remote getestet wird")
     @Test
     @InSequence(5)
     public void shouldBeFindOneEmployeeAddressFetchGraph() {
@@ -112,6 +112,7 @@ public class EmployeeFetchStrategieIT {
     	assertEmployee(getDetachedEmployee(employee));
     }
     
+    @Ignore("Läuft zur Zeit nur, wenn via Glassfish Remote getestet wird")
     /**
      * Der Versuch auf ein nicht aufgelösten Objekt-Graphen zuzugreifen.
      */
@@ -158,6 +159,7 @@ public class EmployeeFetchStrategieIT {
         }
     }
     
+    @Ignore("Läuft zur Zeit nur, wenn via Glassfish Remote getestet wird")
     @Test
     @InSequence(8)
     public void shouldBeFindEmployees() {

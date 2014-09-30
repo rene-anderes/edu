@@ -26,7 +26,8 @@ Datenbank mit Testdaten anlegen:
 
 Projekt bauen:
  Im Stammverzeichnis 'mvn clean install -Djavax.xml.accessExternalSchema=all' aufrufen
- Sämtliche IT-Test's die via Arquillian ablaufen werden auf dem Glassfish deployed und via Glassfish getestet.
+ Sämtliche IT-Test's die via Arquillian ablaufen werden auf dem Embedded-Glassfish deployed und via Glassfish getestet.
+ Dazu muss die Datenbank eingerichtet und gestartet und der Glassfish-Server gestoppt sein.
 
 Projekt deploy
  Im Verzeichnis ..\server\assembly\ear

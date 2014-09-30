@@ -5,14 +5,14 @@
         <property name="deploymentExportPath">target/</property>
     </engine>
 
-    <container qualifier="glassfish-remote" default="true">
+    <container qualifier="glassfish-remote">
         <configuration>
             <property name="adminHost">${glassfish.admin.host}</property>
             <property name="adminPort">${glassfish.admin.port}</property>
         </configuration>
     </container>
 
-    <container qualifier="glassfish-embedded">
+    <container qualifier="glassfish-embedded" default="true">
         <configuration>
             <property name="resourcesXml">target/test-classes/glassfish-resources.xml</property>
         </configuration>
