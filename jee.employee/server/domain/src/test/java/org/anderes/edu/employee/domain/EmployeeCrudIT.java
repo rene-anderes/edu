@@ -20,6 +20,8 @@ import org.jboss.arquillian.persistence.Cleanup;
 import org.jboss.arquillian.persistence.CleanupUsingScript;
 import org.jboss.arquillian.persistence.ShouldMatchDataSet;
 import org.jboss.arquillian.persistence.UsingDataSet;
+import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
+import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -98,6 +100,7 @@ public class EmployeeCrudIT {
     }
 
     @Test
+    @Transactional(value = TransactionMode.COMMIT)
     @CleanupUsingScript(value = "delete_all_rows.sql", phase = BEFORE)
     @UsingDataSet(value = { 
         "prepare-address.json", "prepare-employee.json", "prepare-degree.json",

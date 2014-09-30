@@ -40,8 +40,8 @@ public class EmployeeFacadeRmi implements EmployeeFacadeRemote {
         dto.setFirstName(employee.getFirstName());
         dto.setLastName(employee.getLastName());
         dto.setSalary(employee.getSalary());
-        if (employee.getJobTitle() != null) {
-            dto.setJobTitle(employee.getJobTitle().getTitle());
+        if (employee.getJobTitle().isPresent()) {
+            dto.setJobTitle(employee.getJobTitle().get().getTitle());
         } else {
             dto.setJobTitle("");
         }

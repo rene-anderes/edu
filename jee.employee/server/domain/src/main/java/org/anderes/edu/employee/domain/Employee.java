@@ -38,6 +38,10 @@ import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 /**
  * Ein Mitarbeiter
  * </p>
@@ -201,9 +205,8 @@ public class Employee implements Serializable {
         return degree;
     }
 
-    public Degree removeDegree(final Degree degree) {
-        getDegrees().remove(degree);
-        return degree;
+    public void removeDegree(final Degree degree) {
+        degrees.remove(degree);
     }
 
     public List<Project> getProjects() {
@@ -220,8 +223,8 @@ public class Employee implements Serializable {
         return project;
     }
 
-    public Employee getManager() {
-        return manager;
+    public Optional<Employee> getManager() {
+        return Optional.ofNullable(manager);
     }
 
     public void setManager(final Employee employee) {
@@ -229,7 +232,8 @@ public class Employee implements Serializable {
     }
 
     public List<Employee> getManagedEmployees() {
-        return Collections.unmodifiableList(managedEmployees);
+        return managedEmployees;
+//        return Collections.unmodifiableList(managedEmployees);
     }
 
     public Employee addManagedEmployee(final Employee employee) {
@@ -259,20 +263,18 @@ public class Employee implements Serializable {
         return addPhoneNumber(phoneNumber);
     }
 
-    public PhoneNumber removePhoneNumber(final PhoneNumber phoneNumber) {
+    public void removePhoneNumber(final PhoneNumber phoneNumber) {
         getPhoneNumbers().remove(phoneNumber);
         phoneNumber.setOwner(null);
-        return phoneNumber;
     }
 
     public Optional<ParkingSpace> getParkingSpace() {
         return Optional.ofNullable(this.parkingSpace);
     }
     
-    public ParkingSpace setParkingSpace(final ParkingSpace parkingSpace) {
+    public void setParkingSpace(final ParkingSpace parkingSpace) {
         this.parkingSpace = parkingSpace;
         this.parkingSpace.setOwner(this);
-        return this.parkingSpace;
     }
     
     public void removeParkingSpace(final ParkingSpace parkingSpace) {
@@ -284,8 +286,8 @@ public class Employee implements Serializable {
         this.address = address;
     }
 
-    public Address getAddress() {
-        return address;
+    public Optional<Address> getAddress() {
+        return Optional.ofNullable(address);
     }
 
     public void setPeriod(final EmploymentPeriod period) {
@@ -336,16 +338,56 @@ public class Employee implements Serializable {
         return emailAddresses.get(type);
     }
     
-    public JobTitle getJobTitle() {
-        return jobTitle;
+    public Optional<JobTitle> getJobTitle() {
+        return Optional.ofNullable(jobTitle);
     }
 
     public void setJobTitle(final JobTitle jobTitle) {
         this.jobTitle = jobTitle;
     }
 
+    private Optional<Long> getIdFromManagerIfPresent() {
+        Long managerId = null;
+        if (getManager().isPresent()) {
+            managerId = getManager().get().getId();
+        }
+        return Optional.ofNullable(managerId);
+    }
+    
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37).append(firstName).append(lastName)
+                        .append(gender).append(salary).append(period)
+                        .append(address).append(jobTitle).append(getIdFromManagerIfPresent())
+                        .append(managedEmployees).append(phoneNumbers).append(degrees)
+                        .append(projects).append(responsibilities).append(emailAddresses)
+                        .append(parkingSpace)
+                        .toHashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) { return false; }
+        if (obj == this) { return true; }
+        if (obj.getClass() != getClass()) {
+          return false;
+        }
+        final Employee rhs = (Employee) obj;
+        return new EqualsBuilder().append(firstName, rhs.firstName).append(lastName, rhs.lastName)
+                        .append(gender, rhs.gender).append(salary, rhs.salary).append(period, rhs.period)
+                        .append(address, rhs.address).append(jobTitle, rhs.jobTitle)
+                        .append(getIdFromManagerIfPresent(), rhs.getIdFromManagerIfPresent())
+                        .append(managedEmployees, rhs.managedEmployees).append(phoneNumbers, rhs.phoneNumbers)
+                        .append(degrees, rhs.degrees).append(projects, rhs.projects)
+                        .append(responsibilities, rhs.responsibilities).append(emailAddresses, rhs.emailAddresses)
+                        .append(parkingSpace, rhs.parkingSpace)
+                        .isEquals();
+    }
+
     @Override
     public String toString() {
-        return "Employee(" + id + ": " + lastName + ", " + firstName + ")";
+        // Mittels ToStringBuilder(this) wird der Hashcode bezogen und dieser löst einen Stackoverflow aus.
+        // keine Lösung vorhanden
+        return new ToStringBuilder(null).append("id", id).append("firstName", firstName).append("lastName", lastName).toString();
     }
 }

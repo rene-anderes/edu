@@ -14,8 +14,7 @@
     </jdbc-connection-pool>
 
     <jdbc-resource pool-name="DerbyServerPool" jndi-name="jdbc/empl" />
-    <jdbc-connection-pool name="DerbyServerPool" res-type="javax.sql.DataSource" 
-        datasource-classname="org.apache.derby.jdbc.ClientDataSource">
+    <jdbc-connection-pool name="DerbyServerPool" res-type="javax.sql.DataSource" datasource-classname="org.apache.derby.jdbc.ClientDataSource">
         <property name="serverName" value="${derby.server.name}" />
         <property name="portNumber" value="${derby.server.port}" />
         <property name="dataBaseName" value="${derby.server.database}" />

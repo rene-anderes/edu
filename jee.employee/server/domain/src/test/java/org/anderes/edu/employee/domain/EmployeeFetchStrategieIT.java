@@ -152,8 +152,8 @@ public class EmployeeFetchStrategieIT {
         for (Employee employee : salaryList) {
         	final Employee detachedEmployee = getDetachedEmployee(employee);
             assertThat(detachedEmployee.getSalary().doubleValue() > 45000D, is(true));
-            if (detachedEmployee.getJobTitle() != null) {
-            	assertThat(isNoneEmpty(detachedEmployee.getJobTitle().getTitle()), is(true));
+            if (detachedEmployee.getJobTitle().isPresent()) {
+            	assertThat(detachedEmployee.getJobTitle().get().getTitle(), is(notNullValue()));
             }
         }
     }
@@ -172,8 +172,8 @@ public class EmployeeFetchStrategieIT {
             final Employee detachedEmployee = getDetachedEmployee(employee);
             assertThat(isNoneEmpty(detachedEmployee.getFirstName()), is(true));
             assertThat(isNoneEmpty(detachedEmployee.getLastName()), is(true));
-            if (detachedEmployee.getJobTitle() != null) {
-                assertThat(isNoneEmpty(detachedEmployee.getJobTitle().getTitle()), is(true));
+            if (detachedEmployee.getJobTitle().isPresent()) {
+                assertThat(detachedEmployee.getJobTitle().get().getTitle(), is(notNullValue()));
             }
         }
     }
@@ -189,7 +189,9 @@ public class EmployeeFetchStrategieIT {
     	assertThat(employee, is(notNullValue()));
         assertThat(employee.getFirstName(), is("John"));
         assertThat(employee.getLastName(), is("Way"));
-        assertThat(employee.getAddress().getProvince(), is("ONT"));
-        assertThat(employee.getJobTitle().getTitle(), is("Manager"));
+        assertThat(employee.getAddress().isPresent(), is(true));
+        assertThat(employee.getAddress().get().getProvince(), is("ONT"));
+        assertThat(employee.getJobTitle().isPresent(), is(true));
+        assertThat(employee.getJobTitle().get().getTitle(), is("Manager"));
     }
 }
