@@ -5,6 +5,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -14,12 +16,15 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 public class Image implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@NotNull
+    @Size(min = 2, max = 255)
 	@Column(name = "IMAGE_URL")
     private String url;
+	@Size(min = 0, max = 50)
     @Column(name = "IMAGE_DESCRIPTION", length = 50)
     private String description;
 
-    public Image() {
+    /*package*/ Image() {
     }
 
     public Image(String url, String description) {

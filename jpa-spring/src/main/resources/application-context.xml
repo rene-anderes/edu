@@ -31,9 +31,6 @@
         <property name="jpaProperties">
             <props>
                 <prop key="javax.persistence.validation.mode">auto</prop>
-                <prop key="javax.persistence.schema-generation.database.action">drop-and-create</prop>
-                <prop key="javax.persistence.schema-generation.create-database-schemas">true</prop>
-                <prop key="javax.persistence.sql-load-script-source">load.sql</prop>
                 <prop key="eclipselink.target-database">Derby</prop>
                 <prop key="eclipselink.jdbc.native-sql">true</prop>
                 <prop key="eclipselink.weaving">false</prop>

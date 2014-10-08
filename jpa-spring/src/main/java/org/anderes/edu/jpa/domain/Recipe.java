@@ -72,10 +72,8 @@ public class Recipe implements Serializable {
 	@Column(nullable = true)
 	private Image image;
 
-	@NotNull
-	@Valid
-	@Size(min = 1, max = 100)
-	@OneToMany(cascade = CascadeType.ALL)
+	@NotNull @Valid @Size(min = 1, max = 100)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	@JoinColumn(name = "RECIPE_ID")
 	private List<Ingredient> ingredients = new ArrayList<Ingredient>();
 
@@ -88,20 +86,16 @@ public class Recipe implements Serializable {
 	@Column(nullable = true, length = 8000)
 	private String preample;
 
-	@NotNull
-    @Size(min = 1, max = 10)
-    @Column(nullable = false, length = 5)
+	@NotNull @Size(min = 1, max = 10)
+    @Column(nullable = false, length = 10)
 	private String noOfPerson;
 	
-	@NotNull
-    @Size(min = 0, max = 100)
+	@NotNull @Size(min = 0, max = 100)
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name="TAGS", joinColumns=@JoinColumn(name="RECIPE_ID"))
 	private Set<String> tags = new HashSet<String>();
 	
-	@NotNull
-	@Min(0)
-	@Max(5)
+	@NotNull @Min(0) @Max(5)
 	@Column(nullable = false)
 	private Integer rating = Integer.valueOf(0);
 
