@@ -41,7 +41,7 @@ public class RecipeRepositoryTest {
 
     @Test
     public void shouldBeOneRecipe() {
-        final Recipe recipe = repository.findOne(10001l);
+        final Recipe recipe = repository.findOne("FF00-AA");
         assertNotNull(recipe);
         assertThat(recipe.getTitle(), is("Dies und Das"));
         assertThat(recipe.getIngredients().size(), is(4));
@@ -69,16 +69,16 @@ public class RecipeRepositoryTest {
         
         // then
         assertThat(savedRecipe, is(not(nullValue())));
-        assertThat(savedRecipe.getId(), is(not(nullValue())));
+        assertThat(savedRecipe.getUuid(), is(not(nullValue())));
         
-        final Recipe findRecipe = repository.findOne(savedRecipe.getId());
+        final Recipe findRecipe = repository.findOne(savedRecipe.getUuid());
         assertNotSame(newRecipe, findRecipe);
         assertThat(newRecipe, is(findRecipe));
     }
     
     @Test
     public void shouldBeUpdateRecipe() {
-        final Recipe updateRecipe = repository.findOne(Long.valueOf(10001L));
+        final Recipe updateRecipe = repository.findOne("FF00-AA");
         updateRecipe.setPreample("Neuer Preample vom Test");
         final Recipe savedRecipe = repository.save(updateRecipe);
         
@@ -86,7 +86,7 @@ public class RecipeRepositoryTest {
         assertThat(savedRecipe.getPreample(), is("Neuer Preample vom Test"));
         assertThat(savedRecipe.getIngredients().size(), is(4));
         
-        final Recipe findRecipe = repository.findOne(savedRecipe.getId());
+        final Recipe findRecipe = repository.findOne(savedRecipe.getUuid());
         assertThat(findRecipe, is(not(nullValue())));
         assertThat(findRecipe.getPreample(), is("Neuer Preample vom Test"));
         assertNotSame(updateRecipe, findRecipe);
@@ -95,7 +95,7 @@ public class RecipeRepositoryTest {
     
     @Test
     public void shouldBeDelete() {
-        final Recipe toDelete = repository.findOne(Long.valueOf(10002L));
+        final Recipe toDelete = repository.findOne("FF00-BB");
         repository.delete(toDelete);
         
         final Collection<Recipe> recipes = repository.findByTitleLike("%Pasta%");

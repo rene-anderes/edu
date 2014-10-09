@@ -15,8 +15,6 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
@@ -41,11 +39,8 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 )
 public class Recipe implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 	
+	@Id
 	@Column(nullable = false)
 	private String uuid;
 
@@ -114,10 +109,6 @@ public class Recipe implements Serializable {
 
 	public void setImage(Image image) {
 		this.image = image;
-	}
-
-	public Long getId() {
-		return id;
 	}
 
 	public Integer getVersion() {
