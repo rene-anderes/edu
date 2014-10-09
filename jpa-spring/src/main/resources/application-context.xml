@@ -17,6 +17,7 @@
     <tx:annotation-driven />
     <context:annotation-config />
     <context:component-scan base-package="org.anderes.edu.jpa.application" />
+    <context:component-scan base-package="org.anderes.edu.jpa.infrastructure" />
     <jpa:repositories base-package="org.anderes.edu.jpa.domain" />
      
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
