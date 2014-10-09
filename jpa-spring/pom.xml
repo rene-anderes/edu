@@ -78,6 +78,7 @@
                                     <include>src/test/scripts/sql/DeleteTableContentScript.sql</include>
                                 </includes>
                             </fileset>
+                            <onError>continue</onError>
                         </configuration>
                     </execution>
                     <execution>
