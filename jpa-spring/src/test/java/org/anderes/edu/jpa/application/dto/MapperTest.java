@@ -1,4 +1,4 @@
-package org.anderes.edu.jpa.application;
+package org.anderes.edu.jpa.application.dto;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -9,6 +9,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.anderes.edu.jpa.application.dto.IngredientDto;
+import org.anderes.edu.jpa.application.dto.Mapper;
+import org.anderes.edu.jpa.application.dto.RecipeDto;
+import org.anderes.edu.jpa.application.dto.RecipeShortDto;
+import org.anderes.edu.jpa.application.dto.TagDto;
 import org.anderes.edu.jpa.domain.Recipe;
 import org.anderes.edu.jpa.domain.RecipeBuilder;
 import org.junit.Before;
@@ -18,7 +23,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:unittest-application-context.xml")
+@ContextConfiguration(locations = "classpath:application-context.xml")
 public class MapperTest {
 
     @Inject
