@@ -14,7 +14,7 @@
         <spring.version>4.1.1.RELEASE</spring.version>
         <db.derby.version>10.11.1.1</db.derby.version>
         <db.driver>org.apache.derby.jdbc.EmbeddedDriver</db.driver>
-        <db.url>jdbc:derby:testDB;create=true</db.url>
+        <db.url>jdbc:derby:Databases/CookbookDB;create=true</db.url>
         <db.user>APP</db.user>
         <db.password>APP</db.password>
     </properties>
