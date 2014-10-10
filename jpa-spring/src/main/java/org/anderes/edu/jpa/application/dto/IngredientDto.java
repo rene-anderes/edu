@@ -1,4 +1,4 @@
-package org.anderes.edu.jpa.application;
+package org.anderes.edu.jpa.application.dto;
 
 
 /**
