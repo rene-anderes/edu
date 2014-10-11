@@ -16,10 +16,10 @@ public class DerbyDatabaseBackup {
     private DataSource dataSource;
 
     public boolean backUpDatabase(String backupdirectory) {
-        Connection conn;
+        Connection connection;
         try {
-            conn = dataSource.getConnection();
-            final CallableStatement cs = conn.prepareCall("CALL SYSCS_UTIL.SYSCS_BACKUP_DATABASE(?)");
+            connection = dataSource.getConnection();
+            final CallableStatement cs = connection.prepareCall("CALL SYSCS_UTIL.SYSCS_BACKUP_DATABASE(?)");
             cs.setString(1, backupdirectory);
             cs.execute();
             cs.close();
@@ -28,4 +28,5 @@ public class DerbyDatabaseBackup {
         }
         return true;
     }
+    
 }
