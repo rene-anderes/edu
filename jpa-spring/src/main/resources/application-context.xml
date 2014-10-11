@@ -44,7 +44,7 @@
         <property name="jpaDialect" ref="jpaDialect" />
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter">
-                <property name="showSql" value="true" />
+                <property name="showSql" value="${eclipselink.showsql}" />
             </bean>
         </property>
         <property name="jpaProperties">

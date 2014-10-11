@@ -14,7 +14,6 @@
         <spring.version>4.1.1.RELEASE</spring.version>
         <db.derby.version>10.11.1.1</db.derby.version>
         <db.driver>org.apache.derby.jdbc.EmbeddedDriver</db.driver>
-        <db.url>jdbc:derby:d:/tomcat/EclipseDev/Databases/CookbookDB</db.url>
         <db.user>APP</db.user>
         <db.password>APP</db.password>
     </properties>
@@ -116,6 +115,7 @@
             </activation>
             <properties>
                 <db.url>jdbc:derby:Databases/CookbookDB</db.url>
+                <eclipselink.showsql>true</eclipselink.showsql>
             </properties>
         </profile>
         <profile>
@@ -125,12 +125,14 @@
             </activation>
             <properties>
                 <db.url>jdbc:derby:d:/Databases/CookbookDB</db.url>
+                <eclipselink.showsql>true</eclipselink.showsql>
             </properties>
         </profile>
         <profile>
             <id>live</id>
             <properties>
                 <db.url>jdbc:derby:directory:/srv/wwwdata/anderes/Databases/CookbookDB</db.url>
+                <eclipselink.showsql>false</eclipselink.showsql>
             </properties>
         </profile>
         <profile>
