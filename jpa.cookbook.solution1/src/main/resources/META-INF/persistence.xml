@@ -16,9 +16,8 @@
           <properties>
                <!-- JPA connection information for the database -->
                <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ DERBY Instanz ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-               <!-- Derby muss gestartet sein: ..\glassfish4\glassfish\bin\asadmin.bat start-database ... -->
-               <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver" />
-               <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/sun-appserv-samples;create=true" />
+               <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
+               <property name="javax.persistence.jdbc.url" value="jdbc:derby:testDB;create=true" />
                <property name="javax.persistence.jdbc.user" value="APP" />
                <property name="javax.persistence.jdbc.password" value="APP" />
                <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Oracle XE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->

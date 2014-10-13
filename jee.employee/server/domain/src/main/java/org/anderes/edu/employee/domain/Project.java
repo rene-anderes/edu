@@ -3,6 +3,7 @@ package org.anderes.edu.employee.domain;
 import static java.lang.Boolean.TRUE;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -18,6 +19,10 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Version;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * Diese Klasse repräsentiert ein Projekt in dem eine Gruppe von Mitarbeitern tätig ist.
@@ -79,8 +84,8 @@ public abstract class Project implements Serializable {
         return version;
     }
 
-    public Employee getTeamLeader() {
-        return this.teamLeader;
+    public Optional<Employee> getTeamLeader() {
+        return Optional.ofNullable(teamLeader);
     }
 
     public void setTeamLeader(Employee employee) {
@@ -93,5 +98,29 @@ public abstract class Project implements Serializable {
 
     public void setIsActive(final Boolean isActive) {
         this.isActive = isActive;
+    }
+    
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37).append(description).append(name)
+                        .append(teamLeader).append(isActive).toHashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) { return false; }
+        if (obj == this) { return true; }
+        if (obj.getClass() != getClass()) {
+          return false;
+        }
+        final Project rhs = (Project) obj;
+        return new EqualsBuilder().append(description, rhs.description).append(name, rhs.name)
+                        .append(teamLeader, rhs.teamLeader).append(isActive, rhs.isActive).isEquals();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this).append("name", name).append("description", description)
+                        .append("teamLeader", teamLeader).append("isActive", isActive).toString();
     }
 }

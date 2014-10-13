@@ -83,7 +83,11 @@ public class EmployeeResource {
         if (employee == null) {
             throw new WebApplicationException(Status.NOT_FOUND);
         }
-        return Response.ok().entity(mapper.mapToAddressDto(employee.getAddress())).build();
+        if (!employee.getAddress().isPresent()) {
+            throw new WebApplicationException(Status.NOT_FOUND);
+        }
+        return Response.ok().entity(mapper.mapToAddressDto(employee.getAddress().get())).build();
+        
 	}
 	
 	@GET

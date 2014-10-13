@@ -6,16 +6,13 @@
 
     <jdbc-resource pool-name="OraclePool" jndi-name="jdbc/employee" />
     <jdbc-connection-pool name="OraclePool" res-type="javax.sql.XADataSource" datasource-classname="oracle.jdbc.xa.client.OracleXADataSource">
-
         <property name="user" value="${db.user}" />
         <property name="password" value="${db.pw}" />
         <property name="url" value="${db.url}" />
-
     </jdbc-connection-pool>
 
     <jdbc-resource pool-name="DerbyServerPool" jndi-name="jdbc/empl" />
-    <jdbc-connection-pool name="DerbyServerPool" res-type="javax.sql.DataSource" 
-        datasource-classname="org.apache.derby.jdbc.ClientDataSource">
+    <jdbc-connection-pool name="DerbyServerPool" res-type="javax.sql.DataSource" datasource-classname="org.apache.derby.jdbc.ClientDataSource">
         <property name="serverName" value="${derby.server.name}" />
         <property name="portNumber" value="${derby.server.port}" />
         <property name="dataBaseName" value="${derby.server.database}" />

@@ -63,9 +63,9 @@
             </dependency>
             <!-- Glassfish für Integrationstests -->
             <dependency>
-                <groupId>org.glassfish.main.extras</groupId>
-                <artifactId>glassfish-embedded-all</artifactId>
-                <version>4.0</version>
+               <groupId>org.glassfish.main.extras</groupId>
+	           <artifactId>glassfish-embedded-all</artifactId>
+	           <version>4.0</version>
             </dependency>
             <!-- Testing -->
             <dependency>
@@ -325,7 +325,7 @@
         <profile>
             <id>arquillian-glassfish-remote</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <arquillian.container>glassfish-remote</arquillian.container>
@@ -343,7 +343,7 @@
         <profile>
             <id>arquillian-glassfish-embedded</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
                 <arquillian.container>glassfish-embedded</arquillian.container>

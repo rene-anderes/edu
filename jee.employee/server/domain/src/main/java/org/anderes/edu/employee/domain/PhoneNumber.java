@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 /**
  * Repräsentiert eine Telefonnummer
  * <p>
@@ -71,7 +75,28 @@ public class PhoneNumber implements Serializable {
     protected void setOwner(Employee employee) {
         this.owner = employee;
     }
+    
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37).append(type).append(areaCode).append(number).toHashCode();
+    }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) { return false; }
+        if (obj == this) { return true; }
+        if (obj.getClass() != getClass()) {
+          return false;
+        }
+        final PhoneNumber rhs = (PhoneNumber) obj;
+        return new EqualsBuilder().append(type, rhs.type).append(areaCode, rhs.areaCode).append(number, rhs.number).isEquals();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this).append("type", type).append("areaCode", areaCode).append("number", number).toString();
+    }
+    
     public static class ID implements Serializable {
         private static final long serialVersionUID = 1L;
         public long owner;

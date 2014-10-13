@@ -1,6 +1,7 @@
 package org.anderes.edu.employee.domain;
 
-import static org.anderes.edu.employee.domain.Employee.*;
+import static org.anderes.edu.employee.domain.Employee.FINDALLEMPLOYEE_BY_SALARY;
+import static org.anderes.edu.employee.domain.Employee.FINDEMPLOYEE_IN_LARGEPROJECT;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +10,6 @@ import java.util.Map;
 import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -19,6 +19,7 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
+import javax.transaction.Transactional;
 
 import org.eclipse.persistence.annotations.BatchFetchType;
 import org.eclipse.persistence.config.QueryHints;
@@ -33,6 +34,7 @@ import org.eclipse.persistence.queries.LoadGroup;
  * <li>Abfragen mit JPQL</li>
  * <li>Abfragen mit Criteria-Query</li>
  * <li>Caching</li>
+ * <li>Transkationsteuerung via @Transactional (JEE 7)</li>
  * </ul>
  * 
  * @author René Anderes
@@ -51,11 +53,13 @@ public class EmployeeRepository implements Repository<Employee, Long> {
     }
     
     @Override
+    @Transactional
     public Employee save(final Employee entity) {
         return entityManager.merge(entity);
     }
 
     @Override
+    @Transactional
     public void delete(final Employee entity) {
         entityManager.remove(entity);
     }
@@ -125,28 +129,26 @@ public class EmployeeRepository implements Repository<Employee, Long> {
     /**
      * CriteriaQuery-sample for a single data element.
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
     public Double findMaxSalary() {
 
         final CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        final CriteriaQuery cq = cb.createQuery();
-        final Root e = cq.from(Employee.class);
+        final CriteriaQuery<Double> cq = cb.createQuery(Double.class);
+        final Root<Employee> e = cq.from(Employee.class);
         cq.select(cb.max(e.get(Employee_.salary)));
-        final Query query = entityManager.createQuery(cq);
-        return (Double)query.getSingleResult();
+        final TypedQuery<Double> query = entityManager.createQuery(cq);
+        return query.getSingleResult();
     }
     
     /**
      * CriteriaQuery-sample for a List of data elements.
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
     public List<String> findAllFirstname() {
 
         final CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        final CriteriaQuery cq = cb.createQuery();
-        final Root e = cq.from(Employee.class);
+        final CriteriaQuery<String> cq = cb.createQuery(String.class);
+        final Root<Employee> e = cq.from(Employee.class);
         cq.select(e.get(Employee_.firstName));
-        final Query query = entityManager.createQuery(cq);
+        final TypedQuery<String> query = entityManager.createQuery(cq);
         return query.getResultList();
     }
     
@@ -154,31 +156,29 @@ public class EmployeeRepository implements Repository<Employee, Long> {
     /**
      * CriteriaQuery-sample for a List of element arrays.
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
     public List<Object[]> getAllNames() {
         
         final CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        final CriteriaQuery cq = cb.createQuery();
-        final Root e = cq.from(Employee.class);
+        final CriteriaQuery<Object[]> cq = cb.createQuery(Object[].class);
+        final Root<Employee> e = cq.from(Employee.class);
         cq.multiselect(e.<String>get(Employee_.firstName), e.<String>get(Employee_.lastName));
-        final Query query = entityManager.createQuery(cq);
+        final TypedQuery<Object[]> query = entityManager.createQuery(cq);
         return query.getResultList();
     }
     
     /**
      * Select the average salaries grouped by city, ordered by the average salary.
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
     public List<Object[]> getAvarageSalaries() {
         
         final CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        final CriteriaQuery cq = cb.createQuery();
-        final Root e = cq.from(Employee.class);
-        final Expression avg = cb.avg(e.<Number>get(Employee_.salary));
-        cq.multiselect(avg, e.<String>get(Employee_.address).<String>get(Address_.city));
+        final CriteriaQuery<Object[]> cq = cb.createQuery(Object[].class);
+        final Root<Employee> e = cq.from(Employee.class);
+        final Expression<Double> avg = cb.avg(e.get(Employee_.salary));
+        cq.multiselect(avg, e.get(Employee_.address).<String>get(Address_.city));
         cq.groupBy(e.get(Employee_.address).get(Address_.city));
         cq.orderBy(cb.asc(avg));
-        final Query query = entityManager.createQuery(cq);
+        final TypedQuery<Object[]> query = entityManager.createQuery(cq);
         return query.getResultList();
     }
     
@@ -363,6 +363,10 @@ public class EmployeeRepository implements Repository<Employee, Long> {
     	return entityManager.find(Employee.class, id, hints);
     }
     
+    /**
+     *  Sample with Entity-Graph (FetchGraph)</p>
+     *  @since JPA 2.1
+     */
     public List<Employee> findEmployees() {
         
         final EntityGraph<Employee> entityGraph = entityManager.createEntityGraph(Employee.class);

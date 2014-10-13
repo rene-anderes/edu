@@ -2,9 +2,11 @@ package org.anderes.edu.employee.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -35,6 +37,10 @@ import javax.persistence.OrderColumn;
 import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 import javax.persistence.Version;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * Ein Mitarbeiter
@@ -104,7 +110,7 @@ public class Employee implements Serializable {
     @AttributeOverrides( {
         @AttributeOverride(name = "startDate", column = @Column(name = "START_DATE")),
         @AttributeOverride(name = "endDate", column = @Column(name = "END_DATE")) })
-    private EmploymentPeriod period;
+    private EmploymentPeriod period = new EmploymentPeriod();
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "ADDR_ID")
@@ -187,11 +193,7 @@ public class Employee implements Serializable {
     }
     
     public List<Degree> getDegrees() {
-        return degrees;
-    }
-
-    public void setDegrees(final List<Degree> degrees) {
-        this.degrees = degrees;
+        return Collections.unmodifiableList(degrees);
     }
 
     public Degree addDegree(final String degree) {
@@ -199,24 +201,19 @@ public class Employee implements Serializable {
     }
 
     public Degree addDegree(final Degree degree) {
-        getDegrees().add(degree);
+        degrees.add(degree);
         return degree;
     }
 
-    public Degree removeDegree(final Degree degree) {
-        getDegrees().remove(degree);
-        return degree;
+    public void removeDegree(final Degree degree) {
+        degrees.remove(degree);
     }
 
     public List<Project> getProjects() {
-        return projects;
+        return Collections.unmodifiableList(projects);
     }
 
-    public void setProjects(final List<Project> projectList) {
-        this.projects = projectList;
-    }
-
-    public Project addProject(Project project) {
+    public Project addProject(final Project project) {
         getProjects().add(project);
         return project;
     }
@@ -226,8 +223,8 @@ public class Employee implements Serializable {
         return project;
     }
 
-    public Employee getManager() {
-        return manager;
+    public Optional<Employee> getManager() {
+        return Optional.ofNullable(manager);
     }
 
     public void setManager(final Employee employee) {
@@ -235,11 +232,8 @@ public class Employee implements Serializable {
     }
 
     public List<Employee> getManagedEmployees() {
-        return this.managedEmployees;
-    }
-
-    public void setManagedEmployees(final List<Employee> employeeList) {
-        this.managedEmployees = employeeList;
+        return managedEmployees;
+//        return Collections.unmodifiableList(managedEmployees);
     }
 
     public Employee addManagedEmployee(final Employee employee) {
@@ -255,11 +249,7 @@ public class Employee implements Serializable {
     }
 
     public List<PhoneNumber> getPhoneNumbers() {
-        return phoneNumbers;
-    }
-
-    public void setPhoneNumbers(final List<PhoneNumber> phoneNumberList) {
-        this.phoneNumbers = phoneNumberList;
+        return Collections.unmodifiableList(phoneNumbers);
     }
 
     public PhoneNumber addPhoneNumber(final PhoneNumber phoneNumber) {
@@ -273,18 +263,31 @@ public class Employee implements Serializable {
         return addPhoneNumber(phoneNumber);
     }
 
-    public PhoneNumber removePhoneNumber(final PhoneNumber phoneNumber) {
+    public void removePhoneNumber(final PhoneNumber phoneNumber) {
         getPhoneNumbers().remove(phoneNumber);
         phoneNumber.setOwner(null);
-        return phoneNumber;
     }
 
+    public Optional<ParkingSpace> getParkingSpace() {
+        return Optional.ofNullable(this.parkingSpace);
+    }
+    
+    public void setParkingSpace(final ParkingSpace parkingSpace) {
+        this.parkingSpace = parkingSpace;
+        this.parkingSpace.setOwner(this);
+    }
+    
+    public void removeParkingSpace(final ParkingSpace parkingSpace) {
+        this.parkingSpace = null;
+        parkingSpace.setOwner(null);
+    }
+    
     public void setAddress(final Address address) {
         this.address = address;
     }
 
-    public Address getAddress() {
-        return address;
+    public Optional<Address> getAddress() {
+        return Optional.ofNullable(address);
     }
 
     public void setPeriod(final EmploymentPeriod period) {
@@ -304,27 +307,19 @@ public class Employee implements Serializable {
     }
 
     public List<String> getResponsibilities() {
-        return this.responsibilities;
-    }
-
-    public void setResponsibilities(final List<String> responsibilities) {
-        this.responsibilities = responsibilities;
+        return Collections.unmodifiableList(responsibilities);
     }
 
     public void addResponsibility(final String responsibility) {
-        getResponsibilities().add(responsibility);
+        responsibilities.add(responsibility);
     }
 
     public void removeResponsibility(final String responsibility) {
-        getResponsibilities().remove(responsibility);
+        responsibilities.remove(responsibility);
     }
     
     public Map<String, EmailAddress> getEmailAddresses() {
         return emailAddresses;
-    }
-
-    public void setEmailAddresses(final Map<String, EmailAddress> emailAddresses) {
-        this.emailAddresses = emailAddresses;
     }
 
     public EmailAddress addEmailAddress(final String type, final String newAddress) {
@@ -332,26 +327,67 @@ public class Employee implements Serializable {
     }
 
     public EmailAddress addEmailAddress(final String type, final EmailAddress newAddress) {
-        return getEmailAddresses().put(type, newAddress);
+        return emailAddresses.put(type, newAddress);
     }
 
     public EmailAddress removeEmailAddress(final String type) {
-        return getEmailAddresses().remove(type);
+        return emailAddresses.remove(type);
     }
 
     public EmailAddress getEmailAddress(final String type) {
-        return getEmailAddresses().get(type);
+        return emailAddresses.get(type);
     }
     
-    public JobTitle getJobTitle() {
-        return jobTitle;
+    public Optional<JobTitle> getJobTitle() {
+        return Optional.ofNullable(jobTitle);
     }
 
     public void setJobTitle(final JobTitle jobTitle) {
         this.jobTitle = jobTitle;
     }
 
+    private Optional<Long> getIdFromManagerIfPresent() {
+        Long managerId = null;
+        if (getManager().isPresent()) {
+            managerId = getManager().get().getId();
+        }
+        return Optional.ofNullable(managerId);
+    }
+    
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37).append(firstName).append(lastName)
+                        .append(gender).append(salary).append(period)
+                        .append(address).append(jobTitle).append(getIdFromManagerIfPresent())
+                        .append(managedEmployees).append(phoneNumbers).append(degrees)
+                        .append(projects).append(responsibilities).append(emailAddresses)
+                        .append(parkingSpace)
+                        .toHashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) { return false; }
+        if (obj == this) { return true; }
+        if (obj.getClass() != getClass()) {
+          return false;
+        }
+        final Employee rhs = (Employee) obj;
+        return new EqualsBuilder().append(firstName, rhs.firstName).append(lastName, rhs.lastName)
+                        .append(gender, rhs.gender).append(salary, rhs.salary).append(period, rhs.period)
+                        .append(address, rhs.address).append(jobTitle, rhs.jobTitle)
+                        .append(getIdFromManagerIfPresent(), rhs.getIdFromManagerIfPresent())
+                        .append(managedEmployees, rhs.managedEmployees).append(phoneNumbers, rhs.phoneNumbers)
+                        .append(degrees, rhs.degrees).append(projects, rhs.projects)
+                        .append(responsibilities, rhs.responsibilities).append(emailAddresses, rhs.emailAddresses)
+                        .append(parkingSpace, rhs.parkingSpace)
+                        .isEquals();
+    }
+
+    @Override
     public String toString() {
-        return "Employee(" + id + ": " + lastName + ", " + firstName + ")";
+        // Mittels ToStringBuilder(this) wird der Hashcode bezogen und dieser löst einen Stackoverflow aus.
+        // keine Lösung vorhanden
+        return new ToStringBuilder(null).append("id", id).append("firstName", firstName).append("lastName", lastName).toString();
     }
 }

@@ -28,8 +28,8 @@ public class DtoMapperCopy implements DtoMapper {
         dto.setSalary(new BigDecimal(employee.getSalary()));
         dto.setGender(employee.getGender().name());
         dto.setId(BigInteger.valueOf(employee.getId()));
-        if (employee.getJobTitle() != null) {
-            dto.setJobtitle(employee.getJobTitle().getTitle());
+        if (employee.getJobTitle().isPresent()) {
+            dto.setJobtitle(employee.getJobTitle().get().getTitle());
         }
         return dto;
     }
@@ -44,8 +44,8 @@ public class DtoMapperCopy implements DtoMapper {
             e.setFirstname(employee.getFirstName());
             e.setLastname(employee.getLastName());
             e.setId(BigInteger.valueOf(employee.getId()));
-            if (employee.getJobTitle() != null) {
-                e.setJobtitle(employee.getJobTitle().getTitle());
+            if (employee.getJobTitle().isPresent()) {
+                e.setJobtitle(employee.getJobTitle().get().getTitle());
             }
             list.getEmployee().add(e);
         }
