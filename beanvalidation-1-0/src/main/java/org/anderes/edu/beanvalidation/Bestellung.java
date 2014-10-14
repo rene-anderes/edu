@@ -5,19 +5,21 @@ import java.util.Date;
 import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
+import javax.validation.groups.Default;
 
 import org.anderes.edu.beanvalidation.constrains.ValidBestellung;
+import org.anderes.edu.beanvalidation.groups.Minimal;
 
 @ValidBestellung
 public class Bestellung {
 
-    @Future
+    @NotNull(groups = { Default.class, Minimal.class })
+    @Future(groups = { Default.class, Minimal.class })
     private Date lieferdatum;
     @Valid @NotNull
     private Kundendaten kundendaten;
     @Valid
     private Kundendaten rechnungsadresse;
-    @Valid
     private boolean rechnungAnKundenadresse;
 
     public Kundendaten getRechnungsadresse() {
