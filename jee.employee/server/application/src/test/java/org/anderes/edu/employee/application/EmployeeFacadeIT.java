@@ -8,6 +8,7 @@ import static org.jboss.arquillian.persistence.TestExecutionPhase.NONE;
 import static org.junit.Assert.assertThat;
 
 import java.io.File;
+import java.util.Optional;
 
 import javax.ejb.EJB;
 
@@ -69,7 +70,10 @@ public class EmployeeFacadeIT {
     @InSequence(2)
     public void shouldBeFindOneEmployee() {
 
-        final Employee employee = facade.findOne(59L);
+        final Optional<Employee> optional = facade.findOne(59L);
+        assertThat(optional, is(notNullValue()));
+        assertThat(optional.isPresent(), is(true));
+        final Employee employee = optional.get();
         assertThat(employee, is(notNullValue()));
         assertThat(employee.getPhoneNumbers(), is(notNullValue()));
         assertThat(employee.getPhoneNumbers().size(), is(2));

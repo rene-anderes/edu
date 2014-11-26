@@ -5,6 +5,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -67,10 +68,11 @@ public class EmployeeResource {
 	@GET
 	@Path("/{id: [0-9]+}")
 	public Response findEmployee(@PathParam("id") final Long employeeId) {
-		final Employee employee = facade.findOne(employeeId);
-		if (employee == null) {
+	    final Optional<Employee> optional = facade.findOne(employeeId);
+		if (!optional.isPresent()) {
 			throw new WebApplicationException(Status.NOT_FOUND);
 		}
+		final Employee employee = optional.get();
 		final EmployeeDto dto = mapper.mapToEmployeeDto(employee);
 		dto.setLinks(createLinksForEmployee());
 		return Response.ok().entity(dto).build();
@@ -79,10 +81,11 @@ public class EmployeeResource {
 	@GET
 	@Path("/{id: [0-9]+}/address")
 	public Response findAddressForEmployee(@PathParam("id") final Long employeeId) {
-	    final Employee employee = facade.findOne(employeeId);
-        if (employee == null) {
+	    final Optional<Employee> optional = facade.findOne(employeeId);
+        if (!optional.isPresent()) {
             throw new WebApplicationException(Status.NOT_FOUND);
         }
+        final Employee employee = optional.get();
         if (!employee.getAddress().isPresent()) {
             throw new WebApplicationException(Status.NOT_FOUND);
         }
@@ -93,10 +96,11 @@ public class EmployeeResource {
 	@GET
     @Path("/{id: [0-9]+}/projects")
     public Response findProjectsForEmployee(@PathParam("id") final Long employeeId) {
-        final Employee employee = facade.findProjectsByEmployee(employeeId);
-        if (employee == null) {
+	    final Optional<Employee> optional = facade.findProjectsByEmployee(employeeId);
+        if (!optional.isPresent()) {
             throw new WebApplicationException(Status.NOT_FOUND);
         }
+        final Employee employee = optional.get();
         final ProjectsDto projects = createLinksForProjects(mapper.mapToProjectsDto(employee.getProjects()));
         return Response.ok().entity(projects).build();
     }

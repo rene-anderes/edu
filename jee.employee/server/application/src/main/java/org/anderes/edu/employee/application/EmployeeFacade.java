@@ -1,6 +1,7 @@
 package org.anderes.edu.employee.application;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -30,12 +31,12 @@ public class EmployeeFacade {
         return repository.findEmployeeBySalaryFetchJobtitle(salary);
     }
     
-    public Employee findOne(final Long employeeId) {
+    public Optional<Employee> findOne(final Long employeeId) {
         Validate.notNull(employeeId, "Der Parameter 'employeeId' darf nicht null sein.");
         try {
-        	return repository.findOneEmployeeAddress(employeeId);
+        	return Optional.of(repository.findOneEmployeeAddress(employeeId));
         } catch (NoResultException e) {
-        	return null;
+        	return Optional.empty();
         }
     }
     
@@ -43,8 +44,12 @@ public class EmployeeFacade {
         return repository.findEmployees();
     }
 
-    public Employee findProjectsByEmployee(final Long employeeId) {
+    public Optional<Employee> findProjectsByEmployee(final Long employeeId) {
         Validate.notNull(employeeId, "Der Parameter 'employeeId' darf nicht null sein.");
-        return repository.findProjectsByEmployee(employeeId);
+        try {
+            return Optional.of(repository.findProjectsByEmployee(employeeId));
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
     }
 }
