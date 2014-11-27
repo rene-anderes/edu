@@ -1,8 +1,6 @@
 package org.anderes.edu.dojo.csv;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.Reader;
 import java.io.UncheckedIOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -10,6 +8,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CsvReader8 {
 
@@ -22,28 +21,30 @@ public class CsvReader8 {
     }
 
     public List<String> readHeader() {
+        Stream<String> lines = null; 
         try {
-            final Reader source = Files.newBufferedReader(csvFile, encoding);
-            final BufferedReader reader = new BufferedReader(source); 
-            return reader.lines()
-                    .findFirst()
+            lines = Files.lines(csvFile, encoding);
+            return lines.findFirst()
                     .map(line -> Arrays.asList(line.split(seperator)))
                     .get();
         } catch (IOException e) {
             throw new UncheckedIOException(e);
+        } finally {
+            lines.close();
         }
     }
 
     public List<List<String>> readRecords() {
+        Stream<String> lines = null; 
         try {
-            final Reader source = Files.newBufferedReader(csvFile, encoding);
-            final BufferedReader reader = new BufferedReader(source);
-            return reader.lines()
-                    .skip(1)
+            lines = Files.lines(csvFile, encoding);
+            return lines.skip(1)
                     .map(line -> Arrays.asList(line.split(seperator)))
                     .collect(Collectors.toList());
         } catch (IOException e) {
             throw new UncheckedIOException(e);
+        } finally {
+            lines.close();
         }
     }
 
