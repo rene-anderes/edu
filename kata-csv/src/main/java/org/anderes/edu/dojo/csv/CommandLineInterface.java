@@ -65,7 +65,6 @@ public class CommandLineInterface {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
-        System.out.println("Eingabe: " + consoleInput.substring(0, 1));
         return consoleInput.substring(0, 1);
     }
 
