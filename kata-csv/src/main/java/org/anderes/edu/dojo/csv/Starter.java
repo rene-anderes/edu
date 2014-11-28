@@ -16,7 +16,7 @@ public class Starter {
         final List<String> header = csvReader.readHeader();
         final Paging paging = new Paging(csvReader.readRecords());
         Command command = show(header, paging.firstPage(), System.out);
-        while(true) {
+        do {
             List<List<String>> records = new ArrayList<List<String>>(0);
             switch (command) {
                 case NEXT:
@@ -38,7 +38,7 @@ public class Starter {
                     break;
             }
             command = show(header, records, System.out);
-        }
+        } while(true);
     }
 
     private static Command show(List<String> header, List<List<String>> records, OutputStream outputStream) {
