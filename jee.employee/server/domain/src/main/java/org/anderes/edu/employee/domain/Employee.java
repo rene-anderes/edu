@@ -360,7 +360,8 @@ public class Employee implements Serializable {
                         .append(gender).append(salary).append(period)
                         .append(address).append(jobTitle).append(getIdFromManagerIfPresent())
                         .append(managedEmployees).append(phoneNumbers).append(degrees)
-                        .append(projects).append(responsibilities).append(emailAddresses)
+                        /*.append(projects)*/   // Ergibt einen StackOverflow (loop)
+                        .append(responsibilities).append(emailAddresses)
                         .append(parkingSpace)
                         .toHashCode();
     }
@@ -378,7 +379,8 @@ public class Employee implements Serializable {
                         .append(address, rhs.address).append(jobTitle, rhs.jobTitle)
                         .append(getIdFromManagerIfPresent(), rhs.getIdFromManagerIfPresent())
                         .append(managedEmployees, rhs.managedEmployees).append(phoneNumbers, rhs.phoneNumbers)
-                        .append(degrees, rhs.degrees).append(projects, rhs.projects)
+                        .append(degrees, rhs.degrees)
+                        /*.append(projects, rhs.projects)*/ // Ergibt einen StackOverflow (loop)
                         .append(responsibilities, rhs.responsibilities).append(emailAddresses, rhs.emailAddresses)
                         .append(parkingSpace, rhs.parkingSpace)
                         .isEquals();
@@ -386,8 +388,6 @@ public class Employee implements Serializable {
 
     @Override
     public String toString() {
-        // Mittels ToStringBuilder(this) wird der Hashcode bezogen und dieser löst einen Stackoverflow aus.
-        // keine Lösung vorhanden
-        return new ToStringBuilder(null).append("id", id).append("firstName", firstName).append("lastName", lastName).toString();
+        return new ToStringBuilder(this).append("id", id).append("firstName", firstName).append("lastName", lastName).toString();
     }
 }

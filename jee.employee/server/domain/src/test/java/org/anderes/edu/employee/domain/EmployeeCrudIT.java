@@ -1,7 +1,9 @@
 package org.anderes.edu.employee.domain;
 
 import static org.anderes.edu.employee.domain.Gender.Female;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.jboss.arquillian.persistence.CleanupStrategy.DEFAULT;
 import static org.jboss.arquillian.persistence.TestExecutionPhase.BEFORE;
 import static org.jboss.arquillian.persistence.TestExecutionPhase.NONE;
@@ -174,5 +176,40 @@ public class EmployeeCrudIT {
         // then
         assertThat("Mitarbeiter nicht gefunden.", employee, is(not(nullValue())));
         assertThat("Mitarbeiter existiert nicht", repository.exists(Long.valueOf(70)), is(true));
+    }
+    
+    /**
+     * Beispiel für Orphan Removal<br>
+     * Bei diesem Test wird ein Degree einer Person gelöscht.<br>
+     * Die entsprechenden Beziehungen zwischen den Objekten wird gelöscht
+     * und auch die entsprechende Zeile in der Tabelle gelöscht.
+     */
+    @Test
+    @CleanupUsingScript(value = "delete_all_rows.sql", phase = BEFORE)
+    @UsingDataSet(value = { 
+        "prepare-address.json", "prepare-employee.json", "prepare-degree.json",
+        "prepare-email.json", "prepare-jobtitle.json", "prepare-emp_job.json",
+        "prepare-project.json", "prepare-lproject.json", "prepare-phone.json",
+        "prepare-proj_emp.json", "prepare-response.json", "prepare-salary.json"
+        })
+    @ShouldMatchDataSet(value = {
+        // Die veränderten Tabellen
+        "expected-degree-afterDeleteOne.json",
+        // Die unveränderten Tabellen
+        "prepare-address.json", "prepare-employee.json", 
+        "prepare-email.json", "prepare-jobtitle.json", "prepare-emp_job.json",
+        "prepare-project.json", "prepare-lproject.json", "prepare-phone.json",
+        "prepare-proj_emp.json", "prepare-response.json", "prepare-salary.json"
+        },
+        excludeColumns = { "EMPLOYEE.VERSION" },
+        orderBy = { "DEGREE.DEGREE_ID" })
+    public void shouldBeOrphanRemoval() {
+        final Degree degreeToDelete = new Degree("Masters Computer Science");
+        final Employee employee = repository.findOne(Long.valueOf(96));
+        
+        employee.removeDegree(degreeToDelete);
+        assertThat(employee.getDegrees().size(), is(2));
+        
+        // Mittels @ShouldMatchDataSet wird überprüft, ob in der Tabelle auch die richtige Werte stehen
     }
 }
