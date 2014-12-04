@@ -12,6 +12,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>4.1.1.RELEASE</spring.version>
+        <spring.security.version>3.2.5.RELEASE</spring.security.version>
         <db.derby.version>10.11.1.1</db.derby.version>
         <db.driver>org.apache.derby.jdbc.EmbeddedDriver</db.driver>
         <db.user>APP</db.user>
@@ -114,7 +115,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <db.url>jdbc:derby:Databases/CookbookDB</db.url>
+                <db.url>jdbc:derby:directory:d:/git-repository/edu/jpa-spring/Databases/CookbookDB</db.url>
                 <eclipselink.showsql>true</eclipselink.showsql>
             </properties>
         </profile>
@@ -224,8 +225,7 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
         </dependency>
-        <!-- Ohne diese Abhängigkeit:
-            java.lang.ClassNotFoundException: org.springframework.hateoas.mvc.UriComponentsContributor -->
+        <!-- Ohne diese Abhängigkeit: java.lang.ClassNotFoundException: org.springframework.hateoas.mvc.UriComponentsContributor -->
         <dependency>
             <groupId>org.springframework.hateoas</groupId>
             <artifactId>spring-hateoas</artifactId>
@@ -235,6 +235,22 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <!-- Spring Security -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>jsr250-api</artifactId>
+            <version>1.0</version>
         </dependency>
         <!-- Dependencies Injection -->
         <dependency>

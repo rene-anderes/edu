@@ -6,6 +6,7 @@ import org.anderes.edu.jpa.domain.Recipe;
 import org.anderes.edu.jpa.domain.RecipeRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,7 @@ public class RecipeController {
     }
 
     @RequestMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public @ResponseBody Recipe showUserForm(@PathVariable("id") Recipe recipe) {
         return recipe;
     }
