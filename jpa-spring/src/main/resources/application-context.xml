@@ -67,28 +67,4 @@
     </bean>
 
     <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect" />
-
-    <!-- Security configuration for REST services. -->
-    <security:http entry-point-ref="restAuthenticationEntryPoint" authentication-manager-ref="authenticationManager">
-        <security:intercept-url pattern="/**" />
-        <security:form-login authentication-success-handler-ref="mySuccessHandler" authentication-failure-handler-ref="myFailureHandler" />
-        <security:logout />
-        <security:http-basic />
-    </security:http>
-
-    <bean id="restAuthenticationEntryPoint" class="org.anderes.edu.security.RestAuthenticationEntryPoint" />
-    <bean id="mySuccessHandler" class="org.anderes.edu.security.RestAuthenticationSuccessHandler" />
-    <bean id="myFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler" />
-
-    <!-- Authentication manager. -->
-    <security:authentication-manager alias="authenticationManager">
-        <security:authentication-provider>
-            <security:user-service>
-                <security:user name="admin_user" password="password" authorities="ROLE_ADMIN" />
-                <security:user name="normal_user" password="password" authorities="ROLE_USER" />
-            </security:user-service>
-        </security:authentication-provider>
-    </security:authentication-manager>
-    <security:global-method-security secured-annotations="enabled" jsr250-annotations="enabled" pre-post-annotations="enabled" />
-
 </beans>

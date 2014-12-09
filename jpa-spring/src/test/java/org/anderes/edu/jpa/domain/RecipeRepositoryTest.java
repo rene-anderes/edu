@@ -38,7 +38,6 @@ public class RecipeRepositoryTest {
         assertThat(counter, is(2));
     }
     
-
     @Test
     public void shouldBeOneRecipe() {
         final Recipe recipe = repository.findOne("FF00-AA");
