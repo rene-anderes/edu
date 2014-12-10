@@ -95,6 +95,7 @@ public class RecipeRepositoryTest {
     @Test
     public void shouldBeDelete() {
         final Recipe toDelete = repository.findOne("FF00-BB");
+        assertThat("Das rezept mit dre ID FF00-BB existiert nicht in der Datenbank", toDelete, is(not(nullValue())));
         repository.delete(toDelete);
         
         final Collection<Recipe> recipes = repository.findByTitleLike("%Pasta%");
