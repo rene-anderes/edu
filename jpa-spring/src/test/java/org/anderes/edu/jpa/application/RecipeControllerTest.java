@@ -92,8 +92,8 @@ public class RecipeControllerTest {
     }
     
     private byte[] convertObjectToJsonBytes(Recipe object) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        final ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(JsonInclude.Include.ALWAYS);
         return mapper.writeValueAsBytes(object);
     }
     
