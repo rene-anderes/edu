@@ -44,7 +44,7 @@ public class Starter {
     private static Command show(List<String> header, List<List<String>> records, OutputStream outputStream) {
         final Viewer view = new Viewer(header, records);
         view.show(System.out);
-        final CommandLineInterface cli = new CommandLineInterface(System.out);
+        final CommandLineInterface cli = new CommandLineInterface(System.out, System.in);
         return cli.showAndWait();
     }
 }

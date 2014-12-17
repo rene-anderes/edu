@@ -2,6 +2,7 @@ package org.anderes.edu.dojo.csv;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -33,10 +34,12 @@ public class CommandLineInterface {
     };
     
     private OutputStream outputStream;
+    private InputStream inputStream;
     
-    public CommandLineInterface(final OutputStream outputStream) {
+    public CommandLineInterface(final OutputStream outputStream, final InputStream inputStream) {
         super();
         this.outputStream = outputStream;
+        this.inputStream = inputStream;
     }
     
     public Command showAndWait() {
@@ -58,7 +61,7 @@ public class CommandLineInterface {
     }
 
     private String readFromConsole() {
-        final BufferedReader consoleInputReader = new BufferedReader(new InputStreamReader(System.in));
+        final BufferedReader consoleInputReader = new BufferedReader(new InputStreamReader(inputStream));
         String consoleInput = "";
         try {
             consoleInput = consoleInputReader.readLine();
