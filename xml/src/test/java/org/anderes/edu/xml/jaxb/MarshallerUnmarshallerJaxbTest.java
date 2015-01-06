@@ -14,11 +14,19 @@ import javax.xml.bind.Unmarshaller;
 
 import org.anderes.edu.xml.jaxb.generated.Contact;
 import org.anderes.edu.xml.jaxb.generated.Contactlist;
+import org.anderes.edu.xml.jaxb.generated.ObjectFactory;
 import org.anderes.edu.xml.jaxb.generated.Phone;
 import org.anderes.edu.xml.jaxb.generated.Phonetype;
 import org.junit.Test;
 
-public class ContactJaxbTest {
+/**
+ * Beispiel in dem ein XML File mittels JAXB
+ * serialisiert und deserialisiert wird
+ * 
+ * @author René Anderes
+ *
+ */
+public class MarshallerUnmarshallerJaxbTest {
 
 	@Test
 	public void marshaller() {
@@ -27,7 +35,7 @@ public class ContactJaxbTest {
         try {
  
             final File file = File.createTempFile("ContactList", "xml");
-            final JAXBContext jaxbContext = JAXBContext.newInstance(Contactlist.class);
+            final JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
             final Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
             // output pretty printed
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
@@ -55,7 +63,7 @@ public class ContactJaxbTest {
 			final InputStream is = getClass().getResourceAsStream("/org/anderes/edu/xml/introduction/contactlist.xml");
 			assertThat(is, is(notNullValue()));
 
-            final JAXBContext jaxbContext = JAXBContext.newInstance(Contactlist.class);
+            final JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
             final Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             
             final Contactlist contactlist = (Contactlist) jaxbUnmarshaller.unmarshal(is);

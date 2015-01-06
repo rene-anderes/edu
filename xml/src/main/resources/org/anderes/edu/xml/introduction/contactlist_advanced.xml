@@ -8,9 +8,9 @@
 	<contact>
 		<name>Leonardo Da Vinci</name>
         <address:postaladdress>
-            <address:street>Rosenbergstrasse 3</address:street>
-            <address:zip>9000</address:zip>
-            <address:city>St.Gallen</address:city>
+            <street>Rosenbergstrasse 3</street>
+            <zip>9000</zip>
+            <city>St.Gallen</city>
         </address:postaladdress>
 		<phone type="mobile">+41 79 333 44 55</phone>
 		<phone type="private">+41 71 245 43 23</phone>
@@ -20,9 +20,9 @@
 	<contact>
 		<name>Mario Maler</name>
         <address:postaladdress>
-            <address:street>Heimatstrasse 5</address:street>
-            <address:zip>9000</address:zip>
-            <address:city>St.Gallen</address:city>
+            <street>Heimatstrasse 5</street>
+            <zip>9000</zip>
+            <city>St.Gallen</city>
         </address:postaladdress>
 		<phone type="office">+41 71 345 67 88</phone>
 		<phone type="fax">+41 71 345 67 89</phone>
