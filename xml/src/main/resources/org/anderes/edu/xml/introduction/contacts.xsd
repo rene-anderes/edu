@@ -27,7 +27,6 @@
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
-
 	<!-- eigener Typ -->
 	<xs:simpleType name="phonetype">
 		<xs:restriction base="xs:string">
@@ -38,7 +37,6 @@
 			<!-- und so weiter … -->
 		</xs:restriction>
 	</xs:simpleType>
-
 	<!-- eigenes Element -->
 	<xs:element name="phone">
 		<xs:complexType>
@@ -49,7 +47,6 @@
 			</xs:simpleContent>
 		</xs:complexType>
 	</xs:element>
-	
 	<!-- eigener Typ -->
 	<xs:simpleType name="phonenumber">
 		<xs:restriction base="xs:string">
