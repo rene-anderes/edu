@@ -52,7 +52,7 @@ public class PartialFromDOMwithXPathTest {
     public void shouldBeDeserializeNode() throws Exception {
         
         // es wird das Contact-Element gesucht, welches im Name-Element 'Leonardo Da Vinci' enthält
-        final Node node = createNodeByXPathExpression("//contact[./name='Leonardo Da Vinci']");
+        final Node node = createNodeByXPathExpression("//contact[name='Leonardo Da Vinci']");
         
         // es werden nur die entsprechenden Jaxb-Elemente der Node-Liste deserialisiert
         final JAXBElement<Contact> jaxbElement = jaxbUnmarshaller.unmarshal(node, Contact.class);
