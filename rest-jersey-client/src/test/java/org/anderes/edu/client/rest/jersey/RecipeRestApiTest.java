@@ -47,13 +47,9 @@ public class RecipeRestApiTest {
     @Test
     public void shouldBeBackupAllRecipe() {
         final JsonArray array = getJsonFromServer(host, "/rest/recipes", JsonArray.class);
+
         assertThat(array, is(notNullValue()));
-
-        for (int index = 0; index < array.size(); index++) {
-            final JsonObject object = array.getJsonObject(index);
-            assertThat(object.containsKey("id"), is(true));
-        }
-
+        array.forEach(element -> assertThat(((JsonObject)element).containsKey("id"), is(true)));
     }
     
     @Test
@@ -68,9 +64,15 @@ public class RecipeRestApiTest {
         assertThat(recipe.containsKey("ingredients"), is(true));
         final JsonArray ingredients = recipe.getJsonArray("ingredients");
         assertThat(ingredients, is(notNullValue()));
+        ingredients.forEach(i -> { 
+                assertThat(((JsonObject)i).containsKey("description"), is(true)); 
+                assertThat(((JsonObject)i).containsKey("comment"), is(true));
+                assertThat(((JsonObject)i).containsKey("portion"), is(true));
+        });
         assertThat(recipe.containsKey("preparation"), is(true));
         assertThat(recipe.containsKey("tags"), is(true));
         final JsonArray tags = recipe.getJsonArray("tags");
+        ingredients.forEach(t -> assertThat(t, is(notNullValue())));
         assertThat(tags, is(notNullValue()));
         assertThat(recipe.containsKey("rating"), is(true));
         assertThat(recipe.containsKey("addingDate"), is(true));
