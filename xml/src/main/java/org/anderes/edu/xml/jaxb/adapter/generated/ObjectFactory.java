@@ -2,11 +2,11 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2015.01.14 um 12:13:05 PM CET 
+// Generiert: 2015.01.14 um 02:45:55 PM CET 
 //
 
 
-package org.anderes.edu.xml.jaxb.generated;
+package org.anderes.edu.xml.jaxb.adapter.generated;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRegistry;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the org.anderes.edu.xml.jaxb.generated package. 
+ * generated in the org.anderes.edu.xml.jaxb.adapter.generated package. 
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -30,34 +30,18 @@ public class ObjectFactory {
 
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.anderes.edu.xml.jaxb.generated
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.anderes.edu.xml.jaxb.adapter.generated
      * 
      */
     public ObjectFactory() {
     }
 
     /**
-     * Create an instance of {@link Contactlist }
+     * Create an instance of {@link Person }
      * 
      */
-    public Contactlist createContactlist() {
-        return new Contactlist();
-    }
-
-    /**
-     * Create an instance of {@link Contact }
-     * 
-     */
-    public Contact createContact() {
-        return new Contact();
-    }
-
-    /**
-     * Create an instance of {@link Phone }
-     * 
-     */
-    public Phone createPhone() {
-        return new Phone();
+    public Person createPerson() {
+        return new Person();
     }
 
 }
