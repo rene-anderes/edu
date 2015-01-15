@@ -8,10 +8,10 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-@Constraint(validatedBy = { BestellungValidator.class })
+@Constraint(validatedBy = { RechnungsadresseValidator.class })
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidBestellung {
+public @interface ValidRechnungsadresse {
 
     String message() default "{ch.edu.validation.billingaddress}";
     Class<?>[] groups() default {};

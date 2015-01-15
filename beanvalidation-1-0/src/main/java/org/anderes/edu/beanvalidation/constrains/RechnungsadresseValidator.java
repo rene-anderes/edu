@@ -5,10 +5,10 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.anderes.edu.beanvalidation.Bestellung;
 
-public class BestellungValidator implements ConstraintValidator<ValidBestellung, Bestellung> {
+public class RechnungsadresseValidator implements ConstraintValidator<ValidRechnungsadresse, Bestellung> {
 
     @Override
-    public void initialize(ValidBestellung constraintAnnotation) {
+    public void initialize(ValidRechnungsadresse constraintAnnotation) {
         // nothing to do 
     }
 

@@ -56,6 +56,21 @@ public class BestellungTest {
     }
     
     @Test
+    public void shouldBeWrongHousnumber() {
+        // given
+        final Bestellung bestellung = createRegularBestellung();
+        bestellung.getKundendaten().setHausnummer("AA");
+
+        // when
+        final Set<ConstraintViolation<Bestellung>> constraintViolations = validator.validate(bestellung);
+
+        // then
+        dumpConstraintViolation(constraintViolations);
+        assertThat(constraintViolations.size(), is(1));
+        assertThat(constraintViolations.iterator().next().getPropertyPath().toString(), is("kundendaten.hausnummer"));
+    }
+    
+    @Test
     public void shouldBeMissingRechnungsadresse() {
         // given
         final Bestellung bestellung = createRegularBestellung();

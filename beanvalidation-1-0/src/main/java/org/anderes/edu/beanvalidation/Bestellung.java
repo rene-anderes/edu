@@ -7,10 +7,10 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.groups.Default;
 
-import org.anderes.edu.beanvalidation.constrains.ValidBestellung;
+import org.anderes.edu.beanvalidation.constrains.ValidRechnungsadresse;
 import org.anderes.edu.beanvalidation.groups.Minimal;
 
-@ValidBestellung
+@ValidRechnungsadresse
 public class Bestellung {
 
     @NotNull(groups = { Default.class, Minimal.class })
