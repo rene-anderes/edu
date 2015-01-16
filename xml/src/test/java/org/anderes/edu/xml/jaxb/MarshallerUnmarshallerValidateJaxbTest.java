@@ -112,17 +112,19 @@ public class MarshallerUnmarshallerValidateJaxbTest {
             jaxbUnmarshaller.unmarshal(xmlInputStream);
     }
 	
-	private Contactlist createData() {
-		final Contactlist contactlist = new Contactlist();
-		final Contact contact = new Contact();
-		contact.setAddress("Zürcherstrasse 1");
-		contact.setMail("info@mail.com");
-		contact.setName("Hans Oberhänsli");
-		final Phone phone = new Phone();
-		phone.setType(Phonetype.MOBILE);
-		phone.setValue("+41 77 223 44 55");
-		contact.getPhone().add(phone);
-		contactlist.getContact().add(contact);
-		return contactlist;
-	}
+
+    private Contactlist createData() {
+        final ObjectFactory factory = new ObjectFactory();
+        final Contactlist contactlist = factory.createContactlist();
+        final Contact contact = factory.createContact();
+        contact.setAddress("Zürcherstrasse 1");
+        contact.setMail("info@mail.com");
+        contact.setName("Hans Oberhänsli");
+        final Phone phone = factory.createPhone();
+        phone.setType(Phonetype.MOBILE);
+        phone.setValue("+41 77 223 44 55");
+        contact.getPhone().add(phone);
+        contactlist.getContact().add(contact);
+        return contactlist;
+    }
 }

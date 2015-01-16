@@ -59,7 +59,7 @@ public class MarshallerUnmarshallerJaxbTest {
 	public void unmarshaller() {
 		try {
 			
-			// XML-File
+			// XML-File befindet sich im Klassenpfad
 			final InputStream is = getClass().getResourceAsStream("/org/anderes/edu/xml/introduction/contactlist.xml");
 			assertThat(is, is(notNullValue()));
 
@@ -77,12 +77,13 @@ public class MarshallerUnmarshallerJaxbTest {
 	}
 	
 	private Contactlist createData() {
-		final Contactlist contactlist = new Contactlist();
-		final Contact contact = new Contact();
+	    final ObjectFactory factory = new ObjectFactory();
+		final Contactlist contactlist = factory.createContactlist();
+		final Contact contact = factory.createContact();
 		contact.setAddress("Zürcherstrasse 1");
 		contact.setMail("info@mail.com");
 		contact.setName("Hans Oberhänsli");
-		final Phone phone = new Phone();
+		final Phone phone = factory.createPhone();
 		phone.setType(Phonetype.MOBILE);
 		phone.setValue("+41 77 223 44 55");
 		contact.getPhone().add(phone);

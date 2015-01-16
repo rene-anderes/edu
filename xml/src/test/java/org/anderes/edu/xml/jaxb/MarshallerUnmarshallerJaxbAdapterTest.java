@@ -31,11 +31,20 @@ public class MarshallerUnmarshallerJaxbAdapterTest {
 
     private Unmarshaller jaxbUnmarshaller;
     private Marshaller jaxbMarshaller;
+    private static JAXBContext jaxbContext;
+    
+    static {
+        try {
+            jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Before
     public void setup() {
+        assertThat(jaxbContext, is(notNullValue()));
         try {
-            final JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
             jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             jaxbMarshaller = jaxbContext.createMarshaller();
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
@@ -57,7 +66,7 @@ public class MarshallerUnmarshallerJaxbAdapterTest {
 
         // then
         assertThat(file.exists(), is(true));
-        assertThat(file.length() > 200L, is(true));
+        assertThat(file.length() > 100L, is(true));
 
     }
 
@@ -81,7 +90,8 @@ public class MarshallerUnmarshallerJaxbAdapterTest {
     }
 
     private Person createSampleData() {
-        final Person person = new Person();
+        final ObjectFactory factory = new ObjectFactory();
+        final Person person = factory.createPerson();
         person.setName("Claude Fischer");
         person.setBirthday(february(29, 2004));
         return person;
