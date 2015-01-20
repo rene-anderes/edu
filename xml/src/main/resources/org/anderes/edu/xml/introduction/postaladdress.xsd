@@ -1,33 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-    targetNamespace="http://www.anderes.org/namespaces/postaladdress" 
-        xmlns:tns="http://www.anderes.org/namespaces/postaladdress" elementFormDefault="qualified">
-    
+    targetNamespace="http://www.anderes.org/namespaces/postaladdress" xmlns:tns="http://www.anderes.org/namespaces/postaladdress"
+    elementFormDefault="qualified">
+
     <xs:element name="postaladdress">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="street">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                            <xs:maxLength value="255"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:element>
-                <xs:element name="zip">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:int">
-                            <xs:pattern value="[0-9]{4}"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:element>
-                <xs:element name="city">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                            <xs:maxLength value="120"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:element>
+                <xs:element name="street" type="tns:streettype" />
+                <xs:element name="zip" type="tns:ziptype" />
+                <xs:element name="city" type="tns:citytype" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
+    <xs:simpleType name="streettype">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="255" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ziptype">
+        <xs:restriction base="xs:int">
+            <xs:pattern value="[0-9]{4}" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="citytype">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="120" />
+        </xs:restriction>
+    </xs:simpleType>
 </xs:schema>
