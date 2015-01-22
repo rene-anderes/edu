@@ -64,6 +64,7 @@ public class MarshallerUnmarshallerJaxbTest {
 			assertThat(is, is(notNullValue()));
 
             final JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
+            System.out.println(jaxbContext.getClass().getName());
             final Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             
             final Contactlist contactlist = (Contactlist) jaxbUnmarshaller.unmarshal(is);
