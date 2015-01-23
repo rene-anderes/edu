@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import javax.xml.bind.JAXBContext;
@@ -15,6 +16,7 @@ import javax.xml.stream.events.XMLEvent;
 
 import org.anderes.edu.xml.jaxb.generated.Contact;
 import org.anderes.edu.xml.jaxb.generated.ObjectFactory;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,6 +39,11 @@ public class PartialFromEventReaderTest {
         inputStream = getClass().getResourceAsStream("/org/anderes/edu/xml/introduction/contactlist.xml");
         assertThat(inputStream, is(notNullValue()));
         jaxbUnmarshaller = JAXBContext.newInstance(ObjectFactory.class).createUnmarshaller();
+    }
+    
+    @After
+    public void shutdown() throws IOException {
+        inputStream.close();
     }
     
     @Test

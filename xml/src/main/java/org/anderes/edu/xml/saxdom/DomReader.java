@@ -22,7 +22,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public class DomReader {
-    private final static Logger logger = Logger.getLogger(DomReader.class.getPackage().getName());
+    private final static Logger logger = Logger.getLogger(DomReader.class.getName());
     
 	private DomReader() {
 	}
@@ -40,7 +40,12 @@ public class DomReader {
 	    final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         final DocumentBuilder builder  = factory.newDocumentBuilder();
         final InputSource inputSource = new InputSource(DomReader.class.getResourceAsStream(xmlFile));
-        final Document document = builder.parse(inputSource);
+        Document document = null;
+        try {
+            document = builder.parse(inputSource);
+        } finally {
+            inputSource.getByteStream().close();
+        }
         
         final Absence absence = new AbsenceData();
         absence.setTitle(getText(document, "Title"));

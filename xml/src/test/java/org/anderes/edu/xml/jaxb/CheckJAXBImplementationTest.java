@@ -13,7 +13,7 @@ import org.junit.Test;
 
 public class CheckJAXBImplementationTest {
 
-    private Logger logger = Logger.getLogger(this.getClass().getPackage().getName());
+    private Logger logger = Logger.getLogger(this.getClass().getName());
     
     private enum JAXB_CONTEXT { 
         /** javax.xml.bind.context.factory=org.eclipse.persistence.jaxb.JAXBContextFactory */

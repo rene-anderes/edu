@@ -21,6 +21,7 @@ import org.anderes.edu.xml.jaxb.generated.Contactlist;
 import org.anderes.edu.xml.jaxb.generated.ObjectFactory;
 import org.anderes.edu.xml.jaxb.generated.Phone;
 import org.anderes.edu.xml.jaxb.generated.Phonetype;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;
@@ -45,6 +46,11 @@ public class MarshallerUnmarshallerValidateJaxbTest {
         assertThat(xmlInputStream, is(notNullValue()));
         final JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
         jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+    }
+    
+    @After
+    public void shutdown() throws IOException {
+        xmlInputStream.close();
     }
     
 	@Test

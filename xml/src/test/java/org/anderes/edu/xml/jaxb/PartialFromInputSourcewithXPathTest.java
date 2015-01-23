@@ -6,6 +6,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import javax.xml.bind.JAXBContext;
@@ -16,6 +17,7 @@ import javax.xml.xpath.XPathFactory;
 
 import org.anderes.edu.xml.jaxb.generated.Contact;
 import org.anderes.edu.xml.jaxb.generated.ObjectFactory;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Node;
@@ -42,7 +44,12 @@ public class PartialFromInputSourcewithXPathTest {
         final JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
         jaxbUnmarshaller = jaxbContext.createUnmarshaller();
     }
-
+    
+    @After
+    public void shutdown() throws IOException {
+        inputStream.close();
+    }
+    
     @Test
     public void shouldBeDeserializeNode() throws Exception {
         

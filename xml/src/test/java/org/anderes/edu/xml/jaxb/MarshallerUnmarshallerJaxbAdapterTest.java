@@ -18,6 +18,7 @@ import javax.xml.bind.Unmarshaller;
 import org.anderes.edu.xml.jaxb.adapter.generated.ObjectFactory;
 import org.anderes.edu.xml.jaxb.adapter.generated.Person;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -33,11 +34,12 @@ public class MarshallerUnmarshallerJaxbAdapterTest {
     private Marshaller jaxbMarshaller;
     private static JAXBContext jaxbContext;
     
-    static {
+    @BeforeClass
+    public static void onetime() {
         try {
             jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
         } catch (JAXBException e) {
-            e.printStackTrace();
+            fail(e.getMessage());
         }
     }
 
@@ -52,13 +54,13 @@ public class MarshallerUnmarshallerJaxbAdapterTest {
             fail(e.getMessage());
         }
     }
-
+       
     @Test
     public void marshaller() throws Exception {
         
         // given
         final File file = File.createTempFile("person", "xml");
-        final Person person = createSampleData();
+        final Person person = createSamplePersonData();
         
         // when
         jaxbMarshaller.marshal(person, file);
@@ -83,13 +85,15 @@ public class MarshallerUnmarshallerJaxbAdapterTest {
         // than
         assertThat(person, is(notNullValue()));
         assertThat(person.getBirthday(), is(february(22, 1967)));
+        
+        is.close();
     }
 
     private LocalDate february(int day, int year) {
         return LocalDate.of(year, Month.FEBRUARY, day);
     }
 
-    private Person createSampleData() {
+    private Person createSamplePersonData() {
         final ObjectFactory factory = new ObjectFactory();
         final Person person = factory.createPerson();
         person.setName("Claude Fischer");

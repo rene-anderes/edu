@@ -20,6 +20,7 @@ import javax.xml.xpath.XPathFactory;
 
 import org.anderes.edu.xml.jaxb.generated.Contact;
 import org.anderes.edu.xml.jaxb.generated.ObjectFactory;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Document;
@@ -47,7 +48,12 @@ public class PartialFromDOMwithXPathTest {
         final JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
         jaxbUnmarshaller = jaxbContext.createUnmarshaller();
     }
-
+    
+    @After
+    public void shutdown() throws IOException {
+        inputStream.close();
+    }
+    
     @Test
     public void shouldBeDeserializeNode() throws Exception {
         

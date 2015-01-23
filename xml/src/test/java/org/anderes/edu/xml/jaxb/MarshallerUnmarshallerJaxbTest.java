@@ -72,6 +72,10 @@ public class MarshallerUnmarshallerJaxbTest {
             assertThat(contactlist, is(notNullValue()));
             assertThat(contactlist.getContact().size(), is(2));
  
+            try {
+                is.close();
+            } catch (IOException e) {}
+            
           } catch (JAXBException e) {
         	  fail(e.getMessage());
           }

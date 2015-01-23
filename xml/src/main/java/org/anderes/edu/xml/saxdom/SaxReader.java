@@ -20,7 +20,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
 public class SaxReader {
-    private final static Logger logger = Logger.getLogger(SaxReader.class.getPackage().getName());
+    private final static Logger logger = Logger.getLogger(SaxReader.class.getName());
 
     public static Absence parseFile(final String xmlFile, final String xsdFile) throws Exception {
         Validate.notBlank(xmlFile);
@@ -41,7 +41,11 @@ public class SaxReader {
         final Absence absence = new AbsenceData();
         xmlReader.setContentHandler(new SaxAbsenceHandler(absence));
         xmlReader.setErrorHandler(new SaxErrorHandler());
-        xmlReader.parse(inputSource);
+        try {
+            xmlReader.parse(inputSource);
+        } finally {
+            inputSource.getByteStream().close();
+        }
 
         return absence;
     }
