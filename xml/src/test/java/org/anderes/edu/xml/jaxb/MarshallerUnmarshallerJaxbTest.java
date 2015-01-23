@@ -11,6 +11,10 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.stream.FactoryConfigurationError;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 
 import org.anderes.edu.xml.jaxb.generated.Contact;
 import org.anderes.edu.xml.jaxb.generated.Contactlist;
@@ -64,9 +68,7 @@ public class MarshallerUnmarshallerJaxbTest {
 			assertThat(is, is(notNullValue()));
 
             final JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
-            System.out.println(jaxbContext.getClass().getName());
             final Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            
             final Contactlist contactlist = (Contactlist) jaxbUnmarshaller.unmarshal(is);
             
             assertThat(contactlist, is(notNullValue()));
@@ -81,7 +83,7 @@ public class MarshallerUnmarshallerJaxbTest {
 	    final ObjectFactory factory = new ObjectFactory();
 		final Contactlist contactlist = factory.createContactlist();
 		final Contact contact = factory.createContact();
-		contact.setAddress("Zürcherstrasse 1");
+		contact.setAddress("Zürcherstrasse 1, 9000 St.Gallen");
 		contact.setMail("info@mail.com");
 		contact.setName("Hans Oberhänsli");
 		final Phone phone = factory.createPhone();
