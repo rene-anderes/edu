@@ -18,6 +18,15 @@ import org.anderes.edu.xml.jaxb.generated.ObjectFactory;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * In diesem Beispiel wird jeder Kontakt einzeln ausgelesen
+ * und deserialiesiert. Dadurch ist es möglich, auch grosse
+ * XML-Files einzulsesen ohne Speicherprobleme, da immer nur ein
+ * Kontakt im Speicher liegt.
+ * 
+ * @author René Anderes
+ *
+ */
 public class PartialFromEventReaderTest {
 
     private InputStream inputStream;
