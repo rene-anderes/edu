@@ -1,5 +1,5 @@
 
-package org.anderes.edu.jpa.cookbook.solution1;
+package org.anderes.edu.jpa.cookbook;
 
 import java.io.Serializable;
 

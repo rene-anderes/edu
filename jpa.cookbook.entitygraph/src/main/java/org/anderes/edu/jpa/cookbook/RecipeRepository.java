@@ -1,4 +1,4 @@
-package org.anderes.edu.jpa.cookbook.solution1;
+package org.anderes.edu.jpa.cookbook;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -9,8 +9,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnitUtil;
+import javax.persistence.Subgraph;
 import javax.persistence.TypedQuery;
 
+import org.anderes.edu.jpa.cookbook.Recipe_;
 import org.apache.commons.lang3.Validate;
 import org.eclipse.persistence.config.QueryHints;
 
@@ -27,13 +29,20 @@ public class RecipeRepository {
 		return new RecipeRepository();
 	}
 
+	/**
+	 * Dynamisch aufgebauter Entity Graph
+	 * 
+	 * @param databaseidentity ID
+	 * @return Gefundene Datensatz oder {@code null}
+	 */
 	public Recipe findOne(final Long databaseidentity) {
 		Validate.notNull(databaseidentity, "Der Parameter darf nicht null sein.");
+
+		final EntityGraph<Recipe> graph = this.entityManager.createEntityGraph(Recipe.class);
+		graph.addAttributeNodes(Recipe_.ingredients.getName());
 		
-		@SuppressWarnings("unchecked")
-		EntityGraph<Recipe> recipeGraph = (EntityGraph<Recipe>) entityManager.getEntityGraph("Recipe");
-		Map<String, Object> props = new HashMap<String, Object>();
-		props.put(QueryHints.JPA_LOAD_GRAPH, recipeGraph);
+		final Map<String, Object> props = new HashMap<String, Object>();
+		props.put(QueryHints.JPA_LOAD_GRAPH, graph);
 		
 		return entityManager.find(Recipe.class, databaseidentity, props);
 	}
@@ -49,9 +58,10 @@ public class RecipeRepository {
 	 */
 	public Collection<Recipe> getRecipesByTitleFetchgraph(final String title) {
 
-		EntityGraph<?> ingredientsGraph = entityManager.createEntityGraph(Recipe.class);
-		ingredientsGraph.addSubgraph(Recipe_.ingredients.getName(), Ingredient.class);
-		ingredientsGraph.addAttributeNodes(Recipe_.title.getName());
+	    final EntityGraph<?> ingredientsGraph = entityManager.createEntityGraph(Recipe.class);
+	    final Subgraph<Ingredient> itemGraph = ingredientsGraph.addSubgraph("ingredients");
+	    itemGraph.addAttributeNodes("description");
+	    ingredientsGraph.addAttributeNodes(Recipe_.title.getName());
 		
 		final TypedQuery<Recipe> query = entityManager.createNamedQuery(Recipe.RECIPE_QUERY_BYTITLE, Recipe.class);
 		query.setParameter("title", "%" + title + "%").setHint(QueryHints.JPA_FETCH_GRAPH, ingredientsGraph);
@@ -70,7 +80,7 @@ public class RecipeRepository {
 	 */
 	public Collection<Recipe> getRecipesByTitleLoadgraph(final String title) {
 
-		EntityGraph<?> recipeGraph = entityManager.getEntityGraph("Recipe");
+		EntityGraph<?> recipeGraph = entityManager.getEntityGraph("Recipe.detail");
 		
 		final TypedQuery<Recipe> query = entityManager.createNamedQuery(Recipe.RECIPE_QUERY_BYTITLE, Recipe.class);
 		query.setParameter("title", "%" + title + "%").setHint(QueryHints.JPA_LOAD_GRAPH, recipeGraph);

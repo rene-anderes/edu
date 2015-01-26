@@ -1,22 +1,43 @@
-package org.anderes.edu.jpa.cookbook.solution1;
+package org.anderes.edu.jpa.cookbook;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
+import java.lang.management.ManagementFactory;
 import java.util.Collection;
+import java.util.List;
+
+import javax.persistence.PersistenceUnitUtil;
 
 import org.apache.commons.lang3.SerializationUtils;
-import org.eclipse.persistence.config.QueryHints;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
+/**
+ * <strong>Achtung:</strong> mittels VM Argument<br> 
+ * <code>-javaagent: .../org.eclipse.persistence.jpa-2.5.2.jar</code><br>
+ * starten
+ * 
+ * @author René Anderes
+ *
+ */
 public class RecipeRepositoryTest {
 	
 	private RecipeRepository repository;
+	private static final String WEAVING = "Bitte Weaving aktivieren, VM-Argument: -javaagent:c:\\Users\\na247\\.m2\\repository\\org\\eclipse\\persistence\\org.eclipse.persistence.jpa\\2.5.2\\org.eclipse.persistence.jpa-2.5.2.jar";
+	
+	@BeforeClass
+	public static void onetime() {
+	    final List<String> arguments = ManagementFactory.getRuntimeMXBean().getInputArguments();
+	    assertTrue(WEAVING, arguments.stream().anyMatch(argument -> argument.startsWith("-javaagent")));
+	}
 	
 	@Before
 	public void setup() {
@@ -47,11 +68,6 @@ public class RecipeRepositoryTest {
 	
 	/**
 	 * Fetch-Strategie JPA 2.1: Entity-Graph - fetchgraph
-	 * </p>
-	 * Achtung: Weaving muss aktiviert sein.
-	 * <br>
-	 * VM-Atgument angeben:<br>
-	 * <code>-javaagent:\..\.m2\repository\org\eclipse\persistence\org.eclipse.persistence.jpa\2.5.1\org.eclipse.persistence.jpa-2.5.1.jar</code>
 	 */
 	@Test
 	public void ingredientsShouldBeloadedByFetchgraph() {
@@ -61,6 +77,11 @@ public class RecipeRepositoryTest {
 		assertThat(recipes.size(), is(1));
 		final Recipe recipe = recipes.iterator().next();
 
+		final PersistenceUnitUtil util = repository.getPersistenceUnitUtil();
+		assertTrue("Ups, der Rezepttitel ist nicht geladen.", util.isLoaded(recipe, Recipe_.title.getName()));
+		assertTrue("Ups, die Zutaten wurden nicht geladen.", util.isLoaded(recipe, Recipe_.ingredients.getName()));
+		assertFalse("Der Preample darf nicht geladen sein.", util.isLoaded(recipe, Recipe_.preample.getName()));
+		   
 		// Detached durch die Serialisierung 
 		final Recipe clone = SerializationUtils.clone(recipe);
 		
@@ -74,6 +95,9 @@ public class RecipeRepositoryTest {
 		final Recipe recipe = repository.findOne(10001l);
 		
 		assertNotNull(recipe);
+		final PersistenceUnitUtil util = repository.getPersistenceUnitUtil();
+		assertTrue("Ups, der Rezepttitel ist nicht geladen.", util.isLoaded(recipe, Recipe_.title.getName()));
+        assertTrue("Ups, die Zutaten wurden nicht geladen.", util.isLoaded(recipe, Recipe_.ingredients.getName()));
 		
 		// Detached durch die Serialisierung 
 		final Recipe clone = SerializationUtils.clone(recipe);
@@ -84,11 +108,6 @@ public class RecipeRepositoryTest {
 
 	/**
 	 * Fetch-Strategie JPA 2.1: Entity-Graph - loadgraph
-	 * </p>
-	 * Achtung: Weaving muss aktiviert sein.
-	 * <br>
-	 * VM-Atgument angeben:<br>
-	 * <code>-javaagent:\..\.m2\repository\org\eclipse\persistence\org.eclipse.persistence.jpa\2.5.1\org.eclipse.persistence.jpa-2.5.1.jar</code>
 	 */
 	@Test
 	@Ignore("Load Graph funktioniert nicht wie erwartet")
@@ -98,6 +117,10 @@ public class RecipeRepositoryTest {
 		assertThat(recipes.size(), is(1));
 		final Recipe recipe = recipes.iterator().next();
 
+        final PersistenceUnitUtil util = repository.getPersistenceUnitUtil();
+        assertTrue("Ups, der Rezepttitel ist nicht geladen.", util.isLoaded(recipe, Recipe_.title.getName()));
+        assertTrue("Ups, die Zutaten wurden nicht geladen.", util.isLoaded(recipe, Recipe_.ingredients.getName()));
+        
 		// Detached durch die Serialisierung 
 		final Recipe clone = SerializationUtils.clone(recipe);
 		

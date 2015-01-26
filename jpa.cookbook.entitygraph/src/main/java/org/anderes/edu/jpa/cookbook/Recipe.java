@@ -1,4 +1,4 @@
-package org.anderes.edu.jpa.cookbook.solution1;
+package org.anderes.edu.jpa.cookbook;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -19,8 +19,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedEntityGraphs;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.NamedSubgraph;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
@@ -33,10 +35,13 @@ import org.apache.commons.lang3.text.StrBuilder;
 		@NamedQuery(name = "Recipe.All", query = "Select r from Recipe r"),
 		@NamedQuery(name = "Recipe.ByTitle", query = "Select r from Recipe r where r.title like :title")
 		})
-@NamedEntityGraph(
-		name = "Recipe",
-		attributeNodes={ @NamedAttributeNode("ingredients") }
-)
+@NamedEntityGraphs({
+    @NamedEntityGraph(
+    		name = "Recipe.detail",
+    		attributeNodes = @NamedAttributeNode(value = "ingredients", subgraph = "items"), 
+    		subgraphs = @NamedSubgraph(name = "items", attributeNodes = @NamedAttributeNode("description"))
+    )   
+})
 public class Recipe implements Serializable {
 	
 	public final static String RECIPE_QUERY_ALL = "Recipe.All";
