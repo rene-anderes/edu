@@ -7,11 +7,11 @@ public class DateAdapter {
 
     private static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    public static String marshal(LocalDate date) {
+    public static String print(LocalDate date) {
         return dateFormat.format(date);
     }
 
-    public static LocalDate unmarshal(String dateString) {
+    public static LocalDate parse(String dateString) {
         return LocalDate.parse(dateString, dateFormat);
     }
 

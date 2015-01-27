@@ -1,4 +1,4 @@
-package org.anderes.edu.xml.jaxb;
+package org.anderes.edu.xml.jaxb.adapter;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -28,7 +28,7 @@ import org.junit.Test;
  * @author René Anderes
  *
  */
-public class MarshallerUnmarshallerJaxbAdapterTest {
+public class JaxbAdapterTest {
 
     private Unmarshaller jaxbUnmarshaller;
     private Marshaller jaxbMarshaller;
@@ -76,7 +76,7 @@ public class MarshallerUnmarshallerJaxbAdapterTest {
     public void unmarshaller() throws Exception {
 
         // given
-        final InputStream is = getClass().getResourceAsStream("/org/anderes/edu/xml/jaxb/person.xml");
+        final InputStream is = getClass().getResourceAsStream("/org/anderes/edu/xml/jaxb/adapter/person.xml");
         assertThat(is, is(notNullValue()));
 
         // when
