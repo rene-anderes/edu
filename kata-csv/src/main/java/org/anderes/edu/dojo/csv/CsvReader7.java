@@ -23,24 +23,18 @@ public class CsvReader7 {
 
     public List<String> readHeader() {
         final List<String> header = new ArrayList<>();
-        BufferedReader bufferReader = null;
-        try {
-            bufferReader = new BufferedReader(createReader());
+        try(BufferedReader bufferReader = new BufferedReader(createReader())) {
             final String line = bufferReader.readLine();
             header.addAll(Arrays.asList(line.split(seperator)));
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            closeReader(bufferReader);
-        }
+        } 
         return header;
     }
 
     public List<List<String>> readRecords() {
         final List<List<String>> records = new ArrayList<List<String>>();
-        BufferedReader bufferReader = null;
-        try {
-            bufferReader = new BufferedReader(createReader());
+        try(BufferedReader bufferReader = new BufferedReader(createReader())) {
             String line = bufferReader.readLine();    // skip first line
             while((line = bufferReader.readLine()) != null){
                 final List<String> record = new ArrayList<>();
@@ -49,20 +43,8 @@ public class CsvReader7 {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            closeReader(bufferReader);
-        }
+        } 
         return records;
-    }
-
-    private void closeReader(final BufferedReader bufferReader) {
-        if (bufferReader != null) {
-            try {
-                bufferReader.close();
-            } catch (IOException e) {
-                // nothing to do ....
-            }
-        }
     }
 
     private InputStreamReader createReader() throws FileNotFoundException {

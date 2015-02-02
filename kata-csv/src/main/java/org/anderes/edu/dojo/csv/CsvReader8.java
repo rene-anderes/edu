@@ -19,33 +19,25 @@ public class CsvReader8 {
     public CsvReader8(final Path csvFile) {
         this.csvFile = csvFile;
     }
-
+    
     public List<String> readHeader() {
-        Stream<String> lines = null; 
-        try {
-            lines = Files.lines(csvFile, encoding);
+        try (Stream<String> lines = Files.lines(csvFile, encoding)) {
             return lines.findFirst()
                     .map(line -> Arrays.asList(line.split(seperator)))
                     .get();
         } catch (IOException e) {
             throw new UncheckedIOException(e);
-        } finally {
-            lines.close();
-        }
+        } 
     }
 
     public List<List<String>> readRecords() {
-        Stream<String> lines = null; 
-        try {
-            lines = Files.lines(csvFile, encoding);
+        try (Stream<String> lines = Files.lines(csvFile, encoding)) {
             return lines.skip(1)
                     .map(line -> Arrays.asList(line.split(seperator)))
                     .collect(Collectors.toList());
         } catch (IOException e) {
             throw new UncheckedIOException(e);
-        } finally {
-            lines.close();
-        }
+        } 
     }
 
 }
