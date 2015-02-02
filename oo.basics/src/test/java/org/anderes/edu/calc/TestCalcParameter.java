@@ -1,32 +1,30 @@
 package org.anderes.edu.calc;
 
 /**
- * Copyright(c) 2008 Ren� Anderes
+ * Copyright(c) 2008 René Anderes
  * created date: 31.07.2008
  */
 
-import org.anderes.edu.calc.Calc;
-import org.anderes.edu.calc.CalcBruteForce;
-import org.anderes.edu.calc.CalcEratosthenes;
-import org.junit.BeforeClass;
-import org.junit.Before;
-import org.junit.AfterClass;
-import org.junit.Test;
+import static org.junit.Assert.assertTrue;
+
+import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import static org.junit.Assert.*;
-
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.lang.reflect.Constructor;
 
 /**
- * Testklasse f�r den Taschenrechner
+ * Testklasse für den Taschenrechner
  *
- * @author Ren� Anderes
+ * @author René Anderes
  */
 @RunWith(Parameterized.class)
 public class TestCalcParameter {
@@ -53,7 +51,7 @@ public class TestCalcParameter {
     }
 
     /**
-     * Aufr�umen am Schluss aller Tests
+     * Aufräumen am Schluss aller Tests
      */
     @AfterClass
     public static void classDestroy() {
@@ -91,7 +89,7 @@ public class TestCalcParameter {
     }
 
     /**
-     * Gibt die Instanz der �bergebenen Klasse zur�ck.
+     * Gibt die Instanz der übergebenen Klasse zurück.
      *
      * @param clazz Klasse
      * @return Instanz der Klasse oder {@code null}, wenn ein Fehler die Instanzierung verhindert hat.
@@ -102,12 +100,12 @@ public class TestCalcParameter {
             return constructor.newInstance();
         } catch (Exception e) {
             System.out.println("InvocationTargetException: " + e.getMessage());
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     /**
-     * Iteriert �ber alle vorgegebenen Primzahlen
+     * Iteriert über alle vorgegebenen Primzahlen
      *
      * @param calc Der Taschenrechner
      */
