@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
@@ -23,9 +24,6 @@ import org.junit.Test;
 
 public class StreamOperations {
     
-    private String[] myArray = { "Erde", "Mond", "Merkur", "Venus", "Sonne", "Mars", "Jupiter", "Saturn" };
-    private List<String> myList = Arrays.asList( "Kallisto", "Io", "Europa", "Ganymed" );
-    
     private Stream<String> stringStream;
     private Stream<Integer> integerStream;
     
@@ -36,10 +34,10 @@ public class StreamOperations {
     }
     
     @Test
+    @SuppressWarnings({ "resource", "unused" })
     public void createStreamOperations() throws IOException {
         String[] myArray = { "Erde", "Mond", "Merkur", "Venus", "Sonne", "Mars", "Jupiter", "Saturn" };
         List<String> myList = Arrays.asList( "Kallisto", "Io", "Europa", "Ganymed" );
-        
         
         Stream<String> streamOfArray = Arrays.stream(myArray);
         Stream<String> streamOfList = myList.stream(); 
@@ -153,5 +151,29 @@ public class StreamOperations {
     public void terminalOperationsSample4() {
         Map<Short, Boolean> valueList = integerStream.collect(Collectors.toMap(Integer::shortValue, value -> value % 2 == 0));
         assertThat(valueList.size(), is(7));
+    }
+    
+    @Test
+    public void terminalOperationsSample5() {
+        Optional<Integer> optional = integerStream.findFirst();
+        assertThat(optional.isPresent(), is(true));
+    }
+
+    @Test
+    public void terminalOperationsSample6() {
+        boolean ok = integerStream.anyMatch(a -> a > 9);
+        assertThat(ok, is(true));
+    }
+    
+    @Test
+    public void filterMapReduceSample1() {
+        Integer sum = stringStream.filter(planet -> !planet.contentEquals("Sonne")).map(String::length).reduce(0, Integer::sum);
+        assertThat(sum, is(36));
+    }
+    
+    @Test
+    public void filterMapReduceSample2() {
+        String resultString = stringStream.collect(Collectors.joining(";"));
+        assertThat(resultString, is("Erde;Mond;Merkur;Venus;Sonne;Mars;Jupiter;Saturn"));
     }
 }
