@@ -176,4 +176,18 @@ public class StreamOperations {
         String resultString = stringStream.collect(Collectors.joining(";"));
         assertThat(resultString, is("Erde;Mond;Merkur;Venus;Sonne;Mars;Jupiter;Saturn"));
     }
+    
+    @Test
+    public void iterateNatural() {
+        Stream.iterate(1, a -> a+1).limit(100).forEach(System.out::println);
+    }
+    
+    @Test
+    public void iterateFibonacci() {
+        
+        Stream.iterate(new BigDecimal[]{BigDecimal.valueOf(1), BigDecimal.valueOf(1)}, a -> new BigDecimal[]{a[1], a[0].add(a[1])})
+                .limit(100)
+                .map(v -> v[0])
+                .forEach(System.out::println);
+    }
 }
