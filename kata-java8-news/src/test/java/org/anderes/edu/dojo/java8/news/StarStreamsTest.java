@@ -26,7 +26,9 @@ public class StarStreamsTest {
         starCollection = StarReader.build(csvFile).readStars();
     }
     
-    
+    /**
+     * Liefert den nächstgelegenen Stern (von der Erde aus gesehen) züruck.
+     */
     @Test
     public void shouldBeNearestStar() {
         
@@ -38,6 +40,9 @@ public class StarStreamsTest {
         assertThat(star.get().getStarname(), is("Sonne"));
     }
     
+    /**
+     * Liefert den Stern zurück, der am weitesten von der Erde entfernt ist.
+     */
     @Test
     public void shouldBeMostDistantStar() {
         
@@ -49,6 +54,9 @@ public class StarStreamsTest {
         assertThat(star.get().getStarname(), is("LP 944-20"));
     }
     
+    /**
+     * Liefert eine sortierte Liste aller Entfernungen zurück. Den nächstegelegen Stern zuerst.
+     */
     @Test
     public void shouldBeSortedDistanceList() {
         
@@ -62,6 +70,11 @@ public class StarStreamsTest {
         assertThat(distanceList.stream().skip(64).findFirst().get(), is(16.19));
     }
     
+    /**
+     * Liefert ein gruppierte Liste von Sternen zurück. Gruppiert nach Sternensystem.
+     * </p>
+     * Map: Key = Sternensystem / Value = Liste von Sternen die zu diesem System gehören
+     */
     @Test
     public void shouldBeGroupBySystem() {
         
