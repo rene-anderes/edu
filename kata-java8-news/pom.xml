@@ -7,6 +7,8 @@
     <packaging>jar</packaging>
 
     <name>kata-java8-news</name>
+    
+    <description>Übungsbeispiel zum Thema Java 8 Streams.</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
