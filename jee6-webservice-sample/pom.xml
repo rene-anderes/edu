@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ch.vrsg.edu.webservice</groupId>
+    <artifactId>jee6-webservice-sample</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <packaging>war</packaging>
+
+    <name>webservice-education</name>
+    
+    <description>Beispielanwendung welche folgende Technologie betrachtet: WebServices</description>
+    <developers>
+        <developer>
+            <name>René Anderes</name>
+        </developer>
+    </developers>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <!-- Commons-Lang -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.3.2</version>
+        </dependency>
+        <!-- JEE 6 -->
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.ejb</artifactId>
+            <version>3.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- CDI API für JEE -->
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <version>1.0-SP4</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- CDI Dependency Injection (SE) -->
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- JUnit Testabhängigkeit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <defaultGoal>clean install</defaultGoal>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <!-- Kein web.xml nötig -->
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- Generierte Klassen als Sourcen zu Verfügung stellen -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.9.1</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated-sources/wsimport</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>developer</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <!-- WebLogic deployment -->
+                <weblogic.url>t3://localhost:7001</weblogic.url>
+                <weblogic.user>weblogic</weblogic.user>
+                <weblogic.password>welcome1</weblogic.password>
+                <weblogic.name>${project.build.finalName}</weblogic.name>
+                <weblogic.targets>AdminServer</weblogic.targets>
+                <!-- Variable ${weblogichome} ist im settings.xml hinterlegt -->
+                <middleware.home>${weblogichome}</middleware.home>
+                <weblogic.home>${weblogichome}/wlserver_12.1</weblogic.home>
+
+                <!-- für debugging mit WebLogic -->
+                <java.debug>true</java.debug>
+            </properties>
+        </profile>
+        <profile>
+            <id>wsimport</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jvnet.jax-ws-commons</groupId>
+                        <artifactId>jaxws-maven-plugin</artifactId>
+                        <version>2.3</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>wsimport</goal>
+                                </goals>
+                                <configuration>
+                                    <wsdlFiles>
+                                        <wsdlFile>${basedir}/src/main/resources/META-INF/wsdl/mitarbeiter.wsdl</wsdlFile>
+                                    </wsdlFiles>
+                                    <vmArgs>
+                                        <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
+                                    </vmArgs>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>deploy-weblogic</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.oracle.weblogic</groupId>
+                        <artifactId>wls-maven-plugin</artifactId>
+                        <version>12.1.1.0</version>
+                        <configuration>
+                            <!-- mittels entsprechenden Profilen werden die Variablen gesetzt -->
+                            <adminurl>${weblogic.url}</adminurl>
+                            <user>${weblogic.user}</user>
+                            <password>${weblogic.password}</password>
+                            <action>redeploy</action>
+                            <upload>true</upload>
+                            <remote>false</remote>
+                            <verbose>true</verbose>
+                            <name>${weblogic.name}</name>
+                            <middlewareHome>${middleware.home}</middlewareHome>
+                            <weblogicHome>${weblogic.home}</weblogicHome>
+                            <targets>${weblogic.targets}</targets>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>deploy</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

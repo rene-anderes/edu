@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://xmlns.intra.vrsg.ch/xmlns/mitarbeiter/1" targetNamespace="http://xmlns.intra.vrsg.ch/xmlns/mitarbeiter/1">
+	<xsd:complexType name="MitarbeiterNotFound">
+		<xsd:sequence>
+			<xsd:element name="vorname" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="nachname" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="message" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="findeMitarbeiterResponse">
+		<xsd:sequence>
+			<xsd:element name="vorname" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="nachname" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="findeMitarbeiterRequest">
+		<xsd:sequence>
+			<xsd:element name="vorname" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="nachname" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="MitarbeiterNotFoundException" type="tns:MitarbeiterNotFound"/>
+	<xsd:element name="findeMitarbeiterResponse" type="tns:findeMitarbeiterResponse"/>
+	<xsd:element name="findeMitarbeiterRequest" type="tns:findeMitarbeiterRequest"/>
+</xsd:schema>
