@@ -22,11 +22,11 @@ public class MitarbeiterWebservice implements Mitarbeiter {
     @Inject
     private EmployeeFacade facade;
 
-     @Override
+    @Override
     public FindeMitarbeiterResponse findeMitarbeiter(
-                    @WebParam(name = "findeMitarbeiterRequest", targetNamespace = "http://xmlns.intra.vrsg.ch/xmlns/mitarbeiter/1", partName = "parameter") FindeMitarbeiterRequest parameter)
-                    throws MitarbeiterNotFoundException {
-        ObjectFactory factory = new ObjectFactory();
+                    @WebParam(name = "findeMitarbeiterRequest", targetNamespace = "http://xmlns.intra.vrsg.ch/xmlns/mitarbeiter/1", partName = "parameter") 
+                    FindeMitarbeiterRequest parameter) throws MitarbeiterNotFoundException {
+        final ObjectFactory factory = new ObjectFactory();
         try {
             final Employee employee = facade.findEmployee(parameter.getVorname(), parameter.getNachname());
             final FindeMitarbeiterResponse response = factory.createFindeMitarbeiterResponse();
