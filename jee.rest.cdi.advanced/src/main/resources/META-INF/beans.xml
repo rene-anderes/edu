@@ -7,4 +7,7 @@
         <class>org.anderes.edu.jee.cdi.advanced.AlternativeGreetingService</class>
     </alternatives>
     
+    <interceptors>
+        <class>org.anderes.edu.jee.cdi.interceptor.LoggingInterceptor</class>
+    </interceptors>
 </beans>

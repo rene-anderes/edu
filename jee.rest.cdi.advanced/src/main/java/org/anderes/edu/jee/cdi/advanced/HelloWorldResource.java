@@ -7,6 +7,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import org.anderes.edu.jee.cdi.interceptor.Logging;
+
 @Path("/helloworld")
 public class HelloWorldResource {
 
@@ -15,6 +17,7 @@ public class HelloWorldResource {
     
 	@GET
 	@Produces(TEXT_PLAIN)
+	@Logging
 	public String getClichedMessage() {
 		return service.sayHello();
 	}
