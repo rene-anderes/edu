@@ -11,4 +11,6 @@ Der Deploy mittels 'mvn -Pdeploy-weblogic' deployed das war auf einen WebLogic-S
 
 Mittels mvn clean generate-source -Pwsimport werden die Klassen des 'mitarbeiter.wsdl' generiert.
 
+Mittels mvn clean install -Pdeveloper,wsimport,it wird das war auf den WebLogic deploed und Integrationstest gemacht.
+
 Für den Deploy mittels Eclipse muss das beans.xml ins Verzeichnis [WebContent]/WEB-INF kopiert werden.

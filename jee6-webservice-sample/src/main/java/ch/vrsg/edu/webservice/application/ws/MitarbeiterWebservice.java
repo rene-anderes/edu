@@ -10,14 +10,14 @@ import ch.vrsg.edu.webservice.application.EmployeeFacade;
 import ch.vrsg.edu.webservice.application.EmployeeNotFoundException;
 import ch.vrsg.intra.xmlns.xmlns.mitarbeiter._1.FindeMitarbeiterRequest;
 import ch.vrsg.intra.xmlns.xmlns.mitarbeiter._1.FindeMitarbeiterResponse;
-import ch.vrsg.intra.xmlns.xmlns.mitarbeiter._1.Mitarbeiter;
 import ch.vrsg.intra.xmlns.xmlns.mitarbeiter._1.MitarbeiterNotFound;
 import ch.vrsg.intra.xmlns.xmlns.mitarbeiter._1.MitarbeiterNotFoundException;
+import ch.vrsg.intra.xmlns.xmlns.mitarbeiter._1.MitarbeiterService;
 import ch.vrsg.intra.xmlns.xmlns.mitarbeiter._1.ObjectFactory;
 
-@WebService(name = "mitarbeiter", targetNamespace = "http://xmlns.intra.vrsg.ch/xmlns/mitarbeiter/1")
+@WebService(name = "MitarbeiterService", serviceName="MitarbeiterService", targetNamespace = "http://xmlns.intra.vrsg.ch/xmlns/mitarbeiter/1")
 @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
-public class MitarbeiterWebservice implements Mitarbeiter {
+public class MitarbeiterWebservice implements MitarbeiterService {
 
     @Inject
     private EmployeeFacade facade;
