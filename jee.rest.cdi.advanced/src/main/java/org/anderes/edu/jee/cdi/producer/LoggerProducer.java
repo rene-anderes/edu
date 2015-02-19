@@ -12,6 +12,6 @@ public class LoggerProducer {
 
     @Produces  
     public Logger produceLogger(InjectionPoint injectionPoint) {  
-        return LogManager.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
+        return LogManager.getFormatterLogger(injectionPoint.getMember().getDeclaringClass().getName());
     }  
 }
