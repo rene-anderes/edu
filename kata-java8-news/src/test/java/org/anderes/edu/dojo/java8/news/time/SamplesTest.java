@@ -3,6 +3,8 @@ package org.anderes.edu.dojo.java8.news.time;
 import static java.time.Month.FEBRUARY;
 import static java.time.format.TextStyle.FULL;
 import static java.util.Locale.GERMAN;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 import java.time.Clock;
 import java.time.Duration;
@@ -15,12 +17,13 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.junit.Test;
 
 public class SamplesTest {
-    
-    
 
     @Test
     public void shouldBeTimestamp() {
@@ -127,5 +130,26 @@ public class SamplesTest {
             .getDayOfYear();
         System.out.println(dayOfYear);
         System.out.println("--/ ZonedDateTime with fluent API ----");
+    }
+    
+    @Test
+    public void shouldBeConvert() {
+        System.out.println("--- Convert ----");
+        Calendar xmas = new GregorianCalendar(2013, Calendar.DECEMBER, 24);
+        Instant xmasAsInstant = xmas.toInstant();  // alt -> neu
+        System.out.println(LocalDate.from(xmasAsInstant.atZone(ZoneId.systemDefault())));
+
+        Date now1   = new Date();
+        Instant nowAsInstant = now1.toInstant();   // alt -> neu
+        Date now2  = Date.from(nowAsInstant);      // zurueck
+
+        assertThat(now1, is(now2));
+        
+        GregorianCalendar g1= (GregorianCalendar) xmas;
+        ZonedDateTime z = g1.toZonedDateTime();            // alt -> neu
+        GregorianCalendar g2= GregorianCalendar.from(z);   //zurueck
+        
+        assertThat(g1.getTime(), is(g2.getTime()));
+        System.out.println("--/ Convert ----");
     }
 }
