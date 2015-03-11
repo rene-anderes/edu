@@ -67,4 +67,6 @@
     </bean>
 
     <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect" />
+    
+    <bean id="databaseAdmin" class="org.anderes.edu.jpa.infrastructure.DerbyDatabaseAdmin" destroy-method="shutdown"/>
 </beans>

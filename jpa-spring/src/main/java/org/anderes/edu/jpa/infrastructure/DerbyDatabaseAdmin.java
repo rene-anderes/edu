@@ -9,9 +9,7 @@ import javax.inject.Inject;
 import javax.sql.DataSource;
 
 import org.apache.derby.jdbc.EmbeddedDriver;
-import org.springframework.stereotype.Service;
 
-@Service
 public class DerbyDatabaseAdmin {
 
     @Inject
