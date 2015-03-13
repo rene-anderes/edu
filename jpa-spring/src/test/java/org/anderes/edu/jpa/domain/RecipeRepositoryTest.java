@@ -91,14 +91,16 @@ public class RecipeRepositoryTest {
     
     @Test
     @UsingDataSet(value = { "/prepaire.xls" })
+    @ShouldMatchDataSet(value = { "/expected-afterUpdate.xls" })
     public void shouldBeUpdateRecipe() {
         final Recipe updateRecipe = repository.findOne("c0e5582e-252f-4e94-8a49-e12b4b047afb");
         updateRecipe.setPreample("Neuer Preample vom Test");
+        updateRecipe.addIngredient(new Ingredient("1", "Tomate", "vollreif"));
         final Recipe savedRecipe = repository.save(updateRecipe);
         
         assertThat(savedRecipe, is(not(nullValue())));
         assertThat(savedRecipe.getPreample(), is("Neuer Preample vom Test"));
-        assertThat(savedRecipe.getIngredients().size(), is(3));
+        assertThat(savedRecipe.getIngredients().size(), is(4));
         
         final Recipe findRecipe = repository.findOne(savedRecipe.getUuid());
         assertThat(findRecipe, is(not(nullValue())));
@@ -109,6 +111,7 @@ public class RecipeRepositoryTest {
     
     @Test
     @UsingDataSet(value = { "/prepaire.xls" })
+    @ShouldMatchDataSet(value = { "/expected-afterDeleteOne.xls" })
     public void shouldBeDelete() {
         final Recipe toDelete = repository.findOne("c0e5582e-252f-4e94-8a49-e12b4b047afb");
         assertThat("Das rezept mit der ID c0e5582e-252f-4e94-8a49-e12b4b047afb existiert nicht in der Datenbank", toDelete, is(not(nullValue())));

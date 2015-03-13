@@ -18,6 +18,8 @@ import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.FilteredDataSet;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
+import org.dbunit.dataset.SortedTable;
+import org.dbunit.dataset.filter.DefaultColumnFilter;
 import org.dbunit.operation.DatabaseOperation;
 import org.dbunit.util.fileloader.CsvDataFileLoader;
 import org.dbunit.util.fileloader.DataFileLoader;
@@ -39,6 +41,8 @@ public class DbUnitRule implements TestRule {
     @Target({ElementType.METHOD})
     public static @interface ShouldMatchDataSet {
         String[] value();
+        String[] excludeColumns() default { "" };
+        String[] orderBy() default { "" }; 
     }
     
     @Inject
@@ -58,7 +62,8 @@ public class DbUnitRule implements TestRule {
             }
         };
     }
-    protected void before(final Description description) throws Exception {
+    
+    private void before(final Description description) throws Exception {
         final UsingDataSet annotation = description.getAnnotation(UsingDataSet.class);
         if (annotation == null) {
             return;
@@ -79,9 +84,9 @@ public class DbUnitRule implements TestRule {
                 loader = new FlatXmlDataFileLoader();
             } else if (dataSetFile.endsWith(".csv")) {
                 loader = new CsvDataFileLoader();
-            } if (dataSetFile.endsWith(".xls")) {
+            } else if (dataSetFile.endsWith(".xls")) {
                 loader = new XlsDataFileLoader();
-            }else {
+            } else {
                 throw new IllegalStateException("DbUnitRule only supports XLS, CSV or Flat XML data sets for the moment");
             }
             dataset = loader.load(dataSetFile);
@@ -90,19 +95,35 @@ public class DbUnitRule implements TestRule {
         return new CompositeDataSet(dataSets.toArray(new IDataSet[dataSets.size()]));
     }
     
-    protected void after(final Description description) throws Exception {
+    private void after(final Description description) throws Exception {
         final ShouldMatchDataSet annotation = description.getAnnotation(ShouldMatchDataSet.class);
-        if (annotation != null) {
-            final String[] dataSetFiles = annotation.value();
-            final CompositeDataSet expectedDataSet = buildDataSet(dataSetFiles);
-            final IDatabaseConnection databaseConnection = databaseTester.getConnection();
-            final IDataSet databaseDataSet = new FilteredDataSet(new DatabaseSequenceFilter(databaseConnection), expectedDataSet);
-            for (String tablename : expectedDataSet.getTableNames()) {
-                final ITable expectedTable = expectedDataSet.getTable(tablename);
-                final ITable actualTable = databaseDataSet.getTable(tablename);
-                Assertion.assertEquals(expectedTable, actualTable);
-            }
+        if (annotation == null) {
+            return;
+        }
+        final String[] dataSetFiles = annotation.value();
+        final CompositeDataSet expectedDataSet = buildDataSet(dataSetFiles);
+        final IDatabaseConnection databaseConnection = databaseTester.getConnection();
+        final IDataSet databaseDataSet = new FilteredDataSet(new DatabaseSequenceFilter(databaseConnection), databaseConnection.createDataSet());
+        for (String tablename : expectedDataSet.getTableNames()) {
+            final ITable expectedTable = buildFilteredAndSortedTable(expectedDataSet.getTable(tablename));
+            final ITable actualTable = buildFilteredAndSortedTable(databaseDataSet.getTable(tablename));
+            Assertion.assertEquals(expectedTable, actualTable);
         }
     }
 
+    private ITable buildFilteredAndSortedTable(final ITable originalTable) throws DataSetException {
+        if (originalTable.getTableMetaData().getTableName().equalsIgnoreCase("RECIPE")) {
+            final ITable filteredTable = DefaultColumnFilter.excludedColumnsTable(originalTable, new String[]{"ADDINGDATE", "LASTUPDATE"});
+            final SortedTable sortedTable = new SortedTable(filteredTable, new String[]{"UUID"});
+            sortedTable.setUseComparable(true); 
+            return sortedTable;
+          
+        } else if (originalTable.getTableMetaData().getTableName().equalsIgnoreCase("INGREDIENT")) {
+            final SortedTable sortedTable = new SortedTable(originalTable, new String[]{"RECIPE_ID", "DESCRIPTION"});
+            sortedTable.setUseComparable(true); 
+            final ITable filteredTable = DefaultColumnFilter.excludedColumnsTable(sortedTable, new String[]{"ID"});
+            return filteredTable;
+        }
+        return originalTable;
+    }
 }
