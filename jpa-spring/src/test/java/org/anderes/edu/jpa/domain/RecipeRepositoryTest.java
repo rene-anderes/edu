@@ -13,20 +13,31 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.anderes.edu.jpa.rules.DbUnitRule;
+import org.anderes.edu.jpa.rules.DbUnitRule.ShouldMatchDataSet;
+import org.anderes.edu.jpa.rules.DbUnitRule.UsingDataSet;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:application-context.xml")
+@ContextConfiguration(locations = {
+                "classpath:application-context.xml",
+                "classpath:unittest-application-context.xml"
+})
 public class RecipeRepositoryTest {
 
     @Inject
     private RecipeRepository repository;
+    @Inject @Rule 
+    public DbUnitRule dbUnitRule;
     
     @Test
-    public void testApp() {
+    @UsingDataSet(value = { "/prepaire.xls" })
+    @ShouldMatchDataSet(value = { "/prepaire.xls" })
+    public void shouldBeFindAll() {
         Iterable<Recipe> recipes = repository.findAll();
         assertThat(recipes, is(notNullValue()));
         assertThat(recipes.iterator().hasNext(), is(true));
@@ -39,26 +50,29 @@ public class RecipeRepositoryTest {
     }
     
     @Test
+    @UsingDataSet(value = { "/prepaire.xls" })
     public void shouldBeOneRecipe() {
-        final Recipe recipe = repository.findOne("FF00-AA");
+        final Recipe recipe = repository.findOne("c0e5582e-252f-4e94-8a49-e12b4b047afb");
         assertNotNull(recipe);
-        assertThat(recipe.getTitle(), is("Dies und Das"));
-        assertThat(recipe.getIngredients().size(), is(4));
+        assertThat(recipe.getTitle(), is("Arabische Spaghetti"));
+        assertThat(recipe.getIngredients().size(), is(3));
         System.out.println(recipe);
     }
     
     @Test
+    @UsingDataSet(value = { "/prepaire.xls" })
     public void getRecipesByTitle() {
-        final Collection<Recipe> recipes = repository.findByTitleLike("%Dies%");
+        final Collection<Recipe> recipes = repository.findByTitleLike("%Spaghetti%");
         
         assertNotNull(recipes);
         assertThat(recipes.size(), is(1));
         final Recipe recipe = recipes.iterator().next();
-        assertThat(recipe.getTitle(), is("Dies und Das"));
-        assertThat(recipe.getIngredients().size(), is(4));
+        assertThat(recipe.getTitle(), is("Arabische Spaghetti"));
+        assertThat(recipe.getIngredients().size(), is(3));
     }
     
     @Test
+    @UsingDataSet(value = { "/prepaire.xls" })
     public void shouldBeSaveNewRecipe() {
         // given
         final Recipe newRecipe = RecipeBuilder.buildRecipe();
@@ -76,14 +90,15 @@ public class RecipeRepositoryTest {
     }
     
     @Test
+    @UsingDataSet(value = { "/prepaire.xls" })
     public void shouldBeUpdateRecipe() {
-        final Recipe updateRecipe = repository.findOne("FF00-AA");
+        final Recipe updateRecipe = repository.findOne("c0e5582e-252f-4e94-8a49-e12b4b047afb");
         updateRecipe.setPreample("Neuer Preample vom Test");
         final Recipe savedRecipe = repository.save(updateRecipe);
         
         assertThat(savedRecipe, is(not(nullValue())));
         assertThat(savedRecipe.getPreample(), is("Neuer Preample vom Test"));
-        assertThat(savedRecipe.getIngredients().size(), is(4));
+        assertThat(savedRecipe.getIngredients().size(), is(3));
         
         final Recipe findRecipe = repository.findOne(savedRecipe.getUuid());
         assertThat(findRecipe, is(not(nullValue())));
@@ -93,17 +108,19 @@ public class RecipeRepositoryTest {
     }
     
     @Test
+    @UsingDataSet(value = { "/prepaire.xls" })
     public void shouldBeDelete() {
-        final Recipe toDelete = repository.findOne("FF00-BB");
-        assertThat("Das rezept mit dre ID FF00-BB existiert nicht in der Datenbank", toDelete, is(not(nullValue())));
+        final Recipe toDelete = repository.findOne("c0e5582e-252f-4e94-8a49-e12b4b047afb");
+        assertThat("Das rezept mit der ID c0e5582e-252f-4e94-8a49-e12b4b047afb existiert nicht in der Datenbank", toDelete, is(not(nullValue())));
         repository.delete(toDelete);
         
-        final Collection<Recipe> recipes = repository.findByTitleLike("%Pasta%");
+        final Collection<Recipe> recipes = repository.findByTitleLike("%Spaghetti%");
         assertNotNull(recipes);
         assertThat(recipes.size(), is(0));
     }
     
     @Test
+    @UsingDataSet(value = { "/prepaire.xls" })
     public void shouldBeFindAllTag() {
         final List<String> tags = repository.findAllTag();
         assertThat(tags, is(notNullValue()));

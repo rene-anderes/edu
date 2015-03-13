@@ -10,7 +10,4 @@ Siehe http://docs.spring.io/spring-data/jpa/docs/current/reference/html/
 Projekt bauen:
 	1) mvn flyway:clean
 	2) mvn flyway:migrate
-	3) mvn clean install -DskipTests=false
-
-Die Tests laufen bdeingt durch die Konfîguration (die Testdaten werden nur einmal für alle Tests geladen) nur einzeln.
-testdaten laden: mvn process-test-resources
+	3) mvn clean install

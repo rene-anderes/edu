@@ -18,9 +18,12 @@ import javax.inject.Inject;
 
 import org.anderes.edu.jpa.domain.Ingredient;
 import org.anderes.edu.jpa.domain.Recipe;
+import org.anderes.edu.jpa.rules.DbUnitRule;
+import org.anderes.edu.jpa.rules.DbUnitRule.UsingDataSet;
 import org.apache.commons.codec.binary.Base64;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.security.web.FilterChainProxy;
@@ -36,7 +39,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:application-context.xml", "classpath:application-security-context.xml"})
+@ContextConfiguration(locations = {
+                "classpath:application-context.xml",
+                "classpath:unittest-application-context.xml",
+                "classpath:application-security-context.xml"
+})
 @WebAppConfiguration
 public class RecipeControllerTest {
 
@@ -47,6 +54,9 @@ public class RecipeControllerTest {
     private FilterChainProxy springSecurityFilterChain;
  
     private MockMvc mockMvc;
+    
+    @Inject @Rule 
+    public DbUnitRule dbUnitRule;
   
     @Before
     public void setUp() {
@@ -58,6 +68,7 @@ public class RecipeControllerTest {
     }
 
     @Test
+    @UsingDataSet(value = { "/prepaire.xls" })
     public void shouldBeAllRecipes() throws Exception {
         MvcResult result = mockMvc.perform(get("/recipes").accept(APPLICATION_JSON).param("limit", "50"))
             .andExpect(status().isOk())
@@ -70,20 +81,23 @@ public class RecipeControllerTest {
     }
     
     @Test
+    @UsingDataSet(value = { "/prepaire.xls" })
     public void shouldBeOneRecipe() throws Exception {
         
         final String basicDigestHeaderValue = "Basic " + new String(Base64.encodeBase64(("user:password").getBytes()));
-        MvcResult result = mockMvc.perform(get("/recipes/FF00-AA").header("Authorization", basicDigestHeaderValue).accept(APPLICATION_JSON))
+        MvcResult result = mockMvc.perform(get("/recipes/c0e5582e-252f-4e94-8a49-e12b4b047afb")
+             .header("Authorization", basicDigestHeaderValue).accept(APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(jsonPath("$.uuid", is("FF00-AA")))
-            .andExpect(jsonPath("$.title", is("Dies und Das")))
+            .andExpect(jsonPath("$.uuid", is("c0e5582e-252f-4e94-8a49-e12b4b047afb")))
+            .andExpect(jsonPath("$.title", is("Arabische Spaghetti")))
             .andReturn();
         final String content = result.getResponse().getContentAsString();
         System.out.println(content);
     }
     
     @Test
+    @UsingDataSet(value = { "/prepaire.xls" })
     public void shouldBeSaveNewRecipe() throws Exception {
         final Recipe recipeToSave = createRecipe();
         mockMvc.perform(post("/recipes").contentType(APPLICATION_JSON).content(convertObjectToJsonBytes(recipeToSave)))

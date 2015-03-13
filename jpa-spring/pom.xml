@@ -137,9 +137,6 @@
         </profile>
         <profile>
             <id>testdata</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <build>
                 <plugins>
                     <plugin>
@@ -327,6 +324,21 @@
             <artifactId>spring-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- dbUnit -->
+         <dependency>
+            <groupId>org.dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+            <version>2.5.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.2-FINAL</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- / dbUnit -->
+        <!--  / Testabhängigkeiten -->
         <!-- JSON-Path: z.Z. funktioniert es mit neuerer Version (noch) nicht -->
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
