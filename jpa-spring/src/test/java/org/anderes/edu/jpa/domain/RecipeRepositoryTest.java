@@ -16,6 +16,8 @@ import javax.inject.Inject;
 import org.anderes.edu.jpa.rules.DbUnitRule;
 import org.anderes.edu.jpa.rules.DbUnitRule.ShouldMatchDataSet;
 import org.anderes.edu.jpa.rules.DbUnitRule.UsingDataSet;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,9 +36,21 @@ public class RecipeRepositoryTest {
     @Inject @Rule 
     public DbUnitRule dbUnitRule;
     
+    @Before
+    public void setup() {
+    }
+    
+    @After
+    public void tearDown() throws Exception {
+    }
+    
+    
     @Test
     @UsingDataSet(value = { "/prepaire.xls" })
-    @ShouldMatchDataSet(value = { "/prepaire.xls" })
+    @ShouldMatchDataSet(
+            value = { "/prepaire.xls" },
+            excludeColumns = { "RECIPE.ADDINGDATE" },
+            orderBy = { "RECIPE.UUID" })
     public void shouldBeFindAll() {
         Iterable<Recipe> recipes = repository.findAll();
         assertThat(recipes, is(notNullValue()));
@@ -61,6 +75,10 @@ public class RecipeRepositoryTest {
     
     @Test
     @UsingDataSet(value = { "/prepaire.xls" })
+    @ShouldMatchDataSet(
+            value = { "/prepaire.xls" },
+            excludeColumns = { "RECIPE.ADDINGDATE" },
+            orderBy = { "RECIPE.UUID" })
     public void getRecipesByTitle() {
         final Collection<Recipe> recipes = repository.findByTitleLike("%Spaghetti%");
         
@@ -91,7 +109,9 @@ public class RecipeRepositoryTest {
     
     @Test
     @UsingDataSet(value = { "/prepaire.xls" })
-    @ShouldMatchDataSet(value = { "/expected-afterUpdate.xls" })
+    @ShouldMatchDataSet(value = { "/expected-afterUpdate.xls" },
+            excludeColumns = { "RECIPE.ADDINGDATE", "INGREDIENT.ID" },
+            orderBy = { "RECIPE.UUID", "INGREDIENT.RECIPE_ID", "INGREDIENT.DESCRIPTION" })
     public void shouldBeUpdateRecipe() {
         final Recipe updateRecipe = repository.findOne("c0e5582e-252f-4e94-8a49-e12b4b047afb");
         updateRecipe.setPreample("Neuer Preample vom Test");
@@ -111,7 +131,9 @@ public class RecipeRepositoryTest {
     
     @Test
     @UsingDataSet(value = { "/prepaire.xls" })
-    @ShouldMatchDataSet(value = { "/expected-afterDeleteOne.xls" })
+    @ShouldMatchDataSet(value = { "/expected-afterDeleteOne.xls" },
+            excludeColumns = { "RECIPE.ADDINGDATE" },
+            orderBy = { "RECIPE.UUID" })
     public void shouldBeDelete() {
         final Recipe toDelete = repository.findOne("c0e5582e-252f-4e94-8a49-e12b4b047afb");
         assertThat("Das rezept mit der ID c0e5582e-252f-4e94-8a49-e12b4b047afb existiert nicht in der Datenbank", toDelete, is(not(nullValue())));

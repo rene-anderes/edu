@@ -114,7 +114,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <db.url>jdbc:derby:directory:d:/git-repository/edu/jpa-spring/Databases/CookbookDB</db.url>
+                <db.url>jdbc:derby:d:\Git-repositories\edu\jpa-spring\Databases\CookbookDB</db.url>
                 <eclipselink.showsql>true</eclipselink.showsql>
             </properties>
         </profile>

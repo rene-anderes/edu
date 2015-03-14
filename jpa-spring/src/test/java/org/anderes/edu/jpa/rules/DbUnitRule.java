@@ -5,10 +5,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
 import org.dbunit.Assertion;
 import org.dbunit.IDatabaseTester;
 import org.dbunit.database.DatabaseSequenceFilter;
@@ -41,8 +44,8 @@ public class DbUnitRule implements TestRule {
     @Target({ElementType.METHOD})
     public static @interface ShouldMatchDataSet {
         String[] value();
-        String[] excludeColumns() default { "" };
-        String[] orderBy() default { "" }; 
+        String[] excludeColumns() default { };
+        String[] orderBy() default { }; 
     }
     
     @Inject
@@ -69,9 +72,9 @@ public class DbUnitRule implements TestRule {
             return;
         }
         final String[] dataSetFiles = annotation.value();
-        CompositeDataSet dataSet = buildDataSet(dataSetFiles);
-        IDatabaseConnection databaseConnection = databaseTester.getConnection();
-        IDataSet filteredDataSet = new FilteredDataSet(new DatabaseSequenceFilter(databaseConnection), dataSet);
+        final CompositeDataSet dataSet = buildDataSet(dataSetFiles);
+        final IDatabaseConnection databaseConnection = databaseTester.getConnection();
+        final IDataSet filteredDataSet = new FilteredDataSet(new DatabaseSequenceFilter(databaseConnection), dataSet);
         DatabaseOperation.CLEAN_INSERT.execute(databaseConnection, filteredDataSet);
     }
     
@@ -105,25 +108,50 @@ public class DbUnitRule implements TestRule {
         final IDatabaseConnection databaseConnection = databaseTester.getConnection();
         final IDataSet databaseDataSet = new FilteredDataSet(new DatabaseSequenceFilter(databaseConnection), databaseConnection.createDataSet());
         for (String tablename : expectedDataSet.getTableNames()) {
-            final ITable expectedTable = buildFilteredAndSortedTable(expectedDataSet.getTable(tablename));
-            final ITable actualTable = buildFilteredAndSortedTable(databaseDataSet.getTable(tablename));
+            final ITable expectedTable = buildFilteredAndSortedTable(expectedDataSet.getTable(tablename), annotation);
+            final ITable actualTable = buildFilteredAndSortedTable(databaseDataSet.getTable(tablename), annotation);
             Assertion.assertEquals(expectedTable, actualTable);
         }
     }
-
-    private ITable buildFilteredAndSortedTable(final ITable originalTable) throws DataSetException {
-        if (originalTable.getTableMetaData().getTableName().equalsIgnoreCase("RECIPE")) {
-            final ITable filteredTable = DefaultColumnFilter.excludedColumnsTable(originalTable, new String[]{"ADDINGDATE", "LASTUPDATE"});
-            final SortedTable sortedTable = new SortedTable(filteredTable, new String[]{"UUID"});
-            sortedTable.setUseComparable(true); 
-            return sortedTable;
-          
-        } else if (originalTable.getTableMetaData().getTableName().equalsIgnoreCase("INGREDIENT")) {
-            final SortedTable sortedTable = new SortedTable(originalTable, new String[]{"RECIPE_ID", "DESCRIPTION"});
-            sortedTable.setUseComparable(true); 
-            final ITable filteredTable = DefaultColumnFilter.excludedColumnsTable(sortedTable, new String[]{"ID"});
-            return filteredTable;
+    
+    /*package*/ Map<String, String[]> buildMapFromStringArray(final String[] excludeColumns) {
+        final Map<String, List<String>> map = new HashMap<String, List<String>>();
+        for (String excludeColumn : excludeColumns) {
+            if (StringUtils.isBlank(excludeColumn) || excludeColumn.indexOf(".") < 1) {
+                continue;
+            }
+            final String table = excludeColumn.substring(0, excludeColumn.indexOf("."));
+            final String column = excludeColumn.substring(excludeColumn.indexOf(".") + 1, excludeColumn.length());
+            if (map.containsKey(table)) {
+                map.get(table).add(column);
+            } else {
+                List<String> list = new ArrayList<String>();
+                list.add(column);
+                map.put(table, list);
+            }
         }
-        return originalTable;
+        final Map<String, String[]> returnValue = new HashMap<String, String[]>(map.size());
+        for (String tablename : map.keySet()) {
+            returnValue.put(tablename, map.get(tablename).toArray(new String[0]));
+        }
+        return returnValue;
+    }
+    
+    private ITable buildFilteredAndSortedTable(final ITable originalTable, final ShouldMatchDataSet annotation) throws DataSetException {
+        final Map<String, String[]> excludeColumns = buildMapFromStringArray(annotation.excludeColumns());
+        final Map<String, String[]> orderBy = buildMapFromStringArray(annotation.orderBy());
+        final String tablename = originalTable.getTableMetaData().getTableName();
+        ITable table;
+        if (excludeColumns.containsKey(tablename)) {
+            table = DefaultColumnFilter.excludedColumnsTable(originalTable, excludeColumns.get(tablename));
+        } else {
+            table = originalTable;
+        }
+        if (orderBy.containsKey(tablename)) {
+            final SortedTable sortedTable = new SortedTable(table, orderBy.get(tablename));
+            sortedTable.setUseComparable(true); 
+            table = sortedTable;
+        } 
+        return table;
     }
 }
