@@ -7,7 +7,7 @@
     <packaging>jar</packaging>
 
     <name>kata-java8-news</name>
-    
+
     <description>Übungsbeispiel zum Thema Java 8 Streams.</description>
 
     <properties>
@@ -29,6 +29,11 @@
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.3.2</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
