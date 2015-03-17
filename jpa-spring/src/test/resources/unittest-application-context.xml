@@ -10,5 +10,10 @@
         <constructor-arg ref="dataSource"></constructor-arg>
     </bean>
 
-    <bean name="rule" class="org.anderes.edu.jpa.rules.DbUnitRule"></bean>
+    <bean name="rule" class="org.anderes.edu.jpa.rules.DbUnitRule">
+        <constructor-arg ref="customDataTypeFactory"></constructor-arg>
+        <constructor-arg ref="databaseTester"></constructor-arg>
+    </bean>
+    
+    <bean name="customDataTypeFactory" class="org.anderes.edu.jpa.rules.CustomDataTypeFactory"></bean>
 </beans>

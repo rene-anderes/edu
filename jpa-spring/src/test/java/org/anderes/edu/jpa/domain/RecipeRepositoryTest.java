@@ -49,7 +49,6 @@ public class RecipeRepositoryTest {
     @UsingDataSet(value = { "/prepaire.xls" })
     @ShouldMatchDataSet(
             value = { "/prepaire.xls" },
-            excludeColumns = { "RECIPE.ADDINGDATE" },
             orderBy = { "RECIPE.UUID" })
     public void shouldBeFindAll() {
         Iterable<Recipe> recipes = repository.findAll();

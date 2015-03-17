@@ -1,5 +1,9 @@
 package org.anderes.edu.jpa.rules;
 
+import static org.apache.commons.lang3.StringUtils.containsNone;
+import static org.apache.commons.lang3.StringUtils.substringAfter;
+import static org.apache.commons.lang3.StringUtils.substringBefore;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -9,11 +13,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 import org.dbunit.Assertion;
 import org.dbunit.IDatabaseTester;
+import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseSequenceFilter;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.CompositeDataSet;
@@ -22,6 +25,7 @@ import org.dbunit.dataset.FilteredDataSet;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.SortedTable;
+import org.dbunit.dataset.datatype.IDataTypeFactory;
 import org.dbunit.dataset.filter.DefaultColumnFilter;
 import org.dbunit.operation.DatabaseOperation;
 import org.dbunit.util.fileloader.CsvDataFileLoader;
@@ -48,8 +52,26 @@ public class DbUnitRule implements TestRule {
         String[] orderBy() default { }; 
     }
     
-    @Inject
     private IDatabaseTester databaseTester;
+    
+    /*package*/ DbUnitRule() {
+        super();
+    }
+    
+    public DbUnitRule(final IDatabaseTester databaseTester) {
+        Validate.notNull(databaseTester, "DatabaseTester darf nicht null sein");
+        this.databaseTester = databaseTester;
+    }
+    
+    public DbUnitRule(final IDataTypeFactory dataTypeFactory, final IDatabaseTester databaseTester) {
+        this(databaseTester);
+        Validate.notNull(dataTypeFactory, "dataTypeFactory darf nicht null sein");
+        try {
+            databaseTester.getConnection().getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, dataTypeFactory);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     
     @Override
     public Statement apply(final Statement base, final Description description) {
@@ -117,11 +139,11 @@ public class DbUnitRule implements TestRule {
     /*package*/ Map<String, String[]> buildMapFromStringArray(final String[] excludeColumns) {
         final Map<String, List<String>> map = new HashMap<String, List<String>>();
         for (String excludeColumn : excludeColumns) {
-            if (StringUtils.isBlank(excludeColumn) || excludeColumn.indexOf(".") < 1) {
+            if (containsNone(excludeColumn, ".")) {
                 continue;
             }
-            final String table = excludeColumn.substring(0, excludeColumn.indexOf("."));
-            final String column = excludeColumn.substring(excludeColumn.indexOf(".") + 1, excludeColumn.length());
+            final String table = substringBefore(excludeColumn, ".");
+            final String column = substringAfter(excludeColumn, ".");
             if (map.containsKey(table)) {
                 map.get(table).add(column);
             } else {
