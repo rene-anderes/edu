@@ -16,6 +16,7 @@ import java.util.Map;
 import org.apache.commons.lang3.Validate;
 import org.dbunit.Assertion;
 import org.dbunit.IDatabaseTester;
+import org.dbunit.IOperationListener;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseSequenceFilter;
 import org.dbunit.database.IDatabaseConnection;
@@ -97,7 +98,10 @@ public class DbUnitRule implements TestRule {
         final CompositeDataSet dataSet = buildDataSet(dataSetFiles);
         final IDatabaseConnection databaseConnection = databaseTester.getConnection();
         final IDataSet filteredDataSet = new FilteredDataSet(new DatabaseSequenceFilter(databaseConnection), dataSet);
-        DatabaseOperation.CLEAN_INSERT.execute(databaseConnection, filteredDataSet);
+        databaseTester.setOperationListener(IOperationListener.NO_OP_OPERATION_LISTENER);
+        databaseTester.setSetUpOperation(DatabaseOperation.CLEAN_INSERT);
+        databaseTester.setDataSet(filteredDataSet);
+        databaseTester.onSetup();
     }
     
     private CompositeDataSet buildDataSet(String[] dataSetFiles) throws DataSetException {
@@ -125,10 +129,17 @@ public class DbUnitRule implements TestRule {
         if (annotation == null) {
             return;
         }
+        compareDatabase(annotation);
+        databaseTester.setTearDownOperation(DatabaseOperation.NONE);
+        databaseTester.onTearDown();
+    }
+
+    private void compareDatabase(final ShouldMatchDataSet annotation) throws Exception {
         final String[] dataSetFiles = annotation.value();
         final CompositeDataSet expectedDataSet = buildDataSet(dataSetFiles);
         final IDatabaseConnection databaseConnection = databaseTester.getConnection();
-        final IDataSet databaseDataSet = new FilteredDataSet(new DatabaseSequenceFilter(databaseConnection), databaseConnection.createDataSet());
+//        final IDataSet databaseDataSet = new FilteredDataSet(new DatabaseSequenceFilter(databaseConnection), databaseConnection.createDataSet());
+        final IDataSet databaseDataSet = databaseConnection.createDataSet();
         for (String tablename : expectedDataSet.getTableNames()) {
             final ITable expectedTable = buildFilteredAndSortedTable(expectedDataSet.getTable(tablename), annotation);
             final ITable actualTable = buildFilteredAndSortedTable(databaseDataSet.getTable(tablename), annotation);
