@@ -142,8 +142,8 @@ public class DbUnitRule implements TestRule {
             if (containsNone(excludeColumn, ".")) {
                 continue;
             }
-            final String table = substringBefore(excludeColumn, ".");
-            final String column = substringAfter(excludeColumn, ".");
+            final String table = substringBefore(excludeColumn, ".").toUpperCase();
+            final String column = substringAfter(excludeColumn, ".").toUpperCase();
             if (map.containsKey(table)) {
                 map.get(table).add(column);
             } else {
