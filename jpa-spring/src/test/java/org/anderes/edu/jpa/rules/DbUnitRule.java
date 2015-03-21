@@ -80,11 +80,8 @@ public class DbUnitRule implements TestRule {
             @Override
             public void evaluate() throws Throwable {
                 before(description);
-                try {
-                    base.evaluate();
-                } finally {
-                    after(description);
-                }
+                base.evaluate();
+                after(description);
             }
         };
     }
@@ -108,20 +105,25 @@ public class DbUnitRule implements TestRule {
         final List<IDataSet> dataSets = new ArrayList<IDataSet>(dataSetFiles.length);
         for (String dataSetFile : dataSetFiles) {
             IDataSet dataset;
-            DataFileLoader loader;
-            if (dataSetFile.endsWith(".xml")) {
-                loader = new FlatXmlDataFileLoader();
-            } else if (dataSetFile.endsWith(".csv")) {
-                loader = new CsvDataFileLoader();
-            } else if (dataSetFile.endsWith(".xls")) {
-                loader = new XlsDataFileLoader();
-            } else {
-                throw new IllegalStateException("DbUnitRule only supports XLS, CSV or Flat XML data sets for the moment");
-            }
+            DataFileLoader loader = identifyLoader(dataSetFile);
             dataset = loader.load(dataSetFile);
             dataSets.add(dataset);
         }
         return new CompositeDataSet(dataSets.toArray(new IDataSet[dataSets.size()]));
+    }
+
+    private DataFileLoader identifyLoader(String dataSetFile) {
+        DataFileLoader loader;
+        if (dataSetFile.endsWith(".xml")) {
+            loader = new FlatXmlDataFileLoader();
+        } else if (dataSetFile.endsWith(".csv")) {
+            loader = new CsvDataFileLoader();
+        } else if (dataSetFile.endsWith(".xls")) {
+            loader = new XlsDataFileLoader();
+        } else {
+            throw new IllegalStateException("DbUnitRule only supports XLS, CSV or Flat XML data sets for the moment");
+        }
+        return loader;
     }
     
     private void after(final Description description) throws Exception {
@@ -146,14 +148,14 @@ public class DbUnitRule implements TestRule {
         }
     }
     
-    /*package*/ Map<String, String[]> buildMapFromStringArray(final String[] excludeColumns) {
+    /*package*/ Map<String, String[]> buildMapFromStringArray(final String[] array) {
         final Map<String, List<String>> map = new HashMap<String, List<String>>();
-        for (String excludeColumn : excludeColumns) {
-            if (containsNone(excludeColumn, ".")) {
+        for (String value : array) {
+            if (containsNone(value, ".")) {
                 continue;
             }
-            final String table = substringBefore(excludeColumn, ".").toUpperCase();
-            final String column = substringAfter(excludeColumn, ".").toUpperCase();
+            final String table = substringBefore(value, ".").toUpperCase();
+            final String column = substringAfter(value, ".").toUpperCase();
             if (map.containsKey(table)) {
                 map.get(table).add(column);
             } else {
@@ -172,18 +174,28 @@ public class DbUnitRule implements TestRule {
     private ITable buildFilteredAndSortedTable(final ITable originalTable, final ShouldMatchDataSet annotation) throws DataSetException {
         final Map<String, String[]> excludeColumns = buildMapFromStringArray(annotation.excludeColumns());
         final Map<String, String[]> orderBy = buildMapFromStringArray(annotation.orderBy());
-        final String tablename = originalTable.getTableMetaData().getTableName();
+        final String tablename = originalTable.getTableMetaData().getTableName().toUpperCase();
+        ITable table = sortTable(orderBy, tablename, originalTable); 
+        table = filterTable(table, excludeColumns, tablename);
+        return table;
+    }
+
+    private ITable sortTable(final Map<String, String[]> orderBy, final String tablename, ITable table) throws DataSetException {
+        if (orderBy.containsKey(tablename)) {
+            final SortedTable sortedTable = new SortedTable(table, orderBy.get(tablename));
+            sortedTable.setUseComparable(true); 
+            table = sortedTable;
+        }
+        return table;
+    }
+
+    private ITable filterTable(final ITable originalTable, final Map<String, String[]> excludeColumns, final String tablename) throws DataSetException {
         ITable table;
         if (excludeColumns.containsKey(tablename)) {
             table = DefaultColumnFilter.excludedColumnsTable(originalTable, excludeColumns.get(tablename));
         } else {
             table = originalTable;
         }
-        if (orderBy.containsKey(tablename)) {
-            final SortedTable sortedTable = new SortedTable(table, orderBy.get(tablename));
-            sortedTable.setUseComparable(true); 
-            table = sortedTable;
-        } 
         return table;
     }
 }
