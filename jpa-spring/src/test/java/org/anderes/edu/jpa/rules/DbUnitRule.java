@@ -138,7 +138,6 @@ public class DbUnitRule implements TestRule {
         final String[] dataSetFiles = annotation.value();
         final CompositeDataSet expectedDataSet = buildDataSet(dataSetFiles);
         final IDatabaseConnection databaseConnection = databaseTester.getConnection();
-//        final IDataSet databaseDataSet = new FilteredDataSet(new DatabaseSequenceFilter(databaseConnection), databaseConnection.createDataSet());
         final IDataSet databaseDataSet = databaseConnection.createDataSet();
         for (String tablename : expectedDataSet.getTableNames()) {
             final ITable expectedTable = buildFilteredAndSortedTable(expectedDataSet.getTable(tablename), annotation);
