@@ -1,17 +1,27 @@
 package org.anderes.edu.jpa.rules;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 import java.util.Map;
 
+import org.dbunit.dataset.CompositeDataSet;
+import org.dbunit.dataset.DataSetException;
+import org.junit.Before;
 import org.junit.Test;
 
 public class DbUnitRuleTest {
 
+    private DbUnitRule rule;
+    
+    @Before
+    public void setup() {
+        rule = new DbUnitRule();
+    }
+    
     @Test
     public void shouldBeOneTableAndOneColumn() {
-        DbUnitRule rule = new DbUnitRule();
         String[] excludeColumns = { "RECIPE.UUID"};
         Map<String, String[]> map = rule.buildMapFromStringArray(excludeColumns);
         
@@ -22,7 +32,6 @@ public class DbUnitRuleTest {
 
     @Test
     public void shouldBeTwoTableAndTwoColumn() {
-        DbUnitRule rule = new DbUnitRule();
         String[] excludeColumns = { "RECIPE.UUID", "RECIPE.DESCRIPTION", "TAGS.ID", "TAGS.DESCRIPTION"};
         Map<String, String[]> map = rule.buildMapFromStringArray(excludeColumns);
         
@@ -38,7 +47,6 @@ public class DbUnitRuleTest {
     
     @Test
     public void shouldBeTwoTableAndTwoColumnCaseInsensitive() {
-        DbUnitRule rule = new DbUnitRule();
         String[] excludeColumns = { "RECIPE.uuid", "recipe.DESCRIPTION", "tags.ID", "TAGS.DESCRIPTION"};
         Map<String, String[]> map = rule.buildMapFromStringArray(excludeColumns);
         
@@ -54,7 +62,6 @@ public class DbUnitRuleTest {
     
     @Test
     public void ShouldBeEmptyMap() {
-        DbUnitRule rule = new DbUnitRule();
         String[] excludeColumns = { "" };
         Map<String, String[]> map = rule.buildMapFromStringArray(excludeColumns);
         assertThat(map.size(), is(0));
@@ -62,9 +69,26 @@ public class DbUnitRuleTest {
     
     @Test
     public void ShouldBeEmptyMapByWrongData() {
-        DbUnitRule rule = new DbUnitRule();
         String[] excludeColumns = { "UUID" };
         Map<String, String[]> map = rule.buildMapFromStringArray(excludeColumns);
         assertThat(map.size(), is(0));
+    }
+    
+    @Test
+    public void shouldBeBuildDataSet() throws DataSetException {
+        final String[] dataSetFiles = { "/dbUnit/forDbUnitRuleTest.xls" };
+        CompositeDataSet dataset = rule.buildDataSet(dataSetFiles);
+        
+        assertThat(dataset, is(notNullValue()));
+        assertThat(dataset.getTableNames().length, is(4));
+    }
+    
+    @Test
+    public void shouldBeBuildDataSetWithTwoFiles() throws DataSetException {
+        final String[] dataSetFiles = { "/dbUnit/forDbUnitRuleTest.xls", "/dbUnit/forDbUnitRuleTest.xml" };
+        CompositeDataSet dataset = rule.buildDataSet(dataSetFiles);
+        
+        assertThat(dataset, is(notNullValue()));
+        assertThat(dataset.getTableNames().length, is(7));
     }
 }

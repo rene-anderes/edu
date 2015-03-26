@@ -101,7 +101,7 @@ public class DbUnitRule implements TestRule {
         databaseTester.onSetup();
     }
     
-    private CompositeDataSet buildDataSet(String[] dataSetFiles) throws DataSetException {
+    /*package*/ CompositeDataSet buildDataSet(String[] dataSetFiles) throws DataSetException {
         final List<IDataSet> dataSets = new ArrayList<IDataSet>(dataSetFiles.length);
         for (String dataSetFile : dataSetFiles) {
             IDataSet dataset;
