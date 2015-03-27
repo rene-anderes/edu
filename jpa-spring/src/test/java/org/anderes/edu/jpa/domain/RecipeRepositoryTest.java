@@ -12,7 +12,6 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 
 import org.anderes.edu.jpa.rules.DbUnitRule;
 import org.anderes.edu.jpa.rules.DbUnitRule.CleanupUsingScript;
