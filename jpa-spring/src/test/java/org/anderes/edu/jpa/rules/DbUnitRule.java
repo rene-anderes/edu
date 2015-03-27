@@ -8,6 +8,8 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -53,6 +55,12 @@ public class DbUnitRule implements TestRule {
         String[] orderBy() default { }; 
     }
     
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.METHOD})
+    public static @interface CleanupUsingScript {
+        String[] value();
+    }
+    
     private IDatabaseTester databaseTester;
     
     /*package*/ DbUnitRule() {
@@ -87,20 +95,39 @@ public class DbUnitRule implements TestRule {
     }
     
     private void before(final Description description) throws Exception {
-        final UsingDataSet annotation = description.getAnnotation(UsingDataSet.class);
-        if (annotation == null) {
-            return;
+        final UsingDataSet usingDataSet = description.getAnnotation(UsingDataSet.class);
+        final CleanupUsingScript cleanupUsingScript = description.getAnnotation(CleanupUsingScript.class);
+        DatabaseOperation databaseOperation = DatabaseOperation.CLEAN_INSERT;
+        if (cleanupUsingScript != null) {
+            processCleanupScripts(cleanupUsingScript);
         }
-        final String[] dataSetFiles = annotation.value();
+        if (usingDataSet != null) {
+            processUsingDataSet(usingDataSet, databaseOperation);
+        }
+    }
+
+    private void processUsingDataSet(final UsingDataSet usingDataSet, final DatabaseOperation databaseOperation) throws DataSetException, Exception, SQLException {
+        final String[] dataSetFiles = usingDataSet.value();
         final CompositeDataSet dataSet = buildDataSet(dataSetFiles);
         final IDatabaseConnection databaseConnection = databaseTester.getConnection();
         final IDataSet filteredDataSet = new FilteredDataSet(new DatabaseSequenceFilter(databaseConnection), dataSet);
         databaseTester.setOperationListener(IOperationListener.NO_OP_OPERATION_LISTENER);
-        databaseTester.setSetUpOperation(DatabaseOperation.CLEAN_INSERT);
+        databaseTester.setSetUpOperation(databaseOperation);
         databaseTester.setDataSet(filteredDataSet);
         databaseTester.onSetup();
     }
     
+    private void processCleanupScripts(final CleanupUsingScript cleanupUsingScript) throws Exception {
+        final String[] cleanupFiles = cleanupUsingScript.value();
+        for (String cleanupFile : cleanupFiles) {
+            final List<String> commands = SqlHelper.extractSqlCommands(Paths.get(cleanupFile));
+            int[] values = SqlHelper.execute(databaseTester.getConnection().getConnection(), commands);
+            for (int index = 0 ; index < commands.size(); index++) {
+                System.out.println(commands.get(index) + ", Result: " + values[index]);
+            }
+        }
+    }
+
     /*package*/ CompositeDataSet buildDataSet(String[] dataSetFiles) throws DataSetException {
         final List<IDataSet> dataSets = new ArrayList<IDataSet>(dataSetFiles.length);
         for (String dataSetFile : dataSetFiles) {

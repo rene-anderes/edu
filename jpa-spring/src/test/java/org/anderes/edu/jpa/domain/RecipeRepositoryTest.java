@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import org.anderes.edu.jpa.rules.DbUnitRule;
+import org.anderes.edu.jpa.rules.DbUnitRule.CleanupUsingScript;
 import org.anderes.edu.jpa.rules.DbUnitRule.ShouldMatchDataSet;
 import org.anderes.edu.jpa.rules.DbUnitRule.UsingDataSet;
 import org.junit.After;
@@ -90,6 +91,7 @@ public class RecipeRepositoryTest {
     }
     
     @Test
+    @CleanupUsingScript(value = { "/sql/DeleteTableContentScript.sql" })
     @UsingDataSet(value = { "/prepaire.xls" })
     public void shouldBeSaveNewRecipe() {
         // given
@@ -108,6 +110,7 @@ public class RecipeRepositoryTest {
     }
     
     @Test
+    @CleanupUsingScript(value = { "/sql/DeleteTableContentScript.sql" })
     @UsingDataSet(value = { "/prepaire.xls" })
     @ShouldMatchDataSet(value = { "/expected-afterUpdate.xls" },
             excludeColumns = { "RECIPE.ADDINGDATE", "INGREDIENT.ID" },
@@ -130,6 +133,7 @@ public class RecipeRepositoryTest {
     }
     
     @Test
+    @CleanupUsingScript(value = { "/sql/DeleteTableContentScript.sql" })
     @UsingDataSet(value = { "/prepaire.xls" })
     @ShouldMatchDataSet(value = { "/expected-afterDeleteOne.xls" },
             excludeColumns = { "RECIPE.ADDINGDATE" },
