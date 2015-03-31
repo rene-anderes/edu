@@ -69,15 +69,12 @@ public class RecipeRepositoryTest {
         final Recipe recipe = repository.findOne("c0e5582e-252f-4e94-8a49-e12b4b047afb");
         assertNotNull(recipe);
         assertThat(recipe.getTitle(), is("Arabische Spaghetti"));
-        assertThat(recipe.getIngredients().size(), is(3));
-        System.out.println(recipe);
     }
     
     @Test
     @UsingDataSet(value = { "/prepaire.xls" })
     @ShouldMatchDataSet(
             value = { "/prepaire.xls" },
-            excludeColumns = { "RECIPE.ADDINGDATE" },
             orderBy = { "RECIPE.UUID" })
     public void getRecipesByTitle() {
         final Collection<Recipe> recipes = repository.findByTitleLike("%Spaghetti%");
@@ -86,7 +83,6 @@ public class RecipeRepositoryTest {
         assertThat(recipes.size(), is(1));
         final Recipe recipe = recipes.iterator().next();
         assertThat(recipe.getTitle(), is("Arabische Spaghetti"));
-        assertThat(recipe.getIngredients().size(), is(3));
     }
     
     @Test
@@ -109,7 +105,6 @@ public class RecipeRepositoryTest {
     }
     
     @Test
-    @CleanupUsingScript(value = { "/sql/DeleteTableContentScript.sql" })
     @UsingDataSet(value = { "/prepaire.xls" })
     @ShouldMatchDataSet(value = { "/expected-afterUpdate.xls" },
             excludeColumns = { "RECIPE.ADDINGDATE", "INGREDIENT.ID" },
@@ -132,7 +127,6 @@ public class RecipeRepositoryTest {
     }
     
     @Test
-    @CleanupUsingScript(value = { "/sql/DeleteTableContentScript.sql" })
     @UsingDataSet(value = { "/prepaire.xls" })
     @ShouldMatchDataSet(value = { "/expected-afterDeleteOne.xls" },
             excludeColumns = { "RECIPE.ADDINGDATE" },

@@ -3,12 +3,14 @@ package org.anderes.edu.jpa.rules;
 import static org.apache.commons.lang3.StringUtils.containsNone;
 import static org.apache.commons.lang3.StringUtils.substringAfter;
 import static org.apache.commons.lang3.StringUtils.substringBefore;
+import static org.junit.Assert.fail;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.nio.file.Paths;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,9 +19,12 @@ import java.util.Map;
 
 import org.apache.commons.lang3.Validate;
 import org.dbunit.Assertion;
+import org.dbunit.DatabaseUnitException;
+import org.dbunit.DefaultDatabaseTester;
 import org.dbunit.IDatabaseTester;
 import org.dbunit.IOperationListener;
 import org.dbunit.database.DatabaseConfig;
+import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.DatabaseSequenceFilter;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.CompositeDataSet;
@@ -67,19 +72,21 @@ public class DbUnitRule implements TestRule {
         super();
     }
     
+    public DbUnitRule(final Connection connection, final IDataTypeFactory dataTypeFactory) {
+        Validate.notNull(dataTypeFactory, "dataTypeFactory darf nicht null sein");
+        Validate.notNull(connection, "connection darf nicht null sein");
+        try {
+            final DatabaseConnection databaseConnection = new DatabaseConnection(connection); 
+            databaseConnection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, dataTypeFactory);
+            databaseTester = new DefaultDatabaseTester(databaseConnection);
+        } catch (DatabaseUnitException e) {
+            fail(e.getMessage());
+        }
+    }
+    
     public DbUnitRule(final IDatabaseTester databaseTester) {
         Validate.notNull(databaseTester, "DatabaseTester darf nicht null sein");
         this.databaseTester = databaseTester;
-    }
-    
-    public DbUnitRule(final IDataTypeFactory dataTypeFactory, final IDatabaseTester databaseTester) {
-        this(databaseTester);
-        Validate.notNull(dataTypeFactory, "dataTypeFactory darf nicht null sein");
-        try {
-            databaseTester.getConnection().getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, dataTypeFactory);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
     
     @Override

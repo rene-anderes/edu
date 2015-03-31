@@ -9,6 +9,7 @@ import org.dbunit.dataset.datatype.DefaultDataTypeFactory;
 public class CustomDataTypeFactory extends DefaultDataTypeFactory {
     
     public DataType createDataType(int sqlType, String sqlTypeName) throws DataTypeException {
+        System.out.println("--------------------------" + sqlTypeName);
         if (sqlType == Types.TIMESTAMP) {
             return new CustomTimestampDataType();
         } else {
