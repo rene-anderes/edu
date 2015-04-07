@@ -1,6 +1,6 @@
 package org.anderes.edu.dojo.java8.news;
 
-import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -84,7 +84,7 @@ public class StarStreamsTest {
         // then
         assertThat(map, is(notNullValue()));
         assertThat(map.get("Kruger 60").size(), is(2));
-        assertThat(map.get("Kruger 60"), containsInAnyOrder(
+        assertThat(map.get("Kruger 60"), hasItems(
                         Star.create("Kruger 60","Kruger 60 A (BD+56°2783)","13.1400000000"), 
                         Star.create("Kruger 60","Kruger 60 B (DO Cephei)","13.1400000000")));
     }
