@@ -1,4 +1,4 @@
-package org.anderes.edu.xml.saxdom;
+package org.anderes.edu.xml.saxdom.exercise.absence;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,11 +11,10 @@ import org.xml.sax.SAXException;
 
 public class SaxAbsenceHandler implements ContentHandler {
 
-	private Absence absence;
+	private Absence absence = new AbsenceData();
 	private String currentValue;
 	
-	public SaxAbsenceHandler(final Absence absence) {
-		this.absence = absence;
+	public SaxAbsenceHandler() {
 	}
 
 	@Override
@@ -91,4 +90,7 @@ public class SaxAbsenceHandler implements ContentHandler {
 	public void skippedEntity(String name) throws SAXException {
 	}
 
+    public Absence getAbsence() {
+        return absence;
+    }
 }

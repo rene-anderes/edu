@@ -1,4 +1,4 @@
-package org.anderes.edu.xml.saxdom;
+package org.anderes.edu.xml.saxdom.exercise.absence;
 
 import java.util.Calendar;
 

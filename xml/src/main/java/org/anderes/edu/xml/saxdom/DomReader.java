@@ -1,9 +1,6 @@
 package org.anderes.edu.xml.saxdom;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.logging.Logger;
 
 import javax.xml.XMLConstants;
@@ -17,7 +14,6 @@ import javax.xml.validation.Validator;
 
 import org.apache.commons.lang3.Validate;
 import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -27,7 +23,7 @@ public class DomReader {
 	private DomReader() {
 	}
 
-	public static Absence parseFile(final String xmlFile, final String xsdFile) throws Exception  {
+	public static Document parseFile(final String xmlFile, final String xsdFile) throws Exception  {
 	    Validate.notBlank(xmlFile);
         Validate.notBlank(xsdFile);
         
@@ -36,7 +32,7 @@ public class DomReader {
 		return parseFile(xmlFile);
 	}
 	
-	private static Absence parseFile(final String xmlFile) throws Exception  {
+	private static Document parseFile(final String xmlFile) throws Exception  {
 	    final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         final DocumentBuilder builder  = factory.newDocumentBuilder();
         final InputSource inputSource = new InputSource(DomReader.class.getResourceAsStream(xmlFile));
@@ -46,16 +42,7 @@ public class DomReader {
         } finally {
             inputSource.getByteStream().close();
         }
-        
-        final Absence absence = new AbsenceData();
-        absence.setTitle(getText(document, "Title"));
-        absence.setFirstname(getText(document, "Firstname"));
-        absence.setLastname(getText(document, "Lastname"));
-        absence.setPersonalnr(getText(document, "PersonalNr"));
-        absence.setDivision(getText(document, "Division"));
-        absence.setPeriod(getText(document, "Period"));
-        absence.setAbsenceDate(getCalendar(document, "AbsenceDate"));
-        return absence;
+        return document;
 	}
 	
 	private static void validateFile(final String xmlFile, final String xsdFile) throws Exception {
@@ -72,21 +59,4 @@ public class DomReader {
             throw e;
         }
     }
-	
-	private static String getText(final Document document, final String element) {
-		final NodeList ndList = document.getElementsByTagName(element);
-		return ndList.item(0).getTextContent();
-	}
-	
-	private static Calendar getCalendar(final Document document, final String element) {
-		final SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
-		final Calendar cal = Calendar.getInstance();
-		try {
-			cal.setTime(dateformat.parse(getText(document, element)));
-		} catch (ParseException e) {
-			// Nothing to do
-		}
-		return cal;
-	}
-
 }

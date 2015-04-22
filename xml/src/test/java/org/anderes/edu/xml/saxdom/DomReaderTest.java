@@ -7,15 +7,22 @@ import java.util.Calendar;
 
 import static java.util.Calendar.*;
 
+import org.anderes.edu.xml.saxdom.exercise.absence.Absence;
+import org.anderes.edu.xml.saxdom.exercise.absence.DomMapper;
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
+import org.w3c.dom.Document;
 import org.xml.sax.SAXParseException;
 
 public class DomReaderTest {
 
+    private final String xsdPath = "/org/anderes/edu/xml/saxdom/absence/Absence.xsd";
+    
 	@Test
 	public void shouldBeReadTheXMLFile() throws Exception {
-		final Absence absence = DomReader.parseFile("/org/anderes/edu/xml/saxdom/Absence.xml", "/org/anderes/edu/xml/saxdom/Absence.xsd");
+		
+	    final Document document = DomReader.parseFile("/org/anderes/edu/xml/saxdom/absence/Absence.xml", xsdPath);
+		final Absence absence = DomMapper.mapToAbsence(document);
 		
 		assertThat(absence.getTitle(), is("Herr"));
 		assertThat(absence.getFirstname(), is("Peter"));
@@ -28,12 +35,12 @@ public class DomReaderTest {
 
 	@Test(expected = IllegalArgumentException.class)
     public void shouldBeReadAIllegalArgumentException() throws Exception {
-	    DomReader.parseFile("/org/anderes/edu/xml/saxdom/Absence.xml", "");
+	    DomReader.parseFile("/org/anderes/edu/xml/saxdom/absence/Absence.xml", "");
 	}
 	
 	@Test(expected = SAXParseException.class)
     public void shouldBeReadAException() throws Exception {
-        DomReader.parseFile("/org/anderes/edu/xml/saxdom/Absence_NotValid.xml", "/org/anderes/edu/xml/saxdom/Absence.xsd");
+        DomReader.parseFile("/org/anderes/edu/xml/saxdom/absence/Absence_NotValid.xml", xsdPath);
     }
 	
 	private Calendar truncateDate(final int year, final int month, final int day) {

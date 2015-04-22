@@ -15,6 +15,7 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
 import org.apache.commons.lang3.Validate;
+import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -22,38 +23,33 @@ import org.xml.sax.XMLReader;
 public class SaxReader {
     private final static Logger logger = Logger.getLogger(SaxReader.class.getName());
 
-    public static Absence parseFile(final String xmlFile, final String xsdFile) throws Exception {
+    public static void parseFile(final String xmlFile, final String xsdFile, final ContentHandler contentHandler) throws Exception {
         Validate.notBlank(xmlFile);
         Validate.notBlank(xsdFile);
-
+        Validate.notNull(contentHandler);
+        
         validateFile(xmlFile, xsdFile);
 
-        return parseFile(xmlFile);
+        parseFile(xmlFile, contentHandler);
+        
     }
-
-    private static Absence parseFile(final String xmlFile) throws Exception {
+        
+    private static void parseFile(final String xmlFile, final ContentHandler contentHandler) throws Exception {
         final SAXParserFactory factory = SAXParserFactory.newInstance();
         factory.setNamespaceAware(true);
         final SAXParser parser = factory.newSAXParser();
         final XMLReader xmlReader = parser.getXMLReader();
-        final InputStream is = SaxReader.class.getResourceAsStream(xmlFile);
-        final InputSource inputSource = new InputSource(is);
-        final Absence absence = new AbsenceData();
-        xmlReader.setContentHandler(new SaxAbsenceHandler(absence));
+        xmlReader.setContentHandler(contentHandler);
         xmlReader.setErrorHandler(new SaxErrorHandler());
-        try {
+        try (final InputStream is = SaxReader.class.getResourceAsStream(xmlFile)) {
+            final InputSource inputSource = new InputSource(is);
             xmlReader.parse(inputSource);
-        } finally {
-            inputSource.getByteStream().close();
-        }
-
-        return absence;
+        } 
     }
     
     private static void validateFile(final String xmlFile, final String xsdFile) throws Exception {
         final SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        try {
-            final InputStream is = SaxReader.class.getResourceAsStream(xsdFile);
+        try (final InputStream is = SaxReader.class.getResourceAsStream(xsdFile)) {
             final InputSource inputSource = new InputSource(is);
             final Schema schema = factory.newSchema(new SAXSource(inputSource));
             final Validator validator = schema.newValidator();
@@ -66,4 +62,5 @@ public class SaxReader {
             throw e;
         }
     }
+
 }

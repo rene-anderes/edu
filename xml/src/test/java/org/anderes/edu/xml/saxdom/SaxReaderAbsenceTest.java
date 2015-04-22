@@ -1,21 +1,33 @@
 package org.anderes.edu.xml.saxdom;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static java.util.Calendar.FEBRUARY;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 import java.util.Calendar;
 
-import static java.util.Calendar.*;
-
+import org.anderes.edu.xml.saxdom.exercise.absence.Absence;
+import org.anderes.edu.xml.saxdom.exercise.absence.SaxAbsenceHandler;
 import org.apache.commons.lang3.time.DateUtils;
+import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXParseException;
 
-public class SaxReaderTest {
+public class SaxReaderAbsenceTest {
+    
+    private final String xsdPath = "/org/anderes/edu/xml/saxdom/absence/Absence.xsd";
+    private SaxAbsenceHandler contentHandler;
+    
+    @Before
+    public void setup() {
+        contentHandler = new SaxAbsenceHandler();
+    }
 
 	@Test
 	public void shouldBeReadTheXMLFile() throws Exception {
-		final Absence absence = SaxReader.parseFile("/org/anderes/edu/xml/saxdom/Absence.xml", "/org/anderes/edu/xml/saxdom/Absence.xsd");
+
+		SaxReader.parseFile("/org/anderes/edu/xml/saxdom/absence/Absence.xml", xsdPath, contentHandler);
+		final Absence absence = contentHandler.getAbsence();
 		
 		assertThat(absence.getTitle(), is("Herr"));
 		assertThat(absence.getFirstname(), is("Peter"));
@@ -28,17 +40,17 @@ public class SaxReaderTest {
 	}
 	@Test(expected = IllegalArgumentException.class)
     public void shouldBeReadAIllegalArgumentException() throws Exception {
-	    SaxReader.parseFile("/org/anderes/edu/xml/saxdom/Absence.xml", "");
+	    SaxReader.parseFile("/org/anderes/edu/xml/saxdom/absence/Absence.xml", "", contentHandler);
     }
     
     @Test(expected = SAXParseException.class)
     public void shouldBeReadAException() throws Exception {
-        SaxReader.parseFile("/org/anderes/edu/xml/saxdom/Absence_NotValid.xml", "/org/anderes/edu/xml/saxdom/Absence.xsd");
+        SaxReader.parseFile("/org/anderes/edu/xml/saxdom/absence/Absence_NotValid.xml", xsdPath, contentHandler);
     }
     
     @Test(expected = Exception.class)
     public void shouldBeReadAExceptionWrongCharacter() throws Exception {
-        SaxReader.parseFile("/org/anderes/edu/xml/saxdom/Absence_wrong_character.xml", "/org/anderes/edu/xml/saxdom/Absence.xsd");
+        SaxReader.parseFile("/org/anderes/edu/xml/saxdom/absence/Absence_wrong_character.xml", xsdPath, contentHandler);
     }
     
 	private Calendar truncateDate(final int year, final int month, final int day) {
