@@ -11,6 +11,7 @@ import java.time.Month;
 import org.anderes.edu.xml.saxdom.exercise.connection.Connection;
 import org.anderes.edu.xml.saxdom.exercise.connection.SaxConnectionHandler;
 import org.junit.Test;
+import org.xml.sax.SAXParseException;
 
 public class SaxReaderConnectionTest {
 
@@ -62,5 +63,12 @@ public class SaxReaderConnectionTest {
         assertThat(connection.getAllocation().getFirstClass(), is(1));
         assertThat(connection.getAllocation().getSecondClass(), is(2));
         assertThat(connection.getComment().isPresent(), is(false));
+    }
+    
+    @Test(expected = SAXParseException.class)
+    public void shouldBeAException() throws Exception {
+
+        SaxConnectionHandler contentHandler = new SaxConnectionHandler();
+        SaxReader.parseFile("/org/anderes/edu/xml/saxdom/connection/Verbindung_NotValid.xml", xsdPath, contentHandler);
     }
 }
