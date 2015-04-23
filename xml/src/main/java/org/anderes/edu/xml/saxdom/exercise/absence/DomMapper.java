@@ -4,12 +4,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import org.apache.commons.lang3.Validate;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
 public abstract class DomMapper {
 
-    public static Absence mapToAbsence(Document document) {
+    public static Absence mapToAbsence(final Document document) {
+        Validate.notNull(document);
+        
         final Absence absence = new AbsenceData();
         absence.setTitle(getText(document, "Title"));
         absence.setFirstname(getText(document, "Firstname"));

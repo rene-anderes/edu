@@ -14,7 +14,7 @@ public class SaxConnectionHandler implements ContentHandler {
     private enum Group { from, to };
     private final Connection connection = new Connection();
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
-    private DateTimeFormatter timeFormatter = DateTimeFormatter.ISO_LOCAL_TIME;
+    private final DateTimeFormatter timeFormatter = DateTimeFormatter.ISO_LOCAL_TIME;
     private String currentValue;
     private Group group;
     

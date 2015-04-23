@@ -14,7 +14,7 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXParseException;
 
-public class DomReaderTest {
+public class DomReaderAbsenceTest {
 
     private final String xsdPath = "/org/anderes/edu/xml/saxdom/absence/Absence.xsd";
     

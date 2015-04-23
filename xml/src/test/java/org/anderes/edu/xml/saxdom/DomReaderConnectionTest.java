@@ -9,23 +9,23 @@ import java.time.LocalTime;
 import java.time.Month;
 
 import org.anderes.edu.xml.saxdom.exercise.connection.Connection;
-import org.anderes.edu.xml.saxdom.exercise.connection.SaxConnectionHandler;
+import org.anderes.edu.xml.saxdom.exercise.connection.DomMapper;
 import org.junit.Test;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXParseException;
 
-public class SaxReaderConnectionTest {
+public class DomReaderConnectionTest {
 
     private final String xsdPath = "/org/anderes/edu/xml/saxdom/connection/Verbindung.xsd";
     private final LocalDate expectedDate = LocalDate.of(2014, Month.DECEMBER, 1);
     private final LocalTime expectedFromTime = LocalTime.of(12, 11, 0);
     private final LocalTime expectedToTime = LocalTime.of(13, 23, 0);
     
-    @Test
-    public void shouldBeReadTheXMLFile() throws Exception {
- 
-        SaxConnectionHandler contentHandler = new SaxConnectionHandler();
-        SaxReader.parseFile("/org/anderes/edu/xml/saxdom/connection/Verbindung.xml", xsdPath, contentHandler);
-        
-        final Connection connection = contentHandler.getConnection();
+	@Test
+	public void shouldBeReadTheXMLFile() throws Exception {
+	            
+	    final Document document = DomReader.parseFile("/org/anderes/edu/xml/saxdom/connection/Verbindung.xml", xsdPath);
+	    final Connection connection = DomMapper.mapToConnection(document);
         
         assertThat(connection, is(notNullValue()));
         assertThat(connection.getDate(), is(expectedDate));
@@ -40,15 +40,13 @@ public class SaxReaderConnectionTest {
         assertThat(connection.getAllocation().getSecondClass(), is(2));
         assertThat(connection.getComment().isPresent(), is(true));
         assertThat(connection.getComment().get(), is("InterCity 724 Richtung: Genève"));
-    }
-    
-    @Test
+	}
+	
+	@Test
     public void shouldBeReadTheXMLFileII() throws Exception {
-
-        SaxConnectionHandler contentHandler = new SaxConnectionHandler();
-        SaxReader.parseFile("/org/anderes/edu/xml/saxdom/connection/Verbindung_II.xml", xsdPath, contentHandler);
         
-        final Connection connection = contentHandler.getConnection();
+        final Document document = DomReader.parseFile("/org/anderes/edu/xml/saxdom/connection/Verbindung_II.xml", xsdPath);
+        final Connection connection = DomMapper.mapToConnection(document);
         
         assertThat(connection, is(notNullValue()));
         assertThat(connection.getDate(), is(expectedDate));
@@ -63,4 +61,10 @@ public class SaxReaderConnectionTest {
         assertThat(connection.getAllocation().getSecondClass(), is(2));
         assertThat(connection.getComment().isPresent(), is(false));
     }
+	
+	@Test(expected = SAXParseException.class)
+    public void shouldBeReadAException() throws Exception {
+        DomReader.parseFile("/org/anderes/edu/xml/saxdom/connection/Verbindung_NotValid.xml", xsdPath);
+    }
+	
 }

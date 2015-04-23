@@ -1,6 +1,7 @@
 package org.anderes.edu.xml.saxdom;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Logger;
 
 import javax.xml.XMLConstants;
@@ -14,7 +15,6 @@ import javax.xml.validation.Validator;
 
 import org.apache.commons.lang3.Validate;
 import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public class DomReader {
@@ -35,14 +35,9 @@ public class DomReader {
 	private static Document parseFile(final String xmlFile) throws Exception  {
 	    final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         final DocumentBuilder builder  = factory.newDocumentBuilder();
-        final InputSource inputSource = new InputSource(DomReader.class.getResourceAsStream(xmlFile));
-        Document document = null;
-        try {
-            document = builder.parse(inputSource);
-        } finally {
-            inputSource.getByteStream().close();
-        }
-        return document;
+        try (final InputStream inputStream = DomReader.class.getResourceAsStream(xmlFile)) {
+            return builder.parse(inputStream);
+        } 
 	}
 	
 	private static void validateFile(final String xmlFile, final String xsdFile) throws Exception {
