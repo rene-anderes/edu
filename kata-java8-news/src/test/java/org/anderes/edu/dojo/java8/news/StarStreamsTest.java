@@ -63,6 +63,8 @@ public class StarStreamsTest {
         // when
         List<Double> distanceList = starCollection.stream().map(s -> s.getDistance()).sorted(Double::compareTo).collect(Collectors.toList());
         
+//        distanceList = starCollection.stream().mapToDouble(s -> s.getDistance()).sorted().boxed().collect(Collectors.toList());
+        
         // then
         assertThat(distanceList, is(notNullValue()));
         assertThat(distanceList.size(), is(65));
