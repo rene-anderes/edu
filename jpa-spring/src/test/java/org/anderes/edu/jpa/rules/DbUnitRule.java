@@ -72,6 +72,15 @@ public class DbUnitRule implements TestRule {
         super();
     }
     
+    public DbUnitRule(Connection connection) {
+        Validate.notNull(connection, "connection darf nicht null sein");
+        try {
+            databaseTester = new DefaultDatabaseTester(new DatabaseConnection(connection));
+        } catch (DatabaseUnitException e) {
+            fail(e.getMessage());
+        }
+    }
+    
     public DbUnitRule(final Connection connection, final IDataTypeFactory dataTypeFactory) {
         Validate.notNull(dataTypeFactory, "dataTypeFactory darf nicht null sein");
         Validate.notNull(connection, "connection darf nicht null sein");
@@ -138,9 +147,8 @@ public class DbUnitRule implements TestRule {
     /*package*/ CompositeDataSet buildDataSet(String[] dataSetFiles) throws DataSetException {
         final List<IDataSet> dataSets = new ArrayList<IDataSet>(dataSetFiles.length);
         for (String dataSetFile : dataSetFiles) {
-            IDataSet dataset;
             DataFileLoader loader = identifyLoader(dataSetFile);
-            dataset = loader.load(dataSetFile);
+            IDataSet dataset = loader.load(dataSetFile);
             dataSets.add(dataset);
         }
         return new CompositeDataSet(dataSets.toArray(new IDataSet[dataSets.size()]));
@@ -175,6 +183,7 @@ public class DbUnitRule implements TestRule {
         final CompositeDataSet expectedDataSet = buildDataSet(dataSetFiles);
         final IDatabaseConnection databaseConnection = databaseTester.getConnection();
         final IDataSet databaseDataSet = databaseConnection.createDataSet();
+      
         for (String tablename : expectedDataSet.getTableNames()) {
             final ITable expectedTable = buildFilteredAndSortedTable(expectedDataSet.getTable(tablename), annotation);
             final ITable actualTable = buildFilteredAndSortedTable(databaseDataSet.getTable(tablename), annotation);
@@ -218,7 +227,7 @@ public class DbUnitRule implements TestRule {
         if (orderBy.containsKey(tablename)) {
             final SortedTable sortedTable = new SortedTable(table, orderBy.get(tablename));
             sortedTable.setUseComparable(true); 
-            table = sortedTable;
+            return sortedTable;
         }
         return table;
     }

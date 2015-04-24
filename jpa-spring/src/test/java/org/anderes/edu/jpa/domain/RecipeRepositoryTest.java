@@ -50,7 +50,7 @@ public class RecipeRepositoryTest {
     @UsingDataSet(value = { "/prepaire.xls" })
     @ShouldMatchDataSet(
             value = { "/prepaire.xls" },
-            orderBy = { "RECIPE.UUID" })
+            orderBy = { "RECIPE.UUID", "INGREDIENT.ID" })
     public void shouldBeFindAll() {
         Iterable<Recipe> recipes = repository.findAll();
         assertThat(recipes, is(notNullValue()));
@@ -75,7 +75,7 @@ public class RecipeRepositoryTest {
     @UsingDataSet(value = { "/prepaire.xls" })
     @ShouldMatchDataSet(
             value = { "/prepaire.xls" },
-            orderBy = { "RECIPE.UUID" })
+            orderBy = { "RECIPE.UUID", "INGREDIENT.ID" })
     public void getRecipesByTitle() {
         final Collection<Recipe> recipes = repository.findByTitleLike("%Spaghetti%");
         
@@ -107,8 +107,9 @@ public class RecipeRepositoryTest {
     @Test
     @UsingDataSet(value = { "/prepaire.xls" })
     @ShouldMatchDataSet(value = { "/expected-afterUpdate.xls" },
-            excludeColumns = { "RECIPE.ADDINGDATE", "INGREDIENT.ID" },
-            orderBy = { "RECIPE.UUID", "INGREDIENT.RECIPE_ID", "INGREDIENT.DESCRIPTION" })
+            excludeColumns = { "INGREDIENT.ID" },
+            orderBy = { "RECIPE.UUID", "INGREDIENT.ANNOTATION" }
+    )
     public void shouldBeUpdateRecipe() {
         final Recipe updateRecipe = repository.findOne("c0e5582e-252f-4e94-8a49-e12b4b047afb");
         updateRecipe.setPreample("Neuer Preample vom Test");
@@ -130,10 +131,10 @@ public class RecipeRepositoryTest {
     @UsingDataSet(value = { "/prepaire.xls" })
     @ShouldMatchDataSet(value = { "/expected-afterDeleteOne.xls" },
             excludeColumns = { "RECIPE.ADDINGDATE" },
-            orderBy = { "RECIPE.UUID" })
+            orderBy = { "RECIPE.UUID", "INGREDIENT.ID" })
     public void shouldBeDelete() {
         final Recipe toDelete = repository.findOne("c0e5582e-252f-4e94-8a49-e12b4b047afb");
-        assertThat("Das rezept mit der ID c0e5582e-252f-4e94-8a49-e12b4b047afb existiert nicht in der Datenbank", toDelete, is(not(nullValue())));
+        assertThat("Das Rezept mit der ID 'c0e5582e-252f-4e94-8a49-e12b4b047afb' existiert nicht in der Datenbank", toDelete, is(not(nullValue())));
         repository.delete(toDelete);
         
         final Collection<Recipe> recipes = repository.findByTitleLike("%Spaghetti%");
