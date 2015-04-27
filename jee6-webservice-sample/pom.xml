@@ -162,10 +162,6 @@
                 <weblogic.password>welcome1</weblogic.password>
                 <weblogic.name>${project.build.finalName}</weblogic.name>
                 <weblogic.targets>AdminServer</weblogic.targets>
-                <!-- Variable ${weblogichome} ist im settings.xml hinterlegt -->
-                <middleware.home>${weblogichome}</middleware.home>
-                <weblogic.home>${weblogichome}/wlserver_12.1</weblogic.home>
-
                 <!-- für debugging mit WebLogic -->
                 <java.debug>true</java.debug>
             </properties>
@@ -188,9 +184,17 @@
                     </plugin>
                     <plugin>
                         <groupId>com.oracle.weblogic</groupId>
-                        <artifactId>wls-maven-plugin</artifactId>
+                        <artifactId>weblogic-maven-plugin</artifactId>
                         <executions>
                             <execution>
+                                <id>wls-appc</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>appc</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>wls-deploy</id>
                                 <phase>pre-integration-test</phase>
                                 <goals>
                                     <goal>deploy</goal>
