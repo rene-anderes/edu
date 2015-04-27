@@ -1,8 +1,10 @@
 package org.anderes.edu.jpa.application;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -20,13 +22,11 @@ import org.anderes.edu.jpa.domain.Ingredient;
 import org.anderes.edu.jpa.domain.Recipe;
 import org.anderes.edu.jpa.rules.DbUnitRule;
 import org.anderes.edu.jpa.rules.DbUnitRule.UsingDataSet;
-import org.apache.commons.codec.binary.Base64;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -42,16 +42,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @ContextConfiguration(locations = {
                 "classpath:application-context.xml",
                 "classpath:unittest-application-context.xml",
-                "classpath:application-security-context.xml"
+                "classpath:unittest-security-context.xml"
 })
 @WebAppConfiguration
 public class RecipeControllerTest {
 
     @Inject
     private WebApplicationContext ctx;
-    
-    @Inject
-    private FilterChainProxy springSecurityFilterChain;
  
     private MockMvc mockMvc;
     
@@ -60,7 +57,10 @@ public class RecipeControllerTest {
   
     @Before
     public void setUp() {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).addFilters(springSecurityFilterChain).build();
+        mockMvc = MockMvcBuilders
+                        .webAppContextSetup(ctx)
+                        .apply(springSecurity())
+                        .build();
     }
 
     @After
@@ -84,9 +84,8 @@ public class RecipeControllerTest {
     @UsingDataSet(value = { "/prepaire.xls" })
     public void shouldBeOneRecipe() throws Exception {
         
-        final String basicDigestHeaderValue = "Basic " + new String(Base64.encodeBase64(("user:password").getBytes()));
         MvcResult result = mockMvc.perform(get("/recipes/c0e5582e-252f-4e94-8a49-e12b4b047afb")
-             .header("Authorization", basicDigestHeaderValue).accept(APPLICATION_JSON))
+                       .with(httpBasic("user", "password")).accept(APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
             .andExpect(jsonPath("$.uuid", is("c0e5582e-252f-4e94-8a49-e12b4b047afb")))
@@ -100,7 +99,9 @@ public class RecipeControllerTest {
     @UsingDataSet(value = { "/prepaire.xls" })
     public void shouldBeSaveNewRecipe() throws Exception {
         final Recipe recipeToSave = createRecipe();
-        mockMvc.perform(post("/recipes").contentType(APPLICATION_JSON).content(convertObjectToJsonBytes(recipeToSave)))
+        mockMvc.perform(post("/recipes")
+                        .contentType(APPLICATION_JSON)
+                        .content(convertObjectToJsonBytes(recipeToSave)))
             .andExpect(status().isOk())
             .andReturn();
     }

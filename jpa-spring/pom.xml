@@ -11,7 +11,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>4.1.6.RELEASE</spring.version>
-        <spring.security.version>3.2.6.RELEASE</spring.security.version>
+        <spring.security.version>4.0.1.RELEASE</spring.security.version>
         <db.derby.version>10.11.1.1</db.derby.version>
         <db.driver>org.apache.derby.jdbc.EmbeddedDriver</db.driver>
         <db.user>APP</db.user>
@@ -350,6 +350,13 @@
             <scope>test</scope>
         </dependency>
         <!-- / dbUnit -->
+        <!-- Spring Security Test -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <!-- / Spring Security Test -->
         <!-- / Testabhängigkeiten -->
         <!-- JSON-Path: z.Z. funktioniert es mit neuerer Version (noch) nicht -->
         <dependency>
