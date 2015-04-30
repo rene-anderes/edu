@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.inject.Inject;
-import javax.interceptor.Interceptors;
 
 import org.apache.log4j.Logger;
 
