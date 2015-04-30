@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+    version="3.0">
+
+    <display-name>jee6-webservice-sample</display-name>
+
+    <listener>
+        <listener-class>ch.vrsg.edu.webservice.application.Log4JContextListener</listener-class>
+    </listener>
+
+    <!-- 
+    <context-param>
+        <param-name>log4j-init-file</param-name>
+        <param-value>d:\temp\log4j.properties</param-value>
+    </context-param>
+     -->
+   
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+</web-app>
