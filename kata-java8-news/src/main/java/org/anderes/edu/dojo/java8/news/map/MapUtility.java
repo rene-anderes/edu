@@ -1,11 +1,13 @@
 package org.anderes.edu.dojo.java8.news.map;
 
+import static org.apache.commons.lang3.StringUtils.containsNone;
+import static org.apache.commons.lang3.StringUtils.substringAfter;
+import static org.apache.commons.lang3.StringUtils.substringBefore;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static org.apache.commons.lang3.StringUtils.*;
 
 public abstract class MapUtility {
 
@@ -20,6 +22,8 @@ public abstract class MapUtility {
             
             map.putIfAbsent(table, new ArrayList<>());
             map.computeIfPresent(table, (t, c) -> { c.add(column); return c; });
+            
+            // map.merge(table, new ArrayList<>(Arrays.asList(column)), (t, c) -> { c.add(column); return c; });
         }
         final Map<String, String[]> returnValue = new HashMap<>(map.size());
         map.keySet().forEach(t -> {
