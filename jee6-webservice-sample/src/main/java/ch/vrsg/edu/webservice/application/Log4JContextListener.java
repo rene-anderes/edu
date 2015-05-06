@@ -17,7 +17,7 @@ public class Log4JContextListener implements ServletContextListener {
     private final String DEFAULT_CONFIGURATION_FILE = "log4j.properties";
     private final String LOG4J_INIT_FILE_KEY = "log4j-init-file";
     private final String LOG4J_INIT_FILENAME_KEY = "log4j-filename";
-    private final String VRSG_HOME_KEY = "VRSG_HOME";
+    private final String LOG4J_ENVIROMENT_VARIABLE_KEY = "log4j-enviroment";
     private String configFile;
 
     /*package*/ String getConfigFile() {
@@ -48,15 +48,19 @@ public class Log4JContextListener implements ServletContextListener {
     }
     
     private String getConfigFileFromEnvVariable(ServletContext context) {
-        String vrsgHome = System.getenv(VRSG_HOME_KEY);
-        if (vrsgHome == null) {
+        final String envVariableName = context.getInitParameter(LOG4J_ENVIROMENT_VARIABLE_KEY);
+        if (envVariableName == null) {
+            return null;
+        }
+        String log4PathFromEnv = System.getenv(envVariableName);
+        if (log4PathFromEnv == null) {
             return null;
         }
         String configFilename = getConfigFilenameFromInitParameter(context);
         if (configFilename == null) {
-            return Paths.get(vrsgHome, DEFAULT_CONFIGURATION_FILE).toString();
+            return Paths.get(log4PathFromEnv, DEFAULT_CONFIGURATION_FILE).toString();
         }
-        return Paths.get(vrsgHome, configFilename).toString();
+        return Paths.get(log4PathFromEnv, configFilename).toString();
     }
     
     private String getConfigFilenameFromInitParameter(ServletContext context) {

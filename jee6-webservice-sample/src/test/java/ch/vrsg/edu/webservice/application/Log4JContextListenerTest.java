@@ -55,7 +55,7 @@ public class Log4JContextListenerTest {
     public void shouldBeFindEnvVariable() {
         final String expectedFile = testfiles.resolve("log4j.properties").toAbsolutePath().toString();
         
-        when(mockContext.getInitParameter("log4j-init-file")).thenReturn(null);
+        when(mockContext.getInitParameter("log4j-enviroment")).thenReturn("VRSG_HOME");
         
         listener.contextInitialized(mockEvent);
         
@@ -67,6 +67,7 @@ public class Log4JContextListenerTest {
         final String expectedFile = testfiles.resolve("log4j_test1.properties").toAbsolutePath().toString();
         
         when(mockContext.getInitParameter("log4j-filename")).thenReturn("log4j_test1.properties");
+        when(mockContext.getInitParameter("log4j-enviroment")).thenReturn("VRSG_HOME");
         
         listener.contextInitialized(mockEvent);
         

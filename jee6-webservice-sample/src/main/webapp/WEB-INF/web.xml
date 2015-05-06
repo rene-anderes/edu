@@ -13,6 +13,14 @@
         <param-name>log4j-init-file</param-name>
         <param-value>d:\temp\log4j.properties</param-value>
     </context-param>
+    <context-param>
+        <param-name>log4j-filename</param-name>
+        <param-value>myAppLog4j.xml</param-value>
+    </context-param>
+    <context-param>
+        <param-name>log4j-enviroment</param-name>
+        <param-value>VRSG_HOME</param-value>
+    </context-param>
      -->
    
     <welcome-file-list>
