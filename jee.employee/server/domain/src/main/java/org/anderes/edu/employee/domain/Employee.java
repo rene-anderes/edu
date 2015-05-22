@@ -214,12 +214,12 @@ public class Employee implements Serializable {
     }
 
     public Project addProject(final Project project) {
-        getProjects().add(project);
+        projects.add(project);
         return project;
     }
 
     public Project removeProject(final Project project) {
-        getProjects().remove(project);
+        projects.remove(project);
         return project;
     }
 
@@ -232,18 +232,17 @@ public class Employee implements Serializable {
     }
 
     public List<Employee> getManagedEmployees() {
-        return managedEmployees;
-//        return Collections.unmodifiableList(managedEmployees);
+        return Collections.unmodifiableList(managedEmployees);
     }
 
     public Employee addManagedEmployee(final Employee employee) {
-        getManagedEmployees().add(employee);
+        managedEmployees.add(employee);
         employee.setManager(this);
         return employee;
     }
 
     public Employee removeManagedEmployee(final Employee employee) {
-        getManagedEmployees().remove(employee);
+        managedEmployees.remove(employee);
         employee.setManager(null);
         return employee;
     }
@@ -253,7 +252,7 @@ public class Employee implements Serializable {
     }
 
     public PhoneNumber addPhoneNumber(final PhoneNumber phoneNumber) {
-        getPhoneNumbers().add(phoneNumber);
+        phoneNumbers.add(phoneNumber);
         phoneNumber.setOwner(this);
         return phoneNumber;
     }
@@ -264,7 +263,7 @@ public class Employee implements Serializable {
     }
 
     public void removePhoneNumber(final PhoneNumber phoneNumber) {
-        getPhoneNumbers().remove(phoneNumber);
+        phoneNumbers.remove(phoneNumber);
         phoneNumber.setOwner(null);
     }
 
