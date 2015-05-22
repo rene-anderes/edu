@@ -18,9 +18,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 
-import org.anderes.edu.employee.application.EmployeeFacade;
 import org.anderes.edu.employee.application.DevMock;
 import org.anderes.edu.employee.application.DevMocks;
+import org.anderes.edu.employee.application.EmployeeFacade;
 import org.anderes.edu.employee.application.boundary.DtoMapper;
 import org.anderes.edu.employee.application.boundary.DtoMapperCopy;
 import org.anderes.edu.employee.application.boundary.dto.AddressDto;
@@ -38,7 +38,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
 import org.jboss.shrinkwrap.descriptor.api.beans11.BeansDescriptor;
@@ -52,6 +51,9 @@ import org.junit.runner.RunWith;
  * Dieser Test zeitg auf wie man Arqillian und Mockito kombinieren kann.<br>
  * In diesem Beispiel wird das Data-Repository (welches mittels {@code @Inject} eingebunden wird)
  * durch eine Mock-Klasse ersetzt werden kann.
+ * <p/>
+ * Da hier {@code @RunAsClient} verwendet wird, kann das Mock-Objekt hier nicht injected und konfiguriert werden.
+ * Dies übernimmt die Klasse {@code DevMocks}.
  * 
  * @author René Anderes
  *
@@ -65,6 +67,8 @@ public class EmployeeResourceMockIT {
     @Deployment(name = "test")
     public static WebArchive createDeployment() {
         PomEquippedResolveStage pom = Maven.resolver().loadPomFromFile("pom.xml"); 
+        
+        /* Hier wird der Stereotyp als Alternative eim beans.xml eingetragen */
         BeansDescriptor beansXml = Descriptors.create(BeansDescriptor.class)
                         .addDefaultNamespaces().beanDiscoveryMode("all")
                         .getOrCreateAlternatives().stereotype(DevMock.class.getName()).up();
@@ -84,32 +88,8 @@ public class EmployeeResourceMockIT {
             .addClass(LoggerProducer.class)
             // Resourcen
             .addAsResource(new File("target/test-classes/META-INF/derby-persistence.xml"), "META-INF/persistence.xml")
-//            .addAsResource(new File("target/test-classes/META-INF/beans.xml"), "META-INF/beans.xml")
-//            .addAsManifestResource(new File("target/test-classes/META-INF/beans.xml"), "beans.xml")
-//            .addAsWebInfResource(new File("target/test-classes/META-INF/beans.xml"), "beans.xml")
             .addAsWebInfResource(new StringAsset(beansXml.exportAsString()), beansXml.getDescriptorName())
             .addAsLibraries(pom.resolve("org.mockito:mockito-core").withTransitivity().asFile());
-    }
-
-//    @Deployment(name = "test")
-    public static JavaArchive createDeploymentJar() {
-        return ShrinkWrap
-            .create(JavaArchive.class, "test.jar")
-            // Application-Layer
-            .addClasses(EmployeeFacade.class, EmployeeApplication.class, EmployeeResource.class)
-            // DTO's
-            .addPackage(EmployeeDto.class.getPackage())
-            .addClasses(DtoMapper.class, DtoMapperCopy.class)
-            // Domain-Layer-Klassen
-            .addPackage(Employee.class.getPackage())
-            // EntityManager-Producer
-            .addClass(EntityManagerProducer.class)
-            .addClasses(DevMock.class, DevMocks.class)
-            // Logger Producer
-            .addClass(LoggerProducer.class)
-            // Resourcen
-            .addAsManifestResource(new File("target/test-classes/META-INF/derby-persistence.xml"), "persistence.xml")
-            .addAsManifestResource(new File("target/test-classes/META-INF/beans.xml"), "beans.xml");
     }
     
     @Test

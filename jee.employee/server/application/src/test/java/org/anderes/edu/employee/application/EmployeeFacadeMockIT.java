@@ -4,8 +4,7 @@ import static org.anderes.edu.employee.domain.Gender.Male;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.io.File;
 import java.util.Optional;
@@ -51,6 +50,8 @@ public class EmployeeFacadeMockIT {
     @Deployment
     public static WebArchive createDeployment() {
         PomEquippedResolveStage pom = Maven.resolver().loadPomFromFile("pom.xml"); 
+        
+        /* Hier wird der Stereotyp als Alternative eim beans.xml eingetragen */
         BeansDescriptor beansXml = Descriptors.create(BeansDescriptor.class)
                         .addDefaultNamespaces().beanDiscoveryMode("all")
                         .getOrCreateAlternatives().stereotype(DevMock.class.getName()).up();
@@ -70,7 +71,7 @@ public class EmployeeFacadeMockIT {
             .addAsWebInfResource(new StringAsset(beansXml.exportAsString()), beansXml.getDescriptorName())
             .addAsLibraries(pom.resolve("org.mockito:mockito-core").withTransitivity().asFile());
     }
-    
+       
     @Test
     public void shouldBeFindOneEmployee() {
         Long personId = Long.valueOf(70);
@@ -92,7 +93,7 @@ public class EmployeeFacadeMockIT {
         assertThat(employee.getSalary(), is(53005D));
         assertThat(employee.getGender(), is(Male));
         
-        verify(mockEmployeeRepository);
+        verify(mockEmployeeRepository, atLeastOnce());
     }
 
 }

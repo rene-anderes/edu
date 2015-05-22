@@ -1,6 +1,8 @@
 package org.anderes.edu.employee.application;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Matchers.anyDouble;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
 
@@ -11,16 +13,26 @@ import javax.persistence.NoResultException;
 
 import org.anderes.edu.employee.domain.Employee;
 import org.anderes.edu.employee.domain.EmployeeRepository;
-import org.mockito.Mockito;
 
+/**
+ * Mock-Producer: Kann für unterschiedliche zu mockende Klassen verwendet werden
+ * 
+ * @author NA247
+ *
+ */
 @Singleton
 public class DevMocks {
+    
+    /** Um {@code @Produce}-Felder als Alternative ({@code @Alternative}) verwenden zu können muss ein Stereotyp verwendet werden */
     @Produces @DevMock
-    private EmployeeRepository mockEmployeeRepository = Mockito.mock(EmployeeRepository.class);
+    private EmployeeRepository mockEmployeeRepository = mock(EmployeeRepository.class);
 
     @PostConstruct
     @SuppressWarnings("unchecked")
     public void setup() {
+        /* Achtung: 
+         * Mockito benutzt zur Konfiguration Thread-Local-Variablen: Daher ist die Lösung nur bedingt einsetzbar */
+        
         Employee value = EmployeeFactory.createEmployeeWithId70();
         when(mockEmployeeRepository.findOneEmployeeAddress(70L)).thenReturn(value);
         when(mockEmployeeRepository.findOne(70L)).thenReturn(value);
