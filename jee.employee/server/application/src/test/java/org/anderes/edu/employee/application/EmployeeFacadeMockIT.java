@@ -67,7 +67,7 @@ public class EmployeeFacadeMockIT {
             // Logger Producer
             .addClass(LoggerProducer.class)
             // Resourcen
-            .addAsResource(new File("target/test-classes/META-INF/derby-persistence.xml"), "META-INF/persistence.xml")
+            .addAsResource(new File("target/test-classes/META-INF/derby-embedded-persistence.xml"), "META-INF/persistence.xml")
             .addAsWebInfResource(new StringAsset(beansXml.exportAsString()), beansXml.getDescriptorName())
             .addAsLibraries(pom.resolve("org.mockito:mockito-core").withTransitivity().asFile());
     }

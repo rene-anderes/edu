@@ -27,7 +27,6 @@
 
         <properties>
 
-            <!-- Oracle Datenbankeinstellungen -->
             <property name="eclipselink.jdbc.native-sql" value="true"/>
             <property name="eclipselink.target-database" value="Derby"/>
             

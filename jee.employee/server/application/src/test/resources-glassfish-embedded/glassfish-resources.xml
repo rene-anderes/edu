@@ -3,7 +3,6 @@
         "http://glassfish.java.net/dtds/glassfish-resources_1_5.dtd">
 
 <resources>
-
 	
     <jdbc-resource pool-name="OraclePool" jndi-name="jdbc/employee" />
     <jdbc-connection-pool name="OraclePool" res-type="javax.sql.XADataSource" datasource-classname="oracle.jdbc.xa.client.OracleXADataSource">
@@ -21,6 +20,14 @@
         <property name="driverType" value="4" />
         <property name="User" value="${db.user}" />
         <property name="Password" value="${db.pw}" />
+    </jdbc-connection-pool>
+
+    <jdbc-resource pool-name="DerbyEmbeddedServerPool" jndi-name="jdbc/embedded" />
+    <jdbc-connection-pool name="DerbyEmbeddedServerPool" res-type="javax.sql.DataSource" datasource-classname="org.apache.derby.jdbc.EmbeddedDataSource">
+        <property name="dataBaseName" value="memory:testdb" />
+        <property name="createDatabase" value="create"/>
+        <property name="user" value="" />
+        <property name="password" value="" />
     </jdbc-connection-pool>
 
 </resources>
