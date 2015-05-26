@@ -13,7 +13,9 @@ import java.util.Optional;
 import javax.ejb.EJB;
 
 import org.anderes.edu.employee.application.EmployeeFacade;
+import org.anderes.edu.employee.domain.Address;
 import org.anderes.edu.employee.domain.Employee;
+import org.anderes.edu.employee.domain.Gender;
 import org.anderes.edu.employee.domain.logger.LoggerProducer;
 import org.anderes.edu.employee.persistence.EntityManagerProducer;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -75,8 +77,22 @@ public class EmployeeFacadeIT {
         assertThat(optional.isPresent(), is(true));
         final Employee employee = optional.get();
         assertThat(employee, is(notNullValue()));
+        assertThat(employee.getFirstName(), is("Jim-Bob"));
+        assertThat(employee.getLastName(), is("Jefferson"));
+        assertThat(employee.getGender(), is(Gender.Male));
+        assertThat(employee.getJobTitle(), is(notNullValue()));
+        assertThat(employee.getJobTitle().isPresent(), is(true));
+        assertThat(employee.getJobTitle().get().getTitle(), is("VP"));
         assertThat(employee.getPhoneNumbers(), is(notNullValue()));
         assertThat(employee.getPhoneNumbers().size(), is(2));
+        assertThat(employee.getAddress(), is(notNullValue()));
+        assertThat(employee.getAddress().isPresent(), is(true));
+        final Address address = employee.getAddress().get();
+        assertThat(address.getCity(), is("Montreal"));
+        assertThat(address.getCountry(), is("Canada"));
+        assertThat(address.getPostalCode(), is("Q2S5Z5"));
+        assertThat(address.getProvince(), is("QUE"));
+        assertThat(address.getStreet(), is("1 Canadien Place"));
     }
 
 }

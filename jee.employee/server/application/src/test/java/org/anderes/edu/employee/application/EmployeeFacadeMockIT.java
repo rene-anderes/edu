@@ -51,10 +51,10 @@ public class EmployeeFacadeMockIT {
     public static WebArchive createDeployment() {
         PomEquippedResolveStage pom = Maven.resolver().loadPomFromFile("pom.xml"); 
         
-        /* Hier wird der Stereotyp als Alternative eim beans.xml eingetragen */
+        /* Hier wird der Stereotyp als Alternative im beans.xml eingetragen */
         BeansDescriptor beansXml = Descriptors.create(BeansDescriptor.class)
                         .addDefaultNamespaces().beanDiscoveryMode("all")
-                        .getOrCreateAlternatives().stereotype(DevMock.class.getName()).up();
+                        .createAlternatives().stereotype(DevMock.class.getName()).up();
         return ShrinkWrap
             .create(WebArchive.class)
             // Application-Layer
