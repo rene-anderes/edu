@@ -82,12 +82,19 @@
             <artifactId>jee.employee.server.infrastructure</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <!-- Testabhängigkeiten (RMI Client / Jersey-Client) -->
+        <!-- Bug https://java.net/jira/browse/GLASSFISH-21141 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-jaxb-annotations</artifactId>
+            <version>2.4.2</version>
+        </dependency>
+        <!-- RMI / JAX-RS etc. -->
         <dependency>
             <groupId>org.glassfish.main.extras</groupId>
             <artifactId>glassfish-embedded-all</artifactId>
-            <scope>test</scope>
+            <scope>provided</scope>
         </dependency>
+        <!-- Testabhängigkeiten -->
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-impl-maven</artifactId>

@@ -21,6 +21,7 @@ import javax.ws.rs.core.UriBuilder;
 import org.anderes.edu.employee.application.DevMock;
 import org.anderes.edu.employee.application.DevMocks;
 import org.anderes.edu.employee.application.EmployeeFacade;
+import org.anderes.edu.employee.application.EmployeeFactory;
 import org.anderes.edu.employee.application.boundary.DtoMapper;
 import org.anderes.edu.employee.application.boundary.DtoMapperCopy;
 import org.anderes.edu.employee.application.boundary.dto.AddressDto;
@@ -83,13 +84,16 @@ public class EmployeeResourceMockIT {
             .addPackage(Employee.class.getPackage())
             // EntityManager-Producer
             .addClass(EntityManagerProducer.class)
-            .addClasses(DevMock.class, DevMocks.class)
+            // Testabhängigkeiten
+            .addClasses(DevMock.class, DevMocks.class, EmployeeFactory.class)
             // Logger Producer
             .addClass(LoggerProducer.class)
             // Resourcen
             .addAsResource(new File("target/test-classes/META-INF/derby-persistence.xml"), "META-INF/persistence.xml")
             .addAsWebInfResource(new StringAsset(beansXml.exportAsString()), beansXml.getDescriptorName())
-            .addAsLibraries(pom.resolve("org.mockito:mockito-core").withTransitivity().asFile());
+            .addAsLibraries(pom.resolve("org.mockito:mockito-core").withTransitivity().asFile())
+            // workaround für Bug https://java.net/jira/browse/GLASSFISH-21141
+            .addAsLibraries(pom.resolve("com.fasterxml.jackson.module:jackson-module-jaxb-annotations").withTransitivity().asFile());
     }
     
     @Test
