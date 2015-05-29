@@ -5,6 +5,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
+import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -41,10 +42,10 @@ public class Log4JContextListenerTest {
     }
     
     @Test
-    public void shouldBeFindConfigInitFile() {
-        final String expectedFile = testfiles.resolve("log4j_test1.properties").toAbsolutePath().toString();
+    public void shouldBeFindConfigInitFileAsUrl() throws Exception {
+        final String expectedFile = testfiles.resolve("log4j_test1.properties").toUri().toURL().toString();
        
-        when(mockContext.getInitParameter("log4j-init-file")).thenReturn(expectedFile);
+        when(mockContext.getInitParameter("log4jConfiguration")).thenReturn(expectedFile);
         
         listener.contextInitialized(mockEvent);
         
@@ -52,10 +53,21 @@ public class Log4JContextListenerTest {
     }
     
     @Test
+    public void shouldBeFindConfigInitFileAsUri() throws Exception {
+        final URI expectedUri = testfiles.resolve("log4j_test1.properties").toUri();
+       
+        when(mockContext.getInitParameter("log4jConfiguration")).thenReturn(expectedUri.toString());
+        
+        listener.contextInitialized(mockEvent);
+        
+        assertThat(listener.getConfigFile(), is(expectedUri.toURL().toString()));
+    }
+    
+    @Test
     public void shouldBeFindEnvVariable() {
         final String expectedFile = testfiles.resolve("log4j.properties").toAbsolutePath().toString();
         
-        when(mockContext.getInitParameter("log4j-enviroment")).thenReturn("VRSG_HOME");
+        when(mockContext.getInitParameter("log4jEnvironment")).thenReturn("VRSG_HOME");
         
         listener.contextInitialized(mockEvent);
         
@@ -66,8 +78,20 @@ public class Log4JContextListenerTest {
     public void shouldBeFindEnvVariableWithFilename() {
         final String expectedFile = testfiles.resolve("log4j_test1.properties").toAbsolutePath().toString();
         
-        when(mockContext.getInitParameter("log4j-filename")).thenReturn("log4j_test1.properties");
-        when(mockContext.getInitParameter("log4j-enviroment")).thenReturn("VRSG_HOME");
+        when(mockContext.getInitParameter("log4jConfigurationFile")).thenReturn("log4j_test1.properties");
+        when(mockContext.getInitParameter("log4jEnvironment")).thenReturn("VRSG_HOME");
+        
+        listener.contextInitialized(mockEvent);
+        
+        assertThat("Umgebungsvariable VRSG_HOME nicht gesetzt?", listener.getConfigFile(), is(expectedFile));
+    }
+    
+    @Test
+    public void shouldBeFindEnvVariableWithFileInSubDirectory() {
+        final String expectedFile = testfiles.resolve("AppName/log4j_test2.properties").toAbsolutePath().toString();
+        
+        when(mockContext.getInitParameter("log4jConfigurationFile")).thenReturn("AppName/log4j_test2.properties");
+        when(mockContext.getInitParameter("log4jEnvironment")).thenReturn("VRSG_HOME");
         
         listener.contextInitialized(mockEvent);
         
