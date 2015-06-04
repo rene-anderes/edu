@@ -12,11 +12,13 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Month;
 import java.time.Period;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -129,7 +131,7 @@ public class SamplesTest {
             .withSecond(0).withNano(0)
             .getDayOfYear();
         System.out.println(dayOfYear);
-        System.out.println("--/ ZonedDateTime with fluent API ----");
+        System.out.println("--/ ZonedDateTime with fluent API ----\n");
     }
     
     @Test
@@ -150,6 +152,17 @@ public class SamplesTest {
         GregorianCalendar g2= GregorianCalendar.from(z);   //zurueck
         
         assertThat(g1.getTime(), is(g2.getTime()));
-        System.out.println("--/ Convert ----");
+        System.out.println("--/ Convert ----\n");
+    }
+    
+    @Test
+    public void shouldBeDayCounterBetweenTwoLocaDate() {
+        System.out.println("--- Day counter ----");
+        LocalDate past = LocalDate.of(1967, Month.DECEMBER, 29);
+        LocalDate today = LocalDate.now();
+        long count = ChronoUnit.DAYS.between(past, today);
+        System.out.println(String.format("Anzal Tage zwischen %s und %s: %s", past, today, count));
+        System.out.println(past.plusDays(10000));
+        System.out.println("---/ Day counter ----\n");
     }
 }
