@@ -4,9 +4,10 @@ import static org.anderes.edu.employee.domain.Gender.Male;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import java.io.File;
 import java.util.Optional;
 
 import javax.ejb.EJB;
@@ -15,7 +16,6 @@ import javax.inject.Inject;
 import org.anderes.edu.employee.domain.Employee;
 import org.anderes.edu.employee.domain.EmployeeRepository;
 import org.anderes.edu.employee.domain.logger.LoggerProducer;
-import org.anderes.edu.employee.persistence.EntityManagerProducer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -61,14 +61,11 @@ public class EmployeeFacadeMockIT {
             .addClasses(EmployeeFacade.class)
             // Domain-Layer-Klassen
             .addPackage(Employee.class.getPackage())
-            // EntityManager-Producer
-            .addClass(EntityManagerProducer.class)
-             // Testabhängigkeiten
-            .addClasses(DevMock.class, DevMocks.class, EmployeeFactory.class)
             // Logger Producer
             .addClass(LoggerProducer.class)
+            // Testabhängigkeiten
+            .addClasses(DevMock.class, DevMocks.class, EmployeeFactory.class)
             // Resourcen
-            .addAsResource(new File("target/test-classes/META-INF/derby-persistence.xml"), "META-INF/persistence.xml")
             .addAsWebInfResource(new StringAsset(beansXml.exportAsString()), beansXml.getDescriptorName())
             .addAsLibraries(pom.resolve("org.mockito:mockito-core").withTransitivity().asFile());
     }

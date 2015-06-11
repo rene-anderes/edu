@@ -9,6 +9,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Produces;
 import javax.inject.Singleton;
+import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
 import org.anderes.edu.employee.domain.Employee;
@@ -25,8 +26,11 @@ public class DevMocks {
     
     /** Um {@code @Produce}-Felder als Alternative ({@code @Alternative}) verwenden zu können muss ein Stereotyp verwendet werden */
     @Produces @DevMock
-    private EmployeeRepository mockEmployeeRepository = mock(EmployeeRepository.class);
-
+    public EmployeeRepository mockEmployeeRepository = mock(EmployeeRepository.class);
+    
+    @Produces @DevMock
+    public EntityManager entityManager = mock(EntityManager.class);
+    
     @PostConstruct
     @SuppressWarnings("unchecked")
     public void setup() {
