@@ -6,7 +6,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
-import java.io.File;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -31,7 +30,6 @@ import org.anderes.edu.employee.application.boundary.dto.Links.Link;
 import org.anderes.edu.employee.application.boundary.dto.ProjectsDto;
 import org.anderes.edu.employee.domain.Employee;
 import org.anderes.edu.employee.domain.logger.LoggerProducer;
-import org.anderes.edu.employee.persistence.EntityManagerProducer;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -82,18 +80,15 @@ public class EmployeeResourceMockIT {
             .addClasses(DtoMapper.class, DtoMapperCopy.class)
             // Domain-Layer-Klassen
             .addPackage(Employee.class.getPackage())
-            // EntityManager-Producer
-            .addClass(EntityManagerProducer.class)
-            // Testabhängigkeiten
-            .addClasses(DevMock.class, DevMocks.class, EmployeeFactory.class)
             // Logger Producer
             .addClass(LoggerProducer.class)
+            // Testabhängigkeiten
+            .addClasses(DevMock.class, DevMocks.class, EmployeeFactory.class)
             // Resourcen
-            .addAsResource(new File("target/test-classes/META-INF/derby-persistence.xml"), "META-INF/persistence.xml")
             .addAsWebInfResource(new StringAsset(beansXml.exportAsString()), beansXml.getDescriptorName())
-            .addAsLibraries(pom.resolve("org.mockito:mockito-core").withTransitivity().asFile())
+            .addAsLibraries(pom.resolve("org.mockito:mockito-core").withTransitivity().asFile());
             // workaround für Bug https://java.net/jira/browse/GLASSFISH-21141
-            .addAsLibraries(pom.resolve("com.fasterxml.jackson.module:jackson-module-jaxb-annotations").withTransitivity().asFile());
+//            .addAsLibraries(pom.resolve("com.fasterxml.jackson.module:jackson-module-jaxb-annotations").withTransitivity().asFile());
     }
     
     @Test
