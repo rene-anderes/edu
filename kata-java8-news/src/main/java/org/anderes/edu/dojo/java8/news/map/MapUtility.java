@@ -21,9 +21,7 @@ public abstract class MapUtility {
             final String column = substringAfter(value, ".");
             
             map.putIfAbsent(table, new ArrayList<>());
-            map.computeIfPresent(table, (t, c) -> { c.add(column); return c; });
-            
-            // map.merge(table, new ArrayList<>(Arrays.asList(column)), (t, c) -> { c.add(column); return c; });
+            map.get(table).add(column);
         }
         final Map<String, String[]> returnValue = new HashMap<>(map.size());
         map.keySet().forEach(t -> {
