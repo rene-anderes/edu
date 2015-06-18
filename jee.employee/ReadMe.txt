@@ -5,6 +5,7 @@ JDK 8
 
 Glassfish 4
  - Installieren
+ - EclipseLink auf Version 2.6 aktualisieren (siehe https://eclipse.org/eclipselink/releases/2.6.php - OSGI Bundle)
  - Glassfish starten ([Installationspfad Glassfish]\glassfish\bin\asadmin.bat start-domain domain1)
  - Im Browser auf die Glassfish-Administration zugreifen: http://localhost:4848
  - JDBC Resource einrichten, Name: jdbc/empl (Connection Pool: DerbyPool)
