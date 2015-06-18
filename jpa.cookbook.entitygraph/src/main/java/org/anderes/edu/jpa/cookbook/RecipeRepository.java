@@ -81,7 +81,7 @@ public class RecipeRepository {
 	public Collection<Recipe> getRecipesByTitleLoadgraph(final String title) {
 
 		EntityGraph<?> recipeGraph = entityManager.getEntityGraph("Recipe.detail");
-		
+
 		final TypedQuery<Recipe> query = entityManager.createNamedQuery(Recipe.RECIPE_QUERY_BYTITLE, Recipe.class);
 		query.setParameter("title", "%" + title + "%").setHint(QueryHints.JPA_LOAD_GRAPH, recipeGraph);
 		

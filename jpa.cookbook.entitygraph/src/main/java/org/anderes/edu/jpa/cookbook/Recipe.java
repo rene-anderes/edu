@@ -22,7 +22,6 @@ import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedEntityGraphs;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.NamedSubgraph;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
@@ -37,9 +36,8 @@ import org.apache.commons.lang3.text.StrBuilder;
 		})
 @NamedEntityGraphs({
     @NamedEntityGraph(
-    		name = "Recipe.detail",
-    		attributeNodes = @NamedAttributeNode(value = "ingredients", subgraph = "items"), 
-    		subgraphs = @NamedSubgraph(name = "items", attributeNodes = @NamedAttributeNode("description"))
+             name = "Recipe.detail",
+             attributeNodes = @NamedAttributeNode("ingredients")
     )   
 })
 public class Recipe implements Serializable {

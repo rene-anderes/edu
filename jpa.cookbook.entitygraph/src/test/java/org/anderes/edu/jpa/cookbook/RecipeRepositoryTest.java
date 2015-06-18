@@ -8,22 +8,18 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import java.lang.management.ManagementFactory;
 import java.util.Collection;
-import java.util.List;
 
 import javax.persistence.PersistenceUnitUtil;
 
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
- * <strong>Achtung:</strong> mittels VM Argument<br> 
- * <code>-javaagent: .../org.eclipse.persistence.jpa-2.5.2.jar</code><br>
- * starten
+ * Der Code muss mittels statischem weaving bereits instrumentalisiert sein,
+ * sonst gibt es Fehlermeldung die irgndwie nicht ins Bild passt....
+ * <p>Meldung: {@code Exception Description: You must define a fetch group manager at descriptor...}</p>
  * 
  * @author René Anderes
  *
@@ -31,14 +27,7 @@ import org.junit.Test;
 public class RecipeRepositoryTest {
 	
 	private RecipeRepository repository;
-	private static final String WEAVING = "Bitte Weaving aktivieren, VM-Argument: -javaagent:c:\\Users\\na247\\.m2\\repository\\org\\eclipse\\persistence\\org.eclipse.persistence.jpa\\2.5.2\\org.eclipse.persistence.jpa-2.5.2.jar";
-	
-	@BeforeClass
-	public static void onetime() {
-	    final List<String> arguments = ManagementFactory.getRuntimeMXBean().getInputArguments();
-	    assertTrue(WEAVING, arguments.stream().anyMatch(argument -> argument.startsWith("-javaagent")));
-	}
-	
+		
 	@Before
 	public void setup() {
 		repository = RecipeRepository.build();
@@ -81,6 +70,7 @@ public class RecipeRepositoryTest {
 		assertTrue("Ups, der Rezepttitel ist nicht geladen.", util.isLoaded(recipe, Recipe_.title.getName()));
 		assertTrue("Ups, die Zutaten wurden nicht geladen.", util.isLoaded(recipe, Recipe_.ingredients.getName()));
 		assertFalse("Der Preample darf nicht geladen sein.", util.isLoaded(recipe, Recipe_.preample.getName()));
+		assertFalse("Die Tags dürfen nicht geladen sein.", util.isLoaded(recipe, Recipe_.tags.getName()));
 		   
 		// Detached durch die Serialisierung 
 		final Recipe clone = SerializationUtils.clone(recipe);
@@ -89,8 +79,10 @@ public class RecipeRepositoryTest {
 		assertThat(clone.getIngredients().size(), is(4));
 	}
 	
+	/**
+     * Fetch-Strategie JPA 2.1: Entity-Graph - loadgraph
+     */
 	@Test
-	@Ignore("Load Graph funktioniert nicht wie erwartet")
 	public void findOneIngredientsShouldBeLoaded() {
 		final Recipe recipe = repository.findOne(10001l);
 		
@@ -110,7 +102,6 @@ public class RecipeRepositoryTest {
 	 * Fetch-Strategie JPA 2.1: Entity-Graph - loadgraph
 	 */
 	@Test
-	@Ignore("Load Graph funktioniert nicht wie erwartet")
 	public void ingredientsShouldBeloadedByLoadgraph() {
 		final Collection<Recipe> recipes = repository.getRecipesByTitleLoadgraph("Dies");
 		assertNotNull(recipes);
