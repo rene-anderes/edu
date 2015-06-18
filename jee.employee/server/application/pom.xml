@@ -30,6 +30,7 @@
                 </configuration>
             </plugin>
             <plugin>
+                <!-- siehe http://www.mojohaus.org/jaxb2-maven-plugin/ -->
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxb2-maven-plugin</artifactId>
                 <executions>
@@ -41,11 +42,14 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <arguments>-extension</arguments>
-                    <schemaDirectory>${project.basedir}/src/main/resources</schemaDirectory>
+                    <sources>
+                        <source>${basedir}/src/main/resources/address.xsd</source>
+                        <source>${basedir}/src/main/resources/employee.xsd</source>
+                        <source>${basedir}/src/main/resources/employees.xsd</source>
+                        <source>${basedir}/src/main/resources/links.xsd</source>
+                        <source>${basedir}/src/main/resources/projects.xsd</source>
+                    </sources>
                     <packageName>org.anderes.edu.employee.application.boundary.dto</packageName>
-                    <bindingDirectory>${project.basedir}/src/main/resources</bindingDirectory>
-                    <bindingFiles>binding.xjb</bindingFiles>
                 </configuration>
             </plugin>
             <plugin>

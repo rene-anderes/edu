@@ -32,4 +32,6 @@ Projekt deploy
  mvn package
  aufrufen. Dadurch wird das entsprechende EAR-File gebildet.
  Wird 'mvn clean package -P deploy-glassfish' augerufen, wird das EAR-File im Glassfish-Container deployed.
-	
+
+In Eclipse sollte für das Module "Domain" das JPA Facet eingerichtet werden 
+und das statische weaving eingeschaltet werden. Nur so werde alle Test's korrekt durchgeführt.
