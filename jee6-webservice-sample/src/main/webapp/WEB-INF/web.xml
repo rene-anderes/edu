@@ -3,25 +3,6 @@
     version="3.0">
 
     <display-name>jee6-webservice-sample</display-name>
-
-    <listener>
-        <listener-class>ch.vrsg.edu.webservice.application.Log4JContextListener</listener-class>
-    </listener>
-
-    <!-- 
-    <context-param>
-        <param-name>log4jConfiguration</param-name>
-        <param-value>file:///d:\temp\log4j.properties</param-value>
-    </context-param>
-    <context-param>
-        <param-name>log4jConfigurationFile</param-name>
-        <param-value>myAppLog4j.xml</param-value>
-    </context-param>
-    <context-param>
-        <param-name>log4jEnvironment</param-name>
-        <param-value>VRSG_HOME</param-value>
-    </context-param>
-     -->
    
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
