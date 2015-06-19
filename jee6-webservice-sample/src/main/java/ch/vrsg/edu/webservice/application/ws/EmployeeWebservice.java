@@ -10,9 +10,10 @@ import ch.vrsg.edu.webservice.application.Employee;
 import ch.vrsg.edu.webservice.application.EmployeeFacade;
 import ch.vrsg.edu.webservice.application.EmployeeNotFoundException;
 
-@WebService(portName="EmployeePort", name = "EmployeeService", serviceName = "EmployeeService", targetNamespace = "http://xmlns.intra.vrsg.ch/xmlns/employee/1")
+@WebService(portName="EmployeePort", name = "EmployeeService", 
+            serviceName = "EmployeeService", targetNamespace = "http://xmlns.intra.vrsg.ch/xmlns/employee/1")
 public class EmployeeWebservice {
-
+    
     @Inject
     private EmployeeFacade facade;
     
