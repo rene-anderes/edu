@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hilfetext</title>
+</head>
+<body>
+
+	<h1>Überschrift</h1>
+
+	<p>Auf der Registerkarte 'Einfügen' enthalten die Kataloge
+		Elemente, die mit dem generellen Layout des Dokuments koordiniert
+		werden sollten. Mithilfe dieser Kataloge können Sie Tabellen,
+		Kopfzeilen, Fußzeilen, Listen, Deckblätter und sonstige
+		Dokumentbausteine einfügen. Wenn Sie Bilder, Tabellen oder Diagramme
+		erstellen, werden diese auch mit dem aktuellen Dokumentlayout
+		koordiniert.</p>
+	<hr>
+	<p>Die Formatierung von markiertem Text im Dokumenttext kann auf
+		einfache Weise geändert werden, indem Sie im
+		Schnellformatvorlagen-Katalog auf der Registerkarte 'Start' ein Layout
+		für den markierten Text auswählen. Text können Sie auch direkt
+		mithilfe der anderen Steuerelemente auf der Registerkarte 'Start'
+		formatieren. Die meisten Steuerelemente ermöglichen die Auswahl
+		zwischen dem Layout des aktuellen Designs oder der direkten Angabe
+		eines Formats.</p>
+	<HR >
+	<p>Wählen Sie neue Designelemente auf der Registerkarte
+		'Seitenlayout' aus, um das generelle Layout des Dokument s zu ändern.
+		Verwenden Sie den Befehl zum Ändern des aktuellen
+		Schnellformatvorlagen-Satzes, um die im Schnellformatvorlagen-Katalog
+		verfügbaren Formatvorlagen zu ändern. Die Design- und die
+		Schnellformatvorlagen-Kataloge stellen beide Befehle zum Zurücksetzen
+		bereit, damit Sie immer die Möglichkeit haben, das ursprüngliche
+		Layout des Dokument s in der aktuellen Vorlage wiederherzustellen.</p>
+	<hr size="1">
+	<p>Auf der Registerkarte 'Einfügen' enthalten die Kataloge
+		Elemente, die mit dem generellen Layout des Dokuments koordiniert
+		werden sollten. Mithilfe dieser Kataloge können Sie Tabellen,
+		Kopfzeilen, Fußzeilen, Listen, Deckblätter und sonstige
+		Dokumentbausteine einfügen. Wenn Sie Bilder, Tabellen oder Diagramme
+		erstellen, werden diese auch mit dem aktuellen Dokumentlayout
+		koordiniert.</p>
+	<HR SIZE = "3">
+
+	<h6>Untertitel</h6>
+
+</body>
+</html>
