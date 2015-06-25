@@ -1,0 +1,1 @@
+Die IP Adresse 255.1.245.0 ist nicht mehr gültig bitte wählen sie die IP 1.245.0.001 oder 196.1.128.0.

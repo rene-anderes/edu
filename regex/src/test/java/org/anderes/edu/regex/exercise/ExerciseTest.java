@@ -61,7 +61,63 @@ public class ExerciseTest {
         assertThat(counter, is(4));
     }
     
+    @Test
+    public void exercise_4() {
+        
+        Pattern pattern = Pattern.compile("<[h|H]\\d>(.+?)</[h|H]\\d>");
+        Matcher matcher = pattern.matcher(readFile("exercise_3.txt"));
+
+        int counter = dumpResult(matcher);
+        assertThat(counter, is(2));
+    }
     
+    @Test
+    public void exercise_5() {
+        
+        String regEx = "(\\d{1,2}[.]){2}(\\d{2}|\\d{4})$";
+        
+        Collection<String> txt = readLines("exercise_5.txt");
+        for (String value : txt) {
+            assertThat("Fehler: " + value, value.matches(regEx), is(true));
+            System.out.println(value);
+        }
+    }
+    
+    @Test
+    public void exercise_6() {
+        Pattern pattern = Pattern.compile("\\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b");
+        Matcher matcher = pattern.matcher(readFile("exercise_6.txt"));
+
+        int counter = dumpResult(matcher);
+        assertThat(counter, is(3));
+    }
+    
+    @Test
+    public void exercise_7() {
+        Pattern pattern = Pattern.compile("\\d+[']?\\d+");
+        Matcher matcher = pattern.matcher(readFile("exercise_7.txt"));
+
+        int counter = dumpResult(matcher);
+        assertThat(counter, is(30));
+    }
+    
+    @Test
+    public void exercise_8() {
+        Pattern pattern = Pattern.compile("\\d{1,2}[.][ ]?\\w+[ ]\\d{4}\\b");
+        Matcher matcher = pattern.matcher(readFile("exercise_7.txt"));
+
+        int counter = dumpResult(matcher);
+        assertThat(counter, is(8));
+    }
+    
+    @Test
+    public void exercise_9() {
+        Pattern pattern = Pattern.compile("[-+]?[0-9]*\\.?[0-9]*\\b");
+        Matcher matcher = pattern.matcher(readFile("exercise_9.txt"));
+
+        int counter = dumpResult(matcher);
+        assertThat(counter, is(8));
+    }
     
     private int dumpResult(Matcher matcher) {
         int counter = 0;
