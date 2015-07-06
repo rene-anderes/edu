@@ -12,33 +12,81 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>3.3</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <!-- siehe http://www.mojohaus.org/jaxb2-maven-plugin/ -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>xjc-linklist</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <sources>
+                        <source>${basedir}/src/main/resources/org/anderes/edu/xml/linklist/linklist.xsd</source>
+                    </sources>
+                    <packageName>org.anderes.edu.xml.linklist.generated</packageName>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.9.1</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated-sources/jaxb</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <!-- siehe http://www.mojohaus.org/jaxb2-maven-plugin/ -->
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>jaxb2-maven-plugin</artifactId>
+                    <version>2.1</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
     <profiles>
         <profile>
-            <id>xjc-contactlist</id><!--  -->
+            <id>xjc-contactlist</id><!-- -->
             <build>
                 <plugins>
                     <plugin>
                         <!-- siehe http://www.mojohaus.org/jaxb2-maven-plugin/ -->
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>jaxb2-maven-plugin</artifactId>
-                        <version>2.1</version>
                         <executions>
                             <execution>
-                                <id>xjc</id>
+                                <id>xjc-contactlist</id>
                                 <goals>
                                     <goal>xjc</goal>
                                 </goals>
@@ -63,7 +111,6 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>jaxb2-maven-plugin</artifactId>
-                        <version>1.6</version>
                         <executions>
                             <execution>
                                 <id>schemagen</id>
