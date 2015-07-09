@@ -1,6 +1,7 @@
 package org.anderes.edu.employee.application;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -29,8 +30,8 @@ public class SmallProjectFacade {
         }
     }
 
-    public SmallProject findOne(final Long id) {
-        return repository.findOne(id);
+    public Optional<SmallProject> findOne(final Long id) {
+        return Optional.ofNullable(repository.findOne(id));
     }
 
     /**

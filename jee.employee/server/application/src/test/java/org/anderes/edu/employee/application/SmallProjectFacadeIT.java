@@ -9,6 +9,7 @@ import static org.jboss.arquillian.persistence.TestExecutionPhase.NONE;
 import static org.junit.Assert.assertThat;
 
 import java.io.File;
+import java.util.Optional;
 
 import javax.ejb.EJB;
 
@@ -71,9 +72,10 @@ public class SmallProjectFacadeIT {
     @Transactional(value = TransactionMode.DISABLED) 
     public void shouldBeFindOneSmallProject() throws Exception {
 
-        final SmallProject project = facade.findOne(53L);
+        final Optional<SmallProject> project = facade.findOne(53L);
         assertThat(project, is(notNullValue()));
-        assertThat(project.getName(), is("Accounting Query Tool"));
+        assertThat(project.isPresent(), is(true));
+        assertThat(project.get().getName(), is("Accounting Query Tool"));
     }
     
     @Test

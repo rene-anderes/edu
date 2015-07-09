@@ -5,7 +5,7 @@
 	<xs:element name="employeesDto">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="employee" maxOccurs="unbounded">
+				<xs:element name="employee" minOccurs="0" maxOccurs="unbounded">
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element name="lastname" type="xs:string"/>

@@ -6,6 +6,7 @@ JDK 8
 Glassfish 4
  - Installieren
  - EclipseLink auf Version 2.6 aktualisieren (siehe https://eclipse.org/eclipselink/releases/2.6.php - OSGI Bundle)
+ 	(Achtung, mit Version 2.6.0 funktioniert die REST-Schnittstelle nicht mehr richtig --> Version 2.6.x abwarten
  - Glassfish starten ([Installationspfad Glassfish]\glassfish\bin\asadmin.bat start-domain domain1)
  - Im Browser auf die Glassfish-Administration zugreifen: http://localhost:4848
  - JDBC Resource einrichten, Name: jdbc/empl (Connection Pool: DerbyPool)
@@ -22,6 +23,9 @@ Datenbank mit Testdaten anlegen:
  und
  mvn flyway:migrate verify -P testdata 
  aufrufen
+
+Maven
+Im settings.xml die Variable 'glassfish.home' einrichten: Zeigt auf das Installationsverzeichnis von Glassfish 4
 
 Projekt bauen:
  Im Stammverzeichnis 'mvn clean install -Djavax.xml.accessExternalSchema=all' aufrufen
