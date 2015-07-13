@@ -58,4 +58,13 @@ public class SmallProjectRepository implements Repository<SmallProject, Long> {
         final TypedQuery<SmallProject> query = entityManager.createQuery(criteria);
         return query.getResultList();
     }
+
+    public List<SmallProject> findAll() {
+        final CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        final CriteriaQuery<SmallProject> criteria = cb.createQuery(SmallProject.class);
+        final Root<SmallProject> entity = criteria.from(SmallProject.class);
+        criteria.select(entity);
+        final TypedQuery<SmallProject> query = entityManager.createQuery(criteria);
+        return query.getResultList();
+    }
 }

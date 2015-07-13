@@ -1,5 +1,7 @@
 package org.anderes.edu.employee.domain;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -43,6 +45,15 @@ public class LargeProjectRepository implements Repository<LargeProject, Long> {
         return false;
     }
 
+    public List<LargeProject> findAll() {
+        final CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        final CriteriaQuery<LargeProject> criteria = cb.createQuery(LargeProject.class);
+        final Root<LargeProject> entity = criteria.from(LargeProject.class);
+        criteria.select(entity);
+        final TypedQuery<LargeProject> query = entityManager.createQuery(criteria);
+        return query.getResultList();
+    }
+    
     /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Fetch Strategien */
 
     /**
@@ -62,4 +73,5 @@ public class LargeProjectRepository implements Repository<LargeProject, Long> {
         return query.getSingleResult();
     }
     /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / Fetch Strategien */
+   
 }

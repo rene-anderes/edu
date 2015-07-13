@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
@@ -48,7 +49,8 @@ public class SmallProjectRepositoryOutsideContainerIT {
 
     private static Map<String, String> getPersistenceProperties() {
         final Map<String, String> properties = new HashMap<>(1);
-        properties.put(PersistenceUnitProperties.ECLIPSELINK_PERSISTENCE_XML, "META-INF/outsideContainer-persistence.xml");
+//        properties.put(PersistenceUnitProperties.ECLIPSELINK_PERSISTENCE_XML, "META-INF/outsideContainer-persistence.xml");
+        properties.put(PersistenceUnitProperties.ECLIPSELINK_PERSISTENCE_XML, "META-INF/embedded-persistence.xml");
         return properties;
     }
 
@@ -80,6 +82,14 @@ public class SmallProjectRepositoryOutsideContainerIT {
         final SmallProject project = repository.findOne(53L);
         assertThat(project, is(notNullValue()));
         assertThat(project.getName(), is("Accounting Query Tool"));
+    }
+    
+    @Test
+    public void shouldBeFindAll() {
+        
+        final List<SmallProject> projects = repository.findAll();
+        assertThat(projects, is(notNullValue()));
+        assertThat(projects.size(), is(10));
     }
     
     @Test
