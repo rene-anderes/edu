@@ -339,6 +339,13 @@
                     <version>${derby.db.driver}</version>
                     <scope>test</scope>
                 </dependency>
+                <!-- Derby Embedded Database Tests -->
+                <dependency>
+                    <groupId>org.apache.derby</groupId>
+                    <artifactId>derby</artifactId>
+                    <version>${derby.db.driver}</version>
+                    <scope>test</scope>
+                </dependency>
             </dependencies>
         </profile>
         <profile>

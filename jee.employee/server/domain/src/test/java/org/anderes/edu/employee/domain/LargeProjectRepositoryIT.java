@@ -8,6 +8,7 @@ import static org.jboss.arquillian.persistence.TestExecutionPhase.NONE;
 import static org.junit.Assert.assertThat;
 
 import java.io.File;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -30,7 +31,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
 @Cleanup(phase = NONE, strategy = DEFAULT)
-public class ProjectFetchStrategieIT {
+public class LargeProjectRepositoryIT {
 
     @Inject
     private LargeProjectRepository repository;
@@ -76,5 +77,17 @@ public class ProjectFetchStrategieIT {
         assertThat(project.getTeamLeader().get().getAddress().isPresent(), is(true));
         assertThat(project.getTeamLeader().get().getAddress().get().getCity(), is("Yellowknife"));
         assertThat(project.isActive(), is(true));
+    }
+    
+    @Test
+    @InSequence(2)
+    public void shouldBeFindAll() {
+        
+        // when
+        List<LargeProject> projects = repository.findAll();
+        
+        // then
+        assertThat(projects, is(notNullValue()));
+        assertThat(projects.size(), is(5));
     }
 }
