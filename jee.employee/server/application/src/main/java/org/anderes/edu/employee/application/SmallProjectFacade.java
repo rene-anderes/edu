@@ -43,4 +43,7 @@ public class SmallProjectFacade {
         return repository.save(smallProject);
     }
 
+    public List<SmallProject> findAll() {
+        return repository.findAll();
+    }
 }

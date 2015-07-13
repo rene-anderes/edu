@@ -1,5 +1,6 @@
 package org.anderes.edu.employee.application;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.ejb.Stateless;
@@ -19,5 +20,9 @@ public class LargeProjectFacade {
     
     public Optional<LargeProject> findOne(final Long id) {
         return Optional.ofNullable(repository.findOne(id));
+    }
+    
+    public List<LargeProject> findAll() {
+        return repository.findAll();
     }
 }

@@ -32,6 +32,10 @@
             <property name="eclipselink.target-server" value="SunAS9" />
             <property name="eclipselink.weaving" value="true" />
             <property name="eclipselink.logging.logger" value="org.eclipse.persistence.logging.DefaultSessionLog" />
+            <property name="eclipselink.logging.level" value="FINE" />
+            <property name="eclipselink.logging.level.sql" value="FINE" />
+            <property name="eclipselink.logging.parameters" value="true" />
+            <property name="eclipselink.logging.timestamp" value="true" />
         </properties>
     </persistence-unit>
     
