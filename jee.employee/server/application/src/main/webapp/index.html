@@ -2,26 +2,58 @@
 <html ng-app="employeeApp">
 <head>
 <meta charset="UTF-8">
-<title>JEE Employee Application</title>
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<title>JEE Employees Application</title>
+<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.indigo-pink.min.css">
+<script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
-	<div class="container">
-		<h1>JEE Employee Application</h1>
-	
-	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-	    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular.min.js"></script>
-	    <script src="app-storage-stub.js"></script>
-	    <script src="app.js"></script>
-	    
-	   	<div ng-controller="employeesCtrl">
-	   		<p>Liste aller Mitarbeiter</p>
-	   		<dl class="dl-horizontal" ng-repeat="employee in employees">
-			  <dt>{{employee.firstname}} {{employee.lastname}}</dt>
-			  <dd>{{employee.jobtitle}}</dd>
-			</dl>
-	   	</div> 
-   	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+	<script src="app-storage.js"></script>
+	<script src="app.js"></script>
+
+	<div class="mdl-layout mdl-js-layout mdl-layout--overlay-drawer-button">
+		<header class="mdl-layout__header mdl-layout__header--scroll">
+			<div class="mdl-layout__header-row">
+				<!-- Title -->
+				<span class="mdl-layout-title">JEE Employees / Projects Application</span>
+				<!-- Add spacer, to align navigation to the right -->
+				<div class="mdl-layout-spacer"></div>
+				<!-- Navigation -->
+				<nav class="mdl-navigation">
+					<a class="mdl-navigation__link" href="">Employees</a> <a class="mdl-navigation__link" href="">Projects</a>
+				</nav>
+			</div>
+		</header>
+		<div class="mdl-layout__drawer">
+			<span class="mdl-layout-title">Application</span>
+			<nav class="mdl-navigation">
+				<a class="mdl-navigation__link" href="">Employees</a> <a class="mdl-navigation__link" href="">Projects</a>
+			</nav>
+		</div>
+		<main class="mdl-layout__content">
+		<div class="page-content" ng-controller="employeesCtrl">
+			<div class="mdl-grid">
+				<div class="mdl-cell mdl-cell--12-col">
+					<table class="mdl-data-table mdl-js-data-table">
+						<thead>
+							<tr>
+								<th class="mdl-data-table__cell--non-numeric">Name</th>
+								<th class="mdl-data-table__cell--non-numeric">Jobtitle</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="employee in employees | orderBy:'lastname'">
+								<td class="mdl-data-table__cell--non-numeric">{{employee.firstname}} {{employee.lastname}}</td>
+								<td class="mdl-data-table__cell--non-numeric">{{employee.jobtitle}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		</main>
+	</div>
 </body>
 </html>

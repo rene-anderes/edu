@@ -3,6 +3,7 @@ package org.anderes.edu.employee.application.boundary.rest;
 import static javax.ejb.TransactionAttributeType.NEVER;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -57,7 +58,7 @@ public class ProjectsResource {
         /* Generic-Entity für die Liste von Entitäten */
         GenericEntity<List<ProjectJsonDto>> genericList = new GenericEntity<List<ProjectJsonDto>>(list) {};
         
-        return Response.ok(genericList).build();
+        return Response.ok(genericList).encoding(StandardCharsets.UTF_8.name()).build();
     }
 
     /**
