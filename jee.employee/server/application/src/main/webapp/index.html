@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html ng-app="employeeApp">
 <head>
-<meta charset="UTF-8">
-<title>JEE Employees Application</title>
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.indigo-pink.min.css">
 <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<meta charset="UTF-8">
+<title>JEE Employees Application</title>
 </head>
 <body>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular-route.min.js"></script>
 	<script src="app-storage.js"></script>
 	<script src="app.js"></script>
 
@@ -22,37 +24,22 @@
 				<div class="mdl-layout-spacer"></div>
 				<!-- Navigation -->
 				<nav class="mdl-navigation">
-					<a class="mdl-navigation__link" href="">Employees</a> <a class="mdl-navigation__link" href="">Projects</a>
+					<a class="mdl-navigation__link" href="#/Employees">Employees</a>
+					<a class="mdl-navigation__link" href="#/Projects">Projects</a>
 				</nav>
 			</div>
 		</header>
 		<div class="mdl-layout__drawer">
 			<span class="mdl-layout-title">Application</span>
 			<nav class="mdl-navigation">
-				<a class="mdl-navigation__link" href="">Employees</a> <a class="mdl-navigation__link" href="">Projects</a>
+					<a class="mdl-navigation__link" href="#/Employees">Employees</a>
+					<a class="mdl-navigation__link" href="#/Projects">Projects</a>
 			</nav>
 		</div>
 		<main class="mdl-layout__content">
-		<div class="page-content" ng-controller="employeesCtrl">
-			<div class="mdl-grid">
-				<div class="mdl-cell mdl-cell--12-col">
-					<table class="mdl-data-table mdl-js-data-table">
-						<thead>
-							<tr>
-								<th class="mdl-data-table__cell--non-numeric">Name</th>
-								<th class="mdl-data-table__cell--non-numeric">Jobtitle</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="employee in employees | orderBy:'lastname'">
-								<td class="mdl-data-table__cell--non-numeric">{{employee.firstname}} {{employee.lastname}}</td>
-								<td class="mdl-data-table__cell--non-numeric">{{employee.jobtitle}}</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+			<div class="page-content">
+				<div ng-view></div>
 			</div>
-		</div>
 		</main>
 	</div>
 </body>

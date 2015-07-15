@@ -1,0 +1,30 @@
+
+<style>
+.employee-list {
+	width: 400px;
+}
+</style>
+
+<div ng-controller="EmployeesController">
+	<div class="mdl-grid">
+		<div class="mdl-cell mdl-cell--12-col">
+			<h3>Employees</h3>
+			<table class="mdl-data-table mdl-js-data-table employee-list">
+				<thead>
+					<tr>
+						<th class="mdl-data-table__cell--non-numeric">Name</th>
+						<th class="mdl-data-table__cell--non-numeric">Jobtitle</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="employee in employees | orderBy:'lastname'">
+						<td class="mdl-data-table__cell--non-numeric">
+							<a class="mdl-navigation__link" href="#/Employees/{{employee.id}}">{{employee.firstname}}&nbsp;{{employee.lastname}}</a>
+						</td>
+						<td class="mdl-data-table__cell--non-numeric">{{employee.jobtitle}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

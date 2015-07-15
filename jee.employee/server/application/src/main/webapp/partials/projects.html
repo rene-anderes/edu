@@ -1,0 +1,21 @@
+<div ng-controller="ProjectsController">
+<div class="mdl-grid">
+	<div class="mdl-cell mdl-cell--12-col">
+		<h3>Projects</h3>
+		<table class="mdl-data-table mdl-js-data-table">
+			<thead>
+				<tr>
+					<th class="mdl-data-table__cell--non-numeric">Projectname</th>
+					<th class="mdl-data-table__cell--non-numeric">Projectdescription</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="project in projects | orderBy:'projectname'">
+					<td class="mdl-data-table__cell--non-numeric">{{project.projectname}}</td>
+					<td class="mdl-data-table__cell--non-numeric">{{project.description}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</div>
