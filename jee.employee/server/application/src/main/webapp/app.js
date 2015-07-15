@@ -2,7 +2,7 @@
  * JEE Employee Application
  */
 
-var employeeApp = angular.module('employeeApp', [ 'ngRoute', 'service.storage' ]);
+var employeeApp = angular.module('employeeApp', [ 'ngRoute', 'ngResource', 'service.storage' ]);
 
 employeeApp.config(function($routeProvider, $locationProvider) {
 //	$locationProvider.html5Mode(true);
@@ -49,7 +49,9 @@ employeeApp.controller('EmployeeController', function($scope, storage, $routePar
 			$scope.employee = data;
 		}
 	});
-
+	storage.getAddress(employeeId, function(address) {
+		$scope.address = address;
+	});
 });
 
 employeeApp.controller('ProjectsController', function($scope, storage) {

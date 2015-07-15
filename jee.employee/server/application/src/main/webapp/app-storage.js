@@ -2,7 +2,7 @@
  * Lesen der Daten vom Server via REST
  */
 angular.module('service.storage', [])
-    .factory('storage', function ($http) {
+    .factory('storage', function ($http, $resource) {
  
         var getEmployees = function(callback) {
         	return $http({
@@ -47,10 +47,16 @@ angular.module('service.storage', [])
 	    	});
         };
         
+        // REST-Zugriff mittels ngResource
+        address = $resource('/jee-employee/rest/employees/:employeeId/address', {employeeId:'@id'});
+        
+        var getAddress = function(employeeId, callback) { address.get({employeeId:employeeId}, callback) } 
+        
         // Reveal public API.
         return {
         	getEmployees: getEmployees,
         	getEmployee: getEmployee,
-        	getProjects: getProjects
+        	getProjects: getProjects,
+        	getAddress: getAddress
         };
     });

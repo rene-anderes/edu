@@ -3,23 +3,48 @@
 	<div class="mdl-grid">
 		<div class="mdl-cell mdl-cell--12-col">
 			<h3>Employee Details</h3>
-			<div class="mdl-card mdl-shadow--2dp">
+			<div class="mdl-card mdl-shadow--2dp" style="min-width: 500px;">
 				<div class="mdl-card__title">
 					<h2 class="mdl-card__title-text">{{employee.firstname}}&nbsp;{{employee.lastname}}</h2>
 				</div>
 				<div class="mdl-card__supporting-text">
-					<table>
+					<table class="mdl-data-table mdl-shadow--2dp">
 						<tr>
 							<td>Gender:</td>
-							<td>{{employee.gender}}</td>
+							<td class="mdl-data-table__cell--non-numeric">{{employee.gender}}</td>
 						</tr>
 						<tr>
 							<td>Jobtitle:</td>
-							<td>{{employee.jobtitle}}</td>
+							<td class="mdl-data-table__cell--non-numeric">{{employee.jobtitle}}</td>
 						</tr>
 						<tr>
 							<td>Salary:</td>
-							<td>{{employee.salary}}</td>
+							<td class="mdl-data-table__cell--non-numeric">{{employee.salary}}</td>
+						</tr>
+					</table>
+				</div>
+				<div class="mdl-card__supporting-text">
+					<h6>Address</h6>
+					<table class="mdl-data-table mdl-shadow--2dp">
+						<tr>
+							<td>Street:</td>
+							<td class="mdl-data-table__cell--non-numeric">{{address.street}}</td>
+						</tr>
+						<tr>
+							<td>City:</td>
+							<td class="mdl-data-table__cell--non-numeric">{{address.city}}</td>
+						</tr>
+						<tr>
+							<td>Postal Code:</td>
+							<td class="mdl-data-table__cell--non-numeric">{{address.postalCode}}</td>
+						</tr>
+						<tr>
+							<td>Province:</td>
+							<td class="mdl-data-table__cell--non-numeric">{{address.province}}</td>
+						</tr>
+						<tr>
+							<td>Country:</td>
+							<td class="mdl-data-table__cell--non-numeric">{{address.country}}</td>
 						</tr>
 					</table>
 				</div>
