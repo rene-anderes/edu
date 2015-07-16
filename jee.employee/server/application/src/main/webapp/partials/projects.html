@@ -11,7 +11,7 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="project in projects | orderBy:'projectname'">
-					<td class="mdl-data-table__cell--non-numeric">{{project.projectname}}</td>
+					<td class="mdl-data-table__cell--non-numeric"><a class="mdl-navigation__link" href="#/Project/{{project.projectno}}">{{project.projectname}}</a></td>
 					<td class="mdl-data-table__cell--non-numeric">{{project.description}}</td>
 				</tr>
 			</tbody>

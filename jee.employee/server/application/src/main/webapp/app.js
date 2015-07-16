@@ -7,18 +7,15 @@ var employeeApp = angular.module('employeeApp', [ 'ngRoute', 'ngResource', 'serv
 employeeApp.config(function($routeProvider, $locationProvider) {
 //	$locationProvider.html5Mode(true);
 	$routeProvider.when('/Employees', {
-		templateUrl : 'partials/employees.html',
-		controller : 'EmployeesController'
+		templateUrl : 'partials/employees.html'
 	}).when('/Employees/:employeeId', {
-		templateUrl : 'partials/employee.html',
-		controller : 'EmployeeController'
+		templateUrl : 'partials/employee.html'
 	}).when("/", {
-		templateUrl : 'partials/employees.html',
-		controller : 'EmployeesController'
-	})
-	.when('/Projects', {
-	templateUrl: 'partials/projects.html',
-	controller: 'ProjectsController'
+		templateUrl : 'partials/employees.html'
+	}).when('/Projects', {
+		templateUrl: 'partials/projects.html'
+	}).when('/Project/:projectId', {
+		templateUrl: 'partials/project.html'
 	})
 });
 
