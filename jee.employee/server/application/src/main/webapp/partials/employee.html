@@ -1,3 +1,13 @@
+<style>
+.employee-table {
+	min-width: 400px;
+}
+
+.employee-table .col1 {
+	width: 30%;
+}
+
+</style>
 
 <div ng-controller="EmployeeController">
 	<div class="mdl-grid">
@@ -8,42 +18,42 @@
 					<h2 class="mdl-card__title-text">{{employee.firstname}}&nbsp;{{employee.lastname}}</h2>
 				</div>
 				<div class="mdl-card__supporting-text">
-					<table class="mdl-data-table mdl-shadow--2dp">
+					<table class="employee-table mdl-data-table mdl-shadow--2dp">
 						<tr>
-							<td>Gender:</td>
+							<td class="col1">Gender:</td>
 							<td class="mdl-data-table__cell--non-numeric">{{employee.gender}}</td>
 						</tr>
 						<tr>
-							<td>Jobtitle:</td>
+							<td class="col1">Jobtitle:</td>
 							<td class="mdl-data-table__cell--non-numeric">{{employee.jobtitle}}</td>
 						</tr>
 						<tr>
-							<td>Salary:</td>
+							<td class="col1">Salary:</td>
 							<td class="mdl-data-table__cell--non-numeric">{{employee.salary}}</td>
 						</tr>
 					</table>
 				</div>
 				<div class="mdl-card__supporting-text">
 					<h6>Address</h6>
-					<table class="mdl-data-table mdl-shadow--2dp">
+					<table class="employee-table mdl-data-table mdl-shadow--2dp">
 						<tr>
-							<td>Street:</td>
+							<td class="col1">Street:</td>
 							<td class="mdl-data-table__cell--non-numeric">{{address.street}}</td>
 						</tr>
 						<tr>
-							<td>City:</td>
+							<td class="col1">City:</td>
 							<td class="mdl-data-table__cell--non-numeric">{{address.city}}</td>
 						</tr>
 						<tr>
-							<td>Postal Code:</td>
+							<td class="col1">Postal Code:</td>
 							<td class="mdl-data-table__cell--non-numeric">{{address.postalCode}}</td>
 						</tr>
 						<tr>
-							<td>Province:</td>
+							<td class="col1">Province:</td>
 							<td class="mdl-data-table__cell--non-numeric">{{address.province}}</td>
 						</tr>
 						<tr>
-							<td>Country:</td>
+							<td class="col1">Country:</td>
 							<td class="mdl-data-table__cell--non-numeric">{{address.country}}</td>
 						</tr>
 					</table>
