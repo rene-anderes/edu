@@ -26,7 +26,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.3.2</version>
+            <version>3.4</version>
         </dependency>
         <!-- Log4j -->
         <dependency>
@@ -58,10 +58,26 @@
         <!-- Servlet API -->
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- JAX-RS 2.0 Implementation -->
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>2.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <version>2.5.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- / JAX-RS 2.0 Implementation -->
+        
         <!-- JUnit Testabhängigkeit -->
         <dependency>
             <groupId>junit</groupId>
@@ -274,13 +290,6 @@
                         <groupId>com.oracle.weblogic</groupId>
                         <artifactId>weblogic-maven-plugin</artifactId>
                         <executions>
-                            <execution>
-                                <id>wls-appc</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>appc</goal>
-                                </goals>
-                            </execution>
                             <execution>
                                 <id>wls-deploy</id>
                                 <phase>pre-integration-test</phase>
