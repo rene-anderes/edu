@@ -112,7 +112,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>3.3</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -124,8 +124,13 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.6</version>
                 <configuration>
-                    <!-- Kein web.xml nötig -->
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <archive>                   
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
             <plugin>
