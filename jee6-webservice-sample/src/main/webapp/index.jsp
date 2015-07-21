@@ -16,6 +16,7 @@
 	String applVersion = manifest.getMainAttributes().getValue("Implementation-Version");
 	
 	Collection<String> employeePortMapping = getServletConfig().getServletContext().getServletRegistration("EmployeePort").getMappings();
+	pageContext.setAttribute("employeePortMapping", employeePortMapping);
  %>
 	<h2>JEE 6 WebServices Sample</h2>
 	<p>Version: <%= applVersion %></p>
@@ -32,7 +33,7 @@
 				<td>EmployeePort</td>
 				<td>&nbsp;</td>
 				<td>
-					<c:forEach var="servletMapping" items="<%=employeePortMapping%>" varStatus="status">
+					<c:forEach var="servletMapping" items="${pageScope.employeePortMapping}" varStatus="status">
 						<a href="${baseURL}${servletMapping}?WSDL">${baseURL}${servletMapping}?WSDL</a>
 						${not status.last ? '<br/>' : ''}
 					</c:forEach>
