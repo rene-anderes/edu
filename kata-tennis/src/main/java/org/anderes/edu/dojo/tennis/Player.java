@@ -9,7 +9,7 @@ public class Player {
     
     public enum State { 
         LOVE("0"), FIFTEEN("15"), THIRTY("30"), FORTY("40"), DEUCE("deuce"), 
-        ADVANTAGE("A"), WITHOUADVANTAGE("40"), LOSE("loose"), WIN("win");
+        ADVANTAGE("A"), NOADVANTAGE("40"), LOSE("loose"), WIN("win");
         
         private String value;
         private State(final String value) {
@@ -32,7 +32,7 @@ public class Player {
         transitionWin.put(THIRTY, FORTY);
         transitionWin.put(FORTY, WIN);
         transitionWin.put(DEUCE, ADVANTAGE);
-        transitionWin.put(WITHOUADVANTAGE, DEUCE);
+        transitionWin.put(NOADVANTAGE, DEUCE);
         transitionWin.put(ADVANTAGE, WIN);
         
         transitionLose = new HashMap<>(7);
@@ -40,9 +40,9 @@ public class Player {
         transitionLose.put(FIFTEEN, FIFTEEN);
         transitionLose.put(THIRTY, THIRTY);
         transitionLose.put(FORTY, FORTY);
-        transitionLose.put(DEUCE, WITHOUADVANTAGE);
+        transitionLose.put(DEUCE, NOADVANTAGE);
         transitionLose.put(ADVANTAGE, DEUCE);
-        transitionLose.put(WITHOUADVANTAGE, LOSE);
+        transitionLose.put(NOADVANTAGE, LOSE);
     }
     
     public Player(final String name) {
