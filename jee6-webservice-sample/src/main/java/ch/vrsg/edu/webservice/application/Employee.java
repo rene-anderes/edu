@@ -54,7 +54,6 @@ public class Employee {
         }
         Employee rhs = (Employee) obj;
         return new EqualsBuilder()
-                      .appendSuper(super.equals(obj))
                       .append(firstname, rhs.firstname)
                       .append(lastname, rhs.lastname)
                       .isEquals();

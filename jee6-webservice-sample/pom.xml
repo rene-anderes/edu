@@ -239,13 +239,6 @@
                         <artifactId>weblogic-maven-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>wls-appc</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>appc</goal>
-                                </goals>
-                            </execution>
-                            <execution>
                                 <id>wls-deploy</id>
                                 <phase>pre-integration-test</phase>
                                 <goals>

@@ -16,7 +16,7 @@ import ch.vrsg.intra.xmlns.xmlns.mitarbeiter._1.MitarbeiterService;
 import ch.vrsg.intra.xmlns.xmlns.mitarbeiter._1.ObjectFactory;
 
 @WebService(name = "MitarbeiterService", serviceName="MitarbeiterService", 
-    targetNamespace = "http://xmlns.intra.vrsg.ch/xmlns/mitarbeiter/1")
+    targetNamespace = "http://xmlns.intra.vrsg.ch/xmlns/mitarbeiter/1", portName="MitarbeiterPort")
 @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
 public class MitarbeiterWebservice implements MitarbeiterService {
 

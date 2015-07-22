@@ -2,7 +2,7 @@ package ch.vrsg.edu.webservice.application;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -11,7 +11,6 @@ import org.apache.log4j.Logger;
 
 public class EmployeeFacade {
     
-    @Inject
     private Logger logger;
     private Set<Employee> employees;
     
@@ -22,19 +21,24 @@ public class EmployeeFacade {
         employees.add(Employee.build("Mona Lisa", "Medico"));
     }
 
+    @Inject
+    /*packeg*/ void setLogger(final Logger logger) {
+        this.logger = logger;
+    }
+    
     @Audit
     public Employee findEmployee(String firstname, String lastname) throws EmployeeNotFoundException {
-
-        for (Employee e : employees) {
-            if (e.getFirstname().equals(firstname) && e.getLastname().equals(lastname)) {
-                return e;
-            }
+        
+        final Employee soughtAfterEmployee = Employee.build(firstname, lastname);
+        Optional<Employee> findEmployee = employees.stream().filter(employee -> employee.equals(soughtAfterEmployee)).findFirst();
+        if (findEmployee.isPresent()) {
+            return findEmployee.get();
         }
         logger.info("Mitarbeiter nicht gefunden.");
         throw new EmployeeNotFoundException(firstname, lastname);
     }
     
-    public Collection<Employee> finaAll() {
+    public Collection<Employee> findAll() {
         return employees;
     }
 

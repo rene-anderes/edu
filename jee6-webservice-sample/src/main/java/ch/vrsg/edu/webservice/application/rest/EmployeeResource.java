@@ -27,7 +27,7 @@ public class EmployeeResource {
 	@Produces(APPLICATION_JSON)
 	public Response findAll() {
 	    
-	    final Collection<Employee> list = facade.finaAll();
+	    final Collection<Employee> list = facade.findAll();
         final GenericEntity<Collection<Employee>> genericList = new GenericEntity<Collection<Employee>>(list) {};
         
         return Response.ok(genericList).encoding(UTF_8.name()).build();
