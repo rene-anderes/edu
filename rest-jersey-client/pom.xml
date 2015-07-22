@@ -8,6 +8,8 @@
 
     <name>rest-jersey</name>
     <url>http://www.anderes.org</url>
+    
+    <description>JSON Verarbeitung mittels JSON-P</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
