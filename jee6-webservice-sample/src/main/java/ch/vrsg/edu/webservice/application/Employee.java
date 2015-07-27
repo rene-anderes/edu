@@ -16,16 +16,20 @@ public class Employee {
     private final String firstname;
     @XmlElement
     private final String lastname;
+    @XmlElement
+    private final Integer id;
     
     Employee() {
         super();
         this.firstname = "";
         this.lastname = "";
+        this.id = Integer.valueOf(0);
     }
     
-    public Employee(String firstname, String lastname) {
+    public Employee(String firstname, String lastname, Integer id) {
         this.firstname = firstname;
         this.lastname = lastname;
+        this.id = id;
     }
 
     public String getFirstname() {
@@ -36,8 +40,8 @@ public class Employee {
         return lastname;
     }
 
-    public static Employee build(String firstname, String lastname) {
-        return new Employee(firstname, lastname);
+    public static Employee build(String firstname, String lastname, Integer id) {
+        return new Employee(firstname, lastname, id);
     }
 
     @Override
