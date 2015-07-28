@@ -41,5 +41,22 @@
 			</tr>
 		</tbody>
 	</table>
+	<p>&nbsp;</p>
+	<table>
+		<thead>
+			<tr>
+				<th>REST-Service-Name</th>
+				<th>&nbsp;</th>
+				<th>REST-Service WADL-Path</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Employees</td>
+				<td>&nbsp;</td>
+				<td><a href="${baseURL}/resources/application.wadl">${baseURL}/resources/application.wadl</a><td>
+			</tr>
+		</tbody>
+	</table>
 </body>
 </html>
