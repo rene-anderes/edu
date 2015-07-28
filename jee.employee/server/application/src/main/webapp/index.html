@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.teal-deep_purple.min.css" /> 
 <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="css/app.css">
 <meta charset="UTF-8">
 <title>JEE Employees Application</title>
 </head>
@@ -16,7 +17,7 @@
 	<script src="app-storage.js"></script>
 	<script src="app.js"></script>
 
-	<div class="mdl-layout mdl-js-layout mdl-layout--overlay-drawer-button mdl-layout--fixed-header">
+	<div ng-controller="ParentController" class="mdl-layout mdl-js-layout mdl-layout--overlay-drawer-button mdl-layout--fixed-header">
 		<header class="mdl-layout__header mdl-layout__header--scroll">
 			<div class="mdl-layout__header-row">
 				<!-- Title -->
@@ -28,13 +29,20 @@
 					<a class="mdl-navigation__link" href="#/Employees">Employees</a>
 					<a class="mdl-navigation__link" href="#/Projects">Projects</a>
 				</nav>
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+					<label class="mdl-button mdl-js-button mdl-button--icon" for="fixed-header-drawer-exp"><i class="material-icons">search</i></label>
+					<div class="mdl-textfield__expandable-holder">
+						<input ng-model="q" class="mdl-textfield__input" type="text" name="sample" id="fixed-header-drawer-exp" />
+					</div>
+				</div>
 			</div>
 		</header>
 		<div class="mdl-layout__drawer">
 			<span class="mdl-layout-title">Application</span>
 			<nav class="mdl-navigation">
-					<a class="mdl-navigation__link" href="#/Employees">Employees</a>
-					<a class="mdl-navigation__link" href="#/Projects">Projects</a>
+				<a class="mdl-navigation__link" href="#/Employees">Employees</a>
+				<a class="mdl-navigation__link" href="#/Projects">Projects</a>
+				<a class="mdl-navigation__link" href="#/">Settings</a>
 			</nav>
 		</div>
 		<main class="mdl-layout__content">

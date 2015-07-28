@@ -3,10 +3,6 @@
 .employee-list {
 	min-width: 400px;
 }
-
-td a {
-	text-decoration: none;	
-}
 </style>
 
 <div ng-controller="EmployeesController">
@@ -22,21 +18,20 @@ td a {
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="employee in employees | orderBy:'lastname'">
-						<td class="mdl-data-table__cell--non-numeric">
+					<tr ng-repeat="employee in employees | orderBy:'lastname' | filter:$parent.q">
+						<td class="mdl-data-table__cell--non-numeric docs-text-styling">
 							<a href="#/Employees/{{employee.id}}">{{employee.firstname}}&nbsp;{{employee.lastname}}</a>
 						</td>
 						<td class="mdl-data-table__cell--non-numeric">{{employee.jobtitle}}</td>
-						<td>
-							<a href="#/Employees/{{employee.id}}">
-								<button class="mdl-button mdl-button--icon">
-									<i class="material-icons">chevron_right</i>
-								</button>
-							</a>
+						<td style="padding-top: 8px;">
+							<a href="#/Employees/{{employee.id}}"><button class="mdl-button mdl-button--icon"><i class="material-icons">chevron_right</i></button></a>
 						</td>
 					</tr>
 				</tbody>
 			</table>
+
+			<!-- <pre>{{ employees | json }}</pre> -->
+			
 		</div>
 	</div>
 </div>

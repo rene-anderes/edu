@@ -19,8 +19,12 @@ employeeApp.config(function($routeProvider, $locationProvider) {
 	})
 });
 
+employeeApp.controller('ParentController', function($scope) {
+	$scope.q = "";
+});
+
 employeeApp.controller('EmployeesController', function($scope, storage) {
-	$scope.employees = {};
+	$scope.employees = [{}];
 
 	storage.getEmployees(function(data) {
 		if (data === undefined) {
@@ -28,7 +32,8 @@ employeeApp.controller('EmployeesController', function($scope, storage) {
 				console.log("Fehler");
 			}
 		} else {
-			$scope.employees = data;
+			angular.copy(data, $scope.employees);
+			console.log(Object.prototype.toString.call($scope.employees));
 		}
 	});
 
@@ -52,7 +57,7 @@ employeeApp.controller('EmployeeController', function($scope, storage, $routePar
 });
 
 employeeApp.controller('ProjectsController', function($scope, storage) {
-	$scope.projects = {};
+	$scope.projects = [{}];
 
 	storage.getProjects(function(data) {
 		if (data === undefined) {
@@ -60,7 +65,7 @@ employeeApp.controller('ProjectsController', function($scope, storage) {
 				console.log("Fehler");
 			}
 		} else {
-			$scope.projects = data;
+			angular.copy(data, $scope.projects);
 		}
 	});
 
