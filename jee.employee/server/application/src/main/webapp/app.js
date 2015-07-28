@@ -4,7 +4,7 @@
 
 var employeeApp = angular.module('employeeApp', [ 'ngRoute', 'ngResource', 'service.storage' ]);
 
-employeeApp.config(function($routeProvider, $locationProvider) {
+employeeApp.config(function($routeProvider, $locationProvider, $httpProvider) {
 //	$locationProvider.html5Mode(true);
 	$routeProvider.when('/Employees', {
 		templateUrl : 'partials/employees.html'
@@ -16,7 +16,21 @@ employeeApp.config(function($routeProvider, $locationProvider) {
 		templateUrl: 'partials/projects.html'
 	}).when('/Project/:projectId', {
 		templateUrl: 'partials/project.html'
+	}).when('/Error/:errorNo', {
+		templateUrl: 'partials/error.html'
 	})
+	
+	$httpProvider.interceptors.push(function($q, $location) {
+		return {
+			responseError: function(response) {
+				if (console && console.log) {
+					console.log("Fehler: " + response.status);
+				}
+				$location.path('/Error/' + response.status);      
+				return $q.reject(response);
+			}
+	    };
+	 });
 });
 
 employeeApp.controller('ParentController', function($scope) {
@@ -27,14 +41,7 @@ employeeApp.controller('EmployeesController', function($scope, storage) {
 	$scope.employees = [{}];
 
 	storage.getEmployees(function(data) {
-		if (data === undefined) {
-			if (console && console.log) {
-				console.log("Fehler");
-			}
-		} else {
-			angular.copy(data, $scope.employees);
-			console.log(Object.prototype.toString.call($scope.employees));
-		}
+		angular.copy(data.employee, $scope.employees);
 	});
 
 });
@@ -43,13 +50,7 @@ employeeApp.controller('EmployeeController', function($scope, storage, $routePar
 	$scope.employee = {};
 	employeeId = $routeParams.employeeId;
 	storage.getEmployee(employeeId, function(data) {
-		if (data === undefined) {
-			if (console && console.log) {
-				console.log("Fehler");
-			}
-		} else {
-			$scope.employee = data;
-		}
+		$scope.employee = data;
 	});
 	storage.getAddress(employeeId, function(address) {
 		$scope.address = address;
@@ -60,14 +61,12 @@ employeeApp.controller('ProjectsController', function($scope, storage) {
 	$scope.projects = [{}];
 
 	storage.getProjects(function(data) {
-		if (data === undefined) {
-			if (console && console.log) {
-				console.log("Fehler");
-			}
-		} else {
-			angular.copy(data, $scope.projects);
-		}
+		angular.copy(data, $scope.projects);
 	});
 
+});
+
+employeeApp.controller('ErrorController', function($scope, $routeParams) {
+	$scope.status = $routeParams.errorNo;
 });
 
