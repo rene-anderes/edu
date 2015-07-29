@@ -2,13 +2,13 @@ package org.anderes.edu.employee.application.boundary;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.anderes.edu.employee.application.boundary.dto.AddressDto;
 import org.anderes.edu.employee.application.boundary.dto.EmployeeDto;
-import org.anderes.edu.employee.application.boundary.dto.EmployeesDto;
 import org.anderes.edu.employee.application.boundary.dto.ObjectFactory;
-import org.anderes.edu.employee.application.boundary.dto.ProjectsDto;
+import org.anderes.edu.employee.application.boundary.dto.ProjectDto;
 import org.anderes.edu.employee.domain.Address;
 import org.anderes.edu.employee.domain.Employee;
 import org.anderes.edu.employee.domain.Project;
@@ -35,19 +35,19 @@ public class DtoMapperCopy implements DtoMapper {
     }
 
     @Override
-    public EmployeesDto mapToEmployeesDto(final List<Employee> employees) {
+    public List<EmployeeDto> mapToEmployeesDto(final List<Employee> employees) {
         Validate.notNull(employees, "Der Parameter 'employees' darf nicht null sein.'");
 
-        final EmployeesDto list = factory.createEmployeesDto();
+        final List<EmployeeDto> list = new ArrayList<EmployeeDto>(employees.size());
         for (Employee employee : employees) {
-            EmployeesDto.Employee e = factory.createEmployeesDtoEmployee();
+            EmployeeDto e = factory.createEmployeeDto();
             e.setFirstname(employee.getFirstName());
             e.setLastname(employee.getLastName());
             e.setId(BigInteger.valueOf(employee.getId()));
             if (employee.getJobTitle().isPresent()) {
                 e.setJobtitle(employee.getJobTitle().get().getTitle());
             }
-            list.getEmployee().add(e);
+            list.add(e);
         }
         return list;
     }
@@ -66,20 +66,20 @@ public class DtoMapperCopy implements DtoMapper {
     }
 
     @Override
-    public ProjectsDto mapToProjectsDto(final List<Project> projects) {
+    public List<ProjectDto> mapToProjectsDto(final List<Project> projects) {
         Validate.notNull(projects, "Der Parameter 'projects' darf nicht null sein.'");
 
-        final ProjectsDto projectsDto = factory.createProjectsDto();
+        final List<ProjectDto> projectsDto = new ArrayList<ProjectDto>(projects.size());
         for (Project project : projects) {
-            projectsDto.getProject().add(mapToProject(project));
+            projectsDto.add(mapToProject(project));
         }
         return projectsDto;
     }
 
-    private ProjectsDto.Project mapToProject(final Project project) {
+    private ProjectDto mapToProject(final Project project) {
         Validate.notNull(project, "Der Parameter 'project' darf nicht null sein.'");
         
-        final ProjectsDto.Project dto = factory.createProjectsDtoProject();
+        final ProjectDto dto = factory.createProjectDto();
         dto.setDescription(project.getDescription());
         dto.setName(project.getName());
         dto.setId(BigInteger.valueOf(project.getId()));

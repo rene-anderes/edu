@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://info.firma.org/address" targetNamespace="http://info.firma.org/address">
-	<xs:import schemaLocation="links.xsd"/>
+	<xs:import schemaLocation="link.xsd"/>
 	<xs:element name="addressDto">
 		<xs:complexType>
 			<xs:sequence>

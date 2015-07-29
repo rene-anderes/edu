@@ -20,6 +20,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
@@ -27,10 +28,9 @@ import javax.ws.rs.core.UriInfo;
 import org.anderes.edu.employee.application.EmployeeFacade;
 import org.anderes.edu.employee.application.boundary.DtoMapper;
 import org.anderes.edu.employee.application.boundary.dto.EmployeeDto;
-import org.anderes.edu.employee.application.boundary.dto.EmployeesDto;
 import org.anderes.edu.employee.application.boundary.dto.Link;
 import org.anderes.edu.employee.application.boundary.dto.ObjectFactory;
-import org.anderes.edu.employee.application.boundary.dto.ProjectsDto;
+import org.anderes.edu.employee.application.boundary.dto.ProjectDto;
 import org.anderes.edu.employee.domain.Employee;
 
 @Path("/employees")
@@ -57,14 +57,18 @@ public class EmployeeResource {
 	
     private Response findEmployees() {
 	    final List<Employee> employees = facade.findEmployees();
-	    final EmployeesDto dto = createLinksForEmployees(mapper.mapToEmployeesDto(employees));
-        return Response.ok().entity(dto).build();
+	    final List<EmployeeDto> dto = createLinksForEmployees(mapper.mapToEmployeesDto(employees));
+
+	    final GenericEntity<List<EmployeeDto>> genericList = new GenericEntity<List<EmployeeDto>>(dto) {};
+        return Response.ok().entity(genericList).build();
 	}
 	
     private Response findEmployeesBySalary(final Double salary) {
         final List<Employee> employees = facade.findEmployeeBySalary(salary);
-        final EmployeesDto dto = createLinksForEmployees(mapper.mapToEmployeesDto(employees));
-        return Response.ok().entity(dto).build();
+        final List<EmployeeDto> dto = createLinksForEmployees(mapper.mapToEmployeesDto(employees));
+        
+        final GenericEntity<List<EmployeeDto>> genericList = new GenericEntity<List<EmployeeDto>>(dto) {};
+        return Response.ok().entity(genericList).build();
     }
     
 	@GET
@@ -103,8 +107,10 @@ public class EmployeeResource {
             throw new WebApplicationException(Status.NOT_FOUND);
         }
         final Employee employee = optional.get();
-        final ProjectsDto projects = createLinksForProjects(mapper.mapToProjectsDto(employee.getProjects()));
-        return Response.ok().entity(projects).build();
+        final List<ProjectDto> projects = createLinksForProjects(mapper.mapToProjectsDto(employee.getProjects()));
+        
+        final GenericEntity<List<ProjectDto>> genericList = new GenericEntity<List<ProjectDto>>(projects) {};
+        return Response.ok().entity(genericList).build();
     }
 	
 	private String baseUrl() {
@@ -125,14 +131,14 @@ public class EmployeeResource {
         return links;
     }
 	
-	private EmployeesDto createLinksForEmployees(final EmployeesDto employees) {
-	    for (EmployeesDto.Employee employee : employees.getEmployee()) {
-            employee.getLink().addAll(createLinksForEmployees(employee));
+	private List<EmployeeDto> createLinksForEmployees(final List<EmployeeDto> employees) {
+	    for (EmployeeDto employee : employees) {
+            employee.getLink().addAll(createLinksForEmployee(employee));
         }
 	    return employees;
 	}
 	
-	private Collection<Link> createLinksForEmployees(final EmployeesDto.Employee employee) {
+	private Collection<Link> createLinksForEmployee(final EmployeeDto employee) {
 	    final ObjectFactory factory = new ObjectFactory();
         final ArrayList<Link> links = new ArrayList<Link>(1);
         final Link link = factory.createLink();
@@ -142,19 +148,19 @@ public class EmployeeResource {
         return links;
     }
 	
-	private ProjectsDto createLinksForProjects(final ProjectsDto projects) {
-	    for (ProjectsDto.Project project : projects.getProject()) {
+	private List<ProjectDto> createLinksForProjects(final List<ProjectDto> projects) {
+	    for (ProjectDto project : projects) {
 	        project.getLink().addAll(createLinksForProject(project));
 	    }
 	    return projects;
 	}
 	
-	private Collection<Link> createLinksForProject(final ProjectsDto.Project project) {
+	private Collection<Link> createLinksForProject(final ProjectDto project) {
 	    final ObjectFactory factory = new ObjectFactory();
 	    final ArrayList<Link> links = new ArrayList<Link>(1);
         final Link link = factory.createLink();
         link.setRel("project");
-        link.setUrl(uriInfo.getBaseUri().toString() + "/projects/" + project.getId());
+        link.setUrl(uriInfo.getBaseUri().toString() + "projects/" + project.getId());
         links.add(link);
         return links;
 	}

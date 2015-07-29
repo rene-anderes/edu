@@ -45,9 +45,8 @@
                     <sources>
                         <source>${basedir}/src/main/resources/address.xsd</source>
                         <source>${basedir}/src/main/resources/employee.xsd</source>
-                        <source>${basedir}/src/main/resources/employees.xsd</source>
-                        <source>${basedir}/src/main/resources/links.xsd</source>
-                        <source>${basedir}/src/main/resources/projects.xsd</source>
+                        <source>${basedir}/src/main/resources/link.xsd</source>
+                        <source>${basedir}/src/main/resources/project.xsd</source>
                     </sources>
                     <packageName>org.anderes.edu.employee.application.boundary.dto</packageName>
                 </configuration>

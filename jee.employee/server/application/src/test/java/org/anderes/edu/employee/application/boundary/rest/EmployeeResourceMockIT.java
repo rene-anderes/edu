@@ -10,9 +10,11 @@ import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.util.List;
 
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
@@ -25,9 +27,8 @@ import org.anderes.edu.employee.application.boundary.DtoMapper;
 import org.anderes.edu.employee.application.boundary.DtoMapperCopy;
 import org.anderes.edu.employee.application.boundary.dto.AddressDto;
 import org.anderes.edu.employee.application.boundary.dto.EmployeeDto;
-import org.anderes.edu.employee.application.boundary.dto.EmployeesDto;
 import org.anderes.edu.employee.application.boundary.dto.Link;
-import org.anderes.edu.employee.application.boundary.dto.ProjectsDto;
+import org.anderes.edu.employee.application.boundary.dto.ProjectDto;
 import org.anderes.edu.employee.domain.Employee;
 import org.anderes.edu.employee.domain.logger.LoggerProducer;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -156,8 +157,13 @@ public class EmployeeResourceMockIT {
         // then
         assertThat(response.getStatus(), is(Status.OK.getStatusCode()));
         assertThat(response.hasEntity(), is(true));
-        final ProjectsDto projectsDto = response.readEntity(ProjectsDto.class);
-        assertThat(projectsDto.getProject().size(), is(2));
+        final List<ProjectDto> projectsDto = response.readEntity(new GenericType<List<ProjectDto>>() {});
+        assertThat(projectsDto.size(), is(2));
+        projectsDto.forEach(project -> {
+            assertThat(project.getDescription(), is(notNullValue()));
+            assertThat(project.getName(), is(notNullValue()));
+            assertThat(project.getId(), is(notNullValue()));
+        });
     }
     
     @Test
@@ -197,13 +203,13 @@ public class EmployeeResourceMockIT {
     	
     	// when
     	final Response response = target.request(APPLICATION_JSON_TYPE).buildGet().invoke();
-
+    	
     	// then
     	assertThat(response.getStatus(), is(Status.OK.getStatusCode()));
     	assertThat(response.hasEntity(), is(true));
-		final EmployeesDto employees = response.readEntity(EmployeesDto.class);
-    	assertThat(employees.getEmployee().size(), is(9));
-    	for (EmployeesDto.Employee employee : employees.getEmployee()) {
+    	final List<EmployeeDto> employees = response.readEntity(new GenericType<List<EmployeeDto>>() {});
+    	assertThat(employees.size(), is(9));
+    	for (EmployeeDto employee : employees) {
             assertThat(employee.getLink().size(), is(1));
             final Link link = employee.getLink().get(0);
             assertThat(link.getRel(), is("employee"));
@@ -229,9 +235,9 @@ public class EmployeeResourceMockIT {
         // then
         assertThat(response.getStatus(), is(Status.OK.getStatusCode()));
         assertThat(response.hasEntity(), is(true));
-        final EmployeesDto employees = response.readEntity(EmployeesDto.class);
-        assertThat(employees.getEmployee().size(), is(12));
-        for (EmployeesDto.Employee employee : employees.getEmployee()) {
+        final List<EmployeeDto> employees =  response.readEntity(new GenericType<List<EmployeeDto>>() {});
+        assertThat(employees.size(), is(12));
+        for (EmployeeDto employee : employees) {
             assertThat(employee.getLink().size(), is(1));
             final Link link = employee.getLink().get(0);
             assertThat(link.getRel(), is("employee"));
