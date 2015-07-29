@@ -7,3 +7,16 @@ body {
 	text-decoration: none;
 	font-weight: bold;
 }
+
+#center {
+  position: relative;
+  top: 50%;
+}
+#center-inner {
+  margin: auto;  
+  position: absolute;
+  left:0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+} 

@@ -7,7 +7,7 @@ angular.module('service.storage', [])
     	// REST-Zugriff mittels ngResource
  
 		employees = $resource('/jee-employee/rest/employees');
-        var getEmployees = function(callback) { employees.get(callback); };
+        var getEmployees = function(callback) { employees.query(callback); };
          
         employee = $resource('/jee-employee/rest/employees/:employeeId', {employeeId:'@id'});
         var getEmployee = function(employeeId, callback) { employee.get({employeeId:employeeId}, callback); };

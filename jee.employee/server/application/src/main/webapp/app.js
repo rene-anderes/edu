@@ -20,9 +20,22 @@ employeeApp.config(function($routeProvider, $locationProvider, $httpProvider) {
 		templateUrl: 'partials/error.html'
 	})
 	
-	$httpProvider.interceptors.push(function($q, $location) {
+	$httpProvider.interceptors.push(function($q, $location, $rootScope) {
 		return {
+			request: function(config) {
+				$rootScope.goSpinner = true;
+				return config;
+			},
+			requestError: function(rejection) {
+				$rootScope.goSpinner = false;
+			    return $q.reject(rejection);
+			},
+			response: function(response) {
+				$rootScope.goSpinner = false;
+			    return response;
+			},
 			responseError: function(response) {
+				$rootScope.goSpinner = false;
 				if (console && console.log) {
 					console.log("Fehler: " + response.status);
 				}
@@ -33,15 +46,16 @@ employeeApp.config(function($routeProvider, $locationProvider, $httpProvider) {
 	 });
 });
 
-employeeApp.controller('ParentController', function($scope) {
+employeeApp.controller('ParentController', function($scope, $rootScope) {
 	$scope.q = "";
+	$rootScope.goSpinner = false;
 });
 
 employeeApp.controller('EmployeesController', function($scope, storage) {
 	$scope.employees = [{}];
 
 	storage.getEmployees(function(data) {
-		angular.copy(data.employee, $scope.employees);
+		angular.copy(data, $scope.employees);
 	});
 
 });
