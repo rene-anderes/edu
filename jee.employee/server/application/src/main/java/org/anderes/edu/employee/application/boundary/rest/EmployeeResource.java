@@ -4,6 +4,8 @@ import static javax.ejb.TransactionAttributeType.NEVER;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +28,7 @@ import org.anderes.edu.employee.application.EmployeeFacade;
 import org.anderes.edu.employee.application.boundary.DtoMapper;
 import org.anderes.edu.employee.application.boundary.dto.EmployeeDto;
 import org.anderes.edu.employee.application.boundary.dto.EmployeesDto;
-import org.anderes.edu.employee.application.boundary.dto.Links;
+import org.anderes.edu.employee.application.boundary.dto.Link;
 import org.anderes.edu.employee.application.boundary.dto.ObjectFactory;
 import org.anderes.edu.employee.application.boundary.dto.ProjectsDto;
 import org.anderes.edu.employee.domain.Employee;
@@ -74,7 +76,7 @@ public class EmployeeResource {
 		}
 		final Employee employee = optional.get();
 		final EmployeeDto dto = mapper.mapToEmployeeDto(employee);
-		dto.setLinks(createLinksForEmployee());
+		dto.getLink().addAll(createLinksForEmployee());
 		return Response.ok().entity(dto).build();
 	}
 	
@@ -109,51 +111,51 @@ public class EmployeeResource {
 	    return uriInfo.getAbsolutePath().toString();
 	}
 	
-	private Links createLinksForEmployee() {
+	private Collection<Link> createLinksForEmployee() {
 	    final ObjectFactory factory = new ObjectFactory();
-        final Links links = factory.createLinks();
-        final Links.Link addressLink = factory.createLinksLink();
+        final ArrayList<Link> links = new ArrayList<>(2);
+        final Link addressLink = factory.createLink();
         addressLink.setRel("address");
         addressLink.setUrl(baseUrl() + "/address");
-        links.getLink().add(addressLink);
-        final Links.Link projectsLink = factory.createLinksLink();
+        links.add(addressLink);
+        final Link projectsLink = factory.createLink();
         projectsLink.setRel("projects");
         projectsLink.setUrl(baseUrl() + "/projects");
-        links.getLink().add(projectsLink);
+        links.add(projectsLink);
         return links;
     }
 	
 	private EmployeesDto createLinksForEmployees(final EmployeesDto employees) {
 	    for (EmployeesDto.Employee employee : employees.getEmployee()) {
-            employee.setLinks(createLinksForEmployees(employee));
+            employee.getLink().addAll(createLinksForEmployees(employee));
         }
 	    return employees;
 	}
 	
-	private Links createLinksForEmployees(final EmployeesDto.Employee employee) {
+	private Collection<Link> createLinksForEmployees(final EmployeesDto.Employee employee) {
 	    final ObjectFactory factory = new ObjectFactory();
-        final Links links = factory.createLinks();
-        final Links.Link link = factory.createLinksLink();
+        final ArrayList<Link> links = new ArrayList<Link>(1);
+        final Link link = factory.createLink();
         link.setRel("employee");
         link.setUrl(baseUrl() + "/" + employee.getId());
-        links.getLink().add(link);
+        links.add(link);
         return links;
     }
 	
 	private ProjectsDto createLinksForProjects(final ProjectsDto projects) {
 	    for (ProjectsDto.Project project : projects.getProject()) {
-	        project.setLinks(createLinksForProject(project));
+	        project.getLink().addAll(createLinksForProject(project));
 	    }
 	    return projects;
 	}
 	
-	private Links createLinksForProject(final ProjectsDto.Project project) {
+	private Collection<Link> createLinksForProject(final ProjectsDto.Project project) {
 	    final ObjectFactory factory = new ObjectFactory();
-	    final Links links = factory.createLinks();
-        final Links.Link link = factory.createLinksLink();
+	    final ArrayList<Link> links = new ArrayList<Link>(1);
+        final Link link = factory.createLink();
         link.setRel("project");
         link.setUrl(uriInfo.getBaseUri().toString() + "/projects/" + project.getId());
-        links.getLink().add(link);
+        links.add(link);
         return links;
 	}
 }

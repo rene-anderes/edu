@@ -27,7 +27,7 @@ import org.anderes.edu.employee.application.boundary.DtoMapperCopy;
 import org.anderes.edu.employee.application.boundary.dto.AddressDto;
 import org.anderes.edu.employee.application.boundary.dto.EmployeeDto;
 import org.anderes.edu.employee.application.boundary.dto.EmployeesDto;
-import org.anderes.edu.employee.application.boundary.dto.Links.Link;
+import org.anderes.edu.employee.application.boundary.dto.Link;
 import org.anderes.edu.employee.application.boundary.dto.ProjectsDto;
 import org.anderes.edu.employee.domain.Employee;
 import org.anderes.edu.employee.domain.logger.LoggerProducer;
@@ -109,11 +109,11 @@ public class EmployeeResourceIT {
     	assertThat(employee.getJobtitle(), is("Manager"));
     	assertThat(employee.getSalary(), is(BigDecimal.valueOf(53005)));
     	assertThat(employee.getGender(), is("Male"));
-    	assertThat(employee.getLinks().getLink().size(), is(2));
-    	Link link = employee.getLinks().getLink().get(0);
+    	assertThat(employee.getLink().size(), is(2));
+    	Link link = employee.getLink().get(0);
     	assertThat(link.getRel(), is("address"));
     	assertThat(link.getUrl(), is(getResourcesPathAsString(deploymentUrl) + employee.getId() + "/address"));
-    	link = employee.getLinks().getLink().get(1);
+    	link = employee.getLink().get(1);
         assertThat(link.getRel(), is("projects"));
         assertThat(link.getUrl(), is(getResourcesPathAsString(deploymentUrl) + employee.getId() + "/projects"));
     }
@@ -205,8 +205,8 @@ public class EmployeeResourceIT {
 		final EmployeesDto employees = response.readEntity(EmployeesDto.class);
     	assertThat(employees.getEmployee().size(), is(9));
     	for (EmployeesDto.Employee employee : employees.getEmployee()) {
-            assertThat(employee.getLinks().getLink().size(), is(1));
-            final Link link = employee.getLinks().getLink().get(0);
+            assertThat(employee.getLink().size(), is(1));
+            final Link link = employee.getLink().get(0);
             assertThat(link.getRel(), is("employee"));
             assertThat(link.getUrl().matches(getResourcesPathAsString(deploymentUrl) + "[0-9]{2,2}"), is(true));
         }
@@ -234,8 +234,8 @@ public class EmployeeResourceIT {
         final EmployeesDto employees = response.readEntity(EmployeesDto.class);
         assertThat(employees.getEmployee().size(), is(12));
         for (EmployeesDto.Employee employee : employees.getEmployee()) {
-            assertThat(employee.getLinks().getLink().size(), is(1));
-            final Link link = employee.getLinks().getLink().get(0);
+            assertThat(employee.getLink().size(), is(1));
+            final Link link = employee.getLink().get(0);
             assertThat(link.getRel(), is("employee"));
             assertThat(link.getUrl().matches(getResourcesPathAsString(deploymentUrl) + "[0-9]{2,2}"), is(true));
         }

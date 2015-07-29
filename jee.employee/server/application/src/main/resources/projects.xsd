@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Mit XMLSpy v2014 sp1 (x64) (http://www.altova.com) von ﻿VRSG (Verwaltungsrechenzentrum AG St. Gallen) bearbeitet -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://info.firma.org/employees" targetNamespace="http://info.firma.org/employees">
-	<xs:import schemaLocation="links.xsd"/>
+	<xs:import schemaLocation="link.xsd"/>
 	<xs:element name="projectsDto">
 		<xs:complexType>
 			<xs:sequence>
@@ -11,7 +11,7 @@
 							<xs:element name="description" type="xs:string"/>
 							<xs:element name="name" type="xs:string"/>
 							<xs:element name="id" type="xs:unsignedLong"/>
-							<xs:element ref="links"/>
+							<xs:element ref="link" minOccurs="0" maxOccurs="unbounded"/>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
