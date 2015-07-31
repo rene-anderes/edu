@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validation-config
+    xmlns="http://jboss.org/xml/ns/javax/validation/configuration"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://jboss.org/xml/ns/javax/validation/configuration http://jboss.org/xml/ns/javax/validation/configuration/validation-configuration-1.1.xsd"
+    version="1.1">
+
+    <executable-validation enabled="true">
+        <default-validated-executable-types>
+            <executable-type>CONSTRUCTORS</executable-type>
+            <executable-type>NON_GETTER_METHODS</executable-type>
+            <executable-type>GETTER_METHODS</executable-type>
+        </default-validated-executable-types>
+    </executable-validation>
+
+    <constraint-mapping>META-INF/validation/constraints-dto.xml</constraint-mapping>
+
+</validation-config>
