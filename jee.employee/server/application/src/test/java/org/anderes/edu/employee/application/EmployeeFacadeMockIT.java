@@ -4,9 +4,7 @@ import static org.anderes.edu.employee.domain.Gender.Male;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.util.Optional;
 
@@ -94,4 +92,17 @@ public class EmployeeFacadeMockIT {
         verify(mockEmployeeRepository, atLeastOnce());
     }
 
+    @Test
+    public void shouldBeSaveNewEmployee() {
+        // given
+        Employee employee = EmployeeFactory.createEmployeeForSave();
+        Employee savedEntity = EmployeeFactory.createSavedEmployee();
+        when(mockEmployeeRepository.save(employee)).thenReturn(savedEntity);
+        // when
+        Employee entityAfterSave = facade.saveEmployee(employee);
+        // then
+        assertThat(entityAfterSave, is(notNullValue()));
+        assertThat(entityAfterSave.getId(), is(1007L));
+    }
+    
 }

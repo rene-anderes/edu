@@ -59,14 +59,30 @@ public abstract class EmployeeFactory {
         return employee;
     }
 
-    private static void setId(final Object object, final Long id) {
+    public static <T extends Object> T setId(T object, final Long id) {
         try {
             FieldUtils.writeField(object, "id", Long.valueOf(id), true);
         } catch (IllegalAccessException e) {
             fail(e.getMessage());
         }
+        return object;
     }
 
+    public static Employee createEmployeeForSave() {
+        final Employee employee = new Employee();
+        employee.setFirstName("Peter");
+        employee.setLastName("Steffensen");
+        employee.setJobTitle(new JobTitle("Developer"));
+        employee.setSalary(56000D);
+        employee.setGender(Gender.Male);
+        return employee;
+    }
+
+    public static Employee createSavedEmployee() {
+        final Employee employee = createEmployeeForSave();
+        setId(employee, 1007L);
+        return employee;
+    }
     public static List<Employee> createRandomEmployeeCollection(int count) {
         ArrayList<Employee> employees = new ArrayList<>(count);
         for (int index = 0; index < count; index++) {

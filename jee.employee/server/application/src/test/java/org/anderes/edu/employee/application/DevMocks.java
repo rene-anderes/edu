@@ -37,7 +37,7 @@ public class DevMocks {
         /* Achtung: 
          * Mockito benutzt zur Konfiguration Thread-Local-Variablen: Daher ist die Lösung nur bedingt einsetzbar */
         
-        Employee value = EmployeeFactory.createEmployeeWithId70();
+        final Employee value = EmployeeFactory.createEmployeeWithId70();
         when(mockEmployeeRepository.findOneEmployeeAddress(70L)).thenReturn(value);
         when(mockEmployeeRepository.findOne(70L)).thenReturn(value);
         when(mockEmployeeRepository.findProjectsByEmployee(70l)).thenReturn(value);
@@ -46,5 +46,8 @@ public class DevMocks {
         when(mockEmployeeRepository.findEmployeeBySalaryFetchJobtitle(anyDouble())).thenReturn(valueList);
         valueList = EmployeeFactory.createRandomEmployeeCollection(12);
         when(mockEmployeeRepository.findEmployees()).thenReturn(valueList);
+        final Employee employeeForSave = EmployeeFactory.createEmployeeForSave();
+        final Employee employeeAfterSave = EmployeeFactory.createSavedEmployee();
+        when(mockEmployeeRepository.save(employeeForSave)).thenReturn(employeeAfterSave);
     }
 }

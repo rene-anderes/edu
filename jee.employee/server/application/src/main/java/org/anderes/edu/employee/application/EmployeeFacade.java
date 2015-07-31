@@ -52,4 +52,9 @@ public class EmployeeFacade {
             return Optional.empty();
         }
     }
+
+    public Employee saveEmployee(Employee employee) {
+        Validate.notNull(employee, "Der Parameter 'employee' darf nicht null sein.");
+        return repository.save(employee);
+    }
 }

@@ -6,6 +6,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -13,6 +14,7 @@ import java.net.URL;
 import java.util.List;
 
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
@@ -23,11 +25,14 @@ import org.anderes.edu.employee.application.DevMock;
 import org.anderes.edu.employee.application.DevMocks;
 import org.anderes.edu.employee.application.EmployeeFacade;
 import org.anderes.edu.employee.application.EmployeeFactory;
+import org.anderes.edu.employee.application.LargeProjectFacade;
+import org.anderes.edu.employee.application.SmallProjectFacade;
 import org.anderes.edu.employee.application.boundary.DtoMapper;
 import org.anderes.edu.employee.application.boundary.DtoMapperCopy;
 import org.anderes.edu.employee.application.boundary.dto.AddressDto;
 import org.anderes.edu.employee.application.boundary.dto.EmployeeDto;
 import org.anderes.edu.employee.application.boundary.dto.Link;
+import org.anderes.edu.employee.application.boundary.dto.ObjectFactory;
 import org.anderes.edu.employee.application.boundary.dto.ProjectDto;
 import org.anderes.edu.employee.domain.Employee;
 import org.anderes.edu.employee.domain.logger.LoggerProducer;
@@ -74,8 +79,10 @@ public class EmployeeResourceMockIT {
                         .getOrCreateAlternatives().stereotype(DevMock.class.getName()).up();
         return ShrinkWrap
             .create(WebArchive.class)
+            // REST Boundery
+            .addPackages(true, EmployeeApplication.class.getPackage())
             // Application-Layer
-            .addClasses(EmployeeFacade.class, EmployeeApplication.class, EmployeeResource.class)
+            .addClasses(EmployeeFacade.class, LargeProjectFacade.class, SmallProjectFacade.class)
             // DTO's
             .addPackage(EmployeeDto.class.getPackage())
             .addClasses(DtoMapper.class, DtoMapperCopy.class)
@@ -87,9 +94,12 @@ public class EmployeeResourceMockIT {
             .addClasses(DevMock.class, DevMocks.class, EmployeeFactory.class)
             // Resourcen
             .addAsWebInfResource(new StringAsset(beansXml.exportAsString()), beansXml.getDescriptorName())
-            .addAsLibraries(pom.resolve("org.mockito:mockito-core").withTransitivity().asFile());
+            .addAsLibraries(pom.resolve("org.mockito:mockito-core").withTransitivity().asFile())
+            .addAsResource(new File("target/classes/META-INF/validation.xml"), "META-INF/validation.xml")
+            .addAsResource(new File("target/classes/META-INF/validation/constraints-dto.xml"), "META-INF/validation/constraints-dto.xml");
             // workaround für Bug https://java.net/jira/browse/GLASSFISH-21141
 //            .addAsLibraries(pom.resolve("com.fasterxml.jackson.module:jackson-module-jaxb-annotations").withTransitivity().asFile());
+            
     }
     
     @Test
@@ -245,6 +255,66 @@ public class EmployeeResourceMockIT {
         }
     }
     
+    @Test
+    @RunAsClient
+    public void shouldBeStoreNewEmployee(@ArquillianResource URL deploymentUrl) throws Exception {
+        // given
+        final EmployeeDto employeeDto = createNewEmployeeDto();
+        final UriBuilder uri = createUriFromDeploymentPath(deploymentUrl);
+        final WebTarget target = ClientBuilder.newClient().target(uri).register(JacksonFeature.class);
+        
+        // when
+        final Response response = target.request().buildPost(Entity.entity(employeeDto, APPLICATION_JSON_TYPE)).invoke();
+        
+        // then
+        assertThat(response.getStatus(), is(Status.CREATED.getStatusCode()));
+        assertThat(response.getHeaders().get("Location"), is(notNullValue()));
+        assertThat(response.getHeaders().get("Location").size(), is(1));
+        assertThat(response.getHeaders().get("Location").get(0), is(getResourcesPathAsString(deploymentUrl) + "1007"));
+    }
+    
+    @Test
+    @RunAsClient
+    public void shouldBeNotStoreWithWrongData(@ArquillianResource URL deploymentUrl) throws Exception {
+        // given
+        final EmployeeDto employeeDto = createNewEmployeeDto();
+        employeeDto.setGender("unknown");
+        final UriBuilder uri = createUriFromDeploymentPath(deploymentUrl);
+        final WebTarget target = ClientBuilder.newClient().target(uri).register(JacksonFeature.class);
+        
+        // when
+        final Response response = target.request().buildPost(Entity.entity(employeeDto, APPLICATION_JSON_TYPE)).invoke();
+        
+        // then
+        assertThat(response.getStatus(), is(Status.BAD_REQUEST.getStatusCode()));
+    }
+    
+    @Test
+    @RunAsClient
+    public void shouldBeNotStoreEmptyData(@ArquillianResource URL deploymentUrl) throws Exception {
+        // given
+        final EmployeeDto employeeDto = new EmployeeDto();
+        final UriBuilder uri = createUriFromDeploymentPath(deploymentUrl);
+        final WebTarget target = ClientBuilder.newClient().target(uri).register(JacksonFeature.class);
+        
+        // when
+        final Response response = target.request().buildPost(Entity.entity(employeeDto, APPLICATION_JSON_TYPE)).invoke();
+        
+        // then
+        assertThat(response.getStatus(), is(Status.BAD_REQUEST.getStatusCode()));
+    }
+        
+    private EmployeeDto createNewEmployeeDto() {
+        final ObjectFactory factory = new ObjectFactory();
+        final EmployeeDto dto = factory.createEmployeeDto();
+        dto.setFirstname("Peter");
+        dto.setLastname("Steffensen");
+        dto.setGender("Male");
+        dto.setSalary(BigDecimal.valueOf(56000D));
+        dto.setJobtitle("Developer");
+        return dto;
+    }
+
     private UriBuilder createUriFromDeploymentPath(final URL deploymentUrl) {
     	return UriBuilder.fromPath(getResourcePath(deploymentUrl).toString()).
   	                scheme(deploymentUrl.getProtocol()).host(deploymentUrl.getHost()).port(deploymentUrl.getPort());

@@ -4,16 +4,23 @@ import static javax.ejb.TransactionAttributeType.NEVER;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.inject.Inject;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -34,9 +41,9 @@ import org.anderes.edu.employee.application.boundary.dto.ProjectDto;
 import org.anderes.edu.employee.domain.Employee;
 
 @Path("/employees")
+@Produces({APPLICATION_JSON, APPLICATION_XML})
 @Stateless
 @TransactionAttribute(NEVER)
-@Produces({APPLICATION_JSON, APPLICATION_XML})
 public class EmployeeResource {
 	
 	@EJB
@@ -45,6 +52,8 @@ public class EmployeeResource {
 	private UriInfo uriInfo;
 	@Inject
 	private DtoMapper mapper;
+	@Inject
+	private Validator validator;
 	
 	@GET
     @Path("/")
@@ -82,6 +91,25 @@ public class EmployeeResource {
 		final EmployeeDto dto = mapper.mapToEmployeeDto(employee);
 		dto.getLink().addAll(createLinksForEmployee());
 		return Response.ok().entity(dto).build();
+	}
+	
+	@POST
+    @Path("/")
+	@Consumes({APPLICATION_JSON, APPLICATION_XML})
+    public Response saveEmployee(EmployeeDto employeeDto) throws URISyntaxException, ViolationException {
+	    validateDto(employeeDto);
+	    Employee employeeForSave = mapper.mapToEmployee(employeeDto);
+	    Employee employeeAfterSave = facade.saveEmployee(employeeForSave);
+	    URI location = new URI(baseUrl() + "/" + employeeAfterSave.getId());
+	    return Response.created(location).build();
+	}
+	
+	private void validateDto(EmployeeDto employeeDto) throws ViolationException {
+	    final Set<ConstraintViolation<EmployeeDto>> constraintViolations = validator.validate(employeeDto);
+	    if (constraintViolations.isEmpty()) {
+	        return;
+	    }
+	    throw new ViolationException("Employee-Dto ist ungültig.");
 	}
 	
 	@GET

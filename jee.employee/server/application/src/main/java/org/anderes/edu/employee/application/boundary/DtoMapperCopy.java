@@ -11,6 +11,8 @@ import org.anderes.edu.employee.application.boundary.dto.ObjectFactory;
 import org.anderes.edu.employee.application.boundary.dto.ProjectDto;
 import org.anderes.edu.employee.domain.Address;
 import org.anderes.edu.employee.domain.Employee;
+import org.anderes.edu.employee.domain.Gender;
+import org.anderes.edu.employee.domain.JobTitle;
 import org.anderes.edu.employee.domain.Project;
 import org.apache.commons.lang3.Validate;
 
@@ -74,6 +76,17 @@ public class DtoMapperCopy implements DtoMapper {
             projectsDto.add(mapToProject(project));
         }
         return projectsDto;
+    }
+
+    @Override
+    public Employee mapToEmployee(EmployeeDto employeeDto) {
+        final Employee employee = new Employee();
+        employee.setFirstName(employeeDto.getFirstname());
+        employee.setLastName(employeeDto.getLastname());
+        employee.setGender(Gender.valueOf(employeeDto.getGender()));
+        employee.setJobTitle(new JobTitle(employeeDto.getJobtitle()));
+        employee.setSalary(employeeDto.getSalary().doubleValue());
+        return employee;
     }
 
     private ProjectDto mapToProject(final Project project) {

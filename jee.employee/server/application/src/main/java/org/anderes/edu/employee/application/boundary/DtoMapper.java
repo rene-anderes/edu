@@ -19,4 +19,6 @@ public interface DtoMapper {
     
     List<ProjectDto> mapToProjectsDto(final List<Project> projects);
 
+    Employee mapToEmployee(EmployeeDto employeeDto);
+
 }
