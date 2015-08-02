@@ -102,6 +102,15 @@ public class ExerciseTest {
     }
     
     @Test
+    public void exercise_7a() {
+        Pattern pattern = Pattern.compile("(\\d+['])+\\d+");
+        Matcher matcher = pattern.matcher(readFile("exercise_7.txt"));
+
+        int counter = dumpResult(matcher);
+        assertThat(counter, is(30));
+    }
+    
+    @Test
     public void exercise_8() {
         Pattern pattern = Pattern.compile("\\d{1,2}[.][ ]?\\w+[ ]\\d{4}\\b");
         Matcher matcher = pattern.matcher(readFile("exercise_7.txt"));
