@@ -1,13 +1,14 @@
-package org.anderes.edu.effecitive.domain;
+package org.anderes.edu.effective.domain;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.stream.Collectors;
 
+import org.anderes.edu.effective.immutability.EmployeeBase;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public class Employee implements Cloneable {
+public class Employee implements Cloneable, EmployeeBase<Project, Address> {
 
     private String[] respnsibilities;
     private Address address;
@@ -31,6 +32,10 @@ public class Employee implements Cloneable {
     public void addProject(Project project) {
         projects.add(project);
     }
+    
+    public int getAge() {
+        return age;
+    }
 
     public void setAge(int age) {
         this.age = age;
@@ -48,6 +53,16 @@ public class Employee implements Cloneable {
         projects.remove(project);
     }
 
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String[] getResponibilities() {
+        return respnsibilities;
+    }
+    
     @Override
     public Employee clone() {
         Employee clone = null;
@@ -98,4 +113,5 @@ public class Employee implements Cloneable {
                         .append(projects.toArray())
                         .toHashCode();
     }
+
 }

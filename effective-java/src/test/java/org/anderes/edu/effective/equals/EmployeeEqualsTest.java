@@ -1,12 +1,12 @@
-package org.anderes.edu.effecitive.equals;
+package org.anderes.edu.effective.equals;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 
-import org.anderes.edu.effecitive.domain.Address;
-import org.anderes.edu.effecitive.domain.Employee;
-import org.anderes.edu.effecitive.domain.Project;
+import org.anderes.edu.effective.domain.Address;
+import org.anderes.edu.effective.domain.Employee;
+import org.anderes.edu.effective.domain.Project;
 import org.junit.Test;
 
 public class EmployeeEqualsTest {
@@ -18,6 +18,7 @@ public class EmployeeEqualsTest {
         final Employee otherEmployee = createEmployee();
         
         assertEquals("Die zwei Objekte sollte mittels equals gleich sein:", employee, otherEmployee);
+        assertEquals("Die zwei Objekte sollte mittels equals gleich sein:", otherEmployee, employee);
         assertNotSame("Die zwei Objekte dürfen nicht die Selben (selbe Referenz) sein:", employee, otherEmployee);
     }
     

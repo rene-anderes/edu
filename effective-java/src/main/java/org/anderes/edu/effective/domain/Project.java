@@ -1,9 +1,10 @@
-package org.anderes.edu.effecitive.domain;
+package org.anderes.edu.effective.domain;
 
+import org.anderes.edu.effective.immutability.ProjectBase;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public class Project implements Cloneable {
+public class Project implements Cloneable, ProjectBase {
 
     private String name;
 
@@ -11,6 +12,11 @@ public class Project implements Cloneable {
         this.name = name;
     }
 
+    @Override
+    public String getName() {
+        return name;
+    }
+    
     @Override
     public Project clone() {
         Project clone = null;
@@ -41,5 +47,4 @@ public class Project implements Cloneable {
     public int hashCode() {
         return new HashCodeBuilder(17, 37).append(name).toHashCode();
     }
-
 }

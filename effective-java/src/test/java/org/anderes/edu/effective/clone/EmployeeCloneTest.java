@@ -1,4 +1,4 @@
-package org.anderes.edu.effecitive.clone;
+package org.anderes.edu.effective.clone;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -6,15 +6,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertThat;
 
-import org.anderes.edu.effecitive.domain.Address;
-import org.anderes.edu.effecitive.domain.Employee;
-import org.anderes.edu.effecitive.domain.Project;
+import org.anderes.edu.effective.domain.Address;
+import org.anderes.edu.effective.domain.Employee;
+import org.anderes.edu.effective.domain.Project;
 import org.junit.Test;
 
 public class EmployeeCloneTest {
 
     @Test
-    public void shouldBeCloneEmployee() throws CloneNotSupportedException {
+    public void shouldBeCloneEmployee() {
         final Employee employee = createEmployee();
         
         final Employee clone = employee.clone();
@@ -35,7 +35,7 @@ public class EmployeeCloneTest {
     }
     
     @Test
-    public void shouldBeCloneEmployeeWithoutAddressAndProjects() throws CloneNotSupportedException {
+    public void shouldBeCloneEmployeeWithoutAddressAndProjects() {
         final Employee employee = new Employee();
         employee.setName("Jeff Steffensen");
         employee.setAge(39);

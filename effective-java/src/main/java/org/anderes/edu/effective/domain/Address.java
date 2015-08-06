@@ -1,9 +1,10 @@
-package org.anderes.edu.effecitive.domain;
+package org.anderes.edu.effective.domain;
 
+import org.anderes.edu.effective.immutability.AddressBase;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public class Address implements Cloneable {
+public class Address implements Cloneable, AddressBase {
 
     private String street;
     private String city;
@@ -16,6 +17,16 @@ public class Address implements Cloneable {
         this.city = city;
     }
 
+    @Override
+    public String getCity() {
+        return city;
+    }
+
+    @Override
+    public String getStreet() {
+        return street;
+    }
+    
     @Override
     public Address clone() {
         Address clone = null;

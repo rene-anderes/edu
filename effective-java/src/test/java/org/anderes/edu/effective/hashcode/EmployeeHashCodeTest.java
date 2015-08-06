@@ -1,12 +1,12 @@
-package org.anderes.edu.effecitive.equals;
+package org.anderes.edu.effective.hashcode;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 
-import org.anderes.edu.effecitive.domain.Address;
-import org.anderes.edu.effecitive.domain.Employee;
-import org.anderes.edu.effecitive.domain.Project;
+import org.anderes.edu.effective.domain.Address;
+import org.anderes.edu.effective.domain.Employee;
+import org.anderes.edu.effective.domain.Project;
 import org.junit.Test;
 
 public class EmployeeHashCodeTest {
