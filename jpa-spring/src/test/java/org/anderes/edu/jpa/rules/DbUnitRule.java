@@ -5,9 +5,9 @@ import static org.apache.commons.lang3.StringUtils.substringAfter;
 import static org.apache.commons.lang3.StringUtils.substringBefore;
 import static org.junit.Assert.fail;
 
-import java.lang.annotation.ElementType;
+import static java.lang.annotation.ElementType.*;
 import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import static java.lang.annotation.RetentionPolicy.*;
 import java.lang.annotation.Target;
 import java.nio.file.Paths;
 import java.sql.Connection;
@@ -46,22 +46,22 @@ import org.junit.runners.model.Statement;
 
 public class DbUnitRule implements TestRule {
 
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD})
+    @Retention(RUNTIME)
+    @Target({METHOD, TYPE})
     public static @interface UsingDataSet {
         String[] value();
     }
 
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD})
+    @Retention(RUNTIME)
+    @Target({METHOD})
     public static @interface ShouldMatchDataSet {
         String[] value();
         String[] excludeColumns() default { };
         String[] orderBy() default { }; 
     }
     
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD})
+    @Retention(RUNTIME)
+    @Target({METHOD, TYPE})
     public static @interface CleanupUsingScript {
         String[] value();
     }
@@ -111,8 +111,8 @@ public class DbUnitRule implements TestRule {
     }
     
     private void before(final Description description) throws Exception {
-        final UsingDataSet usingDataSet = description.getAnnotation(UsingDataSet.class);
-        final CleanupUsingScript cleanupUsingScript = description.getAnnotation(CleanupUsingScript.class);
+        final UsingDataSet usingDataSet = extractUsingDataSet(description);
+        final CleanupUsingScript cleanupUsingScript = extractCleanupUsingScript(description);
         DatabaseOperation databaseOperation = DatabaseOperation.CLEAN_INSERT;
         if (cleanupUsingScript != null) {
             processCleanupScripts(cleanupUsingScript);
@@ -120,6 +120,22 @@ public class DbUnitRule implements TestRule {
         if (usingDataSet != null) {
             processUsingDataSet(usingDataSet, databaseOperation);
         }
+    }
+
+    private CleanupUsingScript extractCleanupUsingScript(final Description description) {
+        CleanupUsingScript cleanupUsingScript = description.getAnnotation(CleanupUsingScript.class);
+        if (cleanupUsingScript == null) {
+            cleanupUsingScript = description.getTestClass().getAnnotation(CleanupUsingScript.class);
+        }
+        return cleanupUsingScript;
+    }
+
+    private UsingDataSet extractUsingDataSet(final Description description) {
+        UsingDataSet usingDataSet = description.getAnnotation(UsingDataSet.class);
+        if (usingDataSet == null) {
+            usingDataSet = description.getTestClass().getAnnotation(UsingDataSet.class);
+        }
+        return usingDataSet;
     }
 
     private void processUsingDataSet(final UsingDataSet usingDataSet, final DatabaseOperation databaseOperation) throws DataSetException, Exception, SQLException {
