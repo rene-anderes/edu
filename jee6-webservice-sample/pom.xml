@@ -77,7 +77,28 @@
             <scope>provided</scope>
         </dependency>
         <!-- / JAX-RS 2.0 Implementation -->
-        
+        <!-- JSON Processing - JSR 353 -->
+        <dependency>
+            <groupId>javax.json</groupId>
+            <artifactId>javax.json-api</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-processing</artifactId>
+            <version>2.5.1</version>
+            <scope>provided</scope>
+        </dependency>        
+        <!-- / JSON Processing - JSR 353 -->
+        <!-- JSP - JSTL -->
+        <dependency>
+            <groupId>javax.servlet.jsp.jstl</groupId>
+            <artifactId>jstl-api</artifactId>
+            <version>1.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- / JSP - JSTL -->
         <!-- JUnit Testabhängigkeit -->
         <dependency>
             <groupId>junit</groupId>
@@ -107,7 +128,7 @@
 
     <build>
         <defaultGoal>clean install</defaultGoal>
-        <finalName>jee6-webservice-employee</finalName>
+        <finalName>sample</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -125,11 +146,14 @@
                 <version>2.6</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <archive>                   
+                    <archive>
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
+                        <manifestEntries>
+                            <Weblogic-Application-Version>${project.version}</Weblogic-Application-Version>
+                        </manifestEntries>
                     </archive>
                 </configuration>
             </plugin>

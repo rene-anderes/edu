@@ -26,10 +26,16 @@ public class RestClientIT {
 
     private UriBuilder uri;
     private Client client;
+    private final String username = "weblogic";
+    private final String password = "welcome1";
 
     @Before
     public void setup() {
         client = ClientBuilder.newBuilder().register(JsonProcessingFeature.class).build();
+
+        /* Client-Side HTTP Basic Access Authentication With JAX-RS 2.0 */
+        client.register(new Authenticator(username, password));
+
         uri = UriBuilder.fromPath("sample").scheme("http").host("localhost").port(7001).path("resources").path("employees");
     }
 
@@ -39,10 +45,11 @@ public class RestClientIT {
         final WebTarget target = client.target(uri);
 
         final Response response = target.request(MediaType.APPLICATION_JSON_TYPE).get();
+        
         assertThat(response.getStatus(), is(200));
         assertThat(response.hasEntity(), is(true));
 
-        // JSON-P Verarbeitung
+        /* JSON-P Verarbeitung */
         JsonArray jsonArray = response.readEntity(JsonArray.class);
         assertThat(jsonArray.size(), is(3));
         jsonArray.forEach(element -> assertThat(((JsonObject) element).getString("firstname").length() > 0, is(true)));
