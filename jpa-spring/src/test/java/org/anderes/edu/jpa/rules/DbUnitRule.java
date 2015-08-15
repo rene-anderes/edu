@@ -210,8 +210,10 @@ public class DbUnitRule implements TestRule {
             loader = new CsvDataFileLoader();
         } else if (dataSetFile.endsWith(".xls")) {
             loader = new XlsDataFileLoader();
+        } else if (dataSetFile.endsWith(".json")) {
+            loader = new JsonDataFileLoader();
         } else {
-            throw new IllegalStateException("DbUnitRule only supports XLS, CSV or Flat XML data sets for the moment");
+            throw new IllegalStateException("DbUnitRule only supports XLS, CSV, JSON or Flat XML data sets for the moment");
         }
         return loader;
     }

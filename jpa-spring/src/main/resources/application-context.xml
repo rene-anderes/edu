@@ -55,6 +55,8 @@
                 <prop key="eclipselink.target-database">Derby</prop>
                 <prop key="eclipselink.jdbc.native-sql">true</prop>
                 <prop key="eclipselink.weaving">false</prop>
+                <prop key="eclipselink.logging.parameters">true</prop>
+                <prop key="eclipselink.weaving">false</prop>
             </props>
         </property>
     </bean>

@@ -1,0 +1,17 @@
+package org.anderes.edu.jpa.rules;
+
+import java.io.IOException;
+import java.net.URL;
+
+import org.dbunit.dataset.DataSetException;
+import org.dbunit.dataset.IDataSet;
+import org.dbunit.util.fileloader.AbstractDataFileLoader;
+
+public class JsonDataFileLoader extends AbstractDataFileLoader {
+
+    @Override
+    protected IDataSet loadDataSet(URL url) throws DataSetException, IOException {
+        return new JsonDataSet(url);
+    }
+
+}

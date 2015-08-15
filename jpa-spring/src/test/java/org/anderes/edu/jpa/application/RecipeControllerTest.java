@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.UUID;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
 
 import org.anderes.edu.jpa.domain.Ingredient;
 import org.anderes.edu.jpa.domain.Recipe;
@@ -45,11 +46,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
                 "classpath:unittest-security-context.xml"
 })
 @WebAppConfiguration
+@UsingDataSet(value = { "/prepare.xls" })
 public class RecipeControllerTest {
 
     @Inject
     private WebApplicationContext ctx;
- 
+    @Inject
+    private EntityManager manager;
     private MockMvc mockMvc;
     
     @Inject @Rule 
@@ -65,10 +68,10 @@ public class RecipeControllerTest {
 
     @After
     public void tearDown() throws Exception {
+        manager.clear();
     }
 
     @Test
-    @UsingDataSet(value = { "/prepaire.xls" })
     public void shouldBeAllRecipes() throws Exception {
         MvcResult result = mockMvc.perform(get("/recipes").accept(APPLICATION_JSON).param("limit", "50"))
             .andExpect(status().isOk())
@@ -81,7 +84,6 @@ public class RecipeControllerTest {
     }
     
     @Test
-    @UsingDataSet(value = { "/prepaire.xls" })
     public void shouldBeOneRecipe() throws Exception {
         
         MvcResult result = mockMvc.perform(get("/recipes/c0e5582e-252f-4e94-8a49-e12b4b047afb")
@@ -96,7 +98,6 @@ public class RecipeControllerTest {
     }
     
     @Test
-    @UsingDataSet(value = { "/prepaire.xls" })
     public void shouldBeSaveNewRecipe() throws Exception {
         final Recipe recipeToSave = createRecipe();
         mockMvc.perform(post("/recipes")
