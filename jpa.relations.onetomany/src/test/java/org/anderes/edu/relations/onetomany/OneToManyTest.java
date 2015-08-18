@@ -2,7 +2,7 @@ package org.anderes.edu.relations.onetomany;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
 import java.util.Collection;
@@ -14,6 +14,7 @@ import javax.persistence.TypedQuery;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class OneToManyTest {
@@ -32,62 +33,56 @@ public class OneToManyTest {
     }
 
     @Test
-    public void simpleTest() {
-    	// given
-        final Person storedPerson = addPersonToDatabase();
-        final Company storedCompany = addCompanyToDatabase();
-        savePersonToCompanyAsEmployee(storedCompany, storedPerson);
-        
-        // when
-        final Collection<Person> persons = getAllPersons();
-        
-        // then
-        assertThat(persons, is(not(nullValue())));
-        assertThat(persons.size(), is(1));
-        final Person person = persons.iterator().next();
-        assertThat(person.getCompany(), is(not(nullValue())));
-        
-        // when
-        final Collection<Person> personsFromCompany = getAllPersonsFromCompany(storedCompany);
-        
-        // then
-        assertThat(personsFromCompany, is(not(nullValue())));
-        assertThat(personsFromCompany.size(), is(1));
-    }
-    
-    private Collection<Person> getAllPersons() {
-        final TypedQuery<Person> query = entityManager.createQuery("Select p From Person p", Person.class);
-        return query.getResultList();
-    }
-    
-    private Collection<Person> getAllPersonsFromCompany(final Company company) {
-    	final Company storedCompany = entityManager.find(Company.class, company.getId());
-    	return storedCompany.getEmployees();
-    }
-
-    private void savePersonToCompanyAsEmployee(final Company company, final Person person) {
+    public void shouldBeMergePersonWithCompany() {
+    	final Person person = new Person("Peter", "Lustig");
+    	final Company company = new Company("Intel");
+    	person.setCompany(company);
+    	company.addEmployee(person);
+    	
     	entityManager.getTransaction().begin();
-    	final Person storedPerson = entityManager.find(Person.class, person.getId());
-    	final Company storedCompany = entityManager.find(Company.class, company.getId());
-    	storedCompany.addEmployee(storedPerson);
-    	entityManager.merge(storedPerson);
+    	final Person savedPerson = entityManager.merge(person);
     	entityManager.getTransaction().commit();
+    	
+    	assertThat(savedPerson.getId(), is(notNullValue()));
+    	assertThat(savedPerson.getCompany(), is(notNullValue()));
+    	assertThat(savedPerson.getCompany().getId(), is(notNullValue()));
+    	assertThat(savedPerson.getCompany().getEmployees().size(), is(1));
     }
     
-    private Person addPersonToDatabase() {
-        final Person person = new Person("Mona-Lisa", "DaVinci");
-        entityManager.getTransaction().begin();
-        entityManager.persist(person);
-        entityManager.getTransaction().commit();
-        return person;
-    }
-    
-    private Company addCompanyToDatabase() {
-    	final Company company = new Company();
+    @Test
+    public void shouldBePersistPersonWithCompany() {
+    	final Person person = new Person("Peter", "Lustig");
+    	final Company company = new Company("Intel");
+    	person.setCompany(company);
+    	company.addEmployee(person);
+    	
     	entityManager.getTransaction().begin();
-        entityManager.persist(company);
-        entityManager.getTransaction().commit();
-        return company;
+    	entityManager.persist(person);
+    	entityManager.getTransaction().commit();
+    	
+    	assertThat(person.getId(), is(notNullValue()));
+    	assertThat(person.getCompany(), is(notNullValue()));
+    	assertThat(person.getCompany().getId(), is(notNullValue()));
+    	assertThat(person.getCompany().getEmployees().size(), is(1));
     }
-
+    
+    @Test
+    public void shouldBeMergeCompanyWithoutPerson() {
+    	final Person person = new Person("Peter", "Lustig");
+    	final Company company = new Company("Intel");
+    	person.setCompany(company);
+    	company.addEmployee(person);
+    	
+    	entityManager.getTransaction().begin();
+    	final Company savedCompany = entityManager.merge(company);
+    	entityManager.getTransaction().commit();
+    	
+    	assertThat(entityManager.contains(savedCompany), is(true));
+    	assertThat(entityManager.contains(company), is(false));
+    	assertThat(entityManager.contains(person), is(false));
+    	
+    	assertThat(savedCompany.getId(), is(notNullValue()));
+    	assertThat(savedCompany.getEmployees(), is(notNullValue()));
+    	assertThat(savedCompany.getEmployees().size(), is(1));
+    }
 }

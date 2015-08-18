@@ -1,6 +1,7 @@
 package org.anderes.edu.relations.onetomany;
 
-import javax.persistence.CascadeType;
+import static javax.persistence.CascadeType.*;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,7 +17,7 @@ public class Person {
     private String firstname;
     private String lastname;
     
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = { PERSIST, MERGE })
     private Company company;
     
     Person() {
@@ -50,6 +51,9 @@ public class Person {
     }
 
 	public void setCompany(final Company company) {
+		if (this.company != null) {
+			this.company.removeEmployee(this);
+		}
 		this.company = company;
 	}
 	
@@ -61,7 +65,11 @@ public class Person {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((company == null) ? 0 : company.hashCode());
+		result = prime * result
+				+ ((firstname == null) ? 0 : firstname.hashCode());
+		result = prime * result
+				+ ((lastname == null) ? 0 : lastname.hashCode());
 		return result;
 	}
 
@@ -74,11 +82,22 @@ public class Person {
 		if (getClass() != obj.getClass())
 			return false;
 		Person other = (Person) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (company == null) {
+			if (other.company != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!company.equals(other.company))
+			return false;
+		if (firstname == null) {
+			if (other.firstname != null)
+				return false;
+		} else if (!firstname.equals(other.firstname))
+			return false;
+		if (lastname == null) {
+			if (other.lastname != null)
+				return false;
+		} else if (!lastname.equals(other.lastname))
 			return false;
 		return true;
 	}
+
 }
