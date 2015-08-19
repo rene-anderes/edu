@@ -1,19 +1,17 @@
 package org.anderes.edu.relations.onetomany;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
 
-/**
- * Entity implementation class for Entity: Company
- * 
- */
+
 @Entity
 public class Company implements Serializable {
 
@@ -24,7 +22,7 @@ public class Company implements Serializable {
 	private Long id;
 	
 	@OneToMany(mappedBy="company")
-	private Collection<Person> employees = new ArrayList<Person>();
+	private Collection<Person> employees = new HashSet<>();
 
 	private String name;
 
@@ -51,16 +49,37 @@ public class Company implements Serializable {
 		this.name = name;
 	}
 
+	/* ------------- Pattern für JPA bidirektionale Beziehung ------------ */ 
+
 	public void addEmployee(final Person person) {
-		if (!employees.contains(person)) {
-			employees.add(person);
-		}
+	    person.setCompany(this);
+	}
+
+	/*package*/ void internalAddEmployee(Person person) {
+	    employees.add(person);
 	}
 	
 	public void removeEmployee(final Person person) {
-		employees.remove(person);
+	    if (!employees.contains(person)) {
+	        throw new IllegalArgumentException("Die Person ist kein Mitarbeiter dieser Firma.");
+	    }
+	    person.setCompany(null);
+	}
+	
+	/*package*/ void internalRemoveEmployee(Person person) {
+	    employees.remove(person);
+	}
+	
+	@PreRemove
+    public void preRemove() {
+	    final Collection<Person> employees = new HashSet<Person>(getEmployees());
+	    for (Person person : employees) {
+            removeEmployee(person);
+        }
 	}
 
+	/* /------------ Pattern für JPA bidirektionale Beziehung ------------ */ 
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -85,5 +104,4 @@ public class Company implements Serializable {
 			return false;
 		return true;
 	}
-
 }

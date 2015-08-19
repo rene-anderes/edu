@@ -1,11 +1,10 @@
 package org.anderes.edu.relations.onetomany;
 
-import static javax.persistence.CascadeType.*;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.PreRemove;
 
 @Entity
 public class Person {
@@ -17,7 +16,7 @@ public class Person {
     private String firstname;
     private String lastname;
     
-    @ManyToOne(cascade = { PERSIST, MERGE })
+    @ManyToOne
     private Company company;
     
     Person() {
@@ -50,12 +49,24 @@ public class Person {
         return id;
     }
 
+    /* ------------- Pattern für JPA bidirektionale Beziehung ------------ */ 
+    
 	public void setCompany(final Company company) {
 		if (this.company != null) {
-			this.company.removeEmployee(this);
+			this.company.internalRemoveEmployee(this);
 		}
 		this.company = company;
+		if (company != null) {
+		    company.internalAddEmployee(this);
+		}
 	}
+	
+	@PreRemove
+	public void preRemove() {
+	    setCompany(null);
+	}
+	
+	/* /------------ Pattern für JPA bidirektionale Beziehung ------------ */ 
 	
 	public Company getCompany() {
 		return this.company;
