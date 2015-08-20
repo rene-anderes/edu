@@ -11,6 +11,8 @@
 
           <class>org.anderes.edu.relations.onetomany.Person</class>
           <class>org.anderes.edu.relations.onetomany.Company</class>
+          <class>org.anderes.edu.relations.onetomany.Order</class>
+          <class>org.anderes.edu.relations.onetomany.OrderItem</class>
 
           <properties>
                <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" /> <!-- Embedded-Driver -->

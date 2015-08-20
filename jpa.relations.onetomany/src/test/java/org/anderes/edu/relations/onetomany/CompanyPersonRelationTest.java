@@ -3,20 +3,15 @@ package org.anderes.edu.relations.onetomany;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
-import java.util.Collection;
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
-public class OneToManyTest {
+public class CompanyPersonRelationTest {
 
     private EntityManager entityManager;
     
@@ -51,10 +46,16 @@ public class OneToManyTest {
         assertThat(amd.getEmployees().size(), is(2));
     }
     
+    /**
+     * Wird eine Person als Mitarbeiter aus dem Betrieb gelöscht,
+     * so existieren beide Objekte (Person und Company) weiter haben
+     * jedoch keine Beziehung mehr.
+     */
     @Test
     public void shouldBeFireOneEmployee() {
         final Company microsoft = entityManager.find(Company.class, 10003L);
         final Person billGates = entityManager.find(Person.class, 2004L);
+        assertThat(microsoft.getEmployees().size(), is(3));
 
         microsoft.removeEmployee(billGates);
         
@@ -63,6 +64,7 @@ public class OneToManyTest {
         entityManager.getTransaction().commit();
         
         assertThat(billGates.getCompany(), is(nullValue()));
+        assertThat(microsoft.getEmployees().size(), is(2));
     }
     
     /**
@@ -82,6 +84,11 @@ public class OneToManyTest {
         assertThat(amd.getEmployees().size(), is(1));
     }
     
+    /**
+     * Wird eine Company gelöscht, so muss sicher gestellt werden, dass
+     * die Personen (in diesem Fall die Mitarbeiter) keine Verbindung
+     * bzw. Referenz zu dieser Company mehr haben: {@code @PreRemove} in der Klasse Company
+     */
     @Test
     public void shouldBeDeleteOneCompay() {
         final Company google = entityManager.find(Company.class, 10004L);
@@ -90,6 +97,11 @@ public class OneToManyTest {
         entityManager.getTransaction().begin();
         entityManager.remove(google);
         entityManager.getTransaction().commit();
+        
+        final Person larryPage = entityManager.find(Person.class, 2009L);
+        assertThat(larryPage.getCompany(), is(nullValue()));
+        final Person sergeyBrin = entityManager.find(Person.class, 2010L);
+        assertThat(sergeyBrin.getCompany(), is(nullValue()));
     }
     
     /**
