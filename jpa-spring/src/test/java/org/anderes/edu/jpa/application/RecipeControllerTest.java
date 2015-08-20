@@ -116,7 +116,7 @@ public class RecipeControllerTest {
     private Recipe createRecipe() {
         final Recipe recipe = new Recipe(UUID.randomUUID().toString());
         recipe.setTitle("Neues Rezept vom Junit-Test");
-        recipe.setPreample("Da gibt es einiges zu sagen");
+        recipe.setPreamble("Da gibt es einiges zu sagen");
         recipe.setAddingDate(december(24, 2014));
         recipe.setLastUpdate(december(29, 2014));
         recipe.setNoOfPerson("2");

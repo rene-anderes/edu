@@ -10,7 +10,7 @@ public class RecipeBuilder {
 	public static Recipe buildRecipe() {
 		final Recipe recipe = new Recipe(UUID.randomUUID().toString());
 		recipe.setTitle("Meine neues Rezept");
-		recipe.setPreample("Einige Informationen im Voraus.");
+		recipe.setPreamble("Einige Informationen im Voraus.");
 		recipe.setNoOfPerson("2");
 		recipe.setPreparation("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque convallis lacus at sagittis scelerisque. Donec at mauris ac mi pharetra.");
 		recipe.setAddingDate(december(24, 2000));

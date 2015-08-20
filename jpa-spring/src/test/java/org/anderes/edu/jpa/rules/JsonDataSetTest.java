@@ -48,7 +48,7 @@ public class JsonDataSetTest {
         assertThat((Integer)table.getValue(0, "ID"), is(100));
         assertThat(table.getValue(0, "TITLE"), is(instanceOf(String.class)));
         assertThat((String)table.getValue(0, "TITLE"), is("Arabische Spaghetti"));
-        assertThat(table.getValue(0, "PREAMPLE"), is(instanceOf(String.class)));
-        assertThat((String)table.getValue(0, "PREAMPLE"), is("Da bei diesem Rezept das Scharfe (Curry) mit dem Süssen (Sultaninen) gemischt wird, habe ich diese Rezept \"Arabische Spaghetti\" benannt."));
+        assertThat(table.getValue(0, "PREAMBLE"), is(instanceOf(String.class)));
+        assertThat((String)table.getValue(0, "PREAMBLE"), is("Da bei diesem Rezept das Scharfe (Curry) mit dem Süssen (Sultaninen) gemischt wird, habe ich diese Rezept \"Arabische Spaghetti\" benannt."));
     }
 }

@@ -116,17 +116,17 @@ public class RecipeRepositoryTest {
     )
     public void shouldBeUpdateRecipe() {
         final Recipe updateRecipe = repository.findOne("c0e5582e-252f-4e94-8a49-e12b4b047afb");
-        updateRecipe.setPreample("Neuer Preample vom Test");
+        updateRecipe.setPreamble("Neuer Preamble vom Test");
         updateRecipe.addIngredient(new Ingredient("1", "Tomate", "vollreif"));
         final Recipe savedRecipe = repository.save(updateRecipe);
         
         assertThat(savedRecipe, is(not(nullValue())));
-        assertThat(savedRecipe.getPreample(), is("Neuer Preample vom Test"));
+        assertThat(savedRecipe.getPreamble(), is("Neuer Preamble vom Test"));
         assertThat(savedRecipe.getIngredients().size(), is(4));
         
         final Recipe findRecipe = repository.findOne(savedRecipe.getUuid());
         assertThat(findRecipe, is(not(nullValue())));
-        assertThat(findRecipe.getPreample(), is("Neuer Preample vom Test"));
+        assertThat(findRecipe.getPreamble(), is("Neuer Preamble vom Test"));
         assertNotSame(updateRecipe, findRecipe);
         assertThat(updateRecipe, is(findRecipe));
     }

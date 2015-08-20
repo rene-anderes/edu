@@ -79,7 +79,7 @@ public class Recipe implements Serializable {
 
     @Size(min = 0, max = 8000)
 	@Column(nullable = true, length = 8000)
-	private String preample;
+	private String preamble;
 
 	@NotNull @Size(min = 1, max = 10)
     @Column(nullable = false, length = 10)
@@ -179,12 +179,12 @@ public class Recipe implements Serializable {
 		this.preparation = preparation;
 	}
 
-	public String getPreample() {
-		return preample;
+	public String getPreamble() {
+		return preamble;
 	}
 
-	public void setPreample(final String preample) {
-		this.preample = preample;
+	public void setPreamble(final String preamble) {
+		this.preamble = preamble;
 	}
 
 	public String getNoOfPerson() {
@@ -219,7 +219,7 @@ public class Recipe implements Serializable {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-            .append("uuid", uuid).append("title", title).append("preample", preample)
+            .append("uuid", uuid).append("title", title).append("preamble", preamble)
             .append("image", image).append("noOfPerson", noOfPerson).append("ingredients", ingredients)
             .append("preparation", preparation).append("tags", tags).append("lastUpdate", lastUpdate)
             .append("addingUpdate", addingDate).append("rating", rating).toString();
@@ -228,7 +228,7 @@ public class Recipe implements Serializable {
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder(17, 37).append(uuid).append(title).append(image)
-				.append(preample).append(preparation).append(noOfPerson)
+				.append(preamble).append(preparation).append(noOfPerson)
 				.append(lastUpdate).append(addingDate).append(rating)
 				.append(ingredients).append(tags).toHashCode();
 	}
@@ -246,7 +246,7 @@ public class Recipe implements Serializable {
 		}
 		Recipe rhs = (Recipe) obj;
 		return new EqualsBuilder().append(uuid, rhs.uuid).append(title, rhs.title)
-				.append(preample, rhs.preample).append(lastUpdate, rhs.lastUpdate)
+				.append(preamble, rhs.preamble).append(lastUpdate, rhs.lastUpdate)
 				.append(addingDate, rhs.addingDate).append(rating, rhs.rating)
 				.append(noOfPerson, rhs.noOfPerson).append(image, rhs.image)
 				.append(ingredients, rhs.ingredients)

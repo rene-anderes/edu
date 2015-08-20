@@ -32,7 +32,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
                 "classpath:unittest-application-context.xml"
 })
 @CleanupUsingScript(value = { "/sql/DeleteTableContentScript.sql" })
-@UsingDataSet(value = { "/prepaire.xls" })
+@UsingDataSet(value = { "/prepare.xls" })
 public class RecipeRepositoryTestClassAnnotations {
 
     @Inject
@@ -54,7 +54,7 @@ public class RecipeRepositoryTestClassAnnotations {
     
     @Test
     @ShouldMatchDataSet(
-            value = { "/prepaire.xls" },
+            value = { "/prepare.xls" },
             orderBy = { "RECIPE.UUID", "INGREDIENT.ID" })
     public void shouldBeFindAll() {
         Iterable<Recipe> recipes = repository.findAll();
@@ -77,7 +77,7 @@ public class RecipeRepositoryTestClassAnnotations {
     
     @Test
     @ShouldMatchDataSet(
-            value = { "/prepaire.xls" },
+            value = { "/prepare.xls" },
             orderBy = { "RECIPE.UUID", "INGREDIENT.ID" })
     public void getRecipesByTitle() {
         final Collection<Recipe> recipes = repository.findByTitleLike("%Spaghetti%");
@@ -112,17 +112,17 @@ public class RecipeRepositoryTestClassAnnotations {
     )
     public void shouldBeUpdateRecipe() {
         final Recipe updateRecipe = repository.findOne("c0e5582e-252f-4e94-8a49-e12b4b047afb");
-        updateRecipe.setPreample("Neuer Preample vom Test");
+        updateRecipe.setPreamble("Neuer Preamble vom Test");
         updateRecipe.addIngredient(new Ingredient("1", "Tomate", "vollreif"));
         final Recipe savedRecipe = repository.save(updateRecipe);
         
         assertThat(savedRecipe, is(not(nullValue())));
-        assertThat(savedRecipe.getPreample(), is("Neuer Preample vom Test"));
+        assertThat(savedRecipe.getPreamble(), is("Neuer Preamble vom Test"));
         assertThat(savedRecipe.getIngredients().size(), is(4));
         
         final Recipe findRecipe = repository.findOne(savedRecipe.getUuid());
         assertThat(findRecipe, is(not(nullValue())));
-        assertThat(findRecipe.getPreample(), is("Neuer Preample vom Test"));
+        assertThat(findRecipe.getPreamble(), is("Neuer Preamble vom Test"));
         assertNotSame(updateRecipe, findRecipe);
         assertThat(updateRecipe, is(findRecipe));
     }
