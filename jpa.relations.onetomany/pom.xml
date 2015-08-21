@@ -18,7 +18,6 @@
     </properties>
 
     <dependencies>
-
         <!-- JPA API -->
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
@@ -31,15 +30,8 @@
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.jpa</artifactId>
             <version>2.6.0</version>
-            <scope>compile</scope>
+            <scope>runtime</scope>
         </dependency>
-        <!-- Diese Abhängigkeit sorgt dafür, dass der Kompiler auch die JPA Metadaten generiert -->
-        <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
-            <version>2.6.0</version>
-        </dependency>
-
         <!-- Database -->
         <dependency>
             <groupId>org.apache.derby</groupId>
@@ -81,26 +73,6 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
-            </plugin>
-            <plugin>
-                <!-- Dadurch wird das generierte Metamodell in den Source-Pfad aufgenommen -->
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.7</version>
-                <executions>
-                    <execution>
-                        <id>add-source</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>${project.build.directory}/generated-sources/annotations</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

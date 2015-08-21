@@ -14,10 +14,10 @@ import org.junit.Test;
 public class CompanyPersonRelationTest {
 
     private EntityManager entityManager;
+    private final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("testDB");
     
     @Before
     public void setUp() throws Exception {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("testDB");
         entityManager = entityManagerFactory.createEntityManager();
     }
 

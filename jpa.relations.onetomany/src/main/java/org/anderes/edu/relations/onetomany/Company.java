@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,13 +21,13 @@ public class Company implements Serializable {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Column(nullable = false)
+	private String name;
 	
 	@OneToMany(mappedBy="company")
 	private Collection<Person> employees = new HashSet<>();
 
-	private String name;
-
-	/*package*/ Company() {};
+	Company() {};
 	
 	public Company(final String name) {
 		super();

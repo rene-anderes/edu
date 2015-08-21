@@ -6,26 +6,26 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PreRemove;
 
-@Entity
+@Entity(name = "ORDERING")
 public class Order {
     
     @Id
     @GeneratedValue
     private Long id;
+    @Column(nullable = false)
+    private Long orderNumber;
 
     @OneToMany(mappedBy="order", cascade = { CascadeType.ALL }, orphanRemoval = true)
     private Set<OrderItem> items = new HashSet<>();
     
-    private Long orderNumber;
-    
-    @SuppressWarnings("unused")
-    private Order() {
+    Order() {
         super();
     }
     

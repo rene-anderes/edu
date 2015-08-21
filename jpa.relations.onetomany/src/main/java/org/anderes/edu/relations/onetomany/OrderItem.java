@@ -1,5 +1,6 @@
 package org.anderes.edu.relations.onetomany;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,18 +13,18 @@ public class OrderItem {
     @Id
     @GeneratedValue
     private Long id;
+    @Column(nullable = false)
+    private String description;
     
     @ManyToOne
     private Order order;
-    private String description;
     
-    @SuppressWarnings("unused")
-    private OrderItem() {
+    OrderItem() {
         super();
     };
     
-    public OrderItem(String description) {
-        this.description = description;
+    public OrderItem(String item) {
+        this.description = item;
     }
 
     public String getDescription() {

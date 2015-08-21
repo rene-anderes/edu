@@ -12,4 +12,13 @@ insert into "PERSON" ("ID", "FIRSTNAME", "LASTNAME", "COMPANY_ID") values(2007, 
 insert into "PERSON" ("ID", "FIRSTNAME", "LASTNAME", "COMPANY_ID") values(2008, 'Julian', 'Assange', null)
 insert into "PERSON" ("ID", "FIRSTNAME", "LASTNAME", "COMPANY_ID") values(2009, 'Larry', 'Page', 10004)
 insert into "PERSON" ("ID", "FIRSTNAME", "LASTNAME", "COMPANY_ID") values(2010, 'Sergey', 'Brin', 10004)
+insert into "ORDERING" ("ID", "ORDERNUMBER") values(5001, 1)
+insert into "ORDERING" ("ID", "ORDERNUMBER") values(5002, 2)
+insert into "ORDERING" ("ID", "ORDERNUMBER") values(5003, 3)
+insert into "ORDERITEM" ("ID", "DESCRIPTION", "ORDER_ID") values(6001, 'Gartenhandschuhe', 5001)
+insert into "ORDERITEM" ("ID", "DESCRIPTION", "ORDER_ID") values(6002, 'Gartenschlauch', 5001)
+insert into "ORDERITEM" ("ID", "DESCRIPTION", "ORDER_ID") values(6003, 'Rasenmäher', 5002)
+insert into "ORDERITEM" ("ID", "DESCRIPTION", "ORDER_ID") values(6004, 'Rosenschere', 5002)
+insert into "ORDERITEM" ("ID", "DESCRIPTION", "ORDER_ID") values(6005, 'Rasenmäher', 5003)
+insert into "ORDERITEM" ("ID", "DESCRIPTION", "ORDER_ID") values(6006, 'Rosenschere', 5003)
 
