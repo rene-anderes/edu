@@ -2,12 +2,11 @@ package org.anderes.edu.relations.onetomany;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
-import javax.persistence.CascadeType;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.OneToMany;
 import javax.persistence.Persistence;
 import javax.persistence.RollbackException;
 
@@ -66,6 +65,10 @@ public class OrderItemRelationPersistenceTest {
      * </p>
      * In diesem Fall macht es auch aus fachlicher Sicht keinen Sinn
      * mittels OrderItem die neue Bestellung abzuspeichern.
+     * </p>
+     * Mittels {@code EntityManager.merge()} versucht der EntityManager
+     * nicht nur den OrderItem zu persistieren sondern auch den Order.
+     * Das ist nicht das erwartete Verhalten.
      */
     @Test(expected = RollbackException.class)
     public void shouldNotBePersistNewOrderItemWithNewOrder() {
@@ -81,6 +84,8 @@ public class OrderItemRelationPersistenceTest {
     /**
      * Eine neue Bestellposition (OrderItem) einer bestehenden
      * Bestellung (Order) hinzufügen und die Bestellung persistieren.
+     * </p>
+     * Funktioniert mit {@code merge()} und {@code persist()} 
      */
     @Test
     public void shouldBeAddOneNewOrderItem() {
@@ -96,8 +101,40 @@ public class OrderItemRelationPersistenceTest {
         assertThat(orderItem.getOrder(), is(order));
     }
     
+    /**
+     * Beim löschen eines OrderItem sollte die Gegenbeziehung auch aufgelöst werden.
+     * Dies geschiht mittels der Methode {@code preRemove()} durch die Annotierung {@code @PreRemove}.
+     */
     @Test
     public void shouldBeDeleteOneOrderItem() {
+        final OrderItem orderItem = entityManager.find(OrderItem.class, 6006L);
+        final Order order = orderItem.getOrder();
         
+        entityManager.getTransaction().begin();
+        entityManager.remove(orderItem);
+        entityManager.getTransaction().commit();
+        
+        assertThat(order.getOrderItems().size(), is(1));
+        assertThat(orderItem.getOrder(), is(nullValue()));
+        assertThat(entityManager.contains(orderItem), is(false));
+    }
+    
+    /**
+     * Wir eine Order (Bestellung) gelöscht, sollte durch die JPA-Annotierung
+     * {@code cascade = CascadeType.ALL} und {@code orphanRemoval = true} auch
+     * die entsprechenden OrderItem's (Bestellpositionen) gelöscht werden.
+     */
+    @Test
+    public void shouldBeDeleteOneOrder() {
+        final Order order = entityManager.find(Order.class, 5004L);
+        
+        entityManager.getTransaction().begin();
+        entityManager.remove(order);
+        entityManager.getTransaction().commit();
+        
+        assertThat(entityManager.contains(order), is(false));
+        assertThat(order.getOrderItems().size(), is(0));
+        assertThat(entityManager.find(OrderItem.class, 6007L), is(nullValue()));
+        assertThat(entityManager.find(OrderItem.class, 6008L), is(nullValue()));
     }
 }
