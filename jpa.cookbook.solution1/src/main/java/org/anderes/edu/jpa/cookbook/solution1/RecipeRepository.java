@@ -54,9 +54,9 @@ public class RecipeRepository {
 		Validate.notNull(entity, "Der Parameter darf nicht null sein.");
 		
 		entityManager.getTransaction().begin();
-		entityManager.persist(entity);
+		final Recipe saved = entityManager.merge(entity);
 		entityManager.getTransaction().commit();
-		return entity;
+		return saved;
 	}
 		
 	public void remove(final Recipe entity) {
