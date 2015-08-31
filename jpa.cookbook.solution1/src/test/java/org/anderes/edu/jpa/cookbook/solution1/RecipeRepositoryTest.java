@@ -52,12 +52,25 @@ public class RecipeRepositoryTest {
 	@Test
 	public void shouldBeUpdateRecipe() {
 		final Recipe updateRecipe = repository.findOne(Long.valueOf(10001L));
-		updateRecipe.setPreample("Neuer Preample vom Test");
+		updateRecipe.setPreamble("Neuer Preamble vom Test");
 		final Recipe savedRecipe = repository.save(updateRecipe);
 		
 		assertThat(savedRecipe, is(not(nullValue())));
-		assertThat(savedRecipe.getPreample(), is("Neuer Preample vom Test"));
+		assertThat(savedRecipe.getPreamble(), is("Neuer Preamble vom Test"));
 		assertThat(savedRecipe.getIngredients().size(), is(4));
+	}
+	
+	@Test
+	public void shouldBeRemoveOneIngredient() {
+	    final Recipe updateRecipe = repository.findOne(Long.valueOf(10003L));
+	    assertThat(updateRecipe.getIngredients().size(), is(4));
+	    final Ingredient ingredientForRemove = updateRecipe.getIngredients().iterator().next();
+	    
+	    updateRecipe.removeIngredient(ingredientForRemove);
+	    
+	    final Recipe savedRecipe = repository.save(updateRecipe);
+	    assertThat(savedRecipe, is(not(nullValue())));
+        assertThat(savedRecipe.getIngredients().size(), is(3));
 	}
 	
 	@Test

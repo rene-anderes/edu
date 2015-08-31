@@ -52,7 +52,7 @@ public class Recipe implements Serializable {
 	@Column(nullable = true)
 	private Image image;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "RECIPE_ID")
 	private Set<Ingredient> ingredients = new HashSet<Ingredient>();
 
@@ -60,7 +60,7 @@ public class Recipe implements Serializable {
 	private String preparation;
 
 	@Column(nullable = true)
-	private String preample;
+	private String preamble;
 
 	@Column(nullable = false, length = 2)
 	private Integer noOfPerson;
@@ -95,7 +95,7 @@ public class Recipe implements Serializable {
 
 	@Override
 	public String toString() {
-		return new StrBuilder().append(title).append(preample).append(image).append(noOfPerson)
+		return new StrBuilder().append(title).append(preamble).append(image).append(noOfPerson)
 				.append(ingredients).append(preparation).append(tags).toString();
 	}
 
@@ -119,12 +119,12 @@ public class Recipe implements Serializable {
 		this.preparation = preparation;
 	}
 
-	public String getPreample() {
-		return preample;
+	public String getPreamble() {
+		return preamble;
 	}
 
-	public void setPreample(final String preample) {
-		this.preample = preample;
+	public void setPreamble(final String preamble) {
+		this.preamble = preamble;
 	}
 
 	public Integer getNoOfPerson() {
@@ -150,7 +150,7 @@ public class Recipe implements Serializable {
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder(17, 37).append(title).append(image)
-				.append(preample).append(preparation).append(noOfPerson)
+				.append(preamble).append(preparation).append(noOfPerson)
 				.append(ingredients.toArray()).append(tags.toArray()).toHashCode();
 	}
 
@@ -167,7 +167,7 @@ public class Recipe implements Serializable {
 		}
 		Recipe rhs = (Recipe) obj;
 		return new EqualsBuilder().append(title, rhs.title)
-				.append(preample, rhs.preample)
+				.append(preamble, rhs.preamble)
 				.append(noOfPerson, rhs.noOfPerson).append(image, rhs.image)
 				.append(ingredients.toArray(), rhs.ingredients.toArray())
 				.append(preparation, rhs.preparation).isEquals();
