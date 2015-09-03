@@ -51,6 +51,12 @@
             <artifactId>derby</artifactId>
             <version>10.11.1.1</version>
         </dependency>
+        <!-- MySql Database -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.36</version>
+        </dependency>
         <!-- Oracle Database Driver -->
         <!-- 
         <dependency>
@@ -110,6 +116,97 @@
                 </executions>
             </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>sql-maven-plugin</artifactId>
+                    <version>1.5</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>mysql</groupId>
+                            <artifactId>mysql-connector-java</artifactId>
+                            <version>5.1.36</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <driver>${javax.persistence.jdbc.driver}</driver>
+                        <url>${javax.persistence.jdbc.url}</url>
+                        <username>${javax.persistence.jdbc.user}</username>
+                        <password>${javax.persistence.jdbc.password}</password>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
+    <profiles>
+    
+        <profile>
+            <id>derby-embedded</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <javax.persistence.jdbc.driver>org.apache.derby.jdbc.EmbeddedDriver</javax.persistence.jdbc.driver>
+                <javax.persistence.jdbc.url>jdbc:derby:testDB;create=true</javax.persistence.jdbc.url>
+                <javax.persistence.jdbc.user>APP</javax.persistence.jdbc.user>
+                <javax.persistence.jdbc.password>APP</javax.persistence.jdbc.password>
+                <create.tables.file>src/main/sql/derby-create-Tables.sql</create.tables.file>
+                <drop.tables.file>src/main/sql/derby-drop-tables.sql</drop.tables.file>
+            </properties>
+        </profile>
+        <profile>
+            <id>mysql-local</id>
+            <properties>
+                <javax.persistence.jdbc.driver>com.mysql.jdbc.Driver</javax.persistence.jdbc.driver>
+                <javax.persistence.jdbc.url>jdbc:mysql://localhost/recipes</javax.persistence.jdbc.url>
+                <javax.persistence.jdbc.user>root</javax.persistence.jdbc.user>
+                <javax.persistence.jdbc.password></javax.persistence.jdbc.password>
+                <create.tables.file>src/main/sql/mysql-create-Tables.sql</create.tables.file>
+                <drop.tables.file>src/main/sql/mysql-drop-tables.sql</drop.tables.file>
+            </properties>
+        </profile>
+        
+        <profile>
+            <id>create-tables</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>sql-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>drop-table</id>
+                                <phase>process-test-resources</phase>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <configuration>
+                                    <onError>continue</onError>
+                                    <autocommit>true</autocommit>
+                                    <srcFiles>
+                                        <srcFile>${drop.tables.file}</srcFile>
+                                    </srcFiles>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>create-table</id>
+                                <phase>process-test-resources</phase>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <configuration>
+                                    <autocommit>true</autocommit>
+                                    <srcFiles>
+                                        <srcFile>${create.tables.file}</srcFile>
+                                    </srcFiles>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

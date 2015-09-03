@@ -15,7 +15,7 @@ public class RecipeRepository {
 	private EntityManager entityManager; 
 	
 	private RecipeRepository() {
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("testDB");
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("eclipseLinkPU");
         entityManager = entityManagerFactory.createEntityManager();
 	}
 	
@@ -54,9 +54,9 @@ public class RecipeRepository {
 		Validate.notNull(entity, "Der Parameter darf nicht null sein.");
 		
 		entityManager.getTransaction().begin();
-		final Recipe saved = entityManager.merge(entity);
+		entityManager.persist(entity);
 		entityManager.getTransaction().commit();
-		return saved;
+		return entity;
 	}
 		
 	public void remove(final Recipe entity) {

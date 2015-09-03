@@ -5,7 +5,7 @@
      xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
      http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/persistence/persistence_2_1.xsd">
 
-     <persistence-unit name="testDB" transaction-type="RESOURCE_LOCAL">
+     <persistence-unit name="eclipseLinkPU" transaction-type="RESOURCE_LOCAL">
 
           <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
@@ -15,6 +15,7 @@
 
           <properties>
                <!-- JPA connection information for the database -->
+               
                <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ DERBY Instanz ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
                <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
                <property name="javax.persistence.jdbc.url" value="jdbc:derby:testDB;create=true" />
@@ -27,6 +28,13 @@
                <property name="javax.persistence.jdbc.user" value="developer" />
                <property name="javax.persistence.jdbc.password" value="developer" />
                -->
+               <!--  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ MySQL ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+               <!-- 
+               <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+               <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/recipes" />
+               <property name="javax.persistence.jdbc.user" value="root" />
+               <property name="javax.persistence.jdbc.password" value="" />
+                -->               
                
                <!-- Specifies the action to be taken by the persistence provider with regard to the database artifacts -->
                <!-- Valid values for this property: none, create, drop-and-create, drop -->
@@ -66,8 +74,9 @@
                <!-- Specifies a java.IO.Reader configured for reading of the SQL load script for database initialization or a
                     string designating a file URL for the script. -->
                <property name="javax.persistence.sql-load-script-source" value="META-INF/load.sql" />
-               
+                
                <!-- see http://www.eclipse.org/eclipselink/api/2.5/index.html?org/eclipse/persistence/config/TargetDatabase.html -->
+               <!-- Derby MySQL etc. -->
                <property name="eclipselink.target-database" value="Derby" />
                
                <!-- This specifies if generation of database-platform-specific SQL should be enabled -->
