@@ -7,6 +7,7 @@
 
     <groupId>org.anderes.edu.appengine</groupId>
     <artifactId>cloudcookbook</artifactId>
+    <url>https://primeval-falcon-839.appspot.com/</url>
 
     <properties>
         <app.id>primeval-falcon-839</app.id>
@@ -44,7 +45,12 @@
             <artifactId>objectify</artifactId>
             <version>5.1.7</version>
         </dependency>
-
+        <!-- JAX-RS 2.0 -->
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+            <version>2.21</version>
+        </dependency>
         <!-- Test Dependencies -->
         <dependency>
             <groupId>com.google.appengine</groupId>
@@ -64,7 +70,7 @@
         <!-- for hot reload of the web application -->
         <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
         <plugins>
-            <!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>versions-maven-plugin</artifactId> <version>2.1</version> <executions> <execution> <phase>compile</phase> <goals> <goal>display-dependency-updates</goal> 
+            <!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>versions-maven-plugin</artifactId> <version>2.1</version> <executions> <execution> <phase>compile</phase> <goals> <goal>display-dependency-updates</goal>
                 <goal>display-plugin-updates</goal> </goals> </execution> </executions> </plugin> -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
