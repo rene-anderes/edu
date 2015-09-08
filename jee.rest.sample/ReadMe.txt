@@ -31,7 +31,7 @@ Zugriff
 Mittels z.B. SoapUI kann nun auch die REST-Schnittstelle zugriffen werde.
 Bspw.: http://localhost:8080/rest-sample/services/helloworld
 
-Für SoapUI existiert ein SoapUI-Projekt mit allen Requests die Möglich sind.
+Für SoapUI existiert ein SoapUI-Projekt (Datei: REST-Project-soapui-project.xml) mit allen Requests die möglich sind.
 Beachte: Server und Port überprüfen und allenfalls anpassen.
 
 Integrationstest
