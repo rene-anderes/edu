@@ -2,10 +2,12 @@ Projekt REST-Sample
 
 Beschreibung
 Ein einfaches Beispiel für eine Rest-Schnittstelle.
-Es sind drei unterschiedliche Schnittstellen verfügbar:
+Es sind unterschiedliche Schnittstellen verfügbar:
 ../services/helloworld
 ../services/users/{username}  
 ../services/employees
+../services/recipes
+../services/recipes/{RecipeId}
 
 Voraussetzungen
 - JEE-Application-Server installiert und läuft (z.B. Glassfish)
@@ -28,9 +30,19 @@ Beispiel Glassfish:
 Zugriff
 Mittels z.B. SoapUI kann nun auch die REST-Schnittstelle zugriffen werde.
 Bspw.: http://localhost:8080/rest-sample/services/helloworld
-Für SoapUI existiert ein SoapUI-Projekt mit allen Requests die Möglich sind. Beachte: Server und Port überprüfen und allenfalls anpassen.
+
+Für SoapUI existiert ein SoapUI-Projekt mit allen Requests die Möglich sind.
+Beachte: Server und Port überprüfen und allenfalls anpassen.
 
 Integrationstest
 Der Integrationstest "HelloWorldResourceTest" läuft, wenn die Applikation deployed ist.
 Ist dieses Voraussetzung erfüllt, können die entsprechenden @Ignore-Annotations entfernt, die Variable 'uri' angepasst und der Test kann nun als JUnit-test gestartet werden. Dieser müsste nun Grün werden.
+
+
+Entwicklungsumgebung Eclipse
+Natürlich kann auch aus Eclipse heraus die Applikation deployed werden.
+Dazu notwendig sind:
+- Glassfish-Plugin im Eclipse
+- mittels "Add and Remove" das Projekt Glassfish bekannt machen
+- Publish des Projekts
 

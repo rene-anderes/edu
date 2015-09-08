@@ -2,14 +2,6 @@
 
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	
-	<xs:element name="employees">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="employee" maxOccurs="unbounded"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	
 	<xs:element name="employee">
 		<xs:complexType>
 			<xs:sequence>
