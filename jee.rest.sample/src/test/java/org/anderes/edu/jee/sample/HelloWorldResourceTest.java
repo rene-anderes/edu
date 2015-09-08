@@ -24,12 +24,12 @@ import org.junit.Test;
  * JEE Container deployed ist. Die Variable 'uri' muss mit den Angaben
  * des Servers überein stimmen.
  */
+@Ignore("Dieser Test funktioniert dann, wenn das Projekt auf dem Server deployed ist")
 public class HelloWorldResourceTest {
 	
 	final UriBuilder uri = UriBuilder.fromPath("rest-sample")
 			.scheme("http").host("localhost").port(8088).path("services").path("helloworld");
 	
-	@Ignore("Dieser Test funktioniert dann, wenn das WAR-File auf dem Server deployed ist")
 	@Test
 	public void shouldBeTextResponse() {
 		
@@ -48,7 +48,6 @@ public class HelloWorldResourceTest {
 
 	}
 	
-	@Ignore("Dieser Test funktioniert dann, wenn das WAR-File auf dem Server deployed ist")
 	@Test
 	public void shouldBeHtmlResponse() {
 		
@@ -67,7 +66,6 @@ public class HelloWorldResourceTest {
 
 	}
 	
-	@Ignore("Dieser Test funktioniert dann, wenn das WAR-File auf dem Server deployed ist")
 	@Test 
 	public void shouldBeStoreTheMessage() {
 
