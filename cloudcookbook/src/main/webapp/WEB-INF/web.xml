@@ -8,6 +8,7 @@
             <param-name>javax.ws.rs.Application</param-name>
             <param-value>org.anderes.edu.appengine.cookbook.HelloApplication</param-value>
         </init-param>
+        <load-on-startup>10</load-on-startup>
     </servlet>
 
     <servlet-mapping>
