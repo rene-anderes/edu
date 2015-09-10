@@ -24,7 +24,7 @@ import javax.persistence.Version;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.text.StrBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Entity
 @NamedQueries({
@@ -97,8 +97,8 @@ public class Recipe implements Serializable {
 
 	@Override
 	public String toString() {
-		return new StrBuilder().append(title).append(preamble).append(image).append(noOfPerson)
-				.append(ingredients).append(preparation).append(tags).toString();
+		return new ToStringBuilder(this).append("title", title).append("preamble", preamble).append("image", image).append("noOfPerson", noOfPerson)
+				.append("ingredients", ingredients).append("preparation", preparation).append("tags", tags).toString();
 	}
 
 	public void addIngredient(final Ingredient ingredient) {

@@ -10,7 +10,7 @@ import javax.persistence.Id;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.text.StrBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Entity
 public class Ingredient implements Serializable {
@@ -79,6 +79,6 @@ public class Ingredient implements Serializable {
 
     @Override
     public String toString() {
-    	return new StrBuilder().append(quantity).append(description).append(annotation).build();
+    	return new ToStringBuilder(this).append("quantity", quantity).append("description", description).append("annotation", annotation).toString();
     }
 }

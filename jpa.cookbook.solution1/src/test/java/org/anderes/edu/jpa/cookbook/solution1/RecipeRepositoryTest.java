@@ -43,7 +43,7 @@ public class RecipeRepositoryTest {
 	
 	@Test
 	public void shouldBeFindRecipesByIngredient() {
-	    final Collection<Recipe> recipes = repository.getRecipesByIngredient("Pasta");
+	    final Collection<Recipe> recipes = repository.getRecipesByIngredient("Mehl");
 	    
 	    assertNotNull(recipes);
         assertThat(recipes.size(), is(2));
@@ -61,6 +61,7 @@ public class RecipeRepositoryTest {
 	public void shouldBeUpdateRecipe() {
 		final Recipe updateRecipe = repository.findOne(Long.valueOf(10001L));
 		updateRecipe.setPreamble("Neuer Preamble vom Test");
+		
 		final Recipe savedRecipe = repository.save(updateRecipe);
 		
 		assertThat(savedRecipe, is(not(nullValue())));
