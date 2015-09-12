@@ -11,8 +11,8 @@ public class HelloApplication extends Application {
 
     @Override
     public Set<Class<?>> getClasses() {
-        final Set<Class<?>> claz = new HashSet<Class<?>>();
-        claz.add(HelloWorldResource.class);
-        return claz;
+        final Set<Class<?>> clazz = new HashSet<Class<?>>();
+        clazz.add(HelloWorldResource.class);
+        return clazz;
     }
 }
