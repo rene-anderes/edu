@@ -24,17 +24,19 @@ import javax.persistence.Version;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.text.StrBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Entity
 @NamedQueries({
 		@NamedQuery(name = "Recipe.All", query = "Select r from Recipe r"),
-		@NamedQuery(name = "Recipe.ByTitle", query = "Select r from Recipe r where r.title like :title")
+		@NamedQuery(name = "Recipe.ByTitle", query = "Select r from Recipe r where r.title like :title"),
+		@NamedQuery(name = "Recipe.ByIngredient", query = "Select r from Recipe r join r.ingredients i where i.description like :description")
 		})
 public class Recipe implements Serializable {
 	
 	public final static String RECIPE_QUERY_ALL = "Recipe.All";
 	public final static String RECIPE_QUERY_BYTITLE = "Recipe.ByTitle";
+	public final static String RECIPE_QUERY_BYINGREDIENT = "Recipe.ByIngredient";
 
 	private static final long serialVersionUID = 1L;
 
@@ -95,8 +97,8 @@ public class Recipe implements Serializable {
 
 	@Override
 	public String toString() {
-		return new StrBuilder().append(title).append(preamble).append(image).append(noOfPerson)
-				.append(ingredients).append(preparation).append(tags).toString();
+		return new ToStringBuilder(this).append("title", title).append("preamble", preamble).append("image", image).append("noOfPerson", noOfPerson)
+				.append("ingredients", ingredients).append("preparation", preparation).append("tags", tags).toString();
 	}
 
 	public void addIngredient(final Ingredient ingredient) {

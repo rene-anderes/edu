@@ -25,13 +25,14 @@ public class PersonTest {
     private EntityManager entityManager;
     
     @Before
-    public void setUp() throws Exception {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("testDB");
+    public void setUpOnce() throws Exception {
+        // Der Name der Persistence-Unit entsprcith der in der Konfigurationsdatei META-INF/persistence.xml
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("testPU");
         entityManager = entityManagerFactory.createEntityManager();
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDownOnce() throws Exception {
         entityManager.close();
     }
     
@@ -46,6 +47,7 @@ public class PersonTest {
     }
     
     private Collection<Person> getAllPersons() {
+        // Einfaches Beispiel für eine JPQL
         final TypedQuery<Person> query = entityManager.createQuery("Select e From Person e", Person.class);
         return query.getResultList();
     }
@@ -56,10 +58,9 @@ public class PersonTest {
     	person.setSalary(BigDecimal.valueOf(45000D));
     	person.setGender(FEMALE);
 
-    	// when
-        entityManager.getTransaction().begin();
+        entityManager.getTransaction().begin();     // Transaktion gestartet
         entityManager.persist(person);
-        entityManager.getTransaction().commit();
+        entityManager.getTransaction().commit();    // Transaktion beendet
     }
 
     private Calendar birthday() {

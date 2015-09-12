@@ -43,6 +43,20 @@ public class RecipeRepository {
 	}
 
 	/**
+	 * Gibt alle Rezepte zurück die eine Zutat besitzen mit der Beschreibung
+	 * die als Parameter dieser Methode mitgegeben werden kann.
+	 * 
+	 * @param ingredientDescription
+	 * @return Liste von rezepten
+	 */
+    public Collection<Recipe> getRecipesByIngredient(String ingredientDescription) {
+        final TypedQuery<Recipe> query = entityManager.createNamedQuery(Recipe.RECIPE_QUERY_BYINGREDIENT, Recipe.class);
+        query.setParameter("description", "%" + ingredientDescription + "%");
+        
+        return query.getResultList();
+    }
+	
+	/**
 	 * Nur für Testzwecke
 	 * @return Persistence-Util
 	 */
@@ -54,9 +68,9 @@ public class RecipeRepository {
 		Validate.notNull(entity, "Der Parameter darf nicht null sein.");
 		
 		entityManager.getTransaction().begin();
-		entityManager.persist(entity);
+		final Recipe savedRecipe = entityManager.merge(entity);
 		entityManager.getTransaction().commit();
-		return entity;
+		return savedRecipe;
 	}
 		
 	public void remove(final Recipe entity) {
