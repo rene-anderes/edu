@@ -17,9 +17,21 @@ public class HelloWorldResource {
     
 	@PUT
 	@Consumes(APPLICATION_JSON)
-	public void putMessage(String message) {
+	public void putMessage1(String message) {
 		logger.info(message);
 	}
+	
+	@GET
+    @Produces({APPLICATION_JSON})
+    public RecipeDto getClichedMessage1() {
+        return new RecipeDto("Hello World");
+    }
+	
+	@PUT
+    @Consumes(TEXT_PLAIN)
+    public void putMessage(String message) {
+        logger.info("Meldung (text/plain): " + message);
+    }
 
 	@GET
 	@Produces({TEXT_PLAIN, TEXT_HTML})
