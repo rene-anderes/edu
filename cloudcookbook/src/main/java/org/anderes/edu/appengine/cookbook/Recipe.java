@@ -28,8 +28,9 @@ public class Recipe {
 		return image;
 	}
 
-	public void setImage(Image image) {
+	public Recipe setImage(Image image) {
 		this.image = image;
+		return this;
 	}
 
 	public Long getId() {
@@ -40,8 +41,9 @@ public class Recipe {
 		return title;
 	}
 
-	public void setTitle(String title) {
+	public Recipe setTitle(String title) {
 		this.title = title;
+		return this;
 	}
 
 	@Override
@@ -66,24 +68,27 @@ public class Recipe {
 		return preparation;
 	}
 
-	public void setPreparation(final String preparation) {
+	public Recipe setPreparation(final String preparation) {
 		this.preparation = preparation;
+		return this;
 	}
 
 	public String getPreamble() {
 		return preamble;
 	}
 
-	public void setPreamble(final String preamble) {
+	public Recipe setPreamble(final String preamble) {
 		this.preamble = preamble;
+		return this;
 	}
 
 	public Integer getNoOfPerson() {
 		return noOfPerson;
 	}
 
-	public void setNoOfPerson(final Integer noOfPerson) {
+	public Recipe setNoOfPerson(final Integer noOfPerson) {
 		this.noOfPerson = noOfPerson;
+		return this;
 	}
 
 	public Set<String> getTags() {

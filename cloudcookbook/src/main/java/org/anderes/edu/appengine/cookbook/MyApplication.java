@@ -5,12 +5,13 @@ import java.util.Set;
 
 import javax.ws.rs.core.Application;
 
-public class HelloApplication extends Application {
+public class MyApplication extends Application {
 
     @Override
     public Set<Class<?>> getClasses() {
         final Set<Class<?>> clazz = new HashSet<Class<?>>();
         clazz.add(HelloWorldResource.class);
+        clazz.add(RecipeResource.class);
         return clazz;
     }
 }
