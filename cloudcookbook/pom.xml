@@ -12,7 +12,7 @@
     <properties>
         <app.id>primeval-falcon-839</app.id>
         <app.version>1</app.version>
-        <appengine.version>1.9.25</appengine.version>
+        <appengine.version>1.9.26</appengine.version>
         <gcloud.plugin.version>2.0.9.76.v20150902</gcloud.plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
@@ -46,9 +46,10 @@
             <version>3.4</version>
         </dependency>
         <!-- JAX-RS 2.0 -->
+        <!-- https://jersey.java.net/documentation/latest/user-guide.html#dependencies -->
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-servlet</artifactId>
+            <artifactId>jersey-container-servlet-core</artifactId>
             <version>2.21</version>
         </dependency>
         <!-- Jersey JSON Jackson (2.x) entity providers support module. -->
@@ -78,8 +79,22 @@
         <!-- for hot reload of the web application -->
         <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
         <plugins>
-            <!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>versions-maven-plugin</artifactId> <version>2.1</version> <executions> <execution> <phase>compile</phase> <goals> <goal>display-dependency-updates</goal>
-                <goal>display-plugin-updates</goal> </goals> </execution> </executions> </plugin> -->
+            <!--
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.1</version>
+                    <executions>
+                        <execution>
+                            <phase>compile</phase>
+                            <goals>
+                                <goal>display-dependency-updates</goal>
+                                <goal>display-plugin-updates</goal>
+                            </goals>
+                     </execution>
+                </executions>
+            </plugin>
+            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <version>3.1</version>
