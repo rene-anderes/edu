@@ -1,6 +1,6 @@
 package org.anderes.edu.appengine.cookbook;
 
-import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
+import static javax.ws.rs.core.MediaType.*;
 
 import java.util.logging.Logger;
 
@@ -9,6 +9,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
 @Path("/helloworld")
 public class HelloWorldResource {
@@ -26,4 +27,11 @@ public class HelloWorldResource {
 	public String getClichedMessage() {
 	    return "Hello World";
 	}
+	
+	@GET
+	@Path("/test")
+    @Produces(APPLICATION_JSON)
+    public Response getMessage() {
+        return Response.ok(new MessageDto("Hello World")).build();
+    }
 }
