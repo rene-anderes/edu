@@ -31,10 +31,6 @@ public class TextToHTMLWriter implements MessageBodyWriter<String> {
 	public void writeTo(String text, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType,
 			MultivaluedMap<String, Object> httpHeaders, OutputStream entityStream) throws IOException, WebApplicationException {
 
-		if (!mediaType.equals(MediaType.TEXT_HTML_TYPE)) {
-            throw new WebApplicationException();
-        }
-
 		StringBuilder sb = new StringBuilder();
 		sb.append("<!DOCTYPE html><html><head><title>Meldung</title></head><body><p>").append(text).append("</p></body></html>");
 		entityStream.write(sb.toString().getBytes());
