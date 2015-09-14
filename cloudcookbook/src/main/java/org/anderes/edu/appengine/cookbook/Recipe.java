@@ -6,17 +6,17 @@ import java.util.Set;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.text.StrBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
 @Entity
 public class Recipe {
 
-    @Id
-    private Long id;
-	private String title;
+    private @Id Long id;
+	private @Index String title;
 	private Image image;
 	private Set<Ingredient> ingredients = new HashSet<Ingredient>();
 	private String preparation;
@@ -48,12 +48,13 @@ public class Recipe {
 
 	@Override
 	public String toString() {
-		return new StrBuilder().append(title).append(preamble).append(image).append(noOfPerson)
-				.append(ingredients).append(preparation).append(tags).toString();
+		return new ToStringBuilder(this).append("title", title).append("preamble", preamble).append("image", image).append("noOfPerson", noOfPerson)
+				.append("ingredients", ingredients).append("preparation", preparation).append("tags", tags).build();
 	}
 
-	public void addIngredient(final Ingredient ingredient) {
+	public Recipe addIngredient(final Ingredient ingredient) {
 		ingredients.add(ingredient);
+		return this;
 	}
 	
 	public void removeIngredient(final Ingredient ingredient) {
@@ -95,8 +96,9 @@ public class Recipe {
 		return Collections.unmodifiableSet(tags);
 	}
 
-	public void addTag(final String tag) {
+	public Recipe addTag(final String tag) {
 		this.tags.add(tag);
+		return this;
 	}
 	
 	public void removeTag(final String tag) {

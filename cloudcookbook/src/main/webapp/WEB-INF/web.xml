@@ -25,8 +25,12 @@
     </filter>
     <filter-mapping>
         <filter-name>ObjectifyFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/services/*</url-pattern>
     </filter-mapping>
+    
+    <listener>
+      <listener-class>org.anderes.edu.appengine.cookbook.OfyHelper</listener-class>
+    </listener>
     
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
