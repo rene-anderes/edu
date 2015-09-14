@@ -154,12 +154,12 @@
                     <!-- address>0.0.0.0</address> -->
                     <port>8089</port>
                     <!-- Comment in the below snippet to enable local debugging with a remote debugger like those included with Eclipse or IntelliJ -->
-                    <!--
                         <jvmFlags>
                         <jvmFlag>-agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n</jvmFlag>
+                    <!--
                         <jvmFlag>-Dhttp.proxyHost=localhost -Dhttp.proxyPort=8080 -Dhttps.proxyHost=localhost -Dhttps.proxyPort=8080</jvmFlag>
-                        </jvmFlags>
                     -->
+                        </jvmFlags>
                 </configuration>
             </plugin>
             <!-- siehe https://cloud.google.com/appengine/docs/java/managed-vms/maven -->

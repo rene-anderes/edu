@@ -3,12 +3,17 @@ package org.anderes.edu.appengine.cookbook;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.Collection;
+import java.util.logging.Logger;
+
+import org.apache.commons.lang3.Validate;
 
 import com.googlecode.objectify.NotFoundException;
 
 
 public class RecipeRepository {
 
+    private Logger logger = Logger.getLogger(this.getClass().getName());
+    
     /**
      * Findet ein einzelnes Rezept
      * 
@@ -17,6 +22,7 @@ public class RecipeRepository {
      * @throws NotFoundException falls die Entität mir der entsprechenden ID nicht existiert
      */
     public Recipe findOne(final Long id) {
+        Validate.notNull(id, "Parameter id darf nicht null sein");
         return ofy().load().type(Recipe.class).id(id).safe();
     }
 
