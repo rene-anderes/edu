@@ -3,6 +3,7 @@ package org.anderes.edu.appengine.cookbook;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.apache.commons.lang3.Validate;
@@ -38,5 +39,8 @@ public class RecipeRepository {
     public Collection<Recipe> findByTitle(final String title) {
         return ofy().load().type(Recipe.class).filter("title >=", title).filter("title <", title + "\ufffd").list();
     }
-    
+
+    public List<Recipe> findAll() {
+        return ofy().load().type(Recipe.class).list();
+    }
 }
