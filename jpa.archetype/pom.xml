@@ -5,7 +5,7 @@
 
     <groupId>org.anderes.edu</groupId>
     <artifactId>jpa.archetype</artifactId>
-    <version>2.1.6-RELEASE</version>
+    <version>2.1.7-RELEASE</version>
 
     <name>jpa2.1-eclipselink-derby</name>
     <description>JPA 2.1 mit EclipseLink als JPA-Provider. Derby als Datenbank</description>
@@ -26,20 +26,17 @@
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>javax.persistence</artifactId>
             <version>2.1.0</version>
-            <scope>compile</scope>
         </dependency>
         <!-- JPA Provider EclipseLink -->
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.jpa</artifactId>
             <version>${eclipselink.version}</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>eclipselink</artifactId>
             <version>${eclipselink.version}</version>
-            <scope>compile</scope>
         </dependency>
         <!-- Diese Abhängigkeit sorgt dafür, dass der Kompiler auch die JPA Metadaten generiert -->
         <dependency>

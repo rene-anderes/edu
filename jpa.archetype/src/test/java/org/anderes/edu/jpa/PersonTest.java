@@ -17,43 +17,57 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class PersonTest {
 
     private EntityManager entityManager;
+    private static EntityManagerFactory entityManagerFactory;
+    
+    @BeforeClass
+    public static void setUpOnce() {
+        // Der Name der Persistence-Unit entspricht der in der Konfigurationsdatei META-INF/persistence.xml
+        entityManagerFactory = Persistence.createEntityManagerFactory("testPU");
+    }
     
     @Before
-    public void setUpOnce() throws Exception {
-        // Der Name der Persistence-Unit entsprcith der in der Konfigurationsdatei META-INF/persistence.xml
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("testPU");
+    public void setUp() throws Exception {
         entityManager = entityManagerFactory.createEntityManager();
     }
 
     @After
-    public void tearDownOnce() throws Exception {
+    public void tearDown() {
         entityManager.close();
+    }
+    
+    @AfterClass
+    public static void tearDownOnce() throws Exception {
+        entityManagerFactory.close();
     }
     
     @Test
     public void simpleTest() {
         addPersonToDatabase();
+        assertThat(entityManager.contains(person), is(true));
         
         final Collection<Person> persons = getAllPersons();
         
         assertThat(persons, is(not(nullValue())));
         assertThat(persons.size(), is(1));
     }
-    
+        
     private Collection<Person> getAllPersons() {
         // Einfaches Beispiel für eine JPQL
         final TypedQuery<Person> query = entityManager.createQuery("Select e From Person e", Person.class);
         return query.getResultList();
     }
 
+    private static Person person; 
     private void addPersonToDatabase() {
-    	final Person person = new Person("Mona-Lisa", "DaVinci");
+    	person = new Person("Mona-Lisa", "DaVinci");
     	person.setBirthday(birthday());
     	person.setSalary(BigDecimal.valueOf(45000D));
     	person.setGender(FEMALE);
