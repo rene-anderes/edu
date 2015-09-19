@@ -4,16 +4,16 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Logger;
 
 import org.apache.commons.lang3.Validate;
 
+import com.google.appengine.repackaged.org.joda.time.LocalDate;
 import com.googlecode.objectify.NotFoundException;
 
 
 public class RecipeRepository {
 
-    private Logger logger = Logger.getLogger(this.getClass().getName());
+//    private Logger logger = Logger.getLogger(this.getClass().getName());
     
     /**
      * Findet ein einzelnes Rezept
@@ -28,6 +28,7 @@ public class RecipeRepository {
     }
 
     public Recipe save(final Recipe newRecipe) {
+        newRecipe.setLastModified(LocalDate.now().toDate());
         ofy().save().entity(newRecipe).now();
         return newRecipe;
     }

@@ -3,7 +3,6 @@ package org.anderes.edu.appengine.cookbook;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -37,14 +36,14 @@ public class RecipeResource {
     @Consumes(APPLICATION_JSON)
     public Response save(Recipe recipe) {
         final Recipe savedRecipe = repository.save(recipe);
-        URI location = UriBuilder.fromResource(RecipeResource.class).path(Long.toString(savedRecipe.getId())).build();
+        final URI location = UriBuilder.fromPath("/services").path(RecipeResource.class).path(Long.toString(savedRecipe.getId())).build();
         return Response.created(location).build();
     }
     
     @DELETE
     @Path("/{id}")
     public Response deleteOne(@PathParam("id") Long id) {
-        final Recipe recipe = repository.findOne(id);;
+        final Recipe recipe = repository.findOne(id);
         repository.delete(recipe);
         return Response.ok().build();
     }

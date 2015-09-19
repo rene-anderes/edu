@@ -1,6 +1,7 @@
 package org.anderes.edu.appengine.cookbook;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,8 +24,17 @@ public class Recipe {
 	private String preamble;
 	private Integer noOfPerson;
 	private Set<String> tags = new HashSet<String>();
+	private Date lastModified;
 
-	public Image getImage() {
+	public Date getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(Date lastModified) {
+        this.lastModified = lastModified;
+    }
+
+    public Image getImage() {
 		return image;
 	}
 
@@ -44,12 +54,6 @@ public class Recipe {
 	public Recipe setTitle(String title) {
 		this.title = title;
 		return this;
-	}
-
-	@Override
-	public String toString() {
-		return new ToStringBuilder(this).append("title", title).append("preamble", preamble).append("image", image).append("noOfPerson", noOfPerson)
-				.append("ingredients", ingredients).append("preparation", preparation).append("tags", tags).build();
 	}
 
 	public Recipe addIngredient(final Ingredient ingredient) {
@@ -129,5 +133,11 @@ public class Recipe {
 				.append(noOfPerson, rhs.noOfPerson).append(image, rhs.image)
 				.append(ingredients.toArray(), rhs.ingredients.toArray())
 				.append(preparation, rhs.preparation).isEquals();
+	}
+	
+	@Override
+	public String toString() {
+	    return new ToStringBuilder(this).append("title", title).append("preamble", preamble).append("image", image).append("noOfPerson", noOfPerson)
+	            .append("ingredients", ingredients).append("preparation", preparation).append("tags", tags).build();
 	}
 }
