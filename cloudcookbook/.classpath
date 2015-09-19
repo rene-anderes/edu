@@ -23,11 +23,5 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAX-RS Jersey 2.x">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-			<attribute name="owner.project.facets" value="jst.jaxrs"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="output" path="target/cloudcookbook-1.0.0-SNAPSHOT/WEB-INF/classes"/>
 </classpath>
