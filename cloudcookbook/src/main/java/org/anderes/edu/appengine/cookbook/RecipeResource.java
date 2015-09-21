@@ -15,7 +15,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
-@Path("/recipes")
+@Path("recipes")
 @Produces(APPLICATION_JSON)
 public class RecipeResource {
     
@@ -36,12 +36,12 @@ public class RecipeResource {
     @Consumes(APPLICATION_JSON)
     public Response save(Recipe recipe) {
         final Recipe savedRecipe = repository.save(recipe);
-        final URI location = UriBuilder.fromPath("/services").path(RecipeResource.class).path(Long.toString(savedRecipe.getId())).build();
+        final URI location = UriBuilder.fromResource(RecipeResource.class).path(Long.toString(savedRecipe.getId())).build();
         return Response.created(location).build();
     }
     
     @DELETE
-    @Path("/{id}")
+    @Path("{id}")
     public Response deleteOne(@PathParam("id") Long id) {
         final Recipe recipe = repository.findOne(id);
         repository.delete(recipe);
