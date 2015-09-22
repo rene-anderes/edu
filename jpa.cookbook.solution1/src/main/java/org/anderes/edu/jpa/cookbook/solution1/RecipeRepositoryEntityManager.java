@@ -1,10 +1,8 @@
 package org.anderes.edu.jpa.cookbook.solution1;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
-import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -13,29 +11,24 @@ import javax.persistence.TypedQuery;
 
 import org.apache.commons.lang3.Validate;
 
-public class RecipeRepository {
+public class RecipeRepositoryEntityManager {
 
-	private EntityManager entityManager; 
+	private final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("eclipseLinkPU");
 	
-	private RecipeRepository() {
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("eclipseLinkPU");
-        entityManager = entityManagerFactory.createEntityManager();
+	private RecipeRepositoryEntityManager() {
+        super();
 	}
 	
-	public static RecipeRepository build() {
-		return new RecipeRepository();
+	public static RecipeRepositoryEntityManager build() {
+		return new RecipeRepositoryEntityManager();
 	}
 
 	public Recipe findOne(final Long databaseidentity) {
 		Validate.notNull(databaseidentity, "Der Parameter darf nicht null sein.");
-		
-		final EntityGraph<Recipe> entityGraph = entityManager.createEntityGraph(Recipe.class);
-		entityGraph.addAttributeNodes("ingredients");
-		 
-		final Map<String, Object> hints = new HashMap<>();
-		hints.put("javax.persistence.loadgraph", entityGraph);
-		
-		return entityManager.find(Recipe.class, databaseidentity, hints);
+		final EntityManager entityManager = entityManagerFactory.createEntityManager();
+		final Recipe recipe =  entityManager.find(Recipe.class, databaseidentity);
+		entityManager.close();
+		return recipe;
 	}
 		
 	/**
@@ -46,10 +39,13 @@ public class RecipeRepository {
 	 */
 	public Collection<Recipe> getRecipesByTitle(final String title) {
 		
+	    final EntityManager entityManager = entityManagerFactory.createEntityManager();
 		final TypedQuery<Recipe> query = entityManager.createNamedQuery(Recipe.RECIPE_QUERY_BYTITLE, Recipe.class);
 		query.setParameter("title", "%" + title + "%");
 		
-        return query.getResultList();
+        final List<Recipe> recipes =  query.getResultList();
+        entityManager.close();
+        return recipes;
 	}
 
 	/**
@@ -60,13 +56,14 @@ public class RecipeRepository {
 	 * @return Liste von rezepten
 	 */
     public Collection<Recipe> getRecipesByIngredient(String ingredientDescription) {
+        
+        final EntityManager entityManager = entityManagerFactory.createEntityManager();
         final TypedQuery<Recipe> query = entityManager.createNamedQuery(Recipe.RECIPE_QUERY_BYINGREDIENT, Recipe.class);
         query.setParameter("description", "%" + ingredientDescription + "%");
         
-        final EntityGraph<?> entityGraph = entityManager.getEntityGraph("Recipe.ingredients");
-        query.setHint("javax.persistence.loadgraph", entityGraph);
-        
-        return query.getResultList();
+        final List<Recipe> recipes =  query.getResultList();
+        entityManager.close();
+        return recipes;
     }
 	
 	/**
@@ -74,26 +71,33 @@ public class RecipeRepository {
 	 * @return Persistence-Util
 	 */
 	/*package*/ PersistenceUnitUtil getPersistenceUnitUtil() {
+	    final EntityManager entityManager = entityManagerFactory.createEntityManager();
 		return entityManager.getEntityManagerFactory().getPersistenceUnitUtil();
 	}
 
 	public Recipe save(final Recipe entity) {
 		Validate.notNull(entity, "Der Parameter darf nicht null sein.");
 		
+		final EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		final Recipe savedRecipe = entityManager.merge(entity);
 		entityManager.getTransaction().commit();
+		entityManager.close();
 		return savedRecipe;
 	}
 		
 	public void remove(final Recipe entity) {
 		Validate.notNull(entity, "Der Parameter darf nicht null sein.");
+		
+		final EntityManager entityManager = entityManagerFactory.createEntityManager();
 		if (!entityManager.contains(entity)) {
+		    entityManager.close();
 			throw new IllegalArgumentException("Die Entität besitzt nicht den Status managed");
 		}
 		
 		entityManager.getTransaction().begin();
 		entityManager.remove(entity);
 		entityManager.getTransaction().commit();
+		entityManager.close();
 	}
 }
