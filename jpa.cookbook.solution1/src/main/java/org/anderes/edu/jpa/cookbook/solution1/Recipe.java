@@ -17,8 +17,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.NamedAttributeNode;
-import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -34,10 +32,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 		@NamedQuery(name = "Recipe.ByTitle", query = "Select r from Recipe r where r.title like :title"),
 		@NamedQuery(name = "Recipe.ByIngredient", query = "Select r from Recipe r join r.ingredients i where i.description like :description")
 		})
-@NamedEntityGraph(
-        name = "Recipe.ingredients",
-        attributeNodes = @NamedAttributeNode("ingredients")
-)
 public class Recipe implements Serializable {
 	
 	public final static String RECIPE_QUERY_ALL = "Recipe.All";

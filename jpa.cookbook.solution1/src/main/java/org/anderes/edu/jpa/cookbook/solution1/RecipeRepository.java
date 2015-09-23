@@ -28,14 +28,7 @@ public class RecipeRepository {
 
 	public Recipe findOne(final Long databaseidentity) {
 		Validate.notNull(databaseidentity, "Der Parameter darf nicht null sein.");
-		
-		final EntityGraph<Recipe> entityGraph = entityManager.createEntityGraph(Recipe.class);
-		entityGraph.addAttributeNodes("ingredients");
-		 
-		final Map<String, Object> hints = new HashMap<>();
-		hints.put("javax.persistence.loadgraph", entityGraph);
-		
-		return entityManager.find(Recipe.class, databaseidentity, hints);
+		return entityManager.find(Recipe.class, databaseidentity);
 	}
 		
 	/**
@@ -62,10 +55,6 @@ public class RecipeRepository {
     public Collection<Recipe> getRecipesByIngredient(String ingredientDescription) {
         final TypedQuery<Recipe> query = entityManager.createNamedQuery(Recipe.RECIPE_QUERY_BYINGREDIENT, Recipe.class);
         query.setParameter("description", "%" + ingredientDescription + "%");
-        
-        final EntityGraph<?> entityGraph = entityManager.getEntityGraph("Recipe.ingredients");
-        query.setHint("javax.persistence.loadgraph", entityGraph);
-        
         return query.getResultList();
     }
 	
