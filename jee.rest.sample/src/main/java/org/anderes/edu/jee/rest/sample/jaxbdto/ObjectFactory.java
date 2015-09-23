@@ -6,7 +6,7 @@
 //
 
 
-package org.anderes.edu.jee.rest.sample.dto;
+package org.anderes.edu.jee.rest.sample.jaxbdto;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;

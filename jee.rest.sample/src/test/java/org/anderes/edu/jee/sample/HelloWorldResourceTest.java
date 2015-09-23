@@ -12,7 +12,7 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
+import static javax.ws.rs.core.Response.Status.*;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.Variant;
 
@@ -41,8 +41,8 @@ public class HelloWorldResourceTest {
 		final Response response = target.request(TEXT_PLAIN).buildGet().invoke();
 		
 		// then
-		assertThat("Unerwartete Antwort vom Server.", response.getStatus(), is(Status.OK.getStatusCode()));
-		assertThat(response.getMediaType(), is(MediaType.TEXT_PLAIN_TYPE));
+		assertThat("Unerwartete Antwort vom Server.", response.getStatus(), is(OK.getStatusCode()));
+		assertThat(response.getMediaType(), is(TEXT_PLAIN_TYPE));
 		assertThat(response.hasEntity(), is(true));
 		assertThat(response.readEntity(String.class), is("Hello World"));
 
@@ -59,7 +59,7 @@ public class HelloWorldResourceTest {
 		final Response response = target.request(TEXT_HTML).buildGet().invoke();
 		
 		// then
-		assertThat("Unerwartete Antwort vom Server.", response.getStatus(), is(Status.OK.getStatusCode()));
+		assertThat("Unerwartete Antwort vom Server.", response.getStatus(), is(OK.getStatusCode()));
 		assertThat(response.getMediaType(), is(MediaType.TEXT_HTML_TYPE));
 		assertThat(response.hasEntity(), is(true));
 		assertThat(response.readEntity(String.class), is("<!DOCTYPE html><html><head><title>Meldung</title></head><body><p>Hello World</p></body></html>"));
@@ -78,6 +78,6 @@ public class HelloWorldResourceTest {
 		final Entity<String> entity = Entity.entity("Information", variant);
 
 		final Response response = target.request().put(entity);
-		assertThat("Unerwartete Antwort vom Server.", response.getStatus(), is(Status.NO_CONTENT.getStatusCode()));
+		assertThat("Unerwartete Antwort vom Server.", response.getStatus(), is(NO_CONTENT.getStatusCode()));
 	}
 }

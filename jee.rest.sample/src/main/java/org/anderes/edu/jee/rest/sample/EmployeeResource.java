@@ -13,11 +13,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 
-import org.anderes.edu.jee.rest.sample.dto.Employee;
-import org.apache.commons.lang3.RandomStringUtils;
+import org.anderes.edu.jee.rest.sample.jaxbdto.Employee;
+import static org.apache.commons.lang3.RandomStringUtils.*;
 
 /**
- * REST-Service für Employee, Lösung mittels JAXB
+ * REST-Service für Employee
+ * <p>
+ * Lösung mittels JAXB: Das Dto wird mittesl CSD und JAXB generiert.
  * 
  * @author René Anderes
  *
@@ -36,7 +38,7 @@ public class EmployeeResource {
 	
 	private Collection<Employee> createEmployeeCollection() {
 	    final Collection<Employee> employees = new ArrayList<>();
-        final int max = Integer.parseInt(RandomStringUtils.randomNumeric(3));
+        final int max = Integer.parseInt(randomNumeric(3));
         for (int i = 0; i < max; i++) {
             employees.add(createRndDummyEmployee());
         }
@@ -46,9 +48,9 @@ public class EmployeeResource {
 	private Employee createRndDummyEmployee() {
 		final Employee employee = new Employee();
 		employee.setTitle("Herr");
-		employee.setFirstname(RandomStringUtils.randomAlphabetic(50));
-		employee.setLastname(RandomStringUtils.randomAlphabetic(50));
-		final String persNo = String.format("%s-%s-%s", RandomStringUtils.randomNumeric(2), RandomStringUtils.randomNumeric(4), RandomStringUtils.randomNumeric(1));
+		employee.setFirstname(randomAlphabetic(50));
+		employee.setLastname(randomAlphabetic(50));
+		final String persNo = String.format("%s-%s-%s", randomNumeric(2), randomNumeric(4), randomNumeric(1));
 		employee.setPersonnelNo(persNo);
 		return employee;
 	}

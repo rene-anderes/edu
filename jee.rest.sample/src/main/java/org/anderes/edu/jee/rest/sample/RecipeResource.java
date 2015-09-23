@@ -13,7 +13,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 /**
- * REST-service für Rezepte, Lösunge mittels JSON-P
+ * REST-service für Rezepte
+ * <p>
+ * Lösung mittels low level JSON-P
  * 
  * @author René Anderes
  *
