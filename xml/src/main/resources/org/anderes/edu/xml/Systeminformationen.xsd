@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="systeminformationen">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Betriebssystem" type="xs:string"/>
+				<xs:element name="Version" type="xs:string"/>
+				<xs:element name="Prozessor" type="xs:string"/>
+				<xs:sequence>
+					<xs:element ref="Komponenten"/>
+					<xs:element ref="Hardwareresourcen"/>
+				</xs:sequence>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Komponenten">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Speicher">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Laufwerke">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Laufwerk">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="Beschreibung"/>
+													<xs:element name="Dateisystem"/>
+												</xs:sequence>
+												<xs:attribute name="Buchstabe" type="Laufwerksbuchstabe"/>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Datenträger">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Beschreibung"/>
+										<xs:element name="Hersteller"/>
+										<xs:element name="Modell"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="CD">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Beschreibung" type="xs:string"/>
+						</xs:sequence>
+						<xs:attribute name="Laufwerk" type="Laufwerksbuchstabe"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Hardwareresourcen">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="DMA">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Resource" type="xs:string"/>
+							<xs:element name="Gerät" type="xs:string"/>
+							<xs:element ref="Status"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Status">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="OK"/>
+				<xs:enumeration value="ERROR"/>
+				<xs:enumeration value="UNKNOWN"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:simpleType name="Laufwerksbuchstabe">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Z]:"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
