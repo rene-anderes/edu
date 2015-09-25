@@ -11,13 +11,13 @@ public class Viewer {
 
     private final List<String> header;
     private final List<List<String>> records;
-    private final List<Integer> maxWidths;
+    private final List<Integer> maxWidthPerColumn;
 
     public Viewer(final List<String> header, final List<List<String>> records) {
         super();
         this.header = header;
         this.records = records;
-        maxWidths = calcMaxWidthForColumns();
+        maxWidthPerColumn = calcMaxWidthForColumns();
     }
 
     public void show(final OutputStream outputStream) {
@@ -38,26 +38,27 @@ public class Viewer {
     }
 
     private Writer writeRecord(final OutputStreamWriter writer, List<String> record) throws IOException {
-        for (int i = 0; i < record.size(); i++) {
-            final String recordText = record.get(i);
+        for (int column = 0; column < record.size(); column++) {
+            final String recordText = record.get(column);
             writer.append(recordText);
-            int maxWidth = maxWidths.get(i);
-            for (int spacesize = recordText.length(); spacesize < maxWidth; spacesize++) {
-                writer.append(' ');
-            }
+            fillUpWithSpaces(writer, recordText, maxWidthPerColumn.get(column));
             writer.append('|');
         }
         return writer;
+    }
+
+    private void fillUpWithSpaces(final OutputStreamWriter writer, final String recordText, int maxWidth) throws IOException {
+        for (int spacesize = recordText.length(); spacesize < maxWidth; spacesize++) {
+            writer.append(' ');
+        }
     }
 
     private Writer writeHeader(final OutputStreamWriter writer) throws IOException {
         for (int i = 0; i < header.size(); i++) {
             final String headerText = header.get(i);
             writer.append(headerText);
-            int maxWidth = maxWidths.get(i);
-            for (int spacesize = headerText.length(); spacesize < maxWidth; spacesize++) {
-                writer.append(' ');
-            }
+            int maxWidth = maxWidthPerColumn.get(i);
+            fillUpWithSpaces(writer, headerText, maxWidth);
             writer.append('|');
         }
         writer.append('\n');
@@ -66,7 +67,7 @@ public class Viewer {
     }
     
     private Writer appendHorizontalRule(final OutputStreamWriter writer) throws IOException {
-        for (int maxWidth : maxWidths) {
+        for (int maxWidth : maxWidthPerColumn) {
             for (int spacesize = 0; spacesize < maxWidth; spacesize++) {
                 writer.append('-');
             }
