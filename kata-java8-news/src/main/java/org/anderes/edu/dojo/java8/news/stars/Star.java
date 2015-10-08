@@ -1,4 +1,4 @@
-package org.anderes.edu.dojo.java8.news.time;
+package org.anderes.edu.dojo.java8.news.stars;
 
 
 public class Star {

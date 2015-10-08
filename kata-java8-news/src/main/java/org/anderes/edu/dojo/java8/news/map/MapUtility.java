@@ -27,6 +27,7 @@ public abstract class MapUtility {
         map.keySet().forEach(t -> {
             returnValue.put(t, map.get(t).toArray(new String[0]));
         });
+                
         return returnValue;
     }
 }

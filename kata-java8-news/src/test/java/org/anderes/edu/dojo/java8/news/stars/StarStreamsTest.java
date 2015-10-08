@@ -15,8 +15,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.anderes.edu.dojo.java8.news.time.Star;
-import org.anderes.edu.dojo.java8.news.time.StarReader;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -10,8 +10,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
 
-import org.anderes.edu.dojo.java8.news.time.Star;
-import org.anderes.edu.dojo.java8.news.time.StarReader;
 import org.junit.Test;
 
 public class StarReaderTest {
