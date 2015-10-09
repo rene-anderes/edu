@@ -3,6 +3,7 @@ package org.anderes.edu.dojo.java8.news.stars;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.startsWith;
 import static org.junit.Assert.assertThat;
 
 import java.nio.file.Path;
@@ -44,7 +45,7 @@ public class StarStreamsTest {
     }
     
     /**
-     * Liefert den nächstgelegenen Sterne welcher nicht im Sonnensystem liegt züruck.
+     * Liefert den nächstgelegenen Stern welcher nicht im Sonnensystem liegt züruck.
      */
     @Test
     public void shouldBeNearestStarNotInSunsystem() {
@@ -127,12 +128,31 @@ public class StarStreamsTest {
     public void shouldBeFindStarsWithA() {
         
         // when
-        LinkedList<Star> stars = starCollection.stream().filter(star -> star.getStarname().matches(".*?[A].*")).sorted(comparatorDistance).collect(Collectors.toCollection(LinkedList::new));
+        LinkedList<Star> stars = starCollection.stream()
+                        .filter(star -> star.getStarname().matches(".*?[A].*"))
+                        .sorted(comparatorDistance)
+                        .collect(Collectors.toCollection(LinkedList::new));
         
         // then
         assertThat(stars, is(notNullValue()));
         assertThat(stars.size(), is(17));
         assertThat(stars.peekFirst().getStarname(), is("Alpha Centauri B (HD 128621)"));
         assertThat(stars.peekLast().getStarname(), is("GJ 412 A"));
+    }
+    
+    /**
+     * Liefert einen String der alle Sternennamen beinhaltet (alphabetisch sortiert). Format: [Sonne;GJ 412 A;...]
+     */
+    @Test
+    public void shouldBeBuildString() {
+        
+        // when
+        String starNames = starCollection.stream().map(Star::getStarname).sorted().collect(Collectors.joining(";", "[", "]"));
+        
+        // then
+        assertThat(starNames, is(notNullValue()));
+        assertThat(starNames, startsWith("[61 Cygni A (BD+38°4343);61 Cygni B (BD+38°4344);Alpha Centauri A (Rigil Kentaurus, Toliman);"));
+        assertThat(starNames.length(), is(1373));
+        
     }
 }
