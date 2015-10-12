@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
  * 
  * @author René Anderes
  */
-public class BeforeAfterDemo {
+public class BeforeAfterDemoTest {
 
     /** Temporäres File für den oder die Test's */
     private File tempFile;
@@ -60,10 +60,8 @@ public class BeforeAfterDemo {
      *            Text
      */
     private void writeFile(final String message) {
-        try {
-            Writer writer = new FileWriter(tempFile);
+        try (Writer writer = new FileWriter(tempFile)) {
             writer.write(message);
-            writer.close();
         } catch (IOException e) {
             fail(e.getMessage());
         }
