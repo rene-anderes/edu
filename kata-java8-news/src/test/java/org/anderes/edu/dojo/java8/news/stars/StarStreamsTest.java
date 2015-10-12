@@ -26,7 +26,7 @@ public class StarStreamsTest {
     
     @Before
     public void setup() {
-        final Path csvFile = Paths.get("target/classes", "Sternen.csv");
+        final Path csvFile = Paths.get("target", "classes", "Sternen.csv");
         starCollection = StarReader.build(csvFile).readStars();
     }
     
@@ -63,7 +63,7 @@ public class StarStreamsTest {
      * Liefert den Stern zurück, der am weitesten von der Erde entfernt ist.
      */
     @Test
-    public void shouldBeMostDistantStar() {
+    public void shouldBeMostDistanceStar() {
         
         // when
         Optional<Star> star = starCollection.stream().max(comparatorDistance);
