@@ -22,7 +22,7 @@ import org.junit.Test;
 public class StarStreamsTest {
 
     private Collection<Star> starCollection;
-    private final Comparator<? super Star> comparatorDistance = (s1, s2) -> s1.getDistance().compareTo(s2.getDistance());
+    private final Comparator<Star> comparatorDistance = (s1, s2) -> s1.getDistance().compareTo(s2.getDistance());
     
     @Before
     public void setup() {
@@ -122,21 +122,23 @@ public class StarStreamsTest {
     }
     
     /**
-     * Liefert eine Liste aller Sterne zurück, die den Grossbuchstaben 'A' im Namen tragen, sortiert nach Entfernung aufsteigend.
+     * Liefert eine Liste aller Sterne zurück, die den Grossbuchstaben 'A' im Namen tragen, 
+     * sortiert nach Entfernung aufsteigend und danach nach Namen (lexicographically), falls wenn zwei Sterne die gleiche Distanz haben.
      */
     @Test
     public void shouldBeFindStarsWithA() {
-        
+        final Comparator<Star> comperatorStarNameAsc = (s1, s2) -> s1.getStarname().compareTo(s2.getStarname());
+             
         // when
         LinkedList<Star> stars = starCollection.stream()
                         .filter(star -> star.getStarname().matches(".*?[A].*"))
-                        .sorted(comparatorDistance)
+                        .sorted(comparatorDistance.thenComparing(comperatorStarNameAsc))
                         .collect(Collectors.toCollection(LinkedList::new));
         
         // then
         assertThat(stars, is(notNullValue()));
         assertThat(stars.size(), is(17));
-        assertThat(stars.peekFirst().getStarname(), is("Alpha Centauri B (HD 128621)"));
+        assertThat(stars.peekFirst().getStarname(), is("Alpha Centauri A (Rigil Kentaurus, Toliman)"));
         assertThat(stars.peekLast().getStarname(), is("GJ 412 A"));
     }
     

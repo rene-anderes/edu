@@ -99,11 +99,20 @@ public class StreamOperations {
     }
     
     @Test
+    public void intermediateStreamOperationsSorted() {
+        Stream<String> stringStream  = Stream.of( "Kallisto", "Io", "Europa", "Ganymed" );
+        
+        Stream<String> sortedStream = stringStream.sorted((p1,p2) -> Integer.compare(p1.length(), p2.length()));
+        
+        List<String> sortedList = sortedStream.collect(Collectors.toList());
+        assertThat(sortedList, is(Arrays.asList("Io", "Europa", "Ganymed", "Kallisto")));
+    }
+    
+    @Test
     public void intermediateStreamOperationsIntegerMap() {
         
         Stream<Double> doubleStream = integerStream.map(i -> Math.sqrt(i.doubleValue()));
         assertThat(doubleStream.count(), is(7L));
-        
     }
     
     @Test
