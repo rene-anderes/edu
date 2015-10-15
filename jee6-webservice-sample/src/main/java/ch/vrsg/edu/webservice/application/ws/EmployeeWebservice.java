@@ -1,6 +1,7 @@
 package ch.vrsg.edu.webservice.application.ws;
 
 import javax.inject.Inject;
+import javax.jws.HandlerChain;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
@@ -12,6 +13,7 @@ import ch.vrsg.edu.webservice.application.EmployeeNotFoundException;
 
 @WebService(portName="EmployeePort", name = "EmployeeService", 
             serviceName = "EmployeeService", targetNamespace = "http://xmlns.intra.vrsg.ch/xmlns/employee/1")
+@HandlerChain(file = "handlers.xml")
 public class EmployeeWebservice {
     
     @Inject

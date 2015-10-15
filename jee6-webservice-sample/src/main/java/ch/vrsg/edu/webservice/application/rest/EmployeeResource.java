@@ -33,7 +33,6 @@ public class EmployeeResource {
     private UriInfo uriInfo;
     
 	@GET
-	@Path("/")
 	@Produces(APPLICATION_JSON)
 	public Response findAll() {
 	    
@@ -44,7 +43,6 @@ public class EmployeeResource {
 	}
 	
 	@POST
-	@Path("/")
 	@Consumes(APPLICATION_JSON)
 	public Response saveEmployee(Employee employee) {
 	    Integer id = facade.save(employee);
