@@ -21,7 +21,7 @@ public class Frame {
     }
     
     public int[] getPinsRolled() { 
-        return pins.stream().mapToInt(i -> i).toArray();
+        return pins.stream().mapToInt(Integer::intValue).toArray();
     }
     
     public String toString() { 
