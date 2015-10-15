@@ -23,6 +23,7 @@ public class GameTest {
         assertThat(game.getTotalScore(), is(1));
         assertThat(game.getFrames(), is(notNullValue()));
         assertThat(game.getFrames().size(), is(1));
+        assertThat(game.getFrames().get(1), is(notNullValue()));
         assertThat(game.getFrames().get(1).getScore(), is(1));
         assertThat(game.getFrames().get(1).getPinsRolled().length, is(1));
         assertThat(game.getFrames().get(1).getPinsRolled()[0], is(1));
