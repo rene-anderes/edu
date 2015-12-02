@@ -11,6 +11,35 @@ import javax.persistence.TypedQuery;
 
 import org.apache.commons.lang3.Validate;
 
+/**
+ * In diesem Beispiel eines Repository wird der Entity-Manager für jeden
+ * Zugriff neue Instanziert und wieder geschlossen. Damit wird der 
+ * Persistence-Context wieder abgebaut und alle Entitäten erhalten den 
+ * Zustand "detached".
+ * <p>
+ * Beachte:
+ * <p>
+ * Die JPA Spec (Version 2.0) sagt in Kapitel 3.2.7, "Detached Entities", 
+ * sinngemäss, dass eine Applikation nach dem Ende des 
+ * Persistence Contexts nur noch auf den "verfügbaren Zustand" einer Entität 
+ * zugreifen darf. Der verfügbare Zustand ist dabei die Summe aller Attribute,
+ * die nicht (implizit oder explizit) als "Lazy" markiert sind, zusammen mit 
+ * der Summe aller Attribute, auf die bereits von der Applikation zugegriffen
+ * wurde. Dazu zählen auch alle Beziehungen, die entweder mit FetchType.EAGER 
+ * markiert sind oder bereits geladen wurden, sei es über eine Query (als 
+ * direktes Ergebnis oder über ein JOIN FETCH) oder über EntityManager.find. 
+ * Zwar schreibt die Spezifikation nicht vor, dass auf andere Attribute nicht 
+ * zugegriffen werden darf; aber Applikationen, die das tun, sind nicht mehr 
+ * "portable", d. h. der Persistence-Provider kann nicht mehr ohne Weiteres 
+ * ausgetauscht werden.<br>
+ * Und tatsächlich erlaubt auch nur EclipseLink den Zugriff auf nicht geladene
+ * Attribute nach dem Ende des Persistence Contexts, und das auch nur, wenn 
+ * die Entität zwischendurch nicht serialisiert, also z. B. an eine 
+ * Remote EJB übergeben wurde.
+ * 
+ * @author René Anderes
+ *
+ */
 public class RecipeRepositoryEntityManager {
 
 	private final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("eclipseLinkPU");
@@ -90,13 +119,10 @@ public class RecipeRepositoryEntityManager {
 		Validate.notNull(entity, "Der Parameter darf nicht null sein.");
 		
 		final EntityManager entityManager = entityManagerFactory.createEntityManager();
-		if (!entityManager.contains(entity)) {
-		    entityManager.close();
-			throw new IllegalArgumentException("Die Entität besitzt nicht den Status managed");
-		}
 		
 		entityManager.getTransaction().begin();
-		entityManager.remove(entity);
+		final Recipe toDelete = entityManager.merge(entity);
+		entityManager.remove(toDelete);
 		entityManager.getTransaction().commit();
 		entityManager.close();
 	}

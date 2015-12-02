@@ -1,10 +1,7 @@
 package org.anderes.edu.jpa.cookbook.solution1;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
-import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -13,6 +10,13 @@ import javax.persistence.TypedQuery;
 
 import org.apache.commons.lang3.Validate;
 
+/**
+ * In diesem Beispiel eines Repository wird der Entity-Manager so lange
+ * gehalten wie das Repository-Objekt selber existiert (Klassenmember).
+ * 
+ * @author René Anderes
+ *
+ */
 public class RecipeRepository {
 
 	private EntityManager entityManager; 

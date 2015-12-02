@@ -11,13 +11,13 @@ import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
 
-public class RecipeRepositoryTest {
+public class RecipeRepositoryEntityManagerTest {
 	
-	private RecipeRepository repository;
+	private RecipeRepositoryEntityManager repository;
 	
 	@Before
 	public void setup() {
-		repository = RecipeRepository.build();
+		repository = RecipeRepositoryEntityManager.build();
 	}
 
 	@Test
@@ -27,7 +27,7 @@ public class RecipeRepositoryTest {
 		assertNotNull(recipe);
 		assertThat(recipe.getTitle(), is("Dies und Das"));
 		assertThat(repository.getPersistenceUnitUtil().isLoaded(recipe, Recipe_.ingredients.getName()), is(false));
-		assertThat(recipe.getIngredients().size(), is(4)); // LAZY-Loading
+		assertThat(recipe.getIngredients().size(), is(4)); //LAZY Loading obwohl die Entität detached ist (nur EclipseLink)
 		System.out.println(recipe);
 	}
 	
