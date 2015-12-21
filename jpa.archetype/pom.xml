@@ -5,7 +5,7 @@
 
     <groupId>org.anderes.edu</groupId>
     <artifactId>jpa.archetype</artifactId>
-    <version>2.1.7-RELEASE</version>
+    <version>2.1.8-RELEASE</version>
 
     <name>jpa2.1-eclipselink-derby</name>
     <description>JPA 2.1 mit EclipseLink als JPA-Provider. Derby als Datenbank</description>
@@ -15,8 +15,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <eclipselink.version>2.6.0</eclipselink.version>
-        <derby.version>10.11.1.1</derby.version>
+        <eclipselink.version>2.6.1</eclipselink.version>
+        <derby.version>10.12.1.1</derby.version>
     </properties>
 
     <dependencies>
