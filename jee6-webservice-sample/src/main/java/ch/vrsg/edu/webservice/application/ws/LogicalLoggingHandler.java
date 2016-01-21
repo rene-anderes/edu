@@ -19,6 +19,16 @@ import javax.xml.ws.handler.MessageContext;
 
 import org.apache.log4j.Logger;
 
+/**
+ * Der {@code LogicalHandler} liest alle Daten aus den Paylod
+ * ({@code LogicalMessageContext}) des SOAP Body einer SOAP Message aus
+ * und schreibt diese Informationen ins Log.
+ * <p/>
+ * 
+ * @author René Anderes
+ * @see {@link https://jax-ws.java.net/articles/handlers_introduction.html}
+ *
+ */
 public class LogicalLoggingHandler implements LogicalHandler<LogicalMessageContext> {
 
     @Inject

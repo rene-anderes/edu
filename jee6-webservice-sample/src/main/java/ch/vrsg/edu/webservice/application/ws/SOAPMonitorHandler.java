@@ -17,6 +17,15 @@ import javax.xml.ws.handler.soap.SOAPMessageContext;
 
 import org.apache.log4j.Logger;
 
+/**
+ * Dieser SOAPHandler zählt die Anzahl Elemente im SOAP Header und
+ * im SOAP Body und schreibt diese Informationen ins Log. 
+ * 
+ * 
+ * @author René Anderes
+ * @see {@link https://jax-ws.java.net/articles/handlers_introduction.html}
+ *
+ */
 public class SOAPMonitorHandler implements SOAPHandler<SOAPMessageContext> {
 
     @Inject

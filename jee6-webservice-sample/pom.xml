@@ -19,6 +19,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.build.timestamp.format>dd-MM-yyyy HH:mm</maven.build.timestamp.format>
     </properties>
 
     <dependencies>
@@ -153,6 +154,7 @@
                         </manifest>
                         <manifestEntries>
                             <Weblogic-Application-Version>${project.version}</Weblogic-Application-Version>
+                            <Build-Time>${maven.build.timestamp}</Build-Time>
                         </manifestEntries>
                     </archive>
                 </configuration>
