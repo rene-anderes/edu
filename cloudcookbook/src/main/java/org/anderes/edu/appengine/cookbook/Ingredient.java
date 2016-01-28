@@ -7,26 +7,26 @@ import org.apache.commons.lang3.text.StrBuilder;
 
 public class Ingredient {
 
-    private String quantity;
+    private String portion;
     private String description;
-    private String annotation;
+    private String comment;
 
     public Ingredient() {
     }
 
-    public Ingredient(final String quantity, final String description, final String annotation) {
+    public Ingredient(final String portion, final String description, final String comment) {
         super();
-        this.quantity = quantity;
+        this.portion = portion;
         this.description = description;
-        this.annotation = annotation;
+        this.comment = comment;
     }
 
-    public String getQuantity() {
-        return quantity;
+    public String getPortion() {
+        return portion;
     }
 
-    public void setQuantity(final String quantity) {
-        this.quantity = quantity;
+    public void setPortion(final String quantity) {
+        this.portion = quantity;
     }
 
     public String getDescription() {
@@ -37,17 +37,17 @@ public class Ingredient {
         this.description = description;
     }
 
-    public String getAnnotation() {
-        return annotation;
+    public String getComment() {
+        return comment;
     }
 
-    public void setAnnotation(final String annotation) {
-        this.annotation = annotation;
+    public void setComment(final String comment) {
+        this.comment = comment;
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37).append(quantity).append(description).append(annotation).toHashCode();
+        return new HashCodeBuilder(17, 37).append(portion).append(description).append(comment).toHashCode();
     }
 
     @Override
@@ -62,11 +62,11 @@ public class Ingredient {
             return false;
         }
         Ingredient rhs = (Ingredient) obj;
-        return new EqualsBuilder().append(quantity, rhs.quantity).append(description, rhs.description).append(annotation, rhs.annotation).isEquals();
+        return new EqualsBuilder().append(portion, rhs.portion).append(description, rhs.description).append(comment, rhs.comment).isEquals();
     }
 
     @Override
     public String toString() {
-    	return new StrBuilder().append(quantity).append(description).append(annotation).build();
+    	return new StrBuilder().append(portion).append(description).append(comment).build();
     }
 }

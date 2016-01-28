@@ -8,7 +8,6 @@ import static org.junit.Assert.assertThat;
 import java.util.Collection;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -16,7 +15,6 @@ import org.junit.rules.ExpectedException;
 import com.googlecode.objectify.NotFoundException;
 import com.googlecode.objectify.ObjectifyService;
 
-@Ignore
 public class RecipeRepositoryTest {
 
     @Rule
@@ -45,7 +43,7 @@ public class RecipeRepositoryTest {
         
         final Recipe findRecipe = repository.findOne(savedRecipe.getId());
         assertThat(findRecipe, is(notNullValue()));
-        assertThat(findRecipe.getNoOfPerson(), is(2));
+        assertThat(findRecipe.getNoOfPeople(), is("2"));
         assertThat(findRecipe.getTitle(), is("Basilikum-Pesto"));
         assertThat(findRecipe.getIngredients().size(), is(2));
     }
@@ -86,7 +84,7 @@ public class RecipeRepositoryTest {
     
     private Recipe createRecipeForPesto() {
         final Recipe recipe = new Recipe();
-        recipe.setTitle("Basilikum-Pesto").setPreamble("hmm... fein!").setPreparation("Pasta machen; Spagetti natürlich ...").setNoOfPerson(2);
+        recipe.setTitle("Basilikum-Pesto").setPreamble("hmm... fein!").setPreparation("Pasta machen; Spagetti natürlich ...").setNoOfPeople("2");
         recipe.addTag("pasta").addTag("fleischlos");
         recipe.setImage(new Image("/pesto.jpg", "Pesto mit Spagetti"));
         recipe.addIngredient(new Ingredient("1", "Knoblizehe", "Bio Knobli")).addIngredient(new Ingredient("nach belieben", "Basilikum", "frisch vom Garten"));
@@ -95,7 +93,7 @@ public class RecipeRepositoryTest {
     
     private Recipe createRecipeForAsiatischeSpaghetti() {
         final Recipe recipe = new Recipe();
-        recipe.setTitle("Asiatische Spaghetti").setPreparation("Mehl und etwas Curry in einer Schüssel mischen ...").setNoOfPerson(2);
+        recipe.setTitle("Asiatische Spaghetti").setPreparation("Mehl und etwas Curry in einer Schüssel mischen ...").setNoOfPeople("2");
         recipe.addTag("pasta").addTag("fleisch");
         recipe.setImage(new Image("/pesto.jpg", "Pesto mit Spagetti"));
         recipe.addIngredient(new Ingredient("1", "Knoblizehe", "Bio Knobli")).addIngredient(new Ingredient("3 EL", "dunkle Sojasouce", null));

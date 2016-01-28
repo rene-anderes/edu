@@ -4,6 +4,7 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.commons.lang3.Validate;
 
@@ -22,15 +23,21 @@ public class RecipeRepository {
      * @return Rezept
      * @throws NotFoundException falls die Entität mir der entsprechenden ID nicht existiert
      */
-    public Recipe findOne(final Long id) {
+    public Recipe findOne(final String id) {
         Validate.notNull(id, "Parameter id darf nicht null sein");
         return ofy().load().type(Recipe.class).id(id).safe();
     }
 
-    public Recipe save(final Recipe newRecipe) {
-        newRecipe.setLastModified(LocalDate.now().toDate());
-        ofy().save().entity(newRecipe).now();
-        return newRecipe;
+    public Recipe save(final Recipe recipe) {
+        if (recipe.getId() == null) {
+            recipe.setId(UUID.randomUUID().toString());
+        }
+        recipe.setEditingDate(LocalDate.now().toDate());
+        if (recipe.getAddingDate() == null) {
+            recipe.setAddingDate(LocalDate.now().toDate());
+        }
+        ofy().save().entity(recipe).now();
+        return recipe;
     }
     
     public void delete(final Recipe recipe) {

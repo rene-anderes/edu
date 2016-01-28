@@ -16,22 +16,43 @@ import com.googlecode.objectify.annotation.Index;
 @Entity
 public class Recipe {
 
-    private @Id Long id;
+    private @Id String id;
 	private @Index String title;
 	private Image image;
 	private Set<Ingredient> ingredients = new HashSet<Ingredient>();
 	private String preparation;
 	private String preamble;
-	private Integer noOfPerson;
+	private String noOfPeople;
 	private Set<String> tags = new HashSet<String>();
-	private Date lastModified;
+	private Date editingDate;
+	private Date addingDate;
+	private Integer rating;
 
-	public Date getLastModified() {
-        return lastModified;
+	public Date getEditingDate() {
+        return editingDate;
     }
 
-    public void setLastModified(Date lastModified) {
-        this.lastModified = lastModified;
+	public Date getAddingDate() {
+        return addingDate;
+    }
+
+	public Recipe setAddingDate(Date addingDate) {
+        this.addingDate = addingDate;
+        return this;
+    }
+
+	public Integer getRating() {
+        return rating;
+    }
+
+	public Recipe setRating(Integer rating) {
+        this.rating = rating;
+        return this;
+    }
+
+    public Recipe setEditingDate(Date editingDate) {
+        this.editingDate = editingDate;
+        return this;
     }
 
     public Image getImage() {
@@ -43,7 +64,7 @@ public class Recipe {
 		return this;
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
@@ -87,12 +108,12 @@ public class Recipe {
 		return this;
 	}
 
-	public Integer getNoOfPerson() {
-		return noOfPerson;
+	public String getNoOfPeople() {
+		return noOfPeople;
 	}
 
-	public Recipe setNoOfPerson(final Integer noOfPerson) {
-		this.noOfPerson = noOfPerson;
+	public Recipe setNoOfPeople(final String noOfPeople) {
+		this.noOfPeople = noOfPeople;
 		return this;
 	}
 
@@ -112,7 +133,7 @@ public class Recipe {
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder(17, 37).append(title).append(image)
-				.append(preamble).append(preparation).append(noOfPerson)
+				.append(preamble).append(preparation).append(noOfPeople)
 				.append(ingredients.toArray()).append(tags.toArray()).toHashCode();
 	}
 
@@ -130,14 +151,18 @@ public class Recipe {
 		Recipe rhs = (Recipe) obj;
 		return new EqualsBuilder().append(title, rhs.title)
 				.append(preamble, rhs.preamble)
-				.append(noOfPerson, rhs.noOfPerson).append(image, rhs.image)
+				.append(noOfPeople, rhs.noOfPeople).append(image, rhs.image)
 				.append(ingredients.toArray(), rhs.ingredients.toArray())
 				.append(preparation, rhs.preparation).isEquals();
 	}
 	
 	@Override
 	public String toString() {
-	    return new ToStringBuilder(this).append("title", title).append("preamble", preamble).append("image", image).append("noOfPerson", noOfPerson)
+	    return new ToStringBuilder(this).append("title", title).append("preamble", preamble).append("image", image).append("noOfPerson", noOfPeople)
 	            .append("ingredients", ingredients).append("preparation", preparation).append("tags", tags).build();
 	}
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }
