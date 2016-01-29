@@ -6,7 +6,12 @@
                         
 	<persistence-unit name="Cookbook" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<properties>
+        
+        <class>ch.vrsg.edu.jpa.Recipe</class>
+        <class>ch.vrsg.edu.jpa.Image</class>
+        <class>ch.vrsg.edu.jpa.Ingredient</class>
+		
+        <properties>
 			<!-- JPA Datenbank Verbindungsinformationen -->
 			<property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver" /> 
 			<property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:hsql://localhost:9001/" /> <!-- Server on localhost -->

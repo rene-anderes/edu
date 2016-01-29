@@ -1,0 +1,13 @@
+{
+	"id": null,
+	"noOfPeople":"4",
+	"ingredients":[{"description":"Torrone","portion":"180 g","comment":" Mischverhältnis 60"},{"description":"Rahm","portion":"3 dl","comment":"grösse der Form beachten"}],
+	"tags":["dessert"],
+	"title":"Torroneparfait",
+	"preparation":"<p>Den Torroneriegel zerkrümeln, am besten im Mixer. Mit steif geschlagenem Rahm vermischen und schliesslich in einer kleinen Kastenform ins Gefrierfach stellen. Die Form zuvor mit Klarsichtfolie auslegen, dann kann man das gefrorene Parfait ganz einfach aus der Form ziehen.</p>\n",
+	"preamble":"<p>Torrone, das ist jener weisse Schaumriegel mit Mandeln oder Haselnüssen, den man auch auf Jahrmärkten kaufen kann. Natürlich kriegt man es auch beim Italiener. Unbedingt darauf achten: Es gibt Torrone in unterschiedlichen \"Härtegraden\": Je härter umso einfacher zu verarbeiten.</p>\n","rating":5,"addingDate":1317233310031,"editingDate":1421863646960,
+	"addingDate": null,
+	"editingDate": null,
+	"rating": 5,
+	"image": {}
+}
