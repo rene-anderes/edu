@@ -9,6 +9,7 @@ import static org.junit.Assert.assertThat;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -63,11 +64,15 @@ public class RestApiIT {
         final Entity<JSONObject> entity = Entity.entity(json, variant);
 
         // when
-        final Response response = target.request(APPLICATION_JSON).buildPost(entity).invoke();
+        final Response responseFromSave = target.request(APPLICATION_JSON).buildPost(entity).invoke();
         
         // then
-        System.out.println(response.readEntity(String.class));
-        assertThat(response.getStatus(), is(CREATED.getStatusCode()));
+        assertThat(responseFromSave.getStatus(), is(CREATED.getStatusCode()));
+        final URI uriForNewRecipe = responseFromSave.getLocation();
+        assertThat(uriForNewRecipe, is(notNullValue()));
+        final WebTarget targetForGetOne = client.target(uriForNewRecipe);
+        final Response responseFromGet = targetForGetOne.request(APPLICATION_JSON).get();
+        assertThat(responseFromGet.getStatus(), is(OK.getStatusCode()));
     }
     
     

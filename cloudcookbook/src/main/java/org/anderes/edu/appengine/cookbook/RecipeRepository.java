@@ -3,18 +3,20 @@ package org.anderes.edu.appengine.cookbook;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import org.apache.commons.lang3.Validate;
 
-import com.google.appengine.repackaged.org.joda.time.LocalDate;
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.NotFoundException;
 
 
 public class RecipeRepository {
 
-//    private Logger logger = Logger.getLogger(this.getClass().getName());
+    private Logger logger = Logger.getLogger(this.getClass().getName());
     
     /**
      * Findet ein einzelnes Rezept
@@ -29,18 +31,21 @@ public class RecipeRepository {
     }
 
     public Recipe save(final Recipe recipe) {
+        Validate.notNull(recipe, "Parameter id darf nicht null sein");
         if (recipe.getId() == null) {
             recipe.setId(UUID.randomUUID().toString());
         }
-        recipe.setEditingDate(LocalDate.now().toDate());
+        recipe.setEditingDate(new Date());
         if (recipe.getAddingDate() == null) {
-            recipe.setAddingDate(LocalDate.now().toDate());
+            recipe.setAddingDate(new Date());
         }
-        ofy().save().entity(recipe).now();
+        final Key<Recipe> key = ofy().save().entity(recipe).now();
+        logger.info("Rezept mit Key '" + key.toWebSafeString() + "' gespeichert.");
         return recipe;
     }
     
     public void delete(final Recipe recipe) {
+        Validate.notNull(recipe, "Parameter id darf nicht null sein");
         ofy().delete().entity(recipe).now();
     }
 
