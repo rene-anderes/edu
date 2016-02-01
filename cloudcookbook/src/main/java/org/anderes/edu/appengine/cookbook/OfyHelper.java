@@ -3,6 +3,8 @@ package org.anderes.edu.appengine.cookbook;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import org.anderes.edu.appengine.cookbook.dto.Recipe;
+
 import com.googlecode.objectify.ObjectifyService;
 
 public class OfyHelper implements ServletContextListener {

@@ -1,4 +1,4 @@
-package org.anderes.edu.appengine.cookbook;
+package org.anderes.edu.appengine.cookbook.rest;
 
 import java.util.HashSet;
 import java.util.Set;

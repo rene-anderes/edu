@@ -7,6 +7,9 @@ import static org.junit.Assert.assertThat;
 
 import java.util.Collection;
 
+import org.anderes.edu.appengine.cookbook.dto.Image;
+import org.anderes.edu.appengine.cookbook.dto.Ingredient;
+import org.anderes.edu.appengine.cookbook.dto.Recipe;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

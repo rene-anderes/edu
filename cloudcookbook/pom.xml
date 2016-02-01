@@ -24,12 +24,20 @@
     </prerequisites>
 
     <dependencies>
-        <!-- Compile/runtime dependencies -->
+        <!-- Google Appengine Api 1.0 Sdk -->
         <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-api-1.0-sdk</artifactId>
             <version>${appengine.version}</version>
         </dependency>
+        <!-- / Google Appengine Api 1.0 Sdk -->
+        <!-- Google Appengine Endpoints -->
+        <dependency>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-endpoints</artifactId>
+            <version>${appengine.version}</version>
+        </dependency>
+        <!-- / Google Appengine Endpoints -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
@@ -118,22 +126,6 @@
         <!-- for hot reload of the web application -->
         <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
         <plugins>
-            <!--
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-                <version>2.1</version>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>display-dependency-updates</goal>
-                            <goal>display-plugin-updates</goal>
-                        </goals>
-                     </execution>
-                </executions>
-            </plugin>
-            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <version>3.1</version>
@@ -168,7 +160,7 @@
                     <enableJarClasses>false</enableJarClasses>
                     <version>${app.version}</version>
                     <!-- Comment in the below snippet to bind to all IPs instead of just localhost -->
-                    <!-- address>0.0.0.0</address> -->
+                    <address>0.0.0.0</address>
                     <port>8089</port>
                         <jvmFlags>
                             <!-- Comment in the below snippet to enable local debugging with a remote debugger like those included with Eclipse or IntelliJ -->

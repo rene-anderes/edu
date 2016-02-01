@@ -2,12 +2,15 @@ package org.anderes.edu.appengine.cookbook;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+import org.anderes.edu.appengine.cookbook.dto.Recipe;
+import org.anderes.edu.appengine.cookbook.dto.RecipeShort;
 import org.apache.commons.lang3.Validate;
 
 import com.googlecode.objectify.Key;
@@ -55,5 +58,14 @@ public class RecipeRepository {
 
     public List<Recipe> findAll() {
         return ofy().load().type(Recipe.class).list();
+    }
+    
+    public List<RecipeShort> getRecipeCollection() {
+        final List<Recipe> collection = findAll();
+        final ArrayList<RecipeShort> recipes = new ArrayList<>(collection.size());
+        for (Recipe recipe : collection) {
+            recipes.add(new RecipeShort(recipe.getTitle(), recipe.getId(), recipe.getEditingDate()));
+        }
+        return recipes;
     }
 }

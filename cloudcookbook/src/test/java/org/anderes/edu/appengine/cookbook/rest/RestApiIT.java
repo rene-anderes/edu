@@ -1,4 +1,4 @@
-package org.anderes.edu.appengine.cookbook;
+package org.anderes.edu.appengine.cookbook.rest;
 
 import static javax.ws.rs.core.MediaType.*;
 import static javax.ws.rs.core.Response.Status.*;
@@ -22,6 +22,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.Variant;
 
+import org.anderes.edu.appengine.cookbook.rest.MyApplication;
+import org.anderes.edu.appengine.cookbook.rest.RecipeResource;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

@@ -1,4 +1,4 @@
-package org.anderes.edu.appengine.cookbook;
+package org.anderes.edu.appengine.cookbook.dto;
 
 import java.util.Collections;
 import java.util.Date;

@@ -1,5 +1,5 @@
 
-package org.anderes.edu.appengine.cookbook;
+package org.anderes.edu.appengine.cookbook.dto;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

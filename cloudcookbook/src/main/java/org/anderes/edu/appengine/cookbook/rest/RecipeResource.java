@@ -1,4 +1,4 @@
-package org.anderes.edu.appengine.cookbook;
+package org.anderes.edu.appengine.cookbook.rest;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
@@ -17,6 +17,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
+import org.anderes.edu.appengine.cookbook.RecipeRepository;
+import org.anderes.edu.appengine.cookbook.dto.Recipe;
+import org.anderes.edu.appengine.cookbook.dto.RecipeShort;
+
 @Path("recipes")
 @Produces(APPLICATION_JSON)
 public class RecipeResource {
@@ -31,11 +35,7 @@ public class RecipeResource {
     
     @GET
     public Response findAll() {
-        final List<Recipe> collection = repository.findAll();
-        final ArrayList<RecipeShort> recipes = new ArrayList<>(collection.size());
-        for (Recipe recipe : collection) {
-            recipes.add(new RecipeShort(recipe.getTitle(), recipe.getId(), recipe.getEditingDate()));
-        }
+        final List<RecipeShort> recipes = repository.getRecipeCollection();
         return Response.ok().encoding(StandardCharsets.UTF_8.displayName()).entity(recipes).build();
     }
     
