@@ -18,6 +18,7 @@ import javax.json.JsonObjectBuilder;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriBuilder;
 
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.jsonp.JsonProcessingFeature;
@@ -27,7 +28,7 @@ import org.junit.Test;
 
 public class RecipeRestApiTest {
     
-    private final String host = "http://www.anderes.org";
+    private UriBuilder restUrl = UriBuilder.fromPath("resources-api").path("recipes").host("www.anderes.org").scheme("http");
     private File tempFile;
 
     @Before
@@ -46,7 +47,7 @@ public class RecipeRestApiTest {
 
     @Test
     public void shouldBeBackupAllRecipe() {
-        final JsonArray array = getJsonFromServer(host, "/resources-api/recipes", JsonArray.class);
+        final JsonArray array = getJsonFromServer(restUrl, JsonArray.class);
 
         assertThat(array, is(notNullValue()));
         array.forEach(element -> assertThat(((JsonObject)element).containsKey("id"), is(true)));
@@ -54,7 +55,7 @@ public class RecipeRestApiTest {
     
     @Test
     public void shouldBeOneRecipe() {
-        final JsonObject recipe = getJsonFromServer(host, "/resources-api/recipes/c0e5582e-252f-4e94-8a49-e12b4b047afb", JsonObject.class);
+        final JsonObject recipe = getJsonFromServer(restUrl.path("c0e5582e-252f-4e94-8a49-e12b4b047afb"), JsonObject.class);
         assertThat(recipe, is(notNullValue()));
         assertThat(recipe.containsKey("id"), is(true));
         assertThat(recipe.getString("id"), is("c0e5582e-252f-4e94-8a49-e12b4b047afb"));
@@ -122,9 +123,9 @@ public class RecipeRestApiTest {
         return Json.createArrayBuilder().add("pasta").add("fleisch").build();
     }
 
-    private <T> T getJsonFromServer(final String host, final String path, final Class<T> clazz) {
+    private <T> T getJsonFromServer(final UriBuilder uri, final Class<T> clazz) {
         final Client client = ClientBuilder.newClient(new ClientConfig().register(JsonProcessingFeature.class));
-        return client.target(host).path(path).request(MediaType.APPLICATION_JSON_TYPE).get(clazz);
+        return client.target(uri).request(MediaType.APPLICATION_JSON_TYPE).get(clazz);
     }
     
     private void writeJsonToFile(final JsonArray json, final Path path) throws IOException {
