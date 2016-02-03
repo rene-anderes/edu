@@ -1,3 +1,8 @@
+Maven Archetype für JPA-Projekt
+
+JPA-Provieder: EclipseLink
+
+Archetype bauen:
 
 Vom Maven-Projektordner den folgenden Befehl eingeben:
 	mvn clean archetype:create-from-project

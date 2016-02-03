@@ -27,6 +27,7 @@ public class Person implements Serializable {
 
 	@Id
     @GeneratedValue
+    @Column(updatable = false, nullable = false)
     private Long id;
     
 	@Basic
