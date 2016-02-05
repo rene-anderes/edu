@@ -13,7 +13,20 @@
             <param-value>org.anderes.edu.appengine.cookbook</param-value>
         </init-param>
     </servlet>
-
+    <servlet>
+        <servlet-name>SystemServiceServlet</servlet-name>
+        <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
+        <init-param>
+            <param-name>services</param-name>
+            <param-value>org.anderes.edu.appengine.cookbook.endpoint.CookbookAPI</param-value>
+        </init-param>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>SystemServiceServlet</servlet-name>
+        <url-pattern>/_ah/spi/*</url-pattern>
+    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>MyApplication</servlet-name>
         <url-pattern>/services/*</url-pattern>

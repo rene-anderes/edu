@@ -12,7 +12,7 @@
     <properties>
         <app.id>primeval-falcon-839</app.id>
         <app.version>1-0</app.version>
-        <appengine.version>1.9.31</appengine.version>
+        <appengine.version>1.9.32</appengine.version>
         <gcloud.plugin.version>2.0.9.92.v20160118</gcloud.plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
@@ -164,7 +164,7 @@
                     <port>8089</port>
                         <jvmFlags>
                             <!-- Comment in the below snippet to enable local debugging with a remote debugger like those included with Eclipse or IntelliJ -->
-                            <jvmFlag>-agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n</jvmFlag>
+                            <!-- <jvmFlag>-agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n</jvmFlag> -->
                             <!-- <jvmFlag>-Dhttp.proxyHost=localhost -Dhttp.proxyPort=8080 -Dhttps.proxyHost=localhost -Dhttps.proxyPort=8080</jvmFlag> -->
                         </jvmFlags>
                 </configuration>
