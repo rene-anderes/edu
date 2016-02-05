@@ -26,7 +26,7 @@ public class RecipeRepository {
      * 
      * @param id Datenbankidentität
      * @return Rezept
-     * @throws NotFoundException falls die Entität mir der entsprechenden ID nicht existiert
+     * @throws com.googlecode.objectify.NotFoundException falls die Entität mir der entsprechenden ID nicht existiert
      */
     public Recipe findOne(final String id) {
         Validate.notNull(id, "Parameter id darf nicht null sein");
