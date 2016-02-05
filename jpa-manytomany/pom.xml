@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.anderes.edu</groupId>
-    <artifactId>jpa.archetype</artifactId>
-    <version>2.1.11-RELEASE</version>
+    <artifactId>jpa-manytomany</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
 
-    <name>jpa2.1-eclipselink-derby</name>
-    <description>JPA 2.1 mit EclipseLink als JPA-Provider. Derby als Datenbank</description>
+    <name>jpa-manytomany</name>
+    <description>Beispiel welches die uniderktionale Beziehung ""many to many" mittels JPA zeigt.</description>
     <organization>
         <name>René Anderes</name>
     </organization>
@@ -57,7 +57,13 @@
             <version>${derby.version}</version>
             <scope>compile</scope>
         </dependency>
-
+        <!-- Derby Embedded Database Tests -->
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derbyclient</artifactId>
+            <version>${derby.version}</version>
+            <scope>test</scope>
+        </dependency>
         <!-- TEST Dependecies -->
         <dependency>
             <groupId>junit</groupId>
@@ -70,7 +76,6 @@
 
 
     <build>
-        <defaultGoal>clean archetype:create-from-project</defaultGoal>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
