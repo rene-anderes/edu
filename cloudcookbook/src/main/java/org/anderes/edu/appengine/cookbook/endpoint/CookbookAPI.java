@@ -27,7 +27,7 @@ public class CookbookAPI {
     private RecipeRepository repository = new RecipeRepository();
     
     @ApiMethod(
-        name = "list",
+        name = "recipes.list",
         httpMethod = HttpMethod.GET
      )
     public List<RecipeShort> getRecipeCollection() {
@@ -35,12 +35,32 @@ public class CookbookAPI {
     }
     
     @ApiMethod(
-        name = "findOne", 
+        name = "recipes.findOne", 
         httpMethod = HttpMethod.GET
     )
     public Recipe getRecipe(@Named("id") String id) throws NotFoundException {
         try {
             return repository.findOne(id);
+        } catch(com.googlecode.objectify.NotFoundException e) {
+            throw new NotFoundException("Recipe not found with id: " + id);
+        }
+    }
+    
+    @ApiMethod(
+        name = "recipes.save", 
+        httpMethod = HttpMethod.POST
+    )
+    public Recipe saveRecipe(final Recipe recipe) {
+        return repository.save(recipe);
+    }
+    
+    @ApiMethod(
+        name = "recipes.delete", 
+        httpMethod = HttpMethod.DELETE
+    )
+    public void deleteRecipe(@Named("id") String id) throws NotFoundException {
+        try {
+            repository.delete(id);
         } catch(com.googlecode.objectify.NotFoundException e) {
             throw new NotFoundException("Recipe not found with id: " + id);
         }

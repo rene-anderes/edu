@@ -14,7 +14,6 @@ import org.anderes.edu.appengine.cookbook.dto.RecipeShort;
 import org.apache.commons.lang3.Validate;
 
 import com.googlecode.objectify.Key;
-import com.googlecode.objectify.NotFoundException;
 
 
 public class RecipeRepository {
@@ -43,12 +42,23 @@ public class RecipeRepository {
             recipe.setAddingDate(new Date());
         }
         final Key<Recipe> key = ofy().save().entity(recipe).now();
-        logger.info("Rezept mit Key '" + key.toWebSafeString() + "' gespeichert.");
+        logger.fine("Rezept mit Key '" + key.toWebSafeString() + "' gespeichert.");
         return recipe;
+    }
+
+    /**
+     * Löscht ein einzelnes Rezept
+     * 
+     * @param id Datenbankidentität
+     * @throws com.googlecode.objectify.NotFoundException falls die Entität mir der entsprechenden ID nicht existiert
+     */
+    public void delete(final String recipeId) {
+        Validate.notNull(recipeId, "Parameter recipeId darf nicht null sein");
+        delete(findOne(recipeId));
     }
     
     public void delete(final Recipe recipe) {
-        Validate.notNull(recipe, "Parameter id darf nicht null sein");
+        Validate.notNull(recipe, "Parameter recipe darf nicht null sein");
         ofy().delete().entity(recipe).now();
     }
 

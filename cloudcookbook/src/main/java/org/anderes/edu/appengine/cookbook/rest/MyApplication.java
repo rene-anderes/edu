@@ -15,6 +15,7 @@ public class MyApplication extends Application {
         clazz.add(HelloWorldResource.class);
         clazz.add(RecipeResource.class);
         clazz.add(UserAuthResources.class);
+        clazz.add(NotFoundExceptionMapper.class);
         return clazz;
     }
 }
