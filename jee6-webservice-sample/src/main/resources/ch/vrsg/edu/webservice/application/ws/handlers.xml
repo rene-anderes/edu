@@ -2,8 +2,8 @@
 <handler-chains xmlns="http://java.sun.com/xml/ns/javaee">
   <handler-chain>
     <handler>
-      <handler-name>ch.vrsg.edu.webservice.application.ws.LogicalLoggingHandler</handler-name>
-      <handler-class>ch.vrsg.edu.webservice.application.ws.LogicalLoggingHandler</handler-class>
+      <handler-name>ch.vrsg.edu.webservice.application.ws.PayloadLoggingHandler</handler-name>
+      <handler-class>ch.vrsg.edu.webservice.application.ws.PayloadLoggingHandler</handler-class>
     </handler>
     <handler>
       <handler-name>ch.vrsg.edu.webservice.application.ws.SOAPMonitorHandler</handler-name>

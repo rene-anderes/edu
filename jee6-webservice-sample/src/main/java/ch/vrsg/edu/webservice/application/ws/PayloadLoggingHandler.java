@@ -29,14 +29,14 @@ import org.apache.log4j.Logger;
  * @see {@link https://jax-ws.java.net/articles/handlers_introduction.html}
  *
  */
-public class LogicalLoggingHandler implements LogicalHandler<LogicalMessageContext> {
+public class PayloadLoggingHandler implements LogicalHandler<LogicalMessageContext> {
 
     @Inject
     private Logger logger;
 
     @Override
     public void close(MessageContext context) {
-        // Clean up Resources
+        // nothing to do...
     }
 
     @Override
@@ -49,21 +49,20 @@ public class LogicalLoggingHandler implements LogicalHandler<LogicalMessageConte
         return processMessage(context);
     }
 
-    private boolean processMessage(LogicalMessageContext context) {
+    private boolean processMessage(final LogicalMessageContext context) {
         if (!logger.isTraceEnabled()) {
             return true;
         }
-        final Boolean outboundProperty = (Boolean) context.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
         final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         try {
-            if (outboundProperty) {
+            if (isOutboundProperty(context)) {
                 outputStream.write("Outbound message:\n".getBytes());
             } else {
                 outputStream.write("Inbound message:\n".getBytes());
             }
-            LogicalMessage lm = context.getMessage();
-            Source payload = lm.getPayload();
+            final LogicalMessage lm = context.getMessage();
+            final Source payload = lm.getPayload();
             printSource(payload, outputStream);
             logger.trace(outputStream.toString());
         } catch (IOException | TransformerException e) {
@@ -71,14 +70,18 @@ public class LogicalLoggingHandler implements LogicalHandler<LogicalMessageConte
         }
         return true;
     }
+    
+    private Boolean isOutboundProperty(final LogicalMessageContext context) {
+        return (Boolean) context.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
+    }
 
     private void printSource(final Source payload, final OutputStream outputStream) throws TransformerException {
-        TransformerFactory factory = TransformerFactory.newInstance();
-        Transformer transformer = factory.newTransformer();
+        final TransformerFactory factory = TransformerFactory.newInstance();
+        final Transformer transformer = factory.newTransformer();
         transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
         transformer.setOutputProperty(OutputKeys.METHOD, "xml");
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        Result result = new StreamResult(outputStream);
+        final Result result = new StreamResult(outputStream);
         transformer.transform(payload, result);
     }
 }
