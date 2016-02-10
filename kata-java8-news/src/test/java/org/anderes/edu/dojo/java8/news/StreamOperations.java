@@ -41,7 +41,7 @@ public class StreamOperations {
         
         Stream<String> streamOfArray = Arrays.stream(myArray);
         Stream<String> streamOfList = myList.stream(); 
-        Stream<String>  stringStream  = Stream.of( "Kallisto", "Io", "Europa", "Ganymed" );
+        Stream<String> stringStream  = Stream.of( "Kallisto", "Io", "Europa", "Ganymed" );
         Stream<Integer> integerStream = Stream.of( 1, 2, 3, 5, 8, 13, 21 );
         
         Stream<Path> directoryFiles = Files.list(Paths.get( "D:/Temp/"));
@@ -206,8 +206,8 @@ public class StreamOperations {
     @Test
     public void iterateFibonacci() {
         
-        Stream.iterate(new BigDecimal[]{BigDecimal.valueOf(1), BigDecimal.valueOf(1)}, a -> new BigDecimal[]{a[1], a[0].add(a[1])})
-                .limit(100)
+        Stream.iterate(new BigDecimal[]{ BigDecimal.valueOf(1), BigDecimal.valueOf(1)}, a -> new BigDecimal[]{a[1], a[0].add(a[1]) })
+                 .limit(100)
                 .map(v -> v[0])
                 .forEach(System.out::println);
     }
