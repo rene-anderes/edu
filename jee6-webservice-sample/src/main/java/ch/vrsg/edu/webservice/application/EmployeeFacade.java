@@ -29,6 +29,7 @@ public class EmployeeFacade {
     }
     
     @Audit
+    @Performance
     public Employee findEmployee(String firstname, String lastname) throws EmployeeNotFoundException {
         
         final Employee soughtAfterEmployee = Employee.build(firstname, lastname, 0);

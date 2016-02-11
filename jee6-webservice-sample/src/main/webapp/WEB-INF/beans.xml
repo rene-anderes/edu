@@ -5,5 +5,6 @@
 
     <interceptors>
         <class>ch.vrsg.edu.webservice.application.AuditInterceptor</class>
+        <class>ch.vrsg.edu.webservice.application.PerformanceInterceptor</class>
     </interceptors>
 </beans>
