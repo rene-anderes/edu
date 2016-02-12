@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URI;
-import java.nio.charset.StandardCharsets;
+import static java.nio.charset.StandardCharsets.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -62,17 +62,38 @@ public class RestApiIT {
         final WebTarget target = client.target(uri);
         final Path jsonFile = Paths.get(".", "target", "test-classes", "recipe1.json");
         final JSONObject json = readJsonFile(jsonFile);
-        final Variant variant = new Variant(APPLICATION_JSON_TYPE, "de_CH", StandardCharsets.UTF_8.displayName());
+        final Variant variant = new Variant(APPLICATION_JSON_TYPE, "de_CH", UTF_8.displayName());
         final Entity<JSONObject> entity = Entity.entity(json, variant);
 
         // when
-        final Response responseFromSave = target.request(APPLICATION_JSON).buildPost(entity).invoke();
+        final Response responseFromSave = target.request(APPLICATION_JSON).post(entity);
         
         // then
         assertThat(responseFromSave.getStatus(), is(CREATED.getStatusCode()));
         final URI uriForNewRecipe = responseFromSave.getLocation();
         assertThat(uriForNewRecipe, is(notNullValue()));
         final WebTarget targetForGetOne = client.target(uriForNewRecipe);
+        final Response responseFromGet = targetForGetOne.request(APPLICATION_JSON).get();
+        assertThat(responseFromGet.getStatus(), is(OK.getStatusCode()));
+    }
+    
+    @Test
+    public void shouldBePutRecipe() throws Exception {
+        // given
+        final Client client = ClientBuilder.newClient();
+        final Path jsonFile = Paths.get(".", "target", "test-classes", "recipe2.json");
+        final JSONObject json = readJsonFile(jsonFile);
+        final WebTarget target = client.target(uri.path(json.get("id").toString()));
+        final Variant variant = new Variant(APPLICATION_JSON_TYPE, "de_CH", UTF_8.displayName());
+        final Entity<JSONObject> entity = Entity.entity(json, variant);
+
+        // when
+        final Response responseFromSave = target.request(APPLICATION_JSON).put(entity);
+        
+        // then
+        assertThat(responseFromSave.getStatus(), is(OK.getStatusCode()));
+        final URI uriForSavedRecipe = target.getUri();
+        final WebTarget targetForGetOne = client.target(uriForSavedRecipe);
         final Response responseFromGet = targetForGetOne.request(APPLICATION_JSON).get();
         assertThat(responseFromGet.getStatus(), is(OK.getStatusCode()));
     }
