@@ -1,7 +1,10 @@
 package org.anderes.edu.appengine.cookbook.rest;
 
-import static javax.ws.rs.core.MediaType.*;
-import static javax.ws.rs.core.Response.Status.*;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON_TYPE;
+import static javax.ws.rs.core.Response.Status.CREATED;
+import static javax.ws.rs.core.Response.Status.OK;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -10,9 +13,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URI;
-import static java.nio.charset.StandardCharsets.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.LinkedHashMap;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -22,18 +25,36 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.Variant;
 
-import org.anderes.edu.appengine.cookbook.rest.MyApplication;
-import org.anderes.edu.appengine.cookbook.rest.RecipeResource;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.junit.AfterClass;
 import org.junit.Test;
 
 public class RestApiIT {
     
-    final UriBuilder uri = UriBuilder.fromResource(MyApplication.class)
-            .scheme("http").host("localhost").port(8089).path(RecipeResource.class);
+    private final static UriBuilder uri = UriBuilder.fromResource(MyApplication.class)
+                    .scheme("http").host("localhost").port(8089).path(RecipeResource.class);
+    
+    @AfterClass
+    public static void shutdown() {
+        final Client client = ClientBuilder.newClient();
+        final WebTarget target = client.target(uri);
+        final Response response = target.request(APPLICATION_JSON).buildGet().invoke();
+        final JSONArray jsonArray = response.readEntity(JSONArray.class);
+        deleteAll(jsonArray);
+    }
+    
+    private static void deleteAll(JSONArray jsonArray) {
+        final Client client = ClientBuilder.newClient();
+        final WebTarget target = client.target(uri);
+        for (Object object : jsonArray) {
+            @SuppressWarnings("rawtypes")
+            final Response response = target.path(((LinkedHashMap)object).get("id").toString()).request().delete();
+            assertThat("Unerwartete Antwort vom Server.", response.getStatus(), is(OK.getStatusCode()));
+        }
+    }
     
     @Test
     public void shouldBeGetAllRecipes() {
@@ -49,9 +70,9 @@ public class RestApiIT {
         assertThat("Unerwartete Antwort vom Server.", response.getStatus(), is(OK.getStatusCode()));
         assertThat(response.getMediaType(), is(APPLICATION_JSON_TYPE));
         assertThat(response.hasEntity(), is(true));
-       
-        final JSONArray json = response.readEntity(JSONArray.class);
-        assertThat(json, is(notNullValue()));
+     
+        final JSONArray jsonArray = response.readEntity(JSONArray.class);
+        assertThat(jsonArray, is(notNullValue()));
     }
     
     @Test
@@ -83,15 +104,15 @@ public class RestApiIT {
         final Client client = ClientBuilder.newClient();
         final Path jsonFile = Paths.get(".", "target", "test-classes", "recipe2.json");
         final JSONObject json = readJsonFile(jsonFile);
-        final WebTarget target = client.target(uri.path(json.get("id").toString()));
+        final WebTarget target = client.target(uri);
         final Variant variant = new Variant(APPLICATION_JSON_TYPE, "de_CH", UTF_8.displayName());
         final Entity<JSONObject> entity = Entity.entity(json, variant);
 
         // when
-        final Response responseFromSave = target.request(APPLICATION_JSON).put(entity);
+        final Response responseFromSave = target.path(json.get("id").toString()).request(APPLICATION_JSON).put(entity);
         
         // then
-        assertThat(responseFromSave.getStatus(), is(OK.getStatusCode()));
+        assertThat(responseFromSave.getStatus(), is(CREATED.getStatusCode()));
         final URI uriForSavedRecipe = target.getUri();
         final WebTarget targetForGetOne = client.target(uriForSavedRecipe);
         final Response responseFromGet = targetForGetOne.request(APPLICATION_JSON).get();
