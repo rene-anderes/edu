@@ -14,6 +14,7 @@ import org.anderes.edu.appengine.cookbook.dto.RecipeShort;
 import org.apache.commons.lang3.Validate;
 
 import com.googlecode.objectify.Key;
+import com.googlecode.objectify.NotFoundException;
 
 
 public class RecipeRepository {
@@ -77,5 +78,16 @@ public class RecipeRepository {
             recipes.add(new RecipeShort(recipe.getTitle(), recipe.getId(), recipe.getEditingDate()));
         }
         return recipes;
+    }
+
+    public boolean exists(final Recipe recipe) {
+        Validate.notNull(recipe, "Parameter recipe darf nicht null sein");
+        Validate.notNull(recipe.getId(), "Die Rezept-Id darf nicht null sein");
+        try {
+            findOne(recipe.getId());
+        } catch (NotFoundException e) {
+            return false;
+        }
+        return true;
     }
 }

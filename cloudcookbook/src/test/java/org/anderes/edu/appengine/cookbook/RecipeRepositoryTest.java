@@ -77,12 +77,15 @@ public class RecipeRepositoryTest {
         final Recipe savedRecipe = repository.save(newRecipe);
         assertThat(savedRecipe, is(notNullValue()));
         assertThat(savedRecipe.getId(), is(notNullValue()));
+        assertThat(repository.exists(savedRecipe), is(true));
+        assertThat(repository.getRecipeCollection().size(), is(1));
                 
         exception.expect(NotFoundException.class);
         exception.expectMessage(startsWith("No entity was found"));
         
         repository.delete(savedRecipe);
         repository.findOne(savedRecipe.getId());
+        assertThat(repository.exists(savedRecipe), is(false));
     }
     
     private Recipe createRecipeForPesto() {

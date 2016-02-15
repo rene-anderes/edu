@@ -5,6 +5,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import java.net.URI;
 import static java.nio.charset.StandardCharsets.*;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -27,6 +28,7 @@ import org.anderes.edu.appengine.cookbook.dto.RecipeShort;
 @Produces(APPLICATION_JSON)
 public class RecipeResource {
     
+    private Logger logger = Logger.getLogger(this.getClass().getName());
     private RecipeRepository repository = new RecipeRepository();
     
     @GET
@@ -44,25 +46,34 @@ public class RecipeResource {
     @POST
     @Consumes(APPLICATION_JSON)
     public Response insert(Recipe recipe) {
+        logger.fine("POST - Recipe: " + recipe);
         final Recipe savedRecipe = repository.save(recipe);
         final URI location = UriBuilder.fromResource(RecipeResource.class).path(savedRecipe.getId()).build();
         return Response.created(location).build();
     }
     
     @PUT
+    @Path("/{id}")
     @Consumes(APPLICATION_JSON)
-    public Response save(@PathParam("id") String id, final Recipe recipe) {
-        repository.findOne(id);
-        if (id != recipe.getId()) {
+    public Response save(@PathParam("id") String id, Recipe recipe) {
+        logger.fine("PUT - Recipe: " + recipe);
+        if (!id.equals(recipe.getId())) {
+            logger.warning("Path-id '" + id + "' ist ungleich Recipe-id '" + recipe.getId() + "'");
             throw new WebApplicationException("Ungültige Parameter", BAD_REQUEST);
         }
-        repository.save(recipe);
-        return Response.ok().build();
+        if (repository.exists(recipe)) {
+            repository.save(recipe);
+            return Response.ok().build();
+        }
+        final Recipe savedRecipe = repository.save(recipe);
+        final URI location = UriBuilder.fromResource(RecipeResource.class).path(savedRecipe.getId()).build();
+        return Response.created(location).build();
     }
     
     @DELETE
     @Path("{id}")
     public Response deleteOne(@PathParam("id") String id) {
+        logger.fine("DELETE - Recipe with id: " + id);
         repository.delete(id);
         return Response.ok().build();
     }
