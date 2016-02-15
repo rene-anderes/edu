@@ -45,7 +45,7 @@
 <body>
  	<p>Specification-Title:</p>
 	<h2>${ specificationTitle }</h2>
-	<p>Version: ${ applVersion } :: Build-Time: ${ buildTime } /></p>
+	<p>Version: ${ applVersion } / Build-Time: ${ buildTime }</p>
 	
 	<table>
 		<thead>

@@ -45,8 +45,8 @@ public class EmployeeResource {
 	@POST
 	@Consumes(APPLICATION_JSON)
 	public Response saveEmployee(Employee employee) {
-	    Integer id = facade.save(employee);
-	    UriBuilder builder = UriBuilder.fromUri(uriInfo.getBaseUri()).path("employees").path(id.toString());
+	    final Integer id = facade.save(employee);
+	    final UriBuilder builder = UriBuilder.fromUri(uriInfo.getBaseUri()).path(EmployeeResource.class).path(id.toString());
 	    return Response.created(builder.build()).build();
 	}
 
