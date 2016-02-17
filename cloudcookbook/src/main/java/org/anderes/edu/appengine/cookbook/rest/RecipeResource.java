@@ -1,10 +1,13 @@
 package org.anderes.edu.appengine.cookbook.rest;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 
 import java.net.URI;
-import static java.nio.charset.StandardCharsets.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.ws.rs.Consumes;
@@ -17,12 +20,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
-import static javax.ws.rs.core.Response.Status.*;
 import javax.ws.rs.core.UriBuilder;
 
 import org.anderes.edu.appengine.cookbook.RecipeRepository;
 import org.anderes.edu.appengine.cookbook.dto.Recipe;
 import org.anderes.edu.appengine.cookbook.dto.RecipeShort;
+import org.anderes.edu.appengine.cookbook.dto.TagDto;
 
 @Path("recipes")
 @Produces(APPLICATION_JSON)
@@ -32,7 +35,7 @@ public class RecipeResource {
     private RecipeRepository repository = new RecipeRepository();
     
     @GET
-    @Path("/{id}")
+    @Path("{id}")
     public Recipe findOne(@PathParam("id") String id) {
         return repository.findOne(id);
     }
@@ -53,7 +56,7 @@ public class RecipeResource {
     }
     
     @PUT
-    @Path("/{id}")
+    @Path("{id}")
     @Consumes(APPLICATION_JSON)
     public Response save(@PathParam("id") String id, Recipe recipe) {
         logger.fine("PUT - Recipe: " + recipe);
@@ -76,5 +79,20 @@ public class RecipeResource {
         logger.fine("DELETE - Recipe with id: " + id);
         repository.delete(id);
         return Response.ok().build();
+    }
+    
+    @GET
+    @Path("tags")
+    public Response tags() {
+        final ArrayList<TagDto> tags = mapToTagDto(repository.findAllTags());
+        return Response.ok(tags).build();
+    }
+    
+    public ArrayList<TagDto> mapToTagDto(final Map<String, Integer> tags) {
+        final ArrayList<TagDto> dto = new ArrayList<TagDto>(tags.size());
+        for (String key : tags.keySet()) {
+            dto.add(new TagDto(key, tags.get(key)));
+        }
+        return dto;
     }
 }

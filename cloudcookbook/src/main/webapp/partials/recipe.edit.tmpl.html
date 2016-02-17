@@ -1,0 +1,87 @@
+
+<div>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Rezept editieren</h2>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <form name="recipeForm">
+        	   <md-input-container class="md-block">
+        	       <label>Rezepttitel</label>
+        	       <input ng-model="recipe.title" type="text" md-autofocus required placeholder="Rezepttitel">
+        	   </md-input-container>
+        	   <md-input-container class="md-block">
+        	       <label>Preamble</label>
+        	       <textarea class="ck-editor" ng-model="recipe.preamble" columns="1" maxlength="1000" rows="5" placeholder="Einleitung"></textarea>
+        	   </md-input-container>
+               <div layout-gt-sm="row">
+                    <span style="padding-top: 25px; padding-right: 1em;">Zutaten für</span>
+                    <md-input-container class="md-block">
+                        <input ng-model="recipe.noOfPeople" minlength=1 maxlength=5 required type="text" placeholder="Anzahl">
+                    </md-input-container>
+                    <span style="padding-top: 25px; padding-left: 1em;">Personen</span>
+               </div>
+                <md-list >
+                   <md-list-item ng-repeat="ingredient in recipe.ingredients">
+                       <md-input-container class="md-block">
+        	               <label>Menge</label>
+                           <input ng-model="ingredient.portion" minlength=0 maxlength=20 name="portion" type="text">
+                       </md-input-container>
+                       <md-input-container class="md-block">
+                           <label>Zutat</label>
+                           <input ng-model="ingredient.description" minlength=1 maxlength=80 name="description" required type="text">
+                       </md-input-container>
+                       <md-input-container class="md-block">
+                           <label>Kommentar</label>
+                           <input ng-model="ingredient.comment" minlength=0 maxlength=80 name="comment" type="text">
+                       </md-input-container>
+                       <span style="margin-bottom: 25px;" layout-gt-sm="row">
+                           <md-button class="md-icon-button" aria-label="delete" ng-click="deleteIngredient($index)">
+                               <md-icon md-svg-icon="delete" style="width: 24px; height: 24px;"></md-icon>
+                           </md-button>
+                           <div ng-show="$last">
+                           <md-button class="md-icon-button" aria-label="neue Zutat" ng-click="addIngredient()" >
+                                <md-icon md-svg-icon="add" style="width: 24px; height: 24px;"></md-icon>
+                           </md-button>
+                           </div>
+                       </span>
+                    </md-list-item>
+               </md-list>
+               <md-input-container class="md-block">
+                   <label>Zubereitung</label>
+                   <textarea class="ck-editor" ng-model="recipe.preparation" minlength=8 maxlength=8000 name="preparation" columns="1" rows="15" required placeholder="Zubereitung"></textarea>
+               </md-input-container>
+               <md-chips
+	               ng-model="recipe.tags"
+	               readonly="false"
+	               placeholder="Enter a tag"
+	               delete-button-label="Remove Tag"
+	               delete-hint="Press delete to remove tag"
+	               secondary-placeholder="+Tag"
+                   md-require-match="false">
+                    <md-autocomplete
+	                   md-selected-item="selectedItem"
+	                   md-search-text="searchText"
+	                   md-items="item in querySearch(searchText)"
+	                   md-item-text="item"
+                       placeholder="Search for a tags">
+                            <span md-highlight-text="searchText">{{item}}</span>
+                    </md-autocomplete>
+                </md-chips>
+                <p>Rating Value: <span class="radioValue">{{ recipe.rating }}</span></p>
+                <md-radio-group ng-model="recipe.rating">
+                    <md-radio-button ng-repeat="d in radioData" ng-value="d.value" ng-class="{'md-primary': recipe.rating==d.value}">{{ d.label }}&nbsp;&nbsp;</md-radio-button>
+                 </md-radio-group>
+            </form>
+            <div ng-hide="recipe.id == null">
+                <small class="md-caption">Letzte Änderung: {{recipe.editingDate | date:'EEE dd. MMM yyyy - HH:mm'}}<br>Erfasst am: {{recipe.addingDate | date:'EEE dd. MMM yyyy - HH:mm'}}</small>
+            </div>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button ng-click="cancel()" class="md-raised">Cancel</md-button>
+        <md-button ng-click="save()" class="md-raised md-primary" ng-disabled="recipeForm.$invalid">Save</md-button>
+    </md-dialog-actions>
+</div>

@@ -1,0 +1,25 @@
+
+<form name="loginForm">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Logon Information</h2>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+         <div class="md-dialog-content">
+            <md-input-container>
+                <label>Benutzer</label>
+                <input type="text" id="user" md-autofocus ng-model="credentials.username" required placeholder="Benutzername">
+             </md-input-container>
+             <md-input-container>
+                <label>Passwort</label>
+                <input type="password" id="password" ng-model="credentials.password" required placeholder="Passwort">
+            </md-input-container>
+        </div>
+    <md-dialog-content>
+    <md-dialog-actions>
+        <md-button ng-click="checkLogon()" class="md-raised md-primary" ng-disabled="loginForm.$invalid">CHECK</md-button>
+        <md-button ng-click="okDialog()" class="md-raised" ng-disabled="!checked">SAVE DATA</md-button>
+        <md-button ng-click="cancelDialog()" class="md-raised">CANCEL</md-button>
+    </md-dialog-actions>
+</form>

@@ -5,12 +5,15 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Logger;
 
 import org.anderes.edu.appengine.cookbook.dto.Recipe;
 import org.anderes.edu.appengine.cookbook.dto.RecipeShort;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
 import com.googlecode.objectify.Key;
@@ -89,5 +92,29 @@ public class RecipeRepository {
             return false;
         }
         return true;
+    }
+    
+    public Map<String, Integer> findAllTags() {
+        final List<Recipe> recipes = findAll();
+        final List<String> tagCollection = new ArrayList<>(recipes.size());
+        for (Recipe recipe : recipes) {
+            tagCollection.addAll(recipe.getTags());
+        }
+        return toMap(tagCollection);
+    }
+
+    private Map<String, Integer> toMap(final List<String> tagCollection) {
+        final HashMap<String, Integer> map = new HashMap<String, Integer>();
+        for (String tag : tagCollection ) {
+            if (StringUtils.isEmpty(tag)) {
+                continue;
+            }
+            if (map.containsKey(tag)) {
+                map.put(tag, map.get(tag) + 1);
+            } else {
+                map.put(tag, 1);
+            }
+        }
+        return map;
     }
 }

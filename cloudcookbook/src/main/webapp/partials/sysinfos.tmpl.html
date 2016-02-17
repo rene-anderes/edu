@@ -1,0 +1,19 @@
+
+<md-toolbar>
+<div class="md-toolbar-tools">
+    <h2>System-Informations</h2>
+</div>
+</md-toolbar>
+<md-dialog-content>
+    <div class="md-dialog-content">
+        <p>Applikations-Release: {{systemInfos.applicationRelease}}</p>
+        <p>Spring-Version: {{systemInfos.springVersion}}</p>
+        <p>Spring-Security-Version: {{systemInfos.springSecurityVersion}}</p>
+        <p>Datenbank-Version (Derby): {{systemInfos.derbyVersion}}</p>
+        <p>&nbsp;</p>
+    </div>
+</md-dialog-content>
+<md-dialog-actions>
+        <md-button ng-click="closeDialog()" class="md-raised md-primary">OK</md-button>
+</md-dialog-actions>
+
