@@ -10,10 +10,7 @@
 	pageContext.setAttribute("applVersion", manifest.getMainAttributes().getValue("Implementation-Version"));
 	pageContext.setAttribute("specificationTitle", manifest.getMainAttributes().getValue("Specification-Title"));
 	pageContext.setAttribute("buildTime", manifest.getMainAttributes().getValue("Build-Time"));
-	
-	Collection<String> employeePortMapping = getServletConfig().getServletContext().getServletRegistration("EmployeePort").getMappings();
-	pageContext.setAttribute("employeePortMapping", employeePortMapping);
-	
+
 	Map<String, ? extends ServletRegistration> registrations = getServletConfig().getServletContext().getServletRegistrations();
 	pageContext.setAttribute("registrations", registrations);
  %>
