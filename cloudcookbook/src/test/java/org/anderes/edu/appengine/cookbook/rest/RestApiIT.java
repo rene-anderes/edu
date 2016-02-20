@@ -135,8 +135,17 @@ public class RestApiIT {
     }
     
     @Test
-    public void shouldBeReadJsonFile() throws Exception {
+    public void shouldBeReadJsonFileFromPath() throws Exception {
         final Path jsonFile = Paths.get(".", "target", "test-classes", "recipe1.json");
+        final JsonObject recipeObject = readJsonFile(jsonFile);
+        
+        assertThat(recipeObject, is(notNullValue()));
+        assertThat(recipeObject.getString("title"), is("Torroneparfait"));
+    }
+    
+    @Test
+    public void shouldBeReadJsonFileFromResources() throws Exception {
+        final Path jsonFile = Paths.get(getClass().getResource("/recipe1.json").toURI());
         final JsonObject recipeObject = readJsonFile(jsonFile);
         
         assertThat(recipeObject, is(notNullValue()));

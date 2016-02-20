@@ -49,5 +49,9 @@
 	"rating": 5,
 	"addingDate": 1250959818424,
 	"editingDate": 1421863647087,
-	"image": null
+	"image": {
+		"description": "Arabische Spaghetti",
+		"url": "images/arabische.jpg"
+		}
+	}
 }
