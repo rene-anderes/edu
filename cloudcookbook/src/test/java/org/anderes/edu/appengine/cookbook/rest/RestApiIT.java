@@ -11,12 +11,17 @@ import static org.junit.Assert.assertThat;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.LinkedHashMap;
+import java.util.logging.Logger;
 
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.JsonValue;
+import static javax.json.stream.JsonGenerator.*;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -25,33 +30,45 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.Variant;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.junit.AfterClass;
+import org.glassfish.jersey.filter.LoggingFilter;
+import org.glassfish.jersey.jsonp.JsonProcessingFeature;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class RestApiIT {
     
+    private final static Logger logger = Logger.getLogger(RestApiIT.class.getName());
     private final static UriBuilder uri = UriBuilder.fromResource(MyApplication.class)
                     .scheme("http").host("localhost").port(8089).path(RecipeResource.class);
+    private Client client;
     
-    @AfterClass
-    public static void shutdown() {
-        final Client client = ClientBuilder.newClient();
-        final WebTarget target = client.target(uri);
-        final Response response = target.request(APPLICATION_JSON).buildGet().invoke();
-        final JSONArray jsonArray = response.readEntity(JSONArray.class);
-        deleteAll(jsonArray);
+    @Before
+    public void setup() {
+        client = ClientBuilder.newClient();
+        client.register(JsonProcessingFeature.class)
+            .property(PRETTY_PRINTING, true)
+            .register(new LoggingFilter(logger, true)); 
     }
     
-    private static void deleteAll(JSONArray jsonArray) {
+//    @AfterClass
+    @BeforeClass
+    public static void shutdown() {
         final Client client = ClientBuilder.newClient();
+        client.register(JsonProcessingFeature.class)
+            .property(PRETTY_PRINTING, true)
+            .register(new LoggingFilter(logger, true)); 
         final WebTarget target = client.target(uri);
-        for (Object object : jsonArray) {
-            @SuppressWarnings("rawtypes")
-            final Response response = target.path(((LinkedHashMap)object).get("id").toString()).request().delete();
+        final Response response = target.request(APPLICATION_JSON).buildGet().invoke();
+        final JsonArray jsonArray = response.readEntity(JsonArray.class);
+        deleteAll(jsonArray, client);
+    }
+    
+    private static void deleteAll(final JsonArray jsonArray, final Client client) {
+        final WebTarget target = client.target(uri);
+        for (JsonValue object : jsonArray) {
+            final WebTarget newTarget = target.path(((JsonObject)object).getString("id"));
+            final Response response = newTarget.request().delete();
             assertThat("Unerwartete Antwort vom Server.", response.getStatus(), is(OK.getStatusCode()));
         }
     }
@@ -60,7 +77,6 @@ public class RestApiIT {
     public void shouldBeGetAllRecipes() {
         
         // given
-        final Client client = ClientBuilder.newClient();
         final WebTarget target = client.target(uri);
     
         // when
@@ -71,7 +87,7 @@ public class RestApiIT {
         assertThat(response.getMediaType(), is(APPLICATION_JSON_TYPE));
         assertThat(response.hasEntity(), is(true));
      
-        final JSONArray jsonArray = response.readEntity(JSONArray.class);
+        final JsonArray  jsonArray = response.readEntity(JsonArray .class);
         assertThat(jsonArray, is(notNullValue()));
     }
     
@@ -79,12 +95,11 @@ public class RestApiIT {
     public void shouldBeSaveNewRecipe() throws Exception {
         
         // given
-        final Client client = ClientBuilder.newClient();
         final WebTarget target = client.target(uri);
         final Path jsonFile = Paths.get(".", "target", "test-classes", "recipe1.json");
-        final JSONObject json = readJsonFile(jsonFile);
+        final JsonObject json = readJsonFile(jsonFile);
         final Variant variant = new Variant(APPLICATION_JSON_TYPE, "de_CH", UTF_8.displayName());
-        final Entity<JSONObject> entity = Entity.entity(json, variant);
+        final Entity<JsonObject> entity = Entity.entity(json, variant);
 
         // when
         final Response responseFromSave = target.request(APPLICATION_JSON).post(entity);
@@ -101,15 +116,15 @@ public class RestApiIT {
     @Test
     public void shouldBePutRecipe() throws Exception {
         // given
-        final Client client = ClientBuilder.newClient();
         final Path jsonFile = Paths.get(".", "target", "test-classes", "recipe2.json");
-        final JSONObject json = readJsonFile(jsonFile);
+        final JsonObject json = readJsonFile(jsonFile);
         final WebTarget target = client.target(uri);
         final Variant variant = new Variant(APPLICATION_JSON_TYPE, "de_CH", UTF_8.displayName());
-        final Entity<JSONObject> entity = Entity.entity(json, variant);
+        final Entity<JsonObject> entity = Entity.entity(json, variant);
 
         // when
-        final Response responseFromSave = target.path(json.get("id").toString()).request(APPLICATION_JSON).put(entity);
+        final WebTarget newTarget = target.path(json.getString("id"));
+        final Response responseFromSave = newTarget.request(APPLICATION_JSON).put(entity);
         
         // then
         assertThat(responseFromSave.getStatus(), is(CREATED.getStatusCode()));
@@ -119,19 +134,28 @@ public class RestApiIT {
         assertThat(responseFromGet.getStatus(), is(OK.getStatusCode()));
     }
     
+    @Test
+    public void shouldBeReadJsonFileFromPath() throws Exception {
+        final Path jsonFile = Paths.get(".", "target", "test-classes", "recipe1.json");
+        final JsonObject recipeObject = readJsonFile(jsonFile);
+        
+        assertThat(recipeObject, is(notNullValue()));
+        assertThat(recipeObject.getString("title"), is("Torroneparfait"));
+    }
     
     @Test
-    public void shouldBeReadJsonFile() throws Exception {
-        final Path jsonFile = Paths.get(".", "target", "test-classes", "recipe1.json");
-        final JSONObject jsonObject = readJsonFile(jsonFile);
-        assertThat(jsonObject, is(notNullValue()));
-        final String name = (String) jsonObject.get("title");
-        assertThat("Torroneparfait", is(name));
+    public void shouldBeReadJsonFileFromResources() throws Exception {
+        final Path jsonFile = Paths.get(getClass().getResource("/recipe1.json").toURI());
+        final JsonObject recipeObject = readJsonFile(jsonFile);
+        
+        assertThat(recipeObject, is(notNullValue()));
+        assertThat(recipeObject.getString("title"), is("Torroneparfait"));
     }
-
-    private JSONObject readJsonFile(Path jsonFile) throws IOException, ParseException, FileNotFoundException {
-        final JSONParser parser = new JSONParser();
-        final Object obj = parser.parse(new FileReader(jsonFile.toFile()));
-        return (JSONObject) obj;
+    
+    private JsonObject readJsonFile(Path jsonFile) throws FileNotFoundException {
+        final JsonReader reader = Json.createReader(new FileReader(jsonFile.toFile()));
+        final JsonObject recipeObject = reader.readObject();
+        reader.close();
+        return recipeObject;
     }
 }

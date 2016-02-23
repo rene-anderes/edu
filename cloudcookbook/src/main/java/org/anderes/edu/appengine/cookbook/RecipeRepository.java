@@ -37,7 +37,7 @@ public class RecipeRepository {
     }
 
     public Recipe save(final Recipe recipe) {
-        Validate.notNull(recipe, "Parameter id darf nicht null sein");
+        Validate.notNull(recipe, "Parameter recipe darf nicht null sein");
         if (recipe.getId() == null) {
             recipe.setId(UUID.randomUUID().toString());
         }
