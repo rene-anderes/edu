@@ -13,15 +13,21 @@
 		
         <properties>
 			<!-- JPA Datenbank Verbindungsinformationen -->
-			<property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver" /> 
-			<property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:hsql://localhost:9001/" /> <!-- Server on localhost -->
- 			<!-- <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:myDB" /> --> <!-- In-Memory -->
-
+			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:testDB;create=true" />
+            <!-- User and Password (Database-Schema) -->
+            <property name="javax.persistence.jdbc.user" value="" />
+            <property name="javax.persistence.jdbc.password" value="" />
+            
 			<!-- Hibernate spezifische Konfiguration -->
-			<property name="javax.persistence.jdbc.user" value="sa" />
-			<property name="javax.persistence.jdbc.password" value="" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
+            <!-- Dialect siehe https://docs.jboss.org/hibernate/orm/5.1/javadocs/org/hibernate/dialect/package-frame.html -->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.DerbyTenSevenDialect" />
 			<property name="hibernate.hbm2ddl.auto" value="create" />
+            <!-- Ausgabe der SQL-Statements (nicht via Log4J) -->
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true"/>
+            <!-- siehe https://docs.jboss.org/hibernate/orm/5.1/topical/html_single/logging/Logging.html#_log_categories_of_interest -->
+            <property name="org.hibernate" value="true"/>
 		</properties>
 	</persistence-unit>
 </persistence>

@@ -22,13 +22,16 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class RecipeTest {
 
-    EntityManagerFactory emf;
+    private final Logger logger = LogManager.getLogger(this.getClass().getName());
+    private EntityManagerFactory emf;
 
     @Before
     public void setUp() throws Exception {
@@ -54,7 +57,7 @@ public class RecipeTest {
         assertThat(fromDb, is(notNullValue()));
         assertThat(fromDb, is(not(sameInstance(newData))));
 
-        System.out.println("\n--- " + readEntity(Recipe.class, id) + " ---\n");
+        logger.info("\n--- " + readEntity(Recipe.class, id) + " ---\n");
 
     }
 
@@ -80,14 +83,14 @@ public class RecipeTest {
         TypedQuery<Recipe> tQuery = em.createNamedQuery(Recipe.RECIPE_QUERY_ALL, Recipe.class);
         assertThat(tQuery.getResultList().size(), is(2));
         for (Recipe r : tQuery.getResultList()) {
-            System.out.println(r.toString());
+            logger.info("Rezept: " + r.toString());
             assertThat(r.getIngredients(), is(notNullValue()));
-            assertThat(r.getIngredients().size(), is(0));
+            assertThat(r.getIngredients().size(), is(2));
         }
     }
 
     /**
-     * �berpr�fen, ob es zweit Rezepte in der DB hat.<br>
+     * Überprüfen, ob es zweit Rezepte in der DB hat.<br>
      * Mittels "Criteria API"
      */
     @SuppressWarnings("boxing")
@@ -95,9 +98,9 @@ public class RecipeTest {
         List<Recipe> list = selectAllRecipeWithCriteriaAPI();
         assertThat(list.size(), is(2));
         for (Recipe r : list) {
-            System.out.println(r.toString());
+            logger.info(r.toString());
             assertThat(r.getIngredients(), is(notNullValue()));
-            assertThat(r.getIngredients().size(), is(0));
+            assertThat(r.getIngredients().size(), is(2));
         }
     }
 
@@ -175,20 +178,19 @@ public class RecipeTest {
     }
 
     private enum RecipeTestData {
-        DATA1("Title 1"), DATA2("Title 2");
+        DATA1("Rezept für Pasta"), DATA2("Anderes rezept für Pasta");
 
         private String title;
 
         private RecipeTestData(String title) {
             this.title = title;
         }
-
         public Recipe createRecipe() {
             Recipe newData = new Recipe();
             newData.setTitle(this.title);
-            newData.setImage(new Image("url", "description"));
-            newData.addIngredient(new Ingredient("portion 1", "description 1", "comment 1"));
-            newData.addIngredient(new Ingredient("portion 2", "description 2", "comment 2"));
+            newData.setImage(new Image("/images/test.jpg", "Bild für URL"));
+            newData.addIngredient(new Ingredient("200g", "Pasta", "aus der Migros"));
+            newData.addIngredient(new Ingredient("200g", "Pelati", "besser als frische Tomaten"));
             return newData;
         }
     }

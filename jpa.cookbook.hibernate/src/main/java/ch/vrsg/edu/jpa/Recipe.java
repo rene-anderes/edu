@@ -6,6 +6,7 @@
 package ch.vrsg.edu.jpa;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,6 +20,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -47,6 +50,9 @@ public class Recipe {
     @Embedded
     @Column(nullable = true)
     private Image image;
+    
+    @Temporal(TemporalType.DATE)
+    private Date modifyDate = new Date();
 
     @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<Ingredient> ingredients = new HashSet<Ingredient>();
@@ -77,7 +83,9 @@ public class Recipe {
 
     @Override
     public String toString() {
-        return new StrBuilder().append(title).append(image).appendAll(ingredients).toString();
+        return new StrBuilder().append("Title: " + title).appendPadding(1, ' ')
+                        .append("Image: " + image).appendPadding(1, ' ')
+                        .appendAll("Ingredients: " + ingredients).toString();
     }
 
     public void addIngredient(final Ingredient ingredient) {
