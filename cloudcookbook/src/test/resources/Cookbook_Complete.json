@@ -1,0 +1,2535 @@
+[{
+	"id": "c0e5582e-252f-4e94-8a49-e12b4b047afb",
+	"noOfPeople": "2",
+	"ingredients": [{
+		"description": "Pouletfleisch",
+		"portion": "150 g",
+		"comment": ""
+	},
+	{
+		"description": "Sultaninen",
+		"portion": "2 EL",
+		"comment": ""
+	},
+	{
+		"description": "Knoblizehen",
+		"portion": "2",
+		"comment": ""
+	},
+	{
+		"description": "Spaghetti",
+		"portion": "250",
+		"comment": ""
+	},
+	{
+		"description": "Curry",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Salz, Pfeffer und Olivenöl",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Zwiebel",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Kokosmilch",
+		"portion": "200 mL",
+		"comment": ""
+	}],
+	"tags": ["fleisch",
+	"pasta"],
+	"title": "Arabische Spaghetti",
+	"preparation": "<p>Pouletfleisch in schmale Streifen schneiden und kurz anbraten. Aus der Pfanne nehmen und bei Seite stellen.<br />\n<br />\nWasser aufsetzen, salzen und Spaghetti al dente kochen.<br />\n<br />\nIn der Zwischenzeit die fein gehackte Zwiebel und den in Würfelchen geschnittenen Knobli andämpfen. Den Curry dazu geben und kurz mitdämpfen (nicht zu heiss). Anschliessend die Kokosmilch dazu geben, aufkochen lassen, Hitze reduzieren und ca. 10 Min köcheln lassen. Ca. 2 Minuten bevor die Pasta al dente sind das Pouletfleisch in die Sauce geben und nur noch warm werden lassen. Kurz bevor die Spaghetti mit der Sauce vermischt wird, die Sultaninen in die Sauce geben. Die Sauce und die Spaghetti nach dem mischen zugedeckt ziehen lassen.<br />\n<br />\nDie Konsistenz kann -je nach Geschmack- etwas zu flüssig sein. Dann einfach mit einem Teelöffel Maisstärke (mit etwas kaltem Wasser anrühren) in die Sauce geben und kurz aufkochen.</p>\n",
+	"preamble": "<p>Da bei diesem Rezept das Scharfe (Curry) mit dem Süssen (Sultaninen) gemischt wird, habe ich diese Rezept \"Arabische Spaghetti\" benannt.</p>\n",
+	"rating": 5,
+	"addingDate": 1250959818424,
+	"editingDate": 1421863647087,
+	"image": null
+},
+{
+	"id": "77acc29a-6809-4183-8945-e8b759e9b3f0",
+	"noOfPeople": "2",
+	"ingredients": [{
+		"description": "Knoblizehe",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Curry",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Boullion",
+		"portion": "2 dl",
+		"comment": ""
+	},
+	{
+		"description": "Tofu",
+		"portion": "250g",
+		"comment": ""
+	},
+	{
+		"description": "Salz, Pffefer und Öl zum anbraten",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Ingwer",
+		"portion": "etwas",
+		"comment": ""
+	},
+	{
+		"description": "dunkle Sojasouce",
+		"portion": "3 EL",
+		"comment": ""
+	},
+	{
+		"description": "Mehl",
+		"portion": "2 EL",
+		"comment": ""
+	},
+	{
+		"description": "Spaghetti",
+		"portion": "250g",
+		"comment": ""
+	},
+	{
+		"description": "Maizena",
+		"portion": "1 EL",
+		"comment": ""
+	},
+	{
+		"description": "Lauch",
+		"portion": "100-200g",
+		"comment": "Menge nach belieben"
+	}],
+	"tags": ["pasta",
+	"fleischlos"],
+	"title": "Asiatische Spaghetti",
+	"preparation": "<p>Mehl und etwas Curry in einer Schüssel mischen. Tofu in Würfel scheiden. Den Tofu in die Schüssel mit dem Mehl und dem Curry geben und alles gut mischen. Tofu anschliessend in einer Pfanne ca. 3-4 Minuten rundum (nicht zu heiss) anbraten. Aus der Pfanne nehmen und bei Seite stellen.<br />\n<br />\nWasser aufsetzen, salzen und Spaghetti al dente kochen.<br />\n<br />\nIn der Zwischenzeit den Lauch in schräge Stücke schneiden und in der Pfanne anschwitzen bis er weich wird. Knobli schneiden und in die Pfanne geben. Boullion dazu giessen. Maizena mit der Sojasauce anrühren und auch in die Pfanne geben. Kurz aufkochen lassen, Hitze reduzieren und noch ein paar Minuten (ca. 5 Minuten) köcheln lassen. Etwa 2 Minuten bevor die Spagetti fertig sind den Tofu in die Pfanne geben und nur noch heiss werden lassen. Den Ingwer fein reiben und auch in die Pfanne geben. Mit Salz und Pfeffer abschmecken. Die Spagetti absieben und in der Pfanne mit der Sauce mischen. Für ca. 5 Minuten zugedeckt ziehen lassen.</p>\n",
+	"preamble": "",
+	"rating": 5,
+	"addingDate": 1249740006587,
+	"editingDate": 1453643545381,
+	"image": null
+},
+{
+	"id": "adf99b55-4804-4398-af4e-e37ec2c692c7",
+	"noOfPeople": "4",
+	"ingredients": [{
+		"description": "Senf",
+		"portion": "1 TL",
+		"comment": ""
+	},
+	{
+		"description": "Salz und Pfeffer",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Schnittlauch",
+		"portion": "1 Bund",
+		"comment": ""
+	},
+	{
+		"description": "Peterli",
+		"portion": "1 Bund",
+		"comment": ""
+	},
+	{
+		"description": "Konblizehe",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Zitrone",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Peperoncini",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Olivenöl",
+		"portion": "2-3 EL",
+		"comment": ""
+	},
+	{
+		"description": "Tabasco",
+		"portion": "",
+		"comment": "einige Tropfen"
+	},
+	{
+		"description": "Curry",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "kleiner Lauch",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Pariserbrot / Parisette",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "hart gekochtes Ei",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Peperoni",
+		"portion": "1/2",
+		"comment": "gelb oder rot"
+	},
+	{
+		"description": "Tomate",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Avocados",
+		"portion": "2",
+		"comment": ""
+	}],
+	"tags": ["kalt",
+	"vorspeise"],
+	"title": "Avocadotatar",
+	"preparation": "<p>Die Zitrone auspressen und den Saft, mit dem Öl, Salz, Pfeffer und Curry in eine Schüssel geben und verrühren. Die Avocados in Würfelchen schneiden, nicht zu klein damit es kein Mus gibt. Vom Lauch wird nur ein etwas 6 cm langes Stängelstück verwendet. Dieses zuerst in dünne Ringe schneiden, dann fein hacken. Tomate halbieren, entkernen und in Würfelchen schneiden. Peperoni auch in Würfelchen schneiden. Das Ei schälen und hacken. Die Kräuter fein schneiden.<br />\n<br />\nAlles in die Schüssel geben und mit der Sauce mischen. Knoblauch gepresst darunter mischen. Mit Tabasco, Salz und Pfeffer abschmecken. Mit einer oder zwei Scheiben Brot auf Teller zubereiten und servieren.</p>\n",
+	"preamble": "",
+	"rating": 5,
+	"addingDate": 1248947310717,
+	"editingDate": 1439397912773,
+	"image": null
+},
+{
+	"id": "d60588da-7971-42f1-b514-85e1bfa02b1e",
+	"noOfPeople": "4",
+	"ingredients": [{
+		"description": "Banane",
+		"portion": "1-2",
+		"comment": ""
+	},
+	{
+		"description": "Zitronensaft",
+		"portion": "1-2EL",
+		"comment": ""
+	},
+	{
+		"description": "Vollrahm",
+		"portion": "2.5dl",
+		"comment": ""
+	},
+	{
+		"description": "Saurer Halbrahm",
+		"portion": "150g",
+		"comment": ""
+	},
+	{
+		"description": "Naturejoghurt",
+		"portion": "180g",
+		"comment": ""
+	},
+	{
+		"description": "Zucker",
+		"portion": "50g",
+		"comment": ""
+	},
+	{
+		"description": "Löslicher Kaffee",
+		"portion": "1-2EL",
+		"comment": ""
+	}],
+	"tags": ["dessert"],
+	"title": "Bananen-Cappuccino",
+	"preparation": "<p>Die Bananen in kleine Würfel schneiden und mit Zitronensaft beträufeln und ziehen lassen. In der Zwischenzeit den Rahm steife schlagen und den löslichen Kaffee darin auflösen. Anschliessend den sauren Halbrahm, Joghurt und Zucker verrühren und mit dem geschlagenen Rahm mischen. Die Crème im Kühlschrank für einige Stunden kühl stellen.<br />\nVor dem Servieren, die Crème nochmals durchmischen, da sich die Bananstücke am Boden absetzen.</p>\n",
+	"preamble": "",
+	"rating": 4,
+	"addingDate": 1361051103721,
+	"editingDate": 1421863646935,
+	"image": null
+},
+{
+	"id": "0e89ed78-68a8-4218-a48a-2280f8facce7",
+	"noOfPeople": "4",
+	"ingredients": [{
+		"description": "saurer Halbrahm",
+		"portion": "180g",
+		"comment": "Becher"
+	},
+	{
+		"description": "Zitrone",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "gezuckerte Kondensmilch",
+		"portion": "60g",
+		"comment": ""
+	},
+	{
+		"description": "Bananen",
+		"portion": "7",
+		"comment": ""
+	},
+	{
+		"description": "Orange",
+		"portion": "1",
+		"comment": "Blutorange"
+	}],
+	"tags": ["dessert"],
+	"title": "Bananen-Creme",
+	"preparation": "<p>Zitrone und Orange kurz mit der Hand hin und her wallen und anschliessend den Saft auspressen. In die gleiche Schüssel 6 Bananen in Scheiben schneiden. Die Kondensmilch beigeben und alles zusammen mit dem Stabmixer fein pürieren. Anschliessend den sauren Halbrahm dazu geben und gut mischen. Alles zusammen für ein paar Stunden kühl stellen.<br />\nVor dem Servieren kann nach belieben nachgesüsst werden oder auch nicht.<br />\nBananen-Creme in Dessertgläser abfüllen und mit Bananenscheiben (der 7. Banane) und Pfefferminzblätter garnieren.</p>\n",
+	"preamble": "<p>Wer für dieses Rezept statt einer normalen Orange eine Blutorange verwendet, erhält eine leicht rötliche Creme welche fast wie eine Erdbeere-Creme aussschaut.</p>\n",
+	"rating": 5,
+	"addingDate": 1367146164076,
+	"editingDate": 1429359135992,
+	"image": null
+},
+{
+	"id": "a9a8feed-4010-4a86-aa06-6f010d02edf9",
+	"noOfPeople": "2",
+	"ingredients": [{
+		"description": "Olivenöl",
+		"portion": "3-5 EL",
+		"comment": "fruchtig"
+	},
+	{
+		"description": "Sbrienz",
+		"portion": "20-40g",
+		"comment": "oder Parmesan"
+	},
+	{
+		"description": "Pinienkerne",
+		"portion": "1-2 EL",
+		"comment": ""
+	},
+	{
+		"description": "Basilikum",
+		"portion": "10-20 Blätter",
+		"comment": ""
+	},
+	{
+		"description": "Knoblizehe",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Salz und Pfeffer",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Ingwer",
+		"portion": "etwas",
+		"comment": ""
+	},
+	{
+		"description": "Baumnussöl",
+		"portion": "1 EL",
+		"comment": "geht natürlich auch ohne"
+	},
+	{
+		"description": "Spaghetti",
+		"portion": "300g",
+		"comment": ""
+	}],
+	"tags": ["pasta",
+	"fleischlos"],
+	"title": "Basilikum-Pesto",
+	"preparation": "<p>Wasser zum Kochen bringen, kräftig salzen und die Pasta darin al dente kochen.</p>\n\n<p>In der Zwischenzeit die Basilikumblätter, den Sbrinz (oder Parmesan), die Pinienkerne, Knobli, Ingwer und das Olivenöl in einen Becher für den Mixer geben. Mixen und mit Salz und Pfeffer dazu geben. Mittels Pasta-Wasser \"steuere\" ich die Konsistenz. Die Pesto ist für mich gut, wenn sie cremig und nicht zu fest ist.</p>\n\n<p>Wie immer auf vorgewärmten Tellern anrichten.</p>\n\n<p>Btw., man kann die Zutaten auch in einem Mörser zerreiben.</p>\n",
+	"preamble": "<p>Für mich darf ein Basilikum-Pesto nicht zu ölig sein. Er muss eine sämige Konsistenz haben und den Eigengeschmack der Pasta nicht \"erschlagen\". Ein wirklich gutes Pesto gehört zu meinen Lieblingsessen. Da wir in der Schweiz auch gute Käse machen, muss es für mich nicht unbedingt Parmesan sein, der für das Pesto verwendet werden kann. Ein gute Alternative ist der Sbrinz-Käse. Ich setze den Sbrinz überall ein wo sonst Parmesan verwendet wird.</p>\n",
+	"rating": 5,
+	"addingDate": 1249404279166,
+	"editingDate": 1437924427200,
+	"image": null
+},
+{
+	"id": "5e1de5e3-5f29-4524-adf9-f2dcb8556360",
+	"noOfPeople": "4",
+	"ingredients": [{
+		"description": "Muskat",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Eier",
+		"portion": "2",
+		"comment": "mittlerer Grösse"
+	},
+	{
+		"description": "Knobli-Zehe",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Tabasco",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Ricotta",
+		"portion": "250g",
+		"comment": ""
+	},
+	{
+		"description": "Salz, Pfeffer",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Cannelloni",
+		"portion": "16",
+		"comment": "ohne Vorkochen"
+	},
+	{
+		"description": "Blattspinat",
+		"portion": "250g",
+		"comment": "TK: aufgetaut, abgetroft, gehackt"
+	}],
+	"tags": ["pasta",
+	"fleischlos"],
+	"title": "Cannelloni mit Ricotta und Spinat",
+	"preparation": "<p>Eier trennen. Eiweiss steif schlagen. Eigelbe mit Ricotta und Spinat verrühren. Knoblauch dazu reiben bzw. pressen. Mit Salz, Pfeffer, Muskat und Tabasco würzen. Eischnee vorsichtig unterheben. Die Masse mit eine Spritzsack in die Cannelloni abfüllen.<br />\n<br />\nBevor man die Cannelloni in die offenfeste Form gibt, etwas Béchamelsauce auf dem Boden der Form verteilen. Das verhindert, dass die Cannelloni am Boden festkleben. Danach die gefüllten Cannelloni die Form geben und die restliche Béchamelsauce darüber verteilen. Darauf achten, dass die Cannelloni nicht zu dicht beieinander liegen damit etwas Sauce dazwischen passt. Jetzt ist alles vorbereitet und die Cannelloni können entweder in den Kühlschrank wandern und zu einem späteren Zeitpunkt fertig gestellt werden oder direkt für ca. 30 Minuten in den Vorgeheizten Ofen (oder in den kalten Ofen und dann ca. 10 bis 15 Minuten länger drin lassen) stellen. Ach ja, bevor man die Form in den Ofen schiebt, noch etwas Käse darüber geben.</p>\n",
+	"preamble": "<p>Anstelle einer Béchamelsauce kann auch eine einfache Tomatensauce (mit Zwiebeln, Knobli und allenfalls ein paar Gewürzen) verwendet werden.</p>\n",
+	"rating": 4,
+	"addingDate": 1329235733126,
+	"editingDate": 1439397515986,
+	"image": null
+},
+{
+	"id": "dfffb3de-8cc9-44fb-b323-832905b51cf8",
+	"noOfPeople": "2",
+	"ingredients": [{
+		"description": "Sbrienz oder Parmesan",
+		"portion": "20-30g",
+		"comment": ""
+	},
+	{
+		"description": "Polenta",
+		"portion": "120g",
+		"comment": ""
+	},
+	{
+		"description": "Spinat",
+		"portion": "400g",
+		"comment": "gefroren"
+	},
+	{
+		"description": "Gemüseboullion",
+		"portion": "ca. 1L",
+		"comment": ""
+	},
+	{
+		"description": " Peperoncino",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Ingwer",
+		"portion": "etwas",
+		"comment": ""
+	},
+	{
+		"description": "Salz, Pfeffer, Muskatnus",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Curry",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Knoblizehen",
+		"portion": "2",
+		"comment": ""
+	},
+	{
+		"description": "Rahm",
+		"portion": "2dl",
+		"comment": ""
+	},
+	{
+		"description": "Zwiebel",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Öl",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Gruyère",
+		"portion": "20-30g",
+		"comment": ""
+	}],
+	"tags": ["fleischlos"],
+	"title": "Cremige Käsepolenta mit Spinat",
+	"preparation": "<p>Die Polenta nach Anweisung auf der Verpackung mit Boullion herstellen. Im allgemeinen sind die 2 Minuten-Polenta zu vermeiden, die 20 Minuten-Variante ist vorzuziehen.<br />\n<br />\nIn der Zwischenzeit Zwiebel, Knobli, Peperoncini und Ingwer klein schneiden und in einer Pfanne glasig dünsten. Der Knobli und Ingwer kann auch fein gerieben hinzu gefügt werden, dann jedoch zusammen mit dem Spinat. Der aufgetaute Spinat dazu geben und etwa andünsten. Danach etwas Rahm (ca. 1 dl) dazu geben. Das ganze etwas einköcheln lassen und mit Salz, Pfeffer und Muskatnuss abschmecken.<br />\nDer restliche Rahm steif schlagen und der Käse an der Käsereiben reiben. Ist die Polenta fertig, den Käse darunter mischen und zergehen lassen. Anschliessend den geschlagenen Rahm unter mischen.<br />\n<br />\nDie Polenta in tiefen, wie immer vorgewärmten Tellern, anrichten und den Spinat darüber geben.</p>\n",
+	"preamble": "",
+	"rating": 5,
+	"addingDate": 1385890440212,
+	"editingDate": 1421863646558,
+	"image": null
+},
+{
+	"id": "4689b3c7-dccb-4a51-8f99-e28a2479e611",
+	"noOfPeople": "2",
+	"ingredients": [{
+		"description": "Kreuzkümmel",
+		"portion": "Prise",
+		"comment": "frisch gemahlen"
+	},
+	{
+		"description": "Peperoncini",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Curry",
+		"portion": "1TL",
+		"comment": "von der Leiblingssorte"
+	},
+	{
+		"description": "Kokosmilch",
+		"portion": "2-2.5dl",
+		"comment": ""
+	},
+	{
+		"description": "Salz, Pffer, Öl",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Ingwer",
+		"portion": "",
+		"comment": "gleich viel Ingwer wie Knobli"
+	},
+	{
+		"description": "Tofu",
+		"portion": "150-200g",
+		"comment": ""
+	},
+	{
+		"description": "Spaghetti",
+		"portion": "250g",
+		"comment": ""
+	},
+	{
+		"description": "Zwiebel",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Knoblizehen",
+		"portion": "2",
+		"comment": ""
+	}],
+	"tags": ["pasta",
+	"fleischlos"],
+	"title": "Curry-Kokosmilch Souce mit Pasta",
+	"preparation": "<p>Den Tofu in eine Pfanne mit Oliven&ouml;l, Salz und etwas Curry kurz anbraten. In eine kleine Sch&uuml;ssel umf&uuml;llen und beiseite legen.<br />\n<br />\nWasser aufsetzen, salzen und Spaghetti al dente kochen.<br />\n<br />\nIn der Zwischenzeit die Zwiebel grob schneiden und im Oliven&ouml;l anbraten. Kurz nach der Zwiebel auch der grob geschnittene Knobil, Ingwer und Peperoncini dazu geben. Alles zusammen anschwitzen. Nun den Curry und den gem. Kreuzk&uuml;mmel dazu geben und kurz mit and&uuml;nsten. Danach die Kokosmilch dazu geben und diese kurz aufkochen lassen und danach Hitze reduzieren. Etwa 5 Minuten bevor die Spaghetti al dente sind die Hitze auf kleinste Flamme reduzieren und die Sauce mit dem Mixer p&uuml;rieren, so dass keine groben St&uuml;cke mehr in der Sauce sind. Danach den Tofu dazu geben. Die Sauce mit Salz und Pfeffer abschmecken.<br />\n<br />\nDie Spaghetti ab sieben und in die Pfanne zur&uuml;ck geben. Die Curry-Kokosmilch Sauce dar&uuml;ber verteilen, gut mischen und ein paar Minuten den Spaghetti Zeit geben sich mit der Sauce zu vereinigen. Danach auf wie immer vorgew&auml;rmten Tellern anrichten. Wer will kann noch frischen Koriander dar&uuml;ber geben.</p>\n",
+	"preamble": "",
+	"rating": 5,
+	"addingDate": 1396701766286,
+	"editingDate": 1421863646657,
+	"image": null
+},
+{
+	"id": "25639975-2c80-427f-8e13-664f4552c176",
+	"noOfPeople": "4",
+	"ingredients": [{
+		"description": "Peperoni",
+		"portion": "2",
+		"comment": ""
+	},
+	{
+		"description": "Käse",
+		"portion": "200g",
+		"comment": "Bergkäse, Raclette-Käse etc."
+	},
+	{
+		"description": "Salz & Pfeffer",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Gschwelti",
+		"portion": "600g",
+		"comment": ""
+	},
+	{
+		"description": "Tabasco",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Halbrahm",
+		"portion": "2 1/2 dl",
+		"comment": ""
+	},
+	{
+		"description": "Dijon-Senf",
+		"portion": "2 EL",
+		"comment": ""
+	},
+	{
+		"description": "Olivenöl",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Schweinsfilet",
+		"portion": "ca 500g",
+		"comment": ""
+	}],
+	"tags": ["winter",
+	"fleisch"],
+	"title": "Filetgratin",
+	"preparation": "<p>Gschwellti in ca. 1/2 cm dicke Scheiben schneiden. Schweinsfilet in ca. 1cm dicke Plätzli schneiden und etwas flach klopfen. Die Plätzli in einer Bratpfanne mit Olivenöl beidseitig kurz anbraten, herausnehmen etwas abkühlen lassen, mit Salz und Pfeffer würzen und mit Senf bestreichen. Die Peperoni in feine Streifen schneiden und weich kochen (geht am besten in der Mikrowelle).<br />\nGschwellti, Plätzli und Peperoni abwechslungsweise in eine ofenfesten Form schichten. Anschliessend den Käse darüber reiben. Den Rahm mit Salz, Pfeffer und -wer will- mit etwas Tabasco würzen und über den Gratin geben. Ca. 30 Min. im Ofen Gratinieren.<br />\n<br />\nDer Gratin kann auch vorbereitet werden: Gratin ofenfertig vorbereiten, jedoch den Rahm noch nicht darüber geben. Alles zusammen im Kühlschrank zugedeckt einen halben Tag kühl stellen.</p>\n",
+	"preamble": "",
+	"rating": 5,
+	"addingDate": 1357142071109,
+	"editingDate": 1421863646763,
+	"image": null
+},
+{
+	"id": "8620dcee-4bba-4da8-99af-5f4fd98fdb24",
+	"noOfPeople": "4",
+	"ingredients": [{
+		"description": "Lauch",
+		"portion": "100g",
+		"comment": ""
+	},
+	{
+		"description": "(Halb-) Rahm",
+		"portion": "2.5 dl",
+		"comment": ""
+	},
+	{
+		"description": "Mostbröckli",
+		"portion": "100g",
+		"comment": ""
+	},
+	{
+		"description": "Filet",
+		"portion": "2x 400g",
+		"comment": "vom Schwein oder Kalb"
+	},
+	{
+		"description": "Salz undPfeffer",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Weisswein",
+		"portion": "2-3 dl",
+		"comment": ""
+	},
+	{
+		"description": "Rüebli",
+		"portion": "100g",
+		"comment": ""
+	},
+	{
+		"description": "Bouillonwürfel",
+		"portion": "1/2",
+		"comment": ""
+	}],
+	"tags": ["fleisch"],
+	"title": "Gefülltes Filet",
+	"preparation": "<p>Lauch und Rüebli in Stängeli (oder Streifen) schneiden, knapp weich kochen (im Salzwasser oder in der Mikrowelle), leicht würzen und kalt werden lassen.<br />\n<br />\nDie Filets am besten schon vom Metzger längs aufschneiden lassen. Filets mit Möstbröckli belegen und mit Lauch und Rüebli füllen. Anschliessend die Filets zubinden und im Mehl wenden.<br />\n<br />\nDie Filets kurz anbraten, damit eine schöne Farbe und entsprechender Geschmack entsteht. Danach in eine Gratin-Form legen. Den Bratensaft mit Wein ablöschen und um die hälfte reduzieren. Rahm dazu giessen, aufkochen lassen und mit Salz und Pfeffer würzen.<br />\n<br />\nDie Sauce über das Filet giessen und ca. 20-25 Min. bei 200 Grad garen. Funktioniert auch mit Niedergaren: Bei ca. 90 Grad 1 1/2 Std im Ofen lassen.</p>\n",
+	"preamble": "<p>Zu diesem Gericht können Parppadelle oder Tagliatelle serviert werden.</p>\n",
+	"rating": 4,
+	"addingDate": 1248948969561,
+	"editingDate": 1421863646809,
+	"image": null
+},
+{
+	"id": "feb96fd6-1555-471a-b4af-10e9cbca16f6",
+	"noOfPeople": "4",
+	"ingredients": [{
+		"description": "Muskat",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Knoblizehe",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Salz & Pfeffer",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Gschwellti",
+		"portion": "800g",
+		"comment": "vom Vortag"
+	},
+	{
+		"description": "Broccoli",
+		"portion": "500g",
+		"comment": ""
+	},
+	{
+		"description": "Bergkäse",
+		"portion": "250g",
+		"comment": "je nach Gusto"
+	},
+	{
+		"description": "saurer Halbrahm",
+		"portion": "180g",
+		"comment": "etwa. 1 Becher"
+	},
+	{
+		"description": "Ei",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Rüebli",
+		"portion": "2-3",
+		"comment": ""
+	},
+	{
+		"description": "Halbrahm",
+		"portion": "2.5 dl",
+		"comment": ""
+	}],
+	"tags": ["winter",
+	"gemüse"],
+	"title": "Gemüsegratin mit Gschwellti",
+	"preparation": "<p>Gschwellti und Käse an der Röstiraffel reiben und mischen. Broccoli (in Röschen) und Rüebli (in Streifen) knapp weiche kochen. Am einfachsten geht das in der Mikrowelle und die Vitamine bleiben im Gemüse. Anschliessend alles zusammen in eine ofenfeste Form schichten.<br />\n<br />\nGuss: Halbrahm, saurer Halbrahm, Ei, gepresster Knobli, Muskat, Salz (1 TL) und Pfeffer gut mischen und über den Gratin giessen.<br />\n<br />\nDanach den Gratin für ca. 30 Min. in den Ofen, bis er eine schöne Farbe hat.</p>\n",
+	"preamble": "<p>Einfach und wärschaft ;-)</p>\n",
+	"rating": 5,
+	"addingDate": 1350051726739,
+	"editingDate": 1421863646892,
+	"image": null
+},
+{
+	"id": "be94aed0-d61f-4301-8dfd-e90f266873af",
+	"noOfPeople": "2",
+	"ingredients": [{
+		"description": "Zwiebel",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "geriebener Parmesan",
+		"portion": "40 - 60 g",
+		"comment": ""
+	},
+	{
+		"description": "Roll- oder Perlgerste",
+		"portion": "200 g",
+		"comment": ""
+	},
+	{
+		"description": "Knoblizehe",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Voll- oder Halbrahm",
+		"portion": "80 - 100 ml",
+		"comment": ""
+	},
+	{
+		"description": "Gemüsebouillon",
+		"portion": "8 - 10 dl",
+		"comment": ""
+	},
+	{
+		"description": "tiefgekühler Blattspinat",
+		"portion": "250 g",
+		"comment": ""
+	},
+	{
+		"description": "Salz, Pfeffer und Olivenöl",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Weisswein",
+		"portion": "1 dl",
+		"comment": "fruchtig z.B. Anselmi"
+	},
+	{
+		"description": "Bünderfleisch",
+		"portion": "80 - 100 g",
+		"comment": "oder Rohschinken"
+	}],
+	"tags": ["fleisch"],
+	"title": "Gerstotto mit Spinat und Bünderfleisch",
+	"preparation": "<p>Die Gerste wie Risotto machen: Zwiebeln und Knobli andünsten. Die Gerste dazu geben und kurz mitdünsten. Anschliessend mit Weisswein ablöschen und diesen vollständig einkochen lassen. Soviel Bouillon dazu geben, dass die Gerste bedeckt ist. Zugedeckt ca. 25-30 Min. leise kochen lassen. Dazwischen immer mal wieder nachsehen, umrühren und gegebenenfalls Bouillon dazu geben.</p>\n\n<p>&nbsp;</p>\n\n<p>Den Spinat auftauen, in der Mikrowelle kurz erhitzen und zur fast fertigen Gerste geben. Heiss werden lassen.<br />\n<br />\nIn der Zwischenzeit den Rahm steif schlagen und das Bünderfleisch in ca. 10mm breite streifen schneiden. Sobald die Gerste weich ist, die Herdplatte ausschalten, das Bünderfleisch und den Rahm dazu geben, gut vermischen und beides nur noch warm werden lassen.</p>\n",
+	"preamble": "",
+	"rating": 4,
+	"addingDate": 1309007695779,
+	"editingDate": 1421863646487,
+	"image": null
+},
+{
+	"id": "ad857cb4-51c1-4e66-af5f-543867d48276",
+	"noOfPeople": "4",
+	"ingredients": [{
+		"description": "Voll- oder Halbrahm",
+		"portion": "2.5 dl",
+		"comment": ""
+	},
+	{
+		"description": "Eier",
+		"portion": "2",
+		"comment": ""
+	},
+	{
+		"description": "Grand Marnier",
+		"portion": "4-5 EL",
+		"comment": ""
+	},
+	{
+		"description": "Vanilleschote",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Zucker",
+		"portion": "5 EL",
+		"comment": ""
+	},
+	{
+		"description": "Orange",
+		"portion": "1",
+		"comment": ""
+	}],
+	"tags": ["dessert"],
+	"title": "Grand Marnier Parfait",
+	"preparation": "<p>Eigelb von Eiweiss trennen.<br />\n<br />\n4-5 Esslöffel Grand Marnier, 5 Esslöffel Zucker zum Eigelb geben und rühren bis die Masse hellgelb ist. Vanillestengel längs aufschneiden (oder 1 Beutel Vanillezucker) dazugeben und nochmals rühren. Etwas geriebene Orangenschale dazu geben.<br />\n<br />\n2 ½ dl Rahm steif schlagen und ebenfalls darunter mischen.<br />\n<br />\n2 Eiweiss steif schlagen und 1 Esslöffel Zucker dazugeben und das Eisweiss nochmals kurz weiter schlagen. Eiweiss sorgfältig unter die restliche Masse mischen.<br />\n<br />\nIn geeignete Förmchen abfüllen und im Tiefkühler gefrieren lassen.<br />\n<br />\nEtwa 15 Minuten vor dem Servieren aus dem Tiefkühler nehmen.</p>\n",
+	"preamble": "",
+	"rating": 5,
+	"addingDate": 1333720848022,
+	"editingDate": 1421863646593,
+	"image": null
+},
+{
+	"id": "6eb844b3-64b6-4adf-88ca-a40532f63979",
+	"noOfPeople": "4",
+	"ingredients": [{
+		"description": "Eier",
+		"portion": "2",
+		"comment": ""
+	},
+	{
+		"description": "Zwieback",
+		"portion": "8-9 Stk.",
+		"comment": ""
+	},
+	{
+		"description": "Zucker",
+		"portion": "6 EL",
+		"comment": ""
+	},
+	{
+		"description": "Erdbeeren",
+		"portion": "500g",
+		"comment": ""
+	},
+	{
+		"description": "Vanilleschote",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Zitronensaft",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Rhabarber",
+		"portion": "600g",
+		"comment": ""
+	},
+	{
+		"description": "Maisstärke",
+		"portion": "2 EL",
+		"comment": ""
+	},
+	{
+		"description": "Milch",
+		"portion": "6 dl",
+		"comment": ""
+	}],
+	"tags": ["dessert"],
+	"title": "Götterspeise",
+	"preparation": "<p>Für die Creme Milch aufkochen. Vanilleschote aufschlitzen, Mark herauskratzen und beides zur Milch geben. Milch vom Herd ziehen. Vanille darin 15 Minuten ziehen lassen. Vanilleschote entfernen. Eier, Stärke und 4 EL Zucker in einer Schale sehr gut verquirlen und anschliessend unter ständigem Rühren langsam in die Milch giessen. Vanillemilch bei kleiner bis mittlerer Hitze unter Rühren bis kurz vor den Siedepunkt bringen. Pfanne vom Herd ziehen. Creme 1–2 Minuten weiterrühren. In eine Schüssel ab sieben. Zum Auskühlen eine Klarsichtfolie direkt auf die Creme legen, damit sich keine Haut bilden kann.<br />\n<br />\nDanach Rhabarber schälen und würfeln. Mit 2 El Zucker und etwas Zitronensaft aufkochen und 2–3 Minuten köcheln lassen. Auskühlen lassen.<br />\n<br />\nAlle Zutaten (Vanillecreme, Rhabarber, Zwieback und Erdbeeren) können nun nach Belieben in einzelne Gläser oder in eine grosse Schüssel lagenweise einschichten.<br />\n<br />\nAlles zusammen mind. 3 Std. im Kühlschrank ziehen lassen.<br />\n&nbsp;</p>\n",
+	"preamble": "<p>Die Vanille-Creme sollte unbedingt selber gemacht werden. Sie ist einfach zu machen und der Geschmack um Welten besser :-)</p>\n",
+	"rating": 0,
+	"addingDate": 1402591579186,
+	"editingDate": 1421863646717,
+	"image": null
+},
+{
+	"id": "c5a773b1-0165-4717-b15b-341c974fe8ba",
+	"noOfPeople": "4",
+	"ingredients": [{
+		"description": "Zwiebel",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Schweinefilet",
+		"portion": "1",
+		"comment": "ca. 550g"
+	},
+	{
+		"description": "Weisswein",
+		"portion": "1 dl",
+		"comment": ""
+	},
+	{
+		"description": "Bergkäse",
+		"portion": "200g",
+		"comment": ""
+	},
+	{
+		"description": "Salz und Pfeffer",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Halbrahm",
+		"portion": "1 dl",
+		"comment": ""
+	},
+	{
+		"description": "Steinpilze",
+		"portion": "200g",
+		"comment": ""
+	},
+	{
+		"description": "Thymianblättchen",
+		"portion": "1 TL",
+		"comment": ""
+	},
+	{
+		"description": "glattblättrige Peterli",
+		"portion": "1 Bund",
+		"comment": ""
+	}],
+	"tags": ["fleisch"],
+	"title": "Hasli-Filet",
+	"preparation": "<p>Schweinsfilet mittel Niedergarmethode garen. Anschliessend kurz von allen Seiten anbraten. Das Fleisch in ca. 8 Tranchen schneiden und in eine ofenfeste Form legen und zugedeckt beiseite stellen. Zwiebeln in derselben Pfanne anbraten. Anschliessend die Pilze, Peterli und den Thymian dazu geben. Ca. 2 Min. dämpfen. Jetzt den Wein dazu giessen und alles zusammen ca. 5 Min. köcheln lassen. Rahm dazu geben, kurz mischen und alles zusammen über das Fleisch giessen. Käse darauf und für ca. 7 Min. in die obere Hälfte des auf 240 Grad vorgeheizten Ofen legen.<br />\nDazu passt Kartoffelstock.</p>\n",
+	"preamble": "",
+	"rating": 0,
+	"addingDate": 1257520515262,
+	"editingDate": 1421863647414,
+	"image": null
+},
+{
+	"id": "41b7e03e-0cf8-470e-babf-19c8a87c4e33",
+	"noOfPeople": "4",
+	"ingredients": [{
+		"description": "Peterli",
+		"portion": "1 Bund",
+		"comment": ""
+	},
+	{
+		"description": "Salz",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Kichererbsen",
+		"portion": "2 Dosen",
+		"comment": "je 250g Abtropfgewicht"
+	},
+	{
+		"description": "Olivenöl",
+		"portion": "5-6 EL",
+		"comment": ""
+	},
+	{
+		"description": "Zitrone",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Knoblizehen",
+		"portion": "2",
+		"comment": ""
+	},
+	{
+		"description": "süsser Paprikapulver",
+		"portion": "1 TL",
+		"comment": ""
+	},
+	{
+		"description": "Kreuzkümmel",
+		"portion": "1 Prise",
+		"comment": ""
+	},
+	{
+		"description": "Sesampaste",
+		"portion": "4 EL",
+		"comment": "Tahin"
+	}],
+	"tags": ["kalt",
+	"vorspeise"],
+	"title": "Humus",
+	"preparation": "<p>Die Kichererbsen zusammen mit dem Zitronensaft, Kreuzkümmel, Knobli, Paprikapulver, Peterli, Olivenöl und etwas Salz in einem Mixer zu einer feinen Paste mixen. Soviel Wasser dazu verwenden, dass die gewünscht Konsistenz erreicht wird. Allenfalls portionenweise mixen. Zum Schluss noch das Tahin dazu geben und abschmecken. Die Masse für mehrere Stunden in den Kühlschrank stellen.<br />\nZusammen mit einem Oliven- oder&nbsp; Ruchbrot servieren.</p>\n",
+	"preamble": "",
+	"rating": 5,
+	"addingDate": 1255871449476,
+	"editingDate": 1421863647448,
+	"image": null
+},
+{
+	"id": "3d5251e1-1a5a-4a97-982b-885b8ad885d0",
+	"noOfPeople": "4",
+	"ingredients": [{
+		"description": "Specktranchen",
+		"portion": "20-24",
+		"comment": "dünn geschnitten"
+	},
+	{
+		"description": "Salz, Pfefer und Öl zum anbraten",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Kalbsmedaillons",
+		"portion": "10-12",
+		"comment": "à 70g"
+	},
+	{
+		"description": "Lorbeerblatt",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Dörrpflaumen",
+		"portion": "8",
+		"comment": "entsteint"
+	},
+	{
+		"description": "Nelken",
+		"portion": "2",
+		"comment": ""
+	},
+	{
+		"description": "Aceto balsamico",
+		"portion": "3 dl",
+		"comment": ""
+	},
+	{
+		"description": "Rotwein",
+		"portion": "3 dl",
+		"comment": "z.B. Merlot"
+	}],
+	"tags": ["winter",
+	"fleisch"],
+	"title": "Kalbsmedaillons mit Aceto-Rotwein-Sauce",
+	"preparation": "<p><strong>Am Vortag</strong><br />\nDörrpflaumen, Lorbeerblatt, Nelken, Rotwein und Aceto aufkochen, ca. 3-4 Minuten köcheln lassen. Das Ganze zugedeckt über Nacht ziehen lassen.<br />\n<br />\n<strong>Am Zubereitungstag</strong><br />\nMedaillons mit je 2 Specktranchen satt umwickeln. Fleisch im Öl kurz anbraten anschliessend bei ca. 80-90 Grad für eine Stunden in den vorgeheizten Ofen geben. Danach sollte die Kerntemperatur von ca. 66 Grad erreicht sein.<br />\nIn der Zwischenzeit die Marinade absieben danach die abgesiebte Marinade in die Pfanne mit dem Bratensatz geben und ca. 10-12 Minuten einkochen lassen. Die aufgefangenen Dörrpflaumen ca. 2 Minuten mitkochen lassen. Mit Salz und Pfeffer abschmecken.<br />\nVor dem Servieren das Fleisch salzen und pfeffern. Einen Saucenspiegel (inkl. Dörrpflaumen) auf dem Teller anrichten und das Fleisch darauf geben.</p>\n",
+	"preamble": "<p>Als Beilage empfehle ich Risotto. Entweder Weisswein- oder Prosecco-Risotto</p>\n",
+	"rating": 4,
+	"addingDate": 1249729517836,
+	"editingDate": 1421863647487,
+	"image": null
+},
+{
+	"id": "07b894c3-1cf6-4ff5-a5b2-c7bdb368c4b3",
+	"noOfPeople": "2",
+	"ingredients": [{
+		"description": "Kokosmilch",
+		"portion": "2-2.5dl",
+		"comment": ""
+	},
+	{
+		"description": "Koriander",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Kirchererbsen",
+		"portion": "1 Dose",
+		"comment": ""
+	},
+	{
+		"description": "Pelati",
+		"portion": "1 Dose",
+		"comment": ""
+	},
+	{
+		"description": "Knoblizehen",
+		"portion": "3-5",
+		"comment": ""
+	},
+	{
+		"description": "Kreuzkümmel",
+		"portion": "Prise",
+		"comment": "frisch gemörsert"
+	},
+	{
+		"description": "Salz, Pffefer und Öl zum anbraten",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Zwiebel",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Kartoffeln",
+		"portion": "4-5",
+		"comment": ""
+	},
+	{
+		"description": "Peperoncini",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Curry / Marsala",
+		"portion": "",
+		"comment": "Pulver oder Paste"
+	},
+	{
+		"description": "Ingwer",
+		"portion": "1cm Stück",
+		"comment": "nach belieben"
+	}],
+	"tags": ["gemüse",
+	"fleischlos"],
+	"title": "Kartoffel-Kichererbsen Curry",
+	"preparation": "<p>Zwiebel fein hacken und Knobli und Ingwer in kleine Würfelchen scheiden. Kartoffeln in ca. 1 cm grosse Würfel schneiden. Zwiebeln in den Topf geben und etwas anschwitzen. Anschliessend die Kartoffeln dazu geben und beides einige Minuten anbraten. Jetzt schon mal die Kartoffeln gut salzen. Danach Knobli und Ingwer dazu geben und mitdünsten. Anschliessend den Curry/Marsala, Kreuzkümmel und den Peperoncini (in Streifen geschnitten) dazu geben und bei reduzierter Hitze ebenfalls kurz mitdünsten bis der Curry fein duftet. Jetzt mit Kokosmilch ablöschen. Jetzt alles aufkochen lassen und die Pelati dazu geben. Alles zusammen 15 Minuten köcheln lassen, dann die Kichererbsen dazu geben und nochmals ca. 10 Minuten köcheln lassen. Topf vom Herd nehmen und ca. 5-10 Minuten ruhen lassen bis der Reis dazu fertig ist. Der Reis in vorgewärmte Schlüsselchen geben und das Curry darüber verteilen.</p>\n",
+	"preamble": "<p>Zu diesem Gericht passt Reis sehr gut dazu. Für zwei Personen ist mit ca. 200g Reis zu rechnen.</p>\n",
+	"rating": 5,
+	"addingDate": 1412436348534,
+	"editingDate": 1429359195804,
+	"image": null
+},
+{
+	"id": "144aa734-727a-48b6-bcb4-225c563bddb3",
+	"noOfPeople": "2-3",
+	"ingredients": [{
+		"description": "Knöpfli",
+		"portion": "400 - 500 g",
+		"comment": "Hausgemacht"
+	},
+	{
+		"description": "Salz, Pfeffer und Olivenöl",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Pinienkerne",
+		"portion": "1 El",
+		"comment": ""
+	},
+	{
+		"description": "Lauch",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Gemüsebouillon",
+		"portion": "1 dl",
+		"comment": ""
+	},
+	{
+		"description": "Speck",
+		"portion": "100 g",
+		"comment": ""
+	}],
+	"tags": ["fleischlos"],
+	"title": "Knöpfli mit Speck und Lauch",
+	"preparation": "<p>Pinienkerne in einer Pfanne ohne Öl anbraten bis sie goldbraun sind. In der selben Pfanne den Speck (ev. mit ein wenig Olivenöl) anbraten. Den -in sehr fein geschnittenen Ringe- Lauch dazu geben und kurz andünsten. Anschliessend die Bouillon dazu giessen und warten bis der Lauch weich ist. Zum Schluss die Knöpfli dazu geben, alles gut mischen und warten bis die Knöpfli eine schöne Farbe haben.</p>\n",
+	"preamble": "<p>Wie bei fast allem, besteht ein riesen Unterschied zwischen fertig Produkten und Selbstgemachten. Bei Knöpfli (bzw. Spätzli) trifft das natürlich genauso zu. Drum auch für dieses Rezept; Knöpfli selber machen! Das Rezept findet man auf jeder Packung Knöpflimehl.</p>\n",
+	"rating": 4,
+	"addingDate": 1309008652580,
+	"editingDate": 1421863647075,
+	"image": null
+},
+{
+	"id": "e05ede6c-30d4-4e5e-ac10-2430c4404abe",
+	"noOfPeople": "4",
+	"ingredients": [{
+		"description": "Gemüsebouillon",
+		"portion": "1L",
+		"comment": ""
+	},
+	{
+		"description": "Apfel",
+		"portion": "1",
+		"comment": "z.B. Cox Orange oder Boskoop"
+	},
+	{
+		"description": "Zwiebel",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Muskatkürbis",
+		"portion": "600g",
+		"comment": ""
+	},
+	{
+		"description": "Salz, Pfeffer, Olivenöl und Zucker",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Ingwer",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Zitronensaft",
+		"portion": "",
+		"comment": ""
+	}],
+	"tags": ["suppe",
+	"vorspeise"],
+	"title": "Kürbissuppe",
+	"preparation": "<p>Grob geschnittene Zwiebeln im Öl andünsten. Grob gewürfelter Kürbis, Apfel (inkl. Schale) und Ingwer dazu geben und ca. 5 Min. andünsten. Mit Salz und Pfeffer würzen. Boullion dazu geben und ca. 20 Min. zugedeckt bei mittlerer Hitze köcheln lassen. Danach fein Pürieren und mit Zucker, Salz und Zitronensaft abschmecken.</p>\n",
+	"preamble": "",
+	"rating": 4,
+	"addingDate": 1257604217906,
+	"editingDate": 1421863647342,
+	"image": null
+},
+{
+	"id": "2c268064-33cf-4ad4-b358-7f988ec6a265",
+	"noOfPeople": "4",
+	"ingredients": [{
+		"description": "Salz, Pfeffer und Öl",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "kalte Butter",
+		"portion": "10 g",
+		"comment": "zum montieren"
+	},
+	{
+		"description": "Maispoulardenbrüste",
+		"portion": "4",
+		"comment": ""
+	},
+	{
+		"description": "Aceto Balsamico",
+		"portion": "2 EL",
+		"comment": ""
+	},
+	{
+		"description": "Honig",
+		"portion": "1 EL",
+		"comment": "ev. Thymian-Honig"
+	},
+	{
+		"description": "Portwein",
+		"portion": "3 EL",
+		"comment": ""
+	},
+	{
+		"description": "Hühnerbouillon",
+		"portion": "2.5 dl",
+		"comment": ""
+	}],
+	"tags": ["fleisch"],
+	"title": "Maispoularde im Honigmantel",
+	"preparation": "<p><strong>Maispoularde</strong><br />\nBackofen auf 80 °C vorheizen. Brüste mit Salz und Pfeffer würzen. In etwa Öl oder Butter goldgelb anbraten. Honig und 1 EL Butter (oder Öl) zusammen erhitzen. Fleisch bestreichen. Im Backofen während 15 bis 20 Minuten garen.<br />\n<br />\n<strong>Sauce</strong><br />\nPortwein, Balsamico, Bouillon und Honig aufkochen und etwas einkochen lassen. Butter mit einem Schwingbesen unterrühren.</p>\n",
+	"preamble": "<p>Dazu passt sicher Risotto :-)</p>\n",
+	"rating": 0,
+	"addingDate": 1261416256180,
+	"editingDate": 1421863647274,
+	"image": null
+},
+{
+	"id": "f072cee8-4526-4582-89d8-b1a7c52097b1",
+	"noOfPeople": "4",
+	"ingredients": [{
+		"description": "Limette",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Peperoncini",
+		"portion": "1-2",
+		"comment": ""
+	},
+	{
+		"description": "Zitrone",
+		"portion": "1/2",
+		"comment": ""
+	},
+	{
+		"description": "Knoblizehen",
+		"portion": "2",
+		"comment": ""
+	},
+	{
+		"description": "Avocado",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Zwiebeln",
+		"portion": "2",
+		"comment": ""
+	},
+	{
+		"description": "Netzmelone",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Tomaten",
+		"portion": "2",
+		"comment": ""
+	},
+	{
+		"description": "Salz und Olivenöl",
+		"portion": "",
+		"comment": ""
+	}],
+	"tags": ["kalt",
+	"vorspeise"],
+	"title": "Netzmelonen-Salat",
+	"preparation": "<p>Limette und 1/2 Zitrone auspressen. Die restlichen Zutaten würfeln. Alles mischen und Olivenöl und Salz (nicht zu knapp) hinzu geben. Vor dem servieren min. 30 min. stehen lassen.</p>\n",
+	"preamble": "",
+	"rating": 4,
+	"addingDate": 1257520201337,
+	"editingDate": 1421863647398,
+	"image": null
+},
+{
+	"id": "d8d2fefb-e302-4d97-a43a-27cf54cdc8fe",
+	"noOfPeople": "2-3",
+	"ingredients": [{
+		"description": "Mehl",
+		"portion": "100g",
+		"comment": ""
+	},
+	{
+		"description": "Curry",
+		"portion": "",
+		"comment": "kann weggelassen werden"
+	},
+	{
+		"description": "Käse",
+		"portion": "",
+		"comment": "nach Gusto"
+	},
+	{
+		"description": "Herbes de Provence",
+		"portion": "1 EL",
+		"comment": ""
+	},
+	{
+		"description": "Ingwer",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Zucchini",
+		"portion": "1",
+		"comment": "klein- bis mittelgross"
+	},
+	{
+		"description": "Peperoni",
+		"portion": "2",
+		"comment": "gelb oder rot"
+	},
+	{
+		"description": "Zwiebel",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Eier",
+		"portion": "3",
+		"comment": ""
+	},
+	{
+		"description": "Salz, Pfeffer und Olivenöl",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Milchwasser",
+		"portion": "2dl",
+		"comment": "halb Milch, halb Wasser"
+	},
+	{
+		"description": "Knoblizehe",
+		"portion": "1-2",
+		"comment": ""
+	},
+	{
+		"description": "Aubergine",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Tomaten",
+		"portion": "1",
+		"comment": "ca. 120g"
+	}],
+	"tags": ["gemüse",
+	"fleischlos"],
+	"title": "Omeletten-Gemüse-Gratin",
+	"preparation": "<p>Für die Omeletten (3-4 Stk.):<br />\nMehl, Eier, Salz (ca. 1/4 TL) und die Herbes de Provence in eine Schüssel geben und glatt rühren. Anschliessend das Milchwasser dazu geben und zu einen glatten Teig rühren. Beim Raumtemperatur ca. 30 Min. stehen lassen.<br />\n<br />\nDas gibt nun Zeit, um das Gemüse für die Füllung vorzubereiten:<br />\nZwiebeln feine scheiden und den Peperoni in grobe Würfel schneiden. Beides zusammen in einer Pfanne andünsten. Anschliessend den Zucchini (halbiert und in Scheiben), den Knobli fein geschnitten, die entkernten und gewürfelten Tomaten und die in Würfeln geschnittene Aubergine dazu geben. Den Curry und den Ingwer dazu geben. Ca. 10 Min. zugedeckt bei mittlerer Hitze weiterdämpfen. Danach mit Salz, Pfeffer abschmecken. Die Füllung bei Seite stellen und auskühlen lassen.<br />\n<br />\nDie Omeletten in der Pfanne machen. Die Masse reicht für ca. 3-4 Stk. Anschliessend jede Omelette mit 3 EL Gemüse-Füllung und 1 EL Käse füllen und einrollen. Die gefüllten Omeletten in eine Gratinform geben und das restliche Gemüse darum verteilen. Noch etwas Käse über die Omeletten und dann für ca. 10 Minuten in den mit 220 Grad vorgeheizten Ofen stellen.</p>\n",
+	"preamble": "",
+	"rating": 5,
+	"addingDate": 1250528994056,
+	"editingDate": 1421863646910,
+	"image": null
+},
+{
+	"id": "6ca42ac1-82a2-41e4-a138-b4ebab186053",
+	"noOfPeople": "4",
+	"ingredients": [{
+		"description": "Olivenöl",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Tomaten",
+		"portion": "2",
+		"comment": ""
+	},
+	{
+		"description": "Boullion",
+		"portion": "3 dl",
+		"comment": ""
+	},
+	{
+		"description": "Sambal Oelek",
+		"portion": "1 TL",
+		"comment": ""
+	},
+	{
+		"description": "Salz und Pfeffer",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Pouletbrüstchen",
+		"portion": "4-6",
+		"comment": ""
+	},
+	{
+		"description": "Paprikapulver",
+		"portion": "3 EL",
+		"comment": "edelsüss"
+	},
+	{
+		"description": "Peperoni",
+		"portion": "2",
+		"comment": "rot"
+	},
+	{
+		"description": "Knoblizehen",
+		"portion": "2",
+		"comment": ""
+	},
+	{
+		"description": "Zwiebeln",
+		"portion": "500g",
+		"comment": ""
+	},
+	{
+		"description": "Zitronensaft",
+		"portion": "1 TL",
+		"comment": ""
+	},
+	{
+		"description": "Sauer-Halbrahm",
+		"portion": "2 dl",
+		"comment": ""
+	}],
+	"tags": ["fleisch"],
+	"title": "Paprika-Poulet",
+	"preparation": "<p>Poulets kalt abspülen und trocken tupfen. Peperoni und Tomaten entkernen un in grobe Würfel schneiden. Zwiebeln an der Röstiraffel reiben. Knobli in Würfelchen schneiden.<br />\n<br />\nOlivenöl in einer Pfanne mit Deckel erhitzen. Zwiebeln und Knobli darin glasig dünsten. Peperoni, Tomaten, Paprikapulver und Sambal dazu geben und kurz mitdünsten. Mit Boullion ablöschen. Poulets beigeben und zugedeckt bei mittlerer Hitze ca. 40 Minuten schmoren. Poulets dabei einmal wenden.<br />\n<br />\nWenn das Fleisch gar ist, aus der Sauce heben. Sauce samt Einlagen pürieren. Sauer-Halbrahm einrühren und bei grosser Hitze ca. 5 Minuten einkochen lassen.<br />\n<br />\nMit Salz, Pfeffer und Zitronensaft abschmecken. Das Fleisch wieder dazu geben und nur noch heiss werden lassen.</p>\n",
+	"preamble": "<p>Dazu passt Rösti oder Tagliatelle.</p>\n",
+	"rating": 5,
+	"addingDate": 1249807014819,
+	"editingDate": 1421863646995,
+	"image": null
+},
+{
+	"id": "8177f582-f5b7-4c27-9f92-80ed7f334ea0",
+	"noOfPeople": "2",
+	"ingredients": [{
+		"description": "Ei",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Limette",
+		"portion": "1/2",
+		"comment": ""
+	},
+	{
+		"description": "Basilikum",
+		"portion": "5-10 Blätter",
+		"comment": ""
+	},
+	{
+		"description": "Zitrone",
+		"portion": "1/2",
+		"comment": ""
+	},
+	{
+		"description": "Salz und Pfeffer",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Knoblizehe",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Olivenöl",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Tabasco",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Parmesan",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Pasta",
+		"portion": "300g",
+		"comment": "z.B. Linguine oder Penne"
+	}],
+	"tags": [],
+	"title": "Pasta al Limone",
+	"preparation": "<p>Wasser aufsetzen, salzen und Pasta al dente kochen.</p>\n\n<p>Nebenbei mit einem Mixer das Eier, das Salz und den Pfeffer schaumig schlagen und dabei den Parmesan, das Olivenöl und den Knoblauch dazugeben bis alles schaumig ist.</p>\n\n<p>Dann das Basilikum, den Tabasco zugeben. Den Limetten- und Zitronensaft pressen und ebenfalls zugeben. Die gekochten Pasta abgiessen und zurück in den Topf geben. Die Zitronenmasse unter rühren der Pasta dieser zugeben.</p>\n\n<p>Wie immer auf vorgewärmten Tellern servieren.</p>\n",
+	"preamble": "",
+	"rating": 4,
+	"addingDate": 1248948299719,
+	"editingDate": 1421863647059,
+	"image": null
+},
+{
+	"id": "481ecb80-d922-43a1-907b-e5610a1fca70",
+	"noOfPeople": "2-3",
+	"ingredients": [{
+		"description": "Peperoncini",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Pelati",
+		"portion": "400g",
+		"comment": ""
+	},
+	{
+		"description": "Zucchini",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Zwiebel",
+		"portion": "1 ",
+		"comment": ""
+	},
+	{
+		"description": "Ingwer",
+		"portion": "etwas",
+		"comment": "kann auch weggelassen werden"
+	},
+	{
+		"description": "Knoblizehe",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Tomatenmark",
+		"portion": "1-2 EL",
+		"comment": ""
+	},
+	{
+		"description": "Salz, Pfeffer, Öl zum anbraten",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Pasta",
+		"portion": "250g",
+		"comment": "Spagetti, Penne oder Tortiglioni"
+	},
+	{
+		"description": "Peperoni",
+		"portion": "2",
+		"comment": "rot und/oder gelb"
+	},
+	{
+		"description": "getrockneter Oregano",
+		"portion": "1 EL",
+		"comment": ""
+	}],
+	"tags": ["gemüse",
+	"pasta",
+	"fleischlos"],
+	"title": "Pasta mit Gemüse-Tomaten-Sauce",
+	"preparation": "<p>Peperoni in Würfel, Zucchini in Scheiben (ev. halbieren oder vierteln) und die Zwiebeln fein schneiden. Knobli und Peperoncini in feine Scheiben oder Würfelchen.<br />\nWasser aufsetzen, salzen und Pasta al dente kochen.<br />\nIn der Zwischenzeit</p>\n\n<ul>\n\t<li>Peperoni und Zwiebeln in Olivenöl anbraten</li>\n\t<li>etwas später den Zucchini, Peperoncini und den Knobli hinzu geben</li>\n\t<li>wenn das Gemüse schon etwas weicher wird, Tomatenmark dazu geben und mit anbraten</li>\n\t<li>danach die Pelati dazu geben und alles bei kleiner Flamme köcheln lassen</li>\n\t<li>allenfalls etwas Pasta-Wasser dazu geben (die Stärke bindet)</li>\n\t<li>etwa 4-5 Minuten bevor die Pasta fertig ist, den Oregano und allenfalls den fein geriebenen Ingwer in die Sauce geben</li>\n</ul>\n\n<p>Die Pasta abgiessen und in die Pfanne mit der Sauce geben, gut mischen und ein wenig ziehen lassen.<br />\n<br />\nJe nach Vorlieben, mit etwas Basilikum und frisch geriebenen Parmesan servieren.</p>\n",
+	"preamble": "",
+	"rating": 5,
+	"addingDate": 1248770175926,
+	"editingDate": 1421863646429,
+	"image": null
+},
+{
+	"id": "8b339172-ab74-4bfc-906f-3f2327293f05",
+	"noOfPeople": "2",
+	"ingredients": [{
+		"description": "Tortiglioni",
+		"portion": "200g",
+		"comment": ""
+	},
+	{
+		"description": "Olivenöl",
+		"portion": "3-5 EL",
+		"comment": ""
+	},
+	{
+		"description": "grosse Zwiebel",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Knoblizehen",
+		"portion": "1-2",
+		"comment": ""
+	},
+	{
+		"description": "Peperoni",
+		"portion": "2",
+		"comment": ""
+	},
+	{
+		"description": "Zucchini",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Fenchel",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Salz und Pfeffer",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "getrocknete \"Herbes de Provence\"",
+		"portion": "1-2 EL",
+		"comment": ""
+	}],
+	"tags": ["gemüse",
+	"pasta",
+	"fleischlos"],
+	"title": "Pasta mit Ofengemüse",
+	"preparation": "<p>Peperoni, Fenchel, Zucchini und die Zwiebel in grobe St&uuml;cke schneiden. Knoblizehe halbieren. Alles zusammen in eine ofenfeste Form geben. Salz, Pfeffer und Herbes de Provence dar&uuml;ber streuen. Ein gutes Oliven&ouml;l dar&uuml;ber geben und alles zusammen gut mischen. F&uuml;r ca. 35-40 Minuten in den auf 180 Grad vorgeheizten Backofen geben.<br />\n<br />\nIn der Zwischenzeit die Pasta al dente kochen.<br />\n<br />\nSind die Pasta al dente, diese abtropfen und in den Kochtopf zur&uuml;ck geben. Die Gem&uuml;semischung aus dem Ofen nehmen und &uuml;ber die Pasta verteilen. Alles gut mischen und auf vorgew&auml;rmte Teller geben.<br />\n&nbsp;</p>\n",
+	"preamble": "",
+	"rating": 5,
+	"addingDate": 1267880708958,
+	"editingDate": 1421863646536,
+	"image": null
+},
+{
+	"id": "86403fed-8019-4ee9-8295-8b9f74159d23",
+	"noOfPeople": "2-3",
+	"ingredients": [{
+		"description": "Salz und Pfeffer",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Pasta",
+		"portion": "250g",
+		"comment": "z.B. Penne oder Gnocchi"
+	},
+	{
+		"description": "Zwiebeln",
+		"portion": "1-2",
+		"comment": ""
+	},
+	{
+		"description": "Curry",
+		"portion": "",
+		"comment": "in Abhängigkeit des verwendeten Curry"
+	},
+	{
+		"description": "Knoblizehe",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Ingwer",
+		"portion": "",
+		"comment": "etwa ein gleich grosses Stück wie der Knobbli"
+	},
+	{
+		"description": "Rüebli",
+		"portion": "200g",
+		"comment": ""
+	},
+	{
+		"description": "(Halb-) Rahm",
+		"portion": "2 - 2.5 dl",
+		"comment": ""
+	},
+	{
+		"description": "Käse zum Überbacken",
+		"portion": "",
+		"comment": "Appenzeller, Emmentaler etc."
+	},
+	{
+		"description": "Broccoli",
+		"portion": "250g",
+		"comment": ""
+	}],
+	"tags": ["winter",
+	"gemüse",
+	"pasta",
+	"fleischlos"],
+	"title": "Pasta-Gemüse-Gratin mit Curry",
+	"preparation": "<p>Broccoli r&uuml;sten bzw. auftauen. Zwiebeln in Ringe und R&uuml;ebli in St&auml;ngeli schneiden.<br />\nWasser aufsetzen, salzen und Pasta al dente kochen.<br />\nIn der Zwischenzeit</p>\n\n<ul>\n\t<li>in einem Sch&uuml;ttelbecher den Rahm abf&uuml;llen und den Curry, Salz und Pfeffer beigeben. Den Knobli und den Ingwer mit einer feinen Reibe in den Rahm reiben. Gut sch&uuml;tteln.</li>\n\t<li>Broccoli, R&uuml;ebli und Zwiebeln knapp gar Kochen; Mikrowelle oder Salzwasser</li>\n</ul>\n\n<p>Wenn die Pasta al dente sind diese abgiessen und mit Broccoli, R&uuml;ebli und Zwiebeln mischen. Alles in eine Gratinform abf&uuml;llen, K&auml;ses nach belieben dar&uuml;ber reiben und die Zutaten aus dem Sch&uuml;ttelbecher dar&uuml;ber verteilen.<br />\nAlles f&uuml;r ca. 26 Minuten in den auf 200 Grad vorgeheizten Ofen legen. Nach dieser Zeit den Ofen ausschalten und f&uuml;r ein paar Minuten weiter im Ofen lassen.<br />\n<br />\nDieser Gratin l&auml;sst sich auch gut aufw&auml;rmen und schmeckt dann immer noch super :-)</p>\n",
+	"preamble": "<p>Der Curry macht bei diesem Rezept den spez. Geschmack aus. Wer Curry mag, darf hier auch etwas mehr verwenden.</p>\n",
+	"rating": 5,
+	"addingDate": 1248766723650,
+	"editingDate": 1421863646634,
+	"image": null
+},
+{
+	"id": "0c029f54-77a2-4da0-a32c-14c1d1c5a8f8",
+	"noOfPeople": "2",
+	"ingredients": [{
+		"description": "Muskatnuss",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "(Halb-) Rahm",
+		"portion": "2 - 2.5 dl",
+		"comment": ""
+	},
+	{
+		"description": "Zwiebel",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Gorgonzola",
+		"portion": "100g",
+		"comment": ""
+	},
+	{
+		"description": "Tabasco",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Penne",
+		"portion": "200 - 250g",
+		"comment": "oder Tortiglioni"
+	},
+	{
+		"description": "Salz, Pfeffer und Öl zum anbraten",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Pinienkerne",
+		"portion": "2 EL",
+		"comment": ""
+	},
+	{
+		"description": "Knoblizehe",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "tiefgefrorener Spinat",
+		"portion": "200 - 250g",
+		"comment": ""
+	}],
+	"tags": ["pasta",
+	"fleischlos"],
+	"title": "Penne mit Gorgonzola-Spinat Sauce",
+	"preparation": "<p>Wasser aufsetzen, salzen und Pasta al dente kochen.<br />\nIn der Zwischenzeit</p>\n\n<ul>\n\t<li>Spinat auftauen, etwas salzen</li>\n\t<li>Pinienkerne ohne Öl anrösten</li>\n\t<li>etwas Öl in die Pfanne und die Zwiebeln anschwitzen</li>\n\t<li>Knobli hinzu geben und ebenfalls anschwitzen</li>\n\t<li>Spinat zu den Zwiebeln und Knobli geben und etwas mitbraten</li>\n\t<li>anschliessend (Halb-) Rahm dazu geben und aufköcheln lassen, danach Hitze reduzieren</li>\n\t<li>fünf Minuten bevor die Pasta fertig sind den Gorgonzola, Muskatnuss, Tabasco und Pfeffer hinzu geben</li>\n\t<li>je nach Saucenkonsistenz noch etwas Pastawasser in die Sauce</li>\n\t<li>mit Salz abschmecken</li>\n</ul>\n\n<p>Pasta abgiessen und zurück in den Kochtopf geben, Sauce darüber, gut mischen und ca. 5 Minuten ziehen lassen.</p>\n",
+	"preamble": "<p>Gorgonzola gibt es in unterschiedlichen Varianten. Hier kann selber experimentiert werden welcher einem für dieses Gericht am meisten zusagt.</p>\n",
+	"rating": 5,
+	"addingDate": 1248931079382,
+	"editingDate": 1421863646742,
+	"image": null
+},
+{
+	"id": "06ea363f-cebe-4119-affa-442dc903552c",
+	"noOfPeople": "2",
+	"ingredients": [{
+		"description": "Salz & Pfeffer",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "lauwarmes Wasser",
+		"portion": "150ml",
+		"comment": "weniger als 40 Grad"
+	},
+	{
+		"description": "Weissmehl",
+		"portion": "250g",
+		"comment": ""
+	},
+	{
+		"description": "Pelati",
+		"portion": "200g",
+		"comment": ""
+	},
+	{
+		"description": "Herbes de Provence",
+		"portion": "1EL",
+		"comment": ""
+	},
+	{
+		"description": "Trockenhefe",
+		"portion": "1-2g",
+		"comment": "oder Presshefe"
+	},
+	{
+		"description": "Olivenöl",
+		"portion": "1EL",
+		"comment": ""
+	},
+	{
+		"description": "Zucker",
+		"portion": "Prise",
+		"comment": ""
+	}],
+	"tags": ["pizza"],
+	"title": "Pizza Grundrezept",
+	"preparation": "<p>24 Stunden-Teig (die Menge reicht für ein Ofenblech): Mehl mit dem Salz (1/2 TL) in einer Schüssel vermengen. Dann die Hefe im lauwarmen Wasser mit einer Prise Zucker auflösen und anschliessen in die Schüssel geben. Das Wasser darf nicht wärmer als 40 Grad sein, da sonst die Hefe zerstört wird. Den Teig einige Minuten lang kneten. Zum Schluss dem Teig noch etwas Olivenöl dazu geben und kurz weiter kneten. Alles in allem sollte der Teig mind. 10 Minuten geknetet werden.</p>\n\n<p>Den Teig für min. 8 Std., oder noch besser 24 Stunden lang, in der Schüssel zugedeckt gehen lassen.</p>\n\n<p>Wenn der Teig gegangen ist kann mit der Pizza begonnen werden. Erst einmal den Ofen einschalten (grösste Stufe). Nun den Teig dünn auswallen und auf das Blech legen. Beachte: Das Blech nicht mit Öl einfetten, es würde verbrennen. Backpapier oder Mehl verwenden.</p>\n\n<p>Die Tomatensosse ist auch schnell gemacht: Die Pelati zusammen mit den Gewürzen (Herbes de Provence, Oregano oder Basilikum), Salz, Pfeffer und Olivenöl vermengen und die Pelati mit einer Gabel zerstossen. Achtung: Nicht im Mixer, der knackt die Kerne in aus den Tomaten und macht die Sosse bitter. Nun die Sosse auf dem Teig verteilen.</p>\n\n<p>Anschliessend (der Ofen sollte jetzt heiss sein) wird der Boden in den Ofen geschoben, mittlere Schiene. Dort bleibt er für 10 Minuten. Danach heraus nehmen und nach belieben belegen. Nach weiteren 5-7 Minuten im Ofen (unterste Schiene) ist die Pizza fertig.</p>\n",
+	"preamble": "<p>Das Wichtigste an einer guten Pizza ist ein dünner knuspriger Boden. Dies gelingt mit einem selber gemachten Teig auch zu Hause sehr einfach - wenn man weiss wie ;-) Ich mag die Pizza einfach nur mit etwas Mozzarella belegt und in die Tomatensauce vielleicht noch etwas Kreuzkümmel.</p>\n\n<p>Dieses Rezept soll nur als Basis für einen guten Pizzaboden sein. Belegen kann man diese Basis dann nach Belieben.</p>\n",
+	"rating": 5,
+	"addingDate": 1361387126285,
+	"editingDate": 1437924850885,
+	"image": null
+},
+{
+	"id": "5dcf0a23-56ec-41e4-b64a-e1be969c643d",
+	"noOfPeople": "2-4",
+	"ingredients": [{
+		"description": "Boullion",
+		"portion": "5dl",
+		"comment": ""
+	},
+	{
+		"description": "Zitronensaft",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Salz, Pffefer und Öl zum anbraten",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Knoblizehe",
+		"portion": "2-3",
+		"comment": ""
+	},
+	{
+		"description": "Bio-Randen",
+		"portion": "1kg",
+		"comment": "gedämpft"
+	},
+	{
+		"description": "Ingwer",
+		"portion": "",
+		"comment": "nach belieben"
+	},
+	{
+		"description": "Zwiebeln",
+		"portion": "2-3",
+		"comment": ""
+	},
+	{
+		"description": "Nature Joghurt",
+		"portion": "1 Becher",
+		"comment": ""
+	}],
+	"tags": ["suppe"],
+	"title": "Randensuppe",
+	"preparation": "<p>Randen und Zwiebeln in grobe Würfel schneiden und in einem Topf in etwas Öl leicht anbraten. Ingwer und Knobli dazu geben und ebenfalls leicht andünsten. Danach Boullion in den Topf giessen, Deckel auf dem Topf und alles zusammen ca. 15 Minuten leicht köcheln lassen.</p>\n\n<p>Im Anschluss daran mit dem Mixstab alles pürieren. Jetzt kann der Joghurt hinzu gegeben werden. Alles gut unterrühren. Ev. nochmals heisse Boullion dazu geben, falls die Konsistenz nicht optimal ist. Mit Zitronensaft, Salz und Pfeffer abschmecken.</p>\n",
+	"preamble": "<p>Zusammen mit etwas Brot ist diese Suppe eine Hauptspeise für 2-3 Personen.</p>\n",
+	"rating": 5,
+	"addingDate": 1453645648509,
+	"editingDate": 1453645691928,
+	"image": null
+},
+{
+	"id": "254c3152-6d4a-4b2d-881a-5f6f3ede2b27",
+	"noOfPeople": "2",
+	"ingredients": [{
+		"description": "Ingwer",
+		"portion": "",
+		"comment": "soviel wie Knobli"
+	},
+	{
+		"description": "Knobilzehen",
+		"portion": "1-2",
+		"comment": ""
+	},
+	{
+		"description": "Getrocknete Tomaten",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Salz, Pfeffer, Olivenöl",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Peperoncini",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Pasta",
+		"portion": "250-280g",
+		"comment": "z.B. Spaghetti oder Fussili"
+	},
+	{
+		"description": "Halbrahm",
+		"portion": "2-2.5dl",
+		"comment": ""
+	}],
+	"tags": ["pasta",
+	"fleischlos"],
+	"title": "Rassiger Rahmsauce mit getrockneten Tomaten und Pasta",
+	"preparation": "<p>Wasser aufsetzen, salzen und Pasta al dente kochen.<br />\n<br />\nIn der Zwischenzeit die Zwiebel, Knobli, Ingwer und Peperoncini grob schneiden. Die in Olivenöl andünsten. Nach kurzer Zeit den Knobli, Ingwer und den Peperoncini dazu geben und zusammen weiter andünsten. Anschliessend den Halbrahm dazu geben kurz aufkochen lassen und Hitze reduzieren. Einige Minuten bevor die Pasta al dente ist die Hitze auf minimale Stufe stellen und Sauce mit dem Mixer pürieren bis alle groben Stücke zerkleinert sind. Jetzt ist es Zeit um die getrockneten Tomaten in die Sauce zu geben. Mit Salz und Pfeffer abschmecken.<br />\n<br />\nDie Pasta ab sieben und zurück in die Pfanne schütten. Sauce darüber geben und gut mischen. Nun sollte man der Pasta ein paar Minuten Zeit geben sich mit der Sauce zu verbinden. Anschliessend die Pasta auf wie immer vorgewärmten Tellern servieren.</p>\n",
+	"preamble": "",
+	"rating": 5,
+	"addingDate": 1396702953057,
+	"editingDate": 1436972426494,
+	"image": null
+},
+{
+	"id": "2a8a37b7-5a3d-4f3d-a5d2-ba7fc741e8e4",
+	"noOfPeople": "2",
+	"ingredients": [{
+		"description": "Weisswein",
+		"portion": "1dl",
+		"comment": "fruchtig"
+	},
+	{
+		"description": "Knoblizehe",
+		"portion": "1-2",
+		"comment": ""
+	},
+	{
+		"description": "Blattspinat",
+		"portion": "200 - 250g",
+		"comment": "tiefgekühlt, gefroren"
+	},
+	{
+		"description": "Gemüsebouillon",
+		"portion": "ca. 0.8dl",
+		"comment": ""
+	},
+	{
+		"description": "Muskatnuss",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Ingwer",
+		"portion": "1/2 tl",
+		"comment": "geht auch ohne"
+	},
+	{
+		"description": "Gorgonzola",
+		"portion": "ca. 100g",
+		"comment": "je nach Lust & Laune"
+	},
+	{
+		"description": "Olivenöl",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Risotto",
+		"portion": "200g",
+		"comment": ""
+	},
+	{
+		"description": "Zwiebel",
+		"portion": "1",
+		"comment": ""
+	}],
+	"tags": ["fleischlos"],
+	"title": "Risotto mit Spinat und Gorgonzola",
+	"preparation": "<p>Öl in einem Topf heiss werden lassen. Zwiebel dazu geben und glasig anbraten. Knobli und Ingwer dazu geben und ebenfalls kurz mitdünsten. Hitze reduzieren und anschliessend den Risotto dazu geben und kurz mitdünsten. Danach den Weisswein dazu geben und komplett einkochen lassen. Jetzt die heisse (!) Bouillon dazu geben (ca. 5dl). Nun den Deckel auf den Topf und die Hitze soweit reduzieren, dass die Bouillon nur leicht köchelt. Regelmässig den Risotto umrühren und gegebenenfalls Bouillion dazu geben.<br />\nIn der Zwischenzeit den Spinat auftauen, etwas Salzen und heiss werden lassen (Mikrowelle). Der Risotto ist nach ca. 20 Minuten gar. Jetzt den heissen Spinat und den Gorgonzola dazu geben. Hitze auf das Minimum reduzieren und den Käse schmelzen lassen. Mit Muskatnuss (und wer will mit Pfeffer) abschmecken.<br />\n&nbsp;</p>\n",
+	"preamble": "",
+	"rating": 5,
+	"addingDate": 1356611200447,
+	"editingDate": 1421863647465,
+	"image": null
+},
+{
+	"id": "338befa1-86e4-4b4a-a1bb-1bdd71773ef5",
+	"noOfPeople": "4",
+	"ingredients": [{
+		"description": "Zwiebeln",
+		"portion": "50 g",
+		"comment": ""
+	},
+	{
+		"description": "Mehl",
+		"portion": "1 EL",
+		"comment": ""
+	},
+	{
+		"description": "Chilischote",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Rapsöl",
+		"portion": "",
+		"comment": "zum Dünsten"
+	},
+	{
+		"description": "Sellerie",
+		"portion": "50 g",
+		"comment": ""
+	},
+	{
+		"description": "Zimtstange",
+		"portion": "1/2",
+		"comment": ""
+	},
+	{
+		"description": "Ingwerwurzel",
+		"portion": "10 g",
+		"comment": ""
+	},
+	{
+		"description": "Rüebli",
+		"portion": "100 g",
+		"comment": ""
+	},
+	{
+		"description": "Bio-Orange",
+		"portion": "1",
+		"comment": "Saft und abgeriebene Zesten"
+	},
+	{
+		"description": "Gemüsebouillon",
+		"portion": "5 dl",
+		"comment": ""
+	},
+	{
+		"description": "Weisswein",
+		"portion": "2-3 EL",
+		"comment": ""
+	}],
+	"tags": ["suppe",
+	"vorspeise"],
+	"title": "Rüebli-Ingwer-Orangen Suppe",
+	"preparation": "<p>Rüebli, Zwiebeln und Sellerie rüsten, klein schneiden und in wenig Öl andünsten. Mit Mehl bestäuben und mit Weisswein ablöschen. Anschliessend mit Bouillon auffüllen. Orangesaft und -zesten, Chilischote und Zimt beifügen. Ingwer hineinraffeln.<br />\nDie Suppe während ca. 25-30 Minuten langsam weich köcheln lassen. Danach Zimt und Chili entfernen und den Rest im Mixer fein pürieren.</p>\n",
+	"preamble": "",
+	"rating": 0,
+	"addingDate": 1334322335676,
+	"editingDate": 1421863647032,
+	"image": null
+},
+{
+	"id": "9a194295-34e3-4f00-b2df-5e495fa61d9b",
+	"noOfPeople": "2",
+	"ingredients": [{
+		"description": "Halbrahm",
+		"portion": "2,5 dl",
+		"comment": ""
+	},
+	{
+		"description": "Tagliatelle",
+		"portion": "200g",
+		"comment": ""
+	},
+	{
+		"description": "Herbes de Provence",
+		"portion": "1-2 EL",
+		"comment": ""
+	},
+	{
+		"description": "Pouletschnitzel",
+		"portion": "2",
+		"comment": "ca. 130g je Schnitzel"
+	},
+	{
+		"description": "geriebener Gruyère",
+		"portion": "50g",
+		"comment": ""
+	},
+	{
+		"description": "Bouillonextrakt",
+		"portion": "1/2 TL",
+		"comment": ""
+	},
+	{
+		"description": "Muskatnuss",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Weisswein (fruchtbetont)",
+		"portion": "1,5 dl",
+		"comment": ""
+	},
+	{
+		"description": "Dijon-Senf",
+		"portion": "3 EL",
+		"comment": ""
+	},
+	{
+		"description": "Öl, Salz und Pfeffer",
+		"portion": "",
+		"comment": ""
+	}],
+	"tags": ["fleisch",
+	"pasta"],
+	"title": "Senf-Pouletschnitzel",
+	"preparation": "<p>Poulets kalt abspülen und trocken tupfen. Die Pouletschnitzel in ein Bratpfanne anbraten (je nach Grösse ca. 5 Min. je Seite). Die Pouletschnitzel aus der Pfanne nehmen und die Bratensatz mit Weisswein ablöschen. Bouillonextrakt dazu geben und den Weisswein um gut die Hälfte reduzieren. Dazwischen die Pouletschnitzel mit etwas Senf einstreichen.<br />\nIn die Flüssigkeit nun den Halbrahm geben und nochmals ca. 3 Minuten leicht kochen lassen. Anschliessend den Gruyère, Salz, Pfeffer, Muskatnuss, Herbes de Provence und den Senf in die Sauce geben. Probieren!<br />\nDie Schnitzel in eine ofenfeste Form geben, die Sauce darüber giessen und beides zusammen in den mit 80-100 Grad vorgeheizten Ofen warm stellen.<br />\n<br />\nDie Pasta al dente kochen und zusammen mit dem Pouletschnitzel und etwas Souce auf einem vorgewärmten Teller anrichten und sofort servieren.<br />\n&nbsp;</p>\n",
+	"preamble": "<p>Beim Senf gibt es ja grosse Unterschiede. Ähnlich wie beim Olivenöl oder Wein ist der persönliche Geschmack entscheidend.</p>\n",
+	"rating": 5,
+	"addingDate": 1267881435861,
+	"editingDate": 1421863647243,
+	"image": null
+},
+{
+	"id": "f1b8753e-45da-454b-9a98-f4d2f728c2be",
+	"noOfPeople": "2",
+	"ingredients": [{
+		"description": "Zwiebeln",
+		"portion": "1-2",
+		"comment": ""
+	},
+	{
+		"description": "schwarze Oliven",
+		"portion": "5-10",
+		"comment": ""
+	},
+	{
+		"description": "Salz, Pfeffer und Olivenöl",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Tomaten",
+		"portion": "250g",
+		"comment": ""
+	},
+	{
+		"description": "Pinienkerne",
+		"portion": "1-2 EL",
+		"comment": ""
+	},
+	{
+		"description": "Auberginen",
+		"portion": "ca. 500g",
+		"comment": "(sizilianische Aubergine)"
+	},
+	{
+		"description": "Kapern",
+		"portion": "10-15",
+		"comment": "(Kapernäpfel)"
+	},
+	{
+		"description": "Knoblizehen",
+		"portion": "2-4",
+		"comment": ""
+	}],
+	"tags": ["pasta",
+	"fleischlos"],
+	"title": "Sizilianisches Auberginengemüse",
+	"preparation": "<p>Die Auberginen in gleichgrosse Würfel schneiden (5-8mm), die Zwiebeln in Streifen oder ganz klein Scheiden (wie man es mag), die Tomaten auch in grobe Würfel schneiden (wer will kann diese vorher häuten), Knoblizehen in kleine Würfelchen oder Scheiben schneiden und die Oliven entkernen und vierteln.</p>\n\n<p>Ein flache Pfanne warm werden lassen und die Pinienkerne leicht anbräunen. Anschliessen Öl (Olivenöl, Rapsöl) in die Pfanne geben und die Auberginen dazu geben. Tatsächlich nehmen sie zunächst fast alles Öl in der Pfanne auf, geben es aber fast komplett wieder ab, wenn man sie nur lange genug brät. Erst dann schmecken die Auberginen auch so richtig nach Auberginen. Nach ein paar Minuten die Zwiebeln, etwas später den Knobli und danach die Tomaten dazu geben. Das Gemüse salzen. Bei niedriger Hitze alles schön verbinden lassen (ca. 10 Minuten). Dazwischen die Kapern, die Oliven und die Pinienkerne dazu geben.</p>\n\n<p>In der Zwischenzeit die Pasta al dente kochen. Danach absieben und zum Gemüse geben. Auf wie immer vorgewärmten Tellern servieren, frischer Pfeffer darüber. En guetä!</p>\n",
+	"preamble": "<p>Das Sizilianisches Auberginengemüse passt hervorragend zu Pasta. Weniger zu Spagetti, als vielmehr zu Penne, Ciocchetti, Gemelli,&nbsp;Rigatoni oder ähnlichen.</p>\n",
+	"rating": 5,
+	"addingDate": 1436384055401,
+	"editingDate": 1436384567676,
+	"image": null
+},
+{
+	"id": "31a250c0-5331-4a45-afc8-c014e773d053",
+	"noOfPeople": "2",
+	"ingredients": [{
+		"description": "Muskat",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Milch",
+		"portion": "1 dl",
+		"comment": "oder Rahm / Halbrahm"
+	},
+	{
+		"description": "Eier",
+		"portion": "1-2",
+		"comment": "je nach Grösse"
+	},
+	{
+		"description": "Sbrinz",
+		"portion": "",
+		"comment": "oder Parmesan"
+	},
+	{
+		"description": "Spaghetti",
+		"portion": "300g",
+		"comment": ""
+	},
+	{
+		"description": "Blattpeterli",
+		"portion": "1/2 Bund",
+		"comment": ""
+	},
+	{
+		"description": "Speck",
+		"portion": "50g",
+		"comment": ""
+	},
+	{
+		"description": "Salz und Pfeffer",
+		"portion": "",
+		"comment": ""
+	}],
+	"tags": ["pasta",
+	"fleischlos"],
+	"title": "Spaghetti alla Carbonara",
+	"preparation": "<p>Wasser aufsetzen, salzen und Spaghetti al dente kochen.<br />\nIn der Zwischenzeit den Speck richtig knusprig (er wird sehr sehr dunkel) braten. Diesen beiseite stellen. Eier, Milch, Muskat und Pfeffer zusammen verrühren (ev. mit dem Mixer). Parmesan dazu geben und mit Salz abschmecken. Wer will gibt noch ein paar Tropfen Tabasco hinzu.<br />\n<br />\nPasta abgiessen und zurück in den Topf geben. Die Sauce und den frisch gehackten Peterli dazu geben und gut mischen. Die Spaghetti auf -wie immer vorgewärmte- Teller geben und den knusprigen Speck darüber geben.</p>\n",
+	"preamble": "<p>Dieses Rezept für \"Spaghetti alla Carbonara\" unterscheidet sich sehr von anderen Rezepten zu diesem Thema. Es braucht keinen Rahm, dadurch ist das Gericht nicht schwer und es benötigt keinen Schicken. Gerade der Schicken, den mag ich nicht so...</p>\n",
+	"rating": 4,
+	"addingDate": 1248950852478,
+	"editingDate": 1438417434156,
+	"image": null
+},
+{
+	"id": "7af66332-8964-4827-9d39-28130af2d8d8",
+	"noOfPeople": "2",
+	"ingredients": [{
+		"description": "Wirz",
+		"portion": "100-150g",
+		"comment": ""
+	},
+	{
+		"description": "Zwiebel",
+		"portion": "1",
+		"comment": "klein bis mittelgross"
+	},
+	{
+		"description": "(Halb-) Rahm",
+		"portion": "1.5 - 2 dl",
+		"comment": ""
+	},
+	{
+		"description": "Salz und Pfeffer",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Spaghetti",
+		"portion": "250g",
+		"comment": ""
+	},
+	{
+		"description": "Parmesan",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Ei",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Pouletbrüstli",
+		"portion": "150 - 200g",
+		"comment": ""
+	}],
+	"tags": ["winter",
+	"fleisch",
+	"pasta"],
+	"title": "Spaghetti mit Poulet-Carbonara",
+	"preparation": "<p>Wasser aufsetzen, salzen und Spaghetti al dente kochen.<br />\nIn der Zwischenzeit das Poulet kalt abspülen un in feine Streifen schneiden. Anschliessend anbraten und bei Seite stellen. In der selben Pfanne die fein geschnittene Zweibel und der in Streifen geschnittene Wirz anbraten. Der Wirz braucht nur ca. 3-4 Minuten.<br />\n<br />\nIn einem Schüttelbecher den Rahm, das Ei und den fein geriebenen Parmesan mischen. Mit Salz und Pfeffer würzen.<br />\n<br />\nSobald die Pasta fertig sind, diese abgiessen und zusammen mit der Sauce und dem Poulet in die Pfanne mit den Zwiebeln und dem Wirz geben und gut mischen.</p>\n",
+	"preamble": "",
+	"rating": 5,
+	"addingDate": 1248951878865,
+	"editingDate": 1421863646457,
+	"image": null
+},
+{
+	"id": "65bb80d6-c985-45af-8da4-f53ef6b121b1",
+	"noOfPeople": "2",
+	"ingredients": [{
+		"description": "Salz, Pfeffer und Olivenöl",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Knoblizehe",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "gemahlene Mandeln",
+		"portion": "2 EL",
+		"comment": ""
+	},
+	{
+		"description": "Spaghetti",
+		"portion": "250-280g",
+		"comment": ""
+	},
+	{
+		"description": "Tabasco",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Zucchini",
+		"portion": "1",
+		"comment": "ca. 200g"
+	},
+	{
+		"description": "Zwiebel",
+		"portion": "1/2",
+		"comment": ""
+	}],
+	"tags": ["pasta",
+	"fleischlos"],
+	"title": "Spaghetti mit Zucchini-Pesto",
+	"preparation": "<p>Wasser aufsetzen, salzen und Pasta al dente kochen.<br />\n<br />\nIn der Zwischenzeit den Pesto machen. Dazu die Zucchini, die Zwiebel und den Knobli im Mixer feine hacken. Mit etwas Olivenöl in einer kleinen Pfanne andämpfen. Die gemahlenen Mandeln dazu geben und mitdämpfen. Warten bis die Flüssigkeit des Zucchini eingekocht ist. Hitze reduzieren und jetzt das Olivenöl dazu geben. Die gewünschte Konsistenz mit Pastawasser herstellen. Mit Salz, Pfeffer und Tabasco abschmecken.<br />\n<br />\nSpaghetti abgiessen und mit der Pesto mischen. Auf den wie immer vorgewärmten Tellern anrichten und servieren.</p>\n",
+	"preamble": "",
+	"rating": 4,
+	"addingDate": 1250530141590,
+	"editingDate": 1421863646611,
+	"image": null
+},
+{
+	"id": "f84c8950-00d6-483d-98ca-42cfca7d1248",
+	"noOfPeople": "2",
+	"ingredients": [{
+		"description": "Salz und Pfeffer",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Zucker",
+		"portion": "1/2 TL",
+		"comment": ""
+	},
+	{
+		"description": "Peperoncini",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Spaghetti",
+		"portion": "250g-300g",
+		"comment": ""
+	},
+	{
+		"description": "Peterli",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Olivenöl",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Pinienkerne",
+		"portion": "1-2 EL",
+		"comment": ""
+	},
+	{
+		"description": "Ingwer",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "getrocknete Tomaten",
+		"portion": "150g",
+		"comment": ""
+	},
+	{
+		"description": "Knoblizehe",
+		"portion": "2",
+		"comment": ""
+	},
+	{
+		"description": "Parmesan",
+		"portion": "20-50g",
+		"comment": ""
+	},
+	{
+		"description": "Tomatenmark",
+		"portion": "1 TL",
+		"comment": ""
+	}],
+	"tags": ["pasta",
+	"fleischlos"],
+	"title": "Spaghetti mit roter Pesto",
+	"preparation": "<p>Wasser aufsetzen, salzen und Spaghetti al dente kochen.<br />\nIn der Zwischenzeit den Knobli kurz in der Mikrowelle erhitzen (ca. 10 Sek.). Dadurch wird er etwas milder. Auch den Ingwer in der Mikrowelle etwas erhitzen. Die getrockneten Tomaten, Knoblizehe, Ingwer, Peterli und Peperoncini grob gehackt in einen Mixer geben. Pinienkerne, Tomatenmark, Parmesan und Öl dazu geben und mixen. Mit Pastawasser die gewünschte Konsistenz herstellen und Zucker dazu geben. Wieder alles mixen und mit Salz und Pfeffer abschmecken.</p>\n",
+	"preamble": "",
+	"rating": 4,
+	"addingDate": 1249806041873,
+	"editingDate": 1421863646681,
+	"image": null
+},
+{
+	"id": "6fc0a3bf-d86f-40ec-9c4d-b4b47007f8f1",
+	"noOfPeople": "2",
+	"ingredients": [{
+		"description": "Rahm",
+		"portion": "1.5 - 2dl",
+		"comment": ""
+	},
+	{
+		"description": "Salz, Pfeffer, Öl",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Bio-Zitrone",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Zwiebel",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Tagliolini",
+		"portion": "250g",
+		"comment": ""
+	},
+	{
+		"description": "Trüffelbrie",
+		"portion": "150g",
+		"comment": ""
+	}],
+	"tags": ["pasta",
+	"fleischlos"],
+	"title": "Tagliolini mit Trüffelbrie",
+	"preparation": "<p>Die Pasta al dente kochen.<br />\n<br />\nIn der Zwischenzeit die gehackten Zwiebel andünsten. Anschliessend Zitronenschale abreiben und zusammen mit dem Rahm dazu geben und aufkochen lassen. Ca. 5 Minuten köcheln lassen danach Temperatur reduzieren und die Hälfte des in Würfel geschnittenen Käse ebenfalls in die Sauce geben und zergehen lassen. Danach die Sauce pürieren.<br />\n<br />\nJetzt ist es Zeit um die Pasta mit der Sauce in einer Pfanne zu vereinen. Gut durchmischen und den restlichen Käse dazu geben. Die Pasta auf vorgewärmten Tellern servieren.</p>\n",
+	"preamble": "<p>Einen Trüffelbrie ist was besonderes. Der Käse nimmt den Geschmack des Trüffels sehr gut auf und somit wird das Rezept richtig fein.</p>\n",
+	"rating": 5,
+	"addingDate": 1385891418937,
+	"editingDate": 1421863646789,
+	"image": null
+},
+{
+	"id": "af8d0457-49d1-4452-99c6-82838fd4b991",
+	"noOfPeople": "6",
+	"ingredients": [{
+		"description": "Löffelbiskuits",
+		"portion": "1 Pack",
+		"comment": "die dünnen Löffelbiskuit von der Migros"
+	},
+	{
+		"description": "Vanilleschote",
+		"portion": "1",
+		"comment": ""
+	},
+	{
+		"description": "Rahmquark",
+		"portion": "250 - 300g",
+		"comment": ""
+	},
+	{
+		"description": "Himbeeren oder Erdbeeren",
+		"portion": "ca. 250g",
+		"comment": ""
+	},
+	{
+		"description": "Himbeersirup",
+		"portion": "",
+		"comment": ""
+	},
+	{
+		"description": "Vollrahm",
+		"portion": "2 - 2.5dl",
+		"comment": ""
+	},
+	{
+		"description": "Mascarpone",
+		"portion": "250g",
+		"comment": ""
+	},
+	{
+		"description": "Zucker",
+		"portion": "120g",
+		"comment": ""
+	}],
+	"tags": ["dessert"],
+	"title": "Tiramisu",
+	"preparation": "<p>Vorbereitung selbstgemachter Vanillezucker:<br />\nDen Zucker abmessen und ich eine verschliessbare Tupperware abfüllen. Die Vanilleschote der Länge nach aufschneiden und mit dem Rücken eines Messers auskratzen. Die Vanillesamen und die ausgekratzte Vanilleschote in den Zucker geben und gute mischen. Das ganze mind. 1 Tag stehen lassen.<br />\n<br />\nZubereitung der Tiramisu:<br />\nLöffelbiskuits in eine schale legen und mit Himbeersirup (ohne zu verdünnen) beträufeln. anschliessend Mascarpone, Rahmquark und den selbstgemachten Vanillezucker mischen und gute vermengen. Jetzt den Rahm steif schlagen, eine Prise Salz dazu und zusammen mit den halb gefrorenen Himbeeren (oder frischen Erdbeeren) unter die Masse heben. Im Anschluss daran die Masse über die Biskuits verteilen. Wer will, kann auch einen Zwischenlage Biskuits \"einbauen\".<br />\n<br />\nTipp:<br />\nAm Vorabend vorbereiten damit die Masse fester wird und der Dessert umso besser schmeckt.</p>\n",
+	"preamble": "<p>Dieses Rezept lässt sich mit Himbeeren oder Erdbeeren machen. Die Himbeeren eignen sich vor allem tiefgefroren zur Verarbeitung, Erdbeeren dagegen sollten frisch sein.</p>\n",
+	"rating": 5,
+	"addingDate": 1332593609982,
+	"editingDate": 1429359293207,
+	"image": null
+},
+{
+	"id": "51bc9bbf-69fe-42af-85bb-c419272e79bd",
+	"noOfPeople": "4",
+	"ingredients": [{
+		"description": "Torrone",
+		"portion": "180 g",
+		"comment": " Mischverhältnis 60"
+	},
+	{
+		"description": "Rahm",
+		"portion": "3 dl",
+		"comment": "grösse der Form beachten"
+	}],
+	"tags": ["dessert"],
+	"title": "Torroneparfait",
+	"preparation": "<p>Den Torroneriegel zerkrümeln, am besten im Mixer. Mit steif geschlagenem Rahm vermischen und schliesslich in einer kleinen Kastenform ins Gefrierfach stellen. Die Form zuvor mit Klarsichtfolie auslegen, dann kann man das gefrorene Parfait ganz einfach aus der Form ziehen.</p>\n",
+	"preamble": "<p>Torrone, das ist jener weisse Schaumriegel mit Mandeln oder Haselnüssen, den man auch auf Jahrmärkten kaufen kann. Natürlich kriegt man es auch beim Italiener. Unbedingt darauf achten: Es gibt Torrone in unterschiedlichen \"Härtegraden\": Je härter umso einfacher zu verarbeiten.</p>\n",
+	"rating": 5,
+	"addingDate": 1317233310031,
+	"editingDate": 1421863646960,
+	"image": null
+}]

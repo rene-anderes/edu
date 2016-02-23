@@ -11,8 +11,11 @@ import javax.json.JsonObject;
 import javax.json.JsonStructure;
 import javax.json.JsonValue.ValueType;
 
+import org.anderes.edu.appengine.cookbook.ObjectifyTestRule.CleanupStrategy;
+import org.anderes.edu.appengine.cookbook.ObjectifyTestRule.Strategy;
 import org.anderes.edu.appengine.cookbook.ObjectifyTestRule.UsingDataSet;
 import org.anderes.edu.appengine.cookbook.dto.Recipe;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -45,8 +48,16 @@ public class ObjectifyTestRuleTest {
     }
     
     @Test
+    @CleanupStrategy(value = Strategy.BEFORE)
     @UsingDataSet(value = { "/recipe2.json" })
     public void shouldBeUsingdataSet() {
         assertThat(rule.findOne("c0e5582e-252f-4e94-8a49-e12b4b047afb"), is(notNullValue()));
+    }
+    
+    @Test
+    @UsingDataSet(value = { "/Cookbook_Complete.json" })
+    @CleanupStrategy(value = Strategy.BEFORE)
+    public void shouldBeUsingdataSetAndCleanup() {
+        assertThat(rule.findAll().size(), is(44));
     }
 }

@@ -44,8 +44,15 @@ public class ObjectifyTestRule implements TestRule {
         String[] value();
     }
     
+    @Retention(RUNTIME)
+    @Target({METHOD, TYPE})
+    public static @interface CleanupStrategy {
+        Strategy value();
+    }
+    
+    public enum Strategy { BEFORE, AFTER, NONE }
+    
     private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
-
     
     @Override
     public Statement apply(final Statement base, final Description description) {
@@ -66,17 +73,31 @@ public class ObjectifyTestRule implements TestRule {
 
     private void before(Description description) throws URISyntaxException, FileNotFoundException {
         final UsingDataSet usingDataSet = extractUsingDataSet(description);
-        if (usingDataSet == null) {
-            return;
+        final CleanupStrategy cleanupStrategy = extractCleanupStrategy(description);
+        if (cleanupStrategy != null && cleanupStrategy.value() == Strategy.BEFORE) {
+            cleanupDatabase();
         }
+        if (usingDataSet != null) {
+            handleDataSet(usingDataSet);
+        }
+    }
+
+    void handleDataSet(final UsingDataSet usingDataSet) throws URISyntaxException, FileNotFoundException {
         final String[] dataSetFiles = usingDataSet.value();
         for (String jsonFileString : dataSetFiles) {
             final Path jsonFile = Paths.get(getClass().getResource(jsonFileString).toURI());
             persistJsonFileData(jsonFile);
         }
     }
-    
-    private void persistJsonFileData(Path jsonFile) throws FileNotFoundException {
+
+    private void cleanupDatabase() {
+        final List<Recipe> recipes = findAll();
+        for (Recipe recipe : recipes) {
+            ofy().delete().entity(recipe).now();
+        }
+    }
+
+    private void persistJsonFileData(final Path jsonFile) throws FileNotFoundException {
         JsonStructure jsonValue = readJsonFile(jsonFile);
         if (jsonValue.getValueType() == ValueType.OBJECT) {
             persistRecipe((JsonObject) jsonValue);
@@ -85,7 +106,7 @@ public class ObjectifyTestRule implements TestRule {
         }
     }
 
-    /* package*/ JsonStructure readJsonFile(Path jsonFile) throws FileNotFoundException {
+    /* package*/ JsonStructure readJsonFile(final Path jsonFile) throws FileNotFoundException {
         final JsonReader reader = Json.createReader(new FileReader(jsonFile.toFile()));
         JsonStructure jsonValue = reader.read();
         reader.close();
@@ -145,9 +166,11 @@ public class ObjectifyTestRule implements TestRule {
         return recipe;
     }
     
-    private void after(Description description) {
-        // TODO Auto-generated method stub
-        
+    private void after(final Description description) {
+        final CleanupStrategy cleanupStrategy = extractCleanupStrategy(description);
+        if (cleanupStrategy != null && cleanupStrategy.value() == Strategy.AFTER) {
+            cleanupDatabase();
+        }
     }
     
     /* package */ List<Recipe> findAll() {
@@ -164,5 +187,13 @@ public class ObjectifyTestRule implements TestRule {
             usingDataSet = description.getTestClass().getAnnotation(UsingDataSet.class);
         }
         return usingDataSet;
+    }
+    
+    private CleanupStrategy extractCleanupStrategy(final Description description) {
+        CleanupStrategy cleanupStrategy = description.getAnnotation(CleanupStrategy.class);
+        if (cleanupStrategy == null) {
+            cleanupStrategy = description.getTestClass().getAnnotation(CleanupStrategy.class);
+        }
+        return cleanupStrategy;
     }
 }

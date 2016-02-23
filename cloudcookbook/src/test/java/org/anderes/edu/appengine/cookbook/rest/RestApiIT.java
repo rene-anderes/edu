@@ -51,7 +51,6 @@ public class RestApiIT {
             .register(new LoggingFilter(logger, true)); 
     }
     
-//    @AfterClass
     @BeforeClass
     public static void shutdown() {
         final Client client = ClientBuilder.newClient();
