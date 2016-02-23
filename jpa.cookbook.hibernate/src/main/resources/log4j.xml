@@ -13,6 +13,8 @@
         <priority value="ALL" />
         <appender-ref ref="console" />
     </root>
+    
+    <!-- https://docs.jboss.org/hibernate/orm/5.1/topical/html_single/logging/Logging.html#_log_categories_of_interest -->
     <category name="org.hibernate">
         <priority value="INFO" />
     </category>
