@@ -15,14 +15,16 @@
 			<!-- JPA Datenbank Verbindungsinformationen -->
 			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:testDB;create=true" />
-            <!-- User and Password (Database-Schema) -->
             <property name="javax.persistence.jdbc.user" value="" />
             <property name="javax.persistence.jdbc.password" value="" />
+
+            <property name="javax.persistence.schema-generation.database.action" value="create" />
+            <property name="javax.persistence.schema-generation.create-database-schemas" value="true" />
+            <property name="javax.persistence.schema-generation.scripts.action" value="none" />
             
 			<!-- Hibernate spezifische Konfiguration -->
             <!-- Dialect siehe https://docs.jboss.org/hibernate/orm/5.1/javadocs/org/hibernate/dialect/package-frame.html -->
 			<property name="hibernate.dialect" value="org.hibernate.dialect.DerbyTenSevenDialect" />
-			<property name="hibernate.hbm2ddl.auto" value="create" />
             <!-- Ausgabe der SQL-Statements (nicht via Log4J) -->
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true"/>
