@@ -8,6 +8,8 @@ Es sind unterschiedliche Schnittstellen verfügbar:
 ../services/employees
 ../services/recipes
 ../services/recipes/{RecipeId}
+../services/projects
+../services/projects/{id}
 
 Voraussetzungen
 - JEE-Application-Server installiert und läuft (z.B. Glassfish)
@@ -33,6 +35,9 @@ Bspw.: http://localhost:8080/rest-sample/services/helloworld
 
 Für SoapUI existiert ein SoapUI-Projekt (Datei: REST-Project-soapui-project.xml) mit allen Requests die möglich sind.
 Beachte: Server und Port überprüfen und allenfalls anpassen.
+
+JUnit-Test
+Mittels Jersey-Test-Framework werden die Schnittstellen getestet.
 
 Integrationstest
 Der Integrationstest "HelloWorldResourceTest" läuft, wenn die Applikation deployed ist.

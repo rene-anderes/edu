@@ -3,6 +3,8 @@ package org.anderes.edu.jee.rest.sample;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
+import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
+import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,11 +16,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 
-import org.anderes.edu.jee.rest.sample.dto.Project;
 import org.anderes.edu.jee.rest.sample.jaxbdto.Employee;
-import static org.apache.commons.lang3.RandomStringUtils.*;
-import static org.apache.commons.lang3.RandomUtils.nextInt;
-import static org.apache.commons.lang3.RandomUtils.nextLong;
 
 /**
  * REST-Service für Employee
