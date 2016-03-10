@@ -16,12 +16,15 @@ import javax.ws.rs.core.Response;
  * REST-service für Rezepte
  * <p>
  * Lösung mittels low level JSON-P
+ * <p>
+ * <a href="https://jersey.java.net/documentation/latest/user-guide.html#json">Jersey JSON support</a><br>
+ * <a href="https://jersey.java.net/documentation/latest/user-guide.html#json.json-p">Java API for JSON Processing (JSON-P)</a> 
  * 
  * @author René Anderes
  *
  */
-@Path("/recipes")
-public class RecipeResource {
+@Path("recipes")
+public class LowLevelJsonProcessing {
 
     
     @GET

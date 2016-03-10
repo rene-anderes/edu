@@ -1,24 +1,39 @@
 package org.anderes.edu.jee.rest.sample.dto;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Damit dieses POJO mittels MOXy in ein JSON serislisiert werden kann,
+ * müssen alle Klassenmember einen Getter und Setter haben.
+ *
+ */
 public class Project {
     
-    private final Long projectNo;
+    private int projectNo;
     private String projectname;
     private String description;
-    private Set<String> milestones = new HashSet<>();
+    private Set<Milestone> milestones = new HashSet<>();
     
-    public Project(Long projectNo) {
+    /**
+     * Dieser Konstruktor wird von MOXy benötigt um das Objekt zu serialisieren
+     */
+    @SuppressWarnings("unused")
+    private Project() {
+        super();
+    }
+
+    public Project(int projectNo) {
         super();
         this.projectNo = projectNo;
     }
 
-    public Long getProjectNo() {
+    public int getProjectNo() {
         return projectNo;
+    }
+
+    public void setProjectNo(int projectNo) {
+        this.projectNo = projectNo;
     }
 
     public String getProjectname() {
@@ -39,17 +54,21 @@ public class Project {
         return this;
     }
     
-    public Project addMilestone(final String milestone) {
+    public Project addMilestone(final Milestone milestone) {
         this.milestones.add(milestone);
         return this;
     }
     
-    public Project removeMilestone(final String milestone) {
+    public Project removeMilestone(final Milestone milestone) {
         this.milestones.remove(milestone);
         return this;
     }
     
-    public Collection<String> getMilestones() {
-        return Collections.unmodifiableSet(milestones);
+    public Set<Milestone> getMilestones() {
+        return milestones;
+    }
+
+    public void setMilestones(Set<Milestone> milestones) {
+        this.milestones = milestones;
     }
 }

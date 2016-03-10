@@ -9,31 +9,46 @@ import java.util.Collection;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 
+import org.anderes.edu.jee.rest.sample.dto.Project;
 import org.anderes.edu.jee.rest.sample.jaxbdto.Employee;
 import static org.apache.commons.lang3.RandomStringUtils.*;
+import static org.apache.commons.lang3.RandomUtils.nextInt;
+import static org.apache.commons.lang3.RandomUtils.nextLong;
 
 /**
  * REST-Service für Employee
  * <p>
- * Lösung mittels JAXB: Das Dto wird mittesl CSD und JAXB generiert.
+ *  JAXB based JSON support: JAXB-Bean ist die Basis für das Data-Transfer-Object<br>
+ *  In diesem Fall wird das Employee Data-Transfer-Object wird mittels XSD und JAXB generiert.
+ * <p>
+ * <a href="https://jersey.java.net/documentation/latest/user-guide.html#json">Jersey JSON support</a><br>
+ * <a href="https://jersey.java.net/documentation/latest/user-guide.html#json.moxy">MOXy is a default and preferred way of supporting JSON binding</a> 
  * 
  * @author René Anderes
  *
  */
-@Path("/employees")
-public class EmployeeResource {
+@Path("employees")
+public class JaxbBasedJsonSupport {
 
 	@GET
 	@Produces({APPLICATION_XML, APPLICATION_JSON})
 	public Response getAllEmployees() {
 		final Collection<Employee> employees = createEmployeeCollection();
-		
 		final GenericEntity<Collection<Employee>> genericList = new GenericEntity<Collection<Employee>>(employees) {};
 		return Response.ok(genericList).encoding(UTF_8.name()).build();
+	}
+	
+	@GET
+	@Path("{id}")
+	@Produces({APPLICATION_XML, APPLICATION_JSON})
+	public Response findOne(@PathParam("id") String id) { 
+	    final Employee employee = createRndDummyEmployee();
+	    return Response.ok(employee).encoding(UTF_8.name()).build();
 	}
 	
 	private Collection<Employee> createEmployeeCollection() {
@@ -54,4 +69,5 @@ public class EmployeeResource {
 		employee.setPersonnelNo(persNo);
 		return employee;
 	}
+	
 }
