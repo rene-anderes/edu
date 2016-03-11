@@ -31,10 +31,10 @@ public class LowLevelJsonProcessing {
     @Produces({APPLICATION_JSON})
     public Response getRecipeCollection() {
         
-        JsonObject recipe_1 = Json.createObjectBuilder().add("title", "Tiramisu").add("id", "2006").build();
-        JsonObject recipe_2 = Json.createObjectBuilder().add("title", "Spagetti").add("id", "2010").build();
+        final JsonObject recipe_1 = Json.createObjectBuilder().add("title", "Tiramisu").add("id", "2006").build();
+        final JsonObject recipe_2 = Json.createObjectBuilder().add("title", "Spagetti").add("id", "2010").build();
         
-        JsonArray recipes = Json.createArrayBuilder().add(recipe_1).add(recipe_2).build();
+        final JsonArray recipes = Json.createArrayBuilder().add(recipe_1).add(recipe_2).build();
         
         return Response.ok(recipes).encoding(UTF_8.name()).build();
     }
@@ -44,7 +44,7 @@ public class LowLevelJsonProcessing {
     @Produces({APPLICATION_JSON})
     public Response getRecipe(@PathParam("recipeId") Integer id) {
         
-        JsonObject recipe = Json.createObjectBuilder()
+        final JsonObject recipe = Json.createObjectBuilder()
                         .add("id", "2006")
                         .add("title", "Tiramisu")
                         .add("preamble", "Es gibt viele verschiedene ...")
