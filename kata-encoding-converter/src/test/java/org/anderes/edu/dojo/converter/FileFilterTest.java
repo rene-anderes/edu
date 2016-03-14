@@ -12,18 +12,48 @@ import org.junit.Test;
 
 public class FileFilterTest {
 
+    private final Path path = Paths.get("target", "test-classes", "filterTestFiles");
+    
     @Test
     public void shouldBeOneFile() {
+        
         // given
-        final String file = "Text.txt";
-        final Path path = Paths.get("testfiles");
-        FileFilter fileFilter = new FileFilter(path, file);
+        final String file = "pom.xml";
+        final FileFilter fileFilter = new FileFilter(path, file, false);
         
         // when
-        List<Path> files = fileFilter.getFileList();
+        final List<Path> files = fileFilter.getFileList();
         
         // then
         assertThat(files, is(notNullValue()));
         assertThat(files.size(), is(1));
+    }
+    
+    @Test
+    public void shouldBeOneFileWithPattern() {
+        // given
+        final String file = "*.xml";
+        final FileFilter fileFilter = new FileFilter(path, file, false);
+        
+        // when
+        final List<Path> files = fileFilter.getFileList();
+        
+        // then
+        assertThat(files, is(notNullValue()));
+        assertThat(files.size(), is(1));
+    }
+    
+    @Test
+    public void shouldBeTwoFiles() {
+        // given
+        final String file = "pom.xml";
+        final FileFilter fileFilter = new FileFilter(path, file, true);
+        
+        // when
+        final List<Path> files = fileFilter.getFileList();
+        
+        // then
+        assertThat(files, is(notNullValue()));
+        assertThat(files.size(), is(2));
     }
 }
