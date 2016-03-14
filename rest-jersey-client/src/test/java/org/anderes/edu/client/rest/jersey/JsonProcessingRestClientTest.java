@@ -1,11 +1,11 @@
 package org.anderes.edu.client.rest.jersey;
 
+import static java.lang.Boolean.TRUE;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON_TYPE;
 import static javax.ws.rs.core.Response.Status.OK;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
-import static java.lang.Boolean.*;
 
 import javax.json.JsonArray;
 import javax.json.JsonObject;
@@ -15,7 +15,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
 import org.glassfish.jersey.CommonProperties;
-import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.jsonp.JsonProcessingFeature;
 import org.junit.After;
 import org.junit.Before;
