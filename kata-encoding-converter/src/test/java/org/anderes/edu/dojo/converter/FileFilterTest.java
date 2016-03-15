@@ -56,4 +56,19 @@ public class FileFilterTest {
         assertThat(files, is(notNullValue()));
         assertThat(files.size(), is(2));
     }
+    
+    @Test
+    public void shouldBeTwoFilesWithPattern() {
+        
+        // given
+        final String file = "pom.{xml,xsd}";
+        final FileFilter fileFilter = new FileFilter(path, file, true);
+        
+        // when
+        final List<Path> files = fileFilter.getFileList();
+     
+        // then
+        assertThat(files, is(notNullValue()));
+        assertThat(files.size(), is(2));
+    }
 }

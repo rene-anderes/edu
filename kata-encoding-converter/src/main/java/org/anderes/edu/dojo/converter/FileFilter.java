@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
 
 public class FileFilter {
 
-    private final Path path;
+    private final Path dir;
     private final int maxDepth;
     private final BiPredicate<Path, BasicFileAttributes> matcher;
 
-    public FileFilter(final Path path, final String file, final Boolean recursive) {
-        this.path = path;
+    public FileFilter(final Path dir, final String file, final Boolean recursive) {
+        this.dir = dir;
         maxDepth = recursive ? Integer.MAX_VALUE : 1;
         matcher = (p, a) -> { 
             return a.isRegularFile() && FileSystems.getDefault().getPathMatcher("glob:" + file).matches(p.getFileName());
@@ -26,7 +26,7 @@ public class FileFilter {
 
     public List<Path> getFileList() {
         try {
-            return Files.find(path, maxDepth, matcher).collect(Collectors.toList());
+            return Files.find(dir, maxDepth, matcher).collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
             return new ArrayList<Path>();
