@@ -31,7 +31,8 @@ public class RecipeRepository {
 	}
 
 	public Recipe findOne(final Long databaseidentity) {
-		Validate.notNull(databaseidentity, "Der Parameter darf nicht null sein.");
+		Validate.notNull(databaseidentity, "Der Parameter 'databaseidentity' darf nicht null sein.");
+		
 		return entityManager.find(Recipe.class, databaseidentity);
 	}
 		
@@ -42,7 +43,8 @@ public class RecipeRepository {
 	 * @return Rezept
 	 */
 	public Collection<Recipe> getRecipesByTitle(final String title) {
-		
+	    Validate.notNull(title, "Der Parameter 'title' darf nicht null sein.");
+	    
 		final TypedQuery<Recipe> query = entityManager.createNamedQuery(Recipe.RECIPE_QUERY_BYTITLE, Recipe.class);
 		query.setParameter("title", "%" + title + "%");
 		
@@ -57,6 +59,8 @@ public class RecipeRepository {
 	 * @return Liste von rezepten
 	 */
     public Collection<Recipe> getRecipesByIngredient(String ingredientDescription) {
+        Validate.notNull(ingredientDescription, "Der Parameter 'ingredientDescription' darf nicht null sein.");
+        
         final TypedQuery<Recipe> query = entityManager.createNamedQuery(Recipe.RECIPE_QUERY_BYINGREDIENT, Recipe.class);
         query.setParameter("description", "%" + ingredientDescription + "%");
         return query.getResultList();
@@ -71,7 +75,7 @@ public class RecipeRepository {
 	}
 
 	public Recipe save(final Recipe entity) {
-		Validate.notNull(entity, "Der Parameter darf nicht null sein.");
+		Validate.notNull(entity, "Der Parameter 'entity' darf nicht null sein.");
 		
 		entityManager.getTransaction().begin();
 		final Recipe savedRecipe = entityManager.merge(entity);
@@ -80,7 +84,7 @@ public class RecipeRepository {
 	}
 		
 	public void remove(final Recipe entity) {
-		Validate.notNull(entity, "Der Parameter darf nicht null sein.");
+		Validate.notNull(entity, "Der Parameter 'entity' darf nicht null sein.");
 		if (!entityManager.contains(entity)) {
 			throw new IllegalArgumentException("Die Entität besitzt nicht den Status managed");
 		}
