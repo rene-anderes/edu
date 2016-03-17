@@ -23,7 +23,7 @@ public class ArgumentHandler {
 
     public Optional<String> getConvertFrom() {
         for (int i = 0; i < args.length; i++) {
-            if (args[i].equals("–convertFrom") && args[i+1] != null && !args[i+1].startsWith("-")) {
+            if (args[i].equals("-convertFrom") && (i+1 < args.length) && args[i+1] != null && (!args[i+1].startsWith("-"))) {
                 return Optional.of(args[i+1]);
             }
         }
@@ -32,7 +32,7 @@ public class ArgumentHandler {
 
     public Optional<String> getConvertTo() {
         for (int i = 0; i < args.length; i++) {
-            if (args[i].equals("–convertTo") && args[i+1] != null && !args[i+1].startsWith("-")) {
+            if (args[i].equals("-convertTo") && (i+1 < args.length) && args[i+1] != null && !args[i+1].startsWith("-")) {
                 return Optional.of(args[i+1]);
             }
         }
@@ -48,7 +48,7 @@ public class ArgumentHandler {
 
     public Optional<Path> getDirectory() {
         for (int i = 0; i < args.length; i++) {
-            if (args[i].equals("-d") && args[i+1] != null && !args[i+1].startsWith("-")) {
+            if (args[i].equals("-d") && (i+1 < args.length) && args[i+1] != null && !args[i+1].startsWith("-")) {
                 final String arg = args[i+1].replaceAll("[\"]", "");
                 return Optional.of(Paths.get(arg));
             }

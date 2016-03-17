@@ -13,7 +13,7 @@ public class ArgumentHandlerTest {
     public void shouldBeAllArguments() {
         
         // given
-        String[] args = { "pom.xml", "-d", "d:\\temp", "-r", "–convertFrom", "ISO-8859-1", "–convertTo", "UTF-8" };
+        String[] args = { "pom.xml", "-d", "d:\\temp", "-r", "-convertFrom", "ISO-8859-1", "-convertTo", "UTF-8" };
 
         // when
         final ArgumentHandler argument = new ArgumentHandler(args);
@@ -34,7 +34,7 @@ public class ArgumentHandlerTest {
     public void shouldBeNotAllArguments() {
         
         // given
-        String[] args = { "pom.xml", "–convertFrom", "ISO-8859-1", "–convertTo", "UTF-8" };
+        String[] args = { "pom.xml", "-convertFrom", "ISO-8859-1", "-convertTo", "UTF-8" };
         
         // when
         final ArgumentHandler argument = new ArgumentHandler(args);
@@ -61,14 +61,14 @@ public class ArgumentHandlerTest {
         
         // then
         assertThat(argument.getDirectory().isPresent(), is(true));
-        assertThat(argument.getDirectory().get(), is("d:\\temp\\Test Files"));
+        assertThat(argument.getDirectory().get(), is(Paths.get("d:\\temp\\Test Files")));
     }
     
     @Test
     public void shouldBeCheckArgumentOK() {
 
         // given
-        String[] args = { "pom.xml", "–convertFrom", "ISO-8859-1", "–convertTo", "UTF-8" };
+        String[] args = { "pom.xml", "-convertFrom", "ISO-8859-1", "-convertTo", "UTF-8" };
      
         // when
         final ArgumentHandler argument = new ArgumentHandler(args);
@@ -82,7 +82,7 @@ public class ArgumentHandlerTest {
     public void shouldBeCheckArgumentNOK() {
 
         // given
-        String[] args = { "pom.xml", "ISO-8859-1", "–convertTo", "UTF-8" };
+        String[] args = { "pom.xml", "ISO-8859-1", "-convertTo", "UTF-8" };
      
         // when
         final ArgumentHandler argument = new ArgumentHandler(args);

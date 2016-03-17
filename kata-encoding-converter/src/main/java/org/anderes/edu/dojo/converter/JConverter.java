@@ -28,7 +28,7 @@ public class JConverter {
         final List<Path> files = converter.getFileList();
         files.stream().forEach(f -> converter.convert(f));
     }
-
+    
     /*package*/ void dumpHelp() {
         try {
             output.write("Fehlerhafter Aufruf.".getBytes());

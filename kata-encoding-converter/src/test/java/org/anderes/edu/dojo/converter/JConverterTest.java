@@ -21,7 +21,7 @@ public class JConverterTest {
     public void shouldBeConvert() throws IOException {
         
         // given
-        String[] args = { file, "-d", dir.toString(), "–convertFrom", "ISO-8859-1", "–convertTo", "UTF-8" };
+        String[] args = { file, "-d", dir.toString(), "-convertFrom", "ISO-8859-1", "-convertTo", "UTF-8" };
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
         
         // when
