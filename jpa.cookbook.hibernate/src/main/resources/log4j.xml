@@ -14,7 +14,11 @@
         <level value="INFO" />
         <appender-ref ref="console" />
     </logger>
-    <logger name="org.hibernate.type" additivity="false">
+    <logger name="org.hibernate.type.descriptor.sql" additivity="false">
+        <level value="TRACE" />
+        <appender-ref ref="console" />
+    </logger>
+    <logger name="org.hibernate.SQL" additivity="false">
         <level value="TRACE" />
         <appender-ref ref="console" />
     </logger>

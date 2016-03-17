@@ -26,8 +26,10 @@
             <!-- Dialect siehe https://docs.jboss.org/hibernate/orm/5.1/javadocs/org/hibernate/dialect/package-frame.html -->
 			<property name="hibernate.dialect" value="org.hibernate.dialect.DerbyTenSevenDialect" />
             <!-- Ausgabe der SQL-Statements (nicht via Log4J) -->
+            <!-- 
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true"/>
+             -->
 		</properties>
 	</persistence-unit>
 </persistence>
