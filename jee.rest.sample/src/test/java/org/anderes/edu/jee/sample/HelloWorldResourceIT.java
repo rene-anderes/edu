@@ -78,6 +78,7 @@ public class HelloWorldResourceIT {
 		final Entity<String> entity = Entity.entity("Information", variant);
 
 		final Response response = target.request().put(entity);
-		assertThat("Unerwartete Antwort vom Server.", response.getStatus(), is(NO_CONTENT.getStatusCode()));
+		assertThat("Unerwartete Antwort vom Server.", response.getStatus(), is(CREATED.getStatusCode()));
+		assertThat("Unerwartetet location", response.getLocation(), is(""));
 	}
 }
