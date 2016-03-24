@@ -1,5 +1,6 @@
 package org.anderes.edu.dojo.converter;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -7,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class JConverter {
@@ -67,7 +69,13 @@ public class JConverter {
     }
 
     /*package*/ List<Path> getFileList() {
-        final FileFilter fileFilter = new FileFilter(argument.getDirectory().get(), argument.getFile().get(), argument.isRecursive());
+        Path dir;
+        if (argument.getDirectory().isPresent()) {
+            dir = argument.getDirectory().get();
+        } else {
+            dir = Paths.get(new File("").getAbsolutePath());
+        }
+        final FileFilter fileFilter = new FileFilter(dir, argument.getFile().get(), argument.isRecursive());
         return fileFilter.getFileList();
     }
 
