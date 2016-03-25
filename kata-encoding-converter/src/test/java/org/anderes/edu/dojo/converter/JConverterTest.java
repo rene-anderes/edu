@@ -35,4 +35,20 @@ public class JConverterTest {
         jConverter.convert(files.iterator().next());
         assertThat(output.toString(), is("File '" + dir.toString() + "\\" + "ISO-8859-1 Text.txt' konvertiert."));
     }
+    
+    @Test
+    public void shouldBeFileListFromWorkingDir() {
+        // given
+        String[] args = { "pom.xml", "-convertFrom", "ISO-8859-1", "-convertTo", "UTF-8" };
+        final ByteArrayOutputStream output = new ByteArrayOutputStream();
+        
+        // when
+        final JConverter jConverter = new JConverter(args, output);
+        final List<Path> files = jConverter.getFileList();
+        
+        // then
+        assertThat(files, is(notNullValue()));
+        assertThat(files.size(), is(1));
+        
+    }
 }
