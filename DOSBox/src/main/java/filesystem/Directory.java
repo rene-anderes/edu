@@ -11,6 +11,7 @@ import java.util.Iterator;
  * Composite-Pattern: Composite<br>
  * <br>
  * Responsibilities:<br>
+ * <ul>
  * <li>defines behavior for components (directories) having children.
  * <li>stores child components (files and subdirectories).
  * <li>implements child-related operations in the Component interface. These
@@ -18,6 +19,7 @@ import java.util.Iterator;
  * - add(Directory), add(File)<br>
  * - getNumberOfFiles(), getNumberOfDirectories()<br>
  * </blockquote>
+ * </ul>
  */
 public class Directory extends FileSystemItem {
 
@@ -93,8 +95,10 @@ public class Directory extends FileSystemItem {
      *            is not part of this directory, nothing happens. Note: If you
      *            need to remove the entire content, you cannot use an iterator
      *            since you change the list, the iterator is enumerating. Use
-     *            this code instead: while(root.getContent().size() > 0) {
-     *            root.remove(root.getContent().get(0)); }
+     *            this code instead:<br>
+     *            <code>while(root.getContent().size() &gt; 0) {<br>
+     *            root.remove(root.getContent().get(0));<br> 
+     *            }</code>
      */
     public void remove(FileSystemItem item) {
         if (this.content.contains(item)) {

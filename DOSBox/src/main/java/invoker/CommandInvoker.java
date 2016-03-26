@@ -18,10 +18,12 @@ import command.framework.Outputter;
  * Command-Pattern: Invoker<br>
  * <br>
  * Responsibilities:
+ * <ul>
  * <li>asks the command to carry out the request. This is performed by
- * executeCommand.
+ * executeCommand.</li>
  * <li>this class in independent of any concrete output channel like console,
- * terminal, ... This is ensured by the outputter interface.
+ * terminal, ... This is ensured by the outputter interface.</li>
+ * </ul>
  */
 public class CommandInvoker implements CommandInvokerService {
 
@@ -35,6 +37,8 @@ public class CommandInvoker implements CommandInvokerService {
 
     /**
      * Constructor.
+     * 
+     * @param historyDao DAO accessing interface
      */
     public CommandInvoker(final HistoryDao historyDao) {
         this.commands = new ArrayList<Command>();

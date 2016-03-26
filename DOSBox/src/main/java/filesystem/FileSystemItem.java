@@ -10,6 +10,7 @@ import java.util.ArrayList;
  * Composite-Pattern: Component<br>
  * <br>
  * Responsibilities:<br>
+ * <ul>
  * <li>declares the common interface for objects in the composition. This is:
  * <blockquote>
  * - get/setName(), toString()<br>
@@ -25,6 +26,7 @@ import java.util.ArrayList;
  * <li>defines an interface for accessing a component's parent in the recursive
  * structure, and implements it if that's appropriate. This is <blockquote> -
  * getParent() </blockquote>
+ * </ul>
  */
 public abstract class FileSystemItem {
 
@@ -58,7 +60,7 @@ public abstract class FileSystemItem {
      *            new name of the item. May not contain any ':', '/', ',', ' '
      *            or '\' in the name. Otherwise, the name is not changed and an
      *            IllegalArgumentException is thrown.
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException wrong argument
      */
     public void setName(String newName) throws IllegalArgumentException {
         if (this.checkName(newName) == false) {

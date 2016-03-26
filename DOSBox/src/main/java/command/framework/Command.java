@@ -12,6 +12,7 @@ import filesystem.Drive;
  * Command-Pattern: Command.<br>
  * <br>
  * Responsibilities:
+ * <ul>
  * <li>declares an interface for executing an operation. This is <blockquote> -
  * execute() </blockquote>
  * <li>declares an in interface to pass parameters controlling the execution.
@@ -24,7 +25,8 @@ import filesystem.Drive;
  * compareCmdName()<br>
  * - setParameters()<br>
  * - checkParameters()<br>
- * - reset() </blockquote> <br>
+ * - reset() </blockquote>
+ * </ul>
  * Note: checkParameters() is a Template Method and checkNumberOfParameters()
  * and checkParameterValues() are the hooks for deriving classes
  */
@@ -68,8 +70,10 @@ public abstract class Command {
      * @param cmdName
      *            name with which the command name shall be compared.
      * @return
+     *         <ul>
      *         <li>true if names fit
      *         <li>false otherwise
+     *         </ul>
      */
     public final boolean compareCmdName(String cmdName) {
         if (this.cmdName.compareTo(cmdName) == 0)
@@ -80,6 +84,8 @@ public abstract class Command {
 
     /**
      * Returns the drive on which the command shall operate.
+     * 
+     * @return the drive
      */
     public final Drive getDrive() {
         return this.drive;
@@ -88,6 +94,8 @@ public abstract class Command {
     /**
      * Sets the list of parameters. This operation shall be called by the
      * invoker only.
+     * 
+     * @param params list of parameters
      */
     public final void setParameters(ArrayList<String> params) {
         this.parameters = params;
@@ -96,6 +104,8 @@ public abstract class Command {
     /**
      * Returns the list of parameters, e.g. to check parameters by a concrete
      * command.
+     * 
+     * @return the list of parameters
      */
     protected final ArrayList<String> getParameters() {
         return parameters;
@@ -111,6 +121,8 @@ public abstract class Command {
 
     /**
      * Returns the name of the command.
+     * 
+     * @return the name of the command
      */
     @Override
     public final String toString() {
@@ -129,11 +141,13 @@ public abstract class Command {
      * @param outputter
      *            The outputter must be used to output any error description.
      * @return
+     *         <ul>
      *         <li>true if number and values of the parameters are correct.
      *         Execute() may use the parameters afterwards unchecked.
      *         <li>false if the number is below or above excepted range or if
      *         any value is incorrect. An explaining error message must be given
      *         by the concrete command.
+     *         </ul>
      * @throws Exception
      *             Thrown if this.parameters is not set.
      */
@@ -166,8 +180,10 @@ public abstract class Command {
      * @param number
      *            Number of parameters passed by the caller.
      * @return
+     *         <ul>
      *         <li>true if number of parameters is within expected range
      *         <li>false otherwise
+     *         </ul>
      */
     protected boolean checkNumberOfParameters(int number) {
         return true;
@@ -184,8 +200,10 @@ public abstract class Command {
      * @param outputter
      *            The outputter must be used to output error messages.
      * @return
+     *         <ul>
      *         <li>true if all values of all parameters passed are correct.
      *         <li>false if at least one value of one parameter in incorrect.
+     *         </ul>
      */
     protected boolean checkParameterValues(Outputter outputter) {
         return true;

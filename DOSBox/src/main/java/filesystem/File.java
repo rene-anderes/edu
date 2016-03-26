@@ -10,8 +10,10 @@ import java.util.ArrayList;
  * <br>
  * <br>
  * Responsibilities:<br>
- * <li>represents leaf objects in the composition. A leaf has no children.
- * <li>defines behavior for primitive objects in the composition.
+ * <ul>
+ * <li>represents leaf objects in the composition. A leaf has no children.</li>
+ * <li>defines behavior for primitive objects in the composition.</li>
+ * </ul>
  */
 public class File extends FileSystemItem {
     private String fileContent;

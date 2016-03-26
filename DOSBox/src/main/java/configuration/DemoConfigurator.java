@@ -54,6 +54,9 @@ public class DemoConfigurator extends Configurator {
 
     /**
      * Method main(). Called initially.
+     * 
+     * @param args
+     *            command line argumnets
      */
     public static void main(String[] args) {
         Configurator config = new DemoConfigurator();

@@ -11,11 +11,13 @@ import java.util.Iterator;
  * Client<br>
  * <br>
  * Responsibilities:<br>
+ * <ul>
  * <li>manipulates objects in the composition through the Component interface.
  * <br>
  * <li>owns the root directory which is the top of the directory tree.<br>
  * <li>knows the current directory on which most of the commands must be
  * performed.<br>
+ * </ul>
  */
 public class Drive {
     private String driveLetter;
@@ -64,6 +66,7 @@ public class Drive {
      * 
      * @param dir
      *            directory which should become the current directory
+     * @return false, is the directoy not part of the drive's structure
      */
     public boolean setCurrentDirectory(Directory dir) {
         if (this.getItemFromPath(dir.getPath()) == dir) {
@@ -76,14 +79,18 @@ public class Drive {
 
     /**
      * Returns the drive name with a ending ':'. E.g. "C:"
+     * 
+     * @return the drive name
      */
     public String getDriveName() {
         return this.driveLetter + ":";
     }
 
     /**
-     * Returns the DOS-Prompt, drive name with an ending '>' and a space. E.g.
-     * "C:> "
+     * Returns the DOS-Prompt, drive name with an ending '&gt;' and a space. E.g.
+     * <code>"C:&gt; "</code>
+     * 
+     * @return DOS-Prompt
      */
     public String getPrompt() {
         return this.currentDir.getPath() + "> ";
@@ -120,17 +127,19 @@ public class Drive {
      * Returns the object of a given path name.<br>
      * <br>
      * Example:<br>
-     * getItemFromPath("C:\\temp\\aFile.txt");<br>
+     * <code>getItemFromPath("C:\\temp\\aFile.txt");</code><br>
      * Returns the FileSystemItem-object which abstracts aFile.txt in the temp
      * directory.<br>
      * <br>
      * Remarks:<br>
+     * <ul>
      * <li>Always use "\\" for backslashes since the backslash is used as escape
      * character for Java strings.
      * <li>This operation works for relative paths (temp\\aFile.txt) too. The
      * lookup starts at the current directory.
      * <li>This operation works for forward slashes '/' too.
      * <li>".." and "." are supported too. <br>
+     * </ul>
      * 
      * @param givenItemPath
      *            Path for which the item shall be returned
@@ -225,9 +234,9 @@ public class Drive {
      * +-- SubDir1 (Dir)<br>
      * ....+-- AnExecutable.exe (1234000)<br>
      * ....+-- ConfigFiles (Dir)<br>
-     * </code>
-     * <br>
+     * </code> <br>
      * Results in<br>
+     * <ul>
      * <li>All files and subdirectories of the root directory deleted
      * <li>Current directory set to root directory
      * <li>File MyFile1.txt added to root directory with content
@@ -238,6 +247,7 @@ public class Drive {
      * <li>File AnExecutable.exe added to SubDir1 with content
      * "C:\temp\SubDir1\AnExecutable.exe, size 1234000 Bytes"
      * <li>Directory ConfigFiles added to SubDir1 <br>
+     * </ul>
      * 
      * @param path
      *            Path which points to a directory

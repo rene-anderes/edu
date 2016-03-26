@@ -5,7 +5,7 @@ import persistence.DaoFactory.DaoType;
 public class HistoryDBViewer {
 
 	/**
-	 * @param args
+	 * @param args command line arguments
 	 */
 	public static void main(String[] args) {
 		final HistoryDao dao = DaoFactory.createHistoryDao(DaoType.DERBY);

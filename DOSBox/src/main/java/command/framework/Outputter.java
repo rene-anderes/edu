@@ -41,11 +41,13 @@ public interface Outputter {
      * Note: This function does not return until user entered a character. It
      * may be that calling this function causes a deadlock! <br>
      * Usage:<br>
+     * <code>
      * &nbsp;&nbsp;&nbsp; outputter.printLn("Overwrite (Yes/No/All)?:");<br>
      * &nbsp;&nbsp;&nbsp; char in = outputter.readSingleCharacter();<br>
-     * &nbsp;&nbsp;&nbsp; if (in != 'y' && in != 'Y') {<br>
+     * &nbsp;&nbsp;&nbsp; if (in != 'y' &amp;&amp; in != 'Y') {<br>
      * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;<br>
      * &nbsp;&nbsp;&nbsp; }<br>
+     * </code>
      * 
      * @return character read
      */
