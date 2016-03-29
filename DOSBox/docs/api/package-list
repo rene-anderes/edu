@@ -1,0 +1,8 @@
+command.framework
+command.library
+configuration
+console
+filesystem
+invoker
+invokerService
+persistence
