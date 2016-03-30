@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+                                     http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd" version="2.1">
+
+    <persistence-unit name="loggingPersistenceUnit" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        
+        <class>org.apache.logging.log4j.core.appender.db.jpa.converter.ContextMapAttributeConverter</class>
+        <class>org.apache.logging.log4j.core.appender.db.jpa.converter.ContextMapJsonAttributeConverter</class>
+        <class>org.apache.logging.log4j.core.appender.db.jpa.converter.ContextStackAttributeConverter</class>
+        <class>org.apache.logging.log4j.core.appender.db.jpa.converter.ContextStackJsonAttributeConverter</class>
+        <class>org.apache.logging.log4j.core.appender.db.jpa.converter.MarkerAttributeConverter</class>
+        <class>org.apache.logging.log4j.core.appender.db.jpa.converter.MessageAttributeConverter</class>
+        <class>org.apache.logging.log4j.core.appender.db.jpa.converter.StackTraceElementAttributeConverter</class>
+        <class>org.apache.logging.log4j.core.appender.db.jpa.converter.ThrowableAttributeConverter</class>
+        <class>org.apache.logging.log4j.core.appender.db.jpa.converter.LevelAttributeConverter</class>
+        <class>org.anderes.logging.JpaLogEntity</class>
+        
+        <shared-cache-mode>NONE</shared-cache-mode>
+        
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="${javax.persistence.jdbc.driver}" />
+            <property name="javax.persistence.jdbc.url" value="${javax.persistence.jdbc.url}" />
+            <property name="javax.persistence.jdbc.user" value="${javax.persistence.jdbc.user}" />
+            <property name="javax.persistence.jdbc.password" value="${javax.persistence.jdbc.password}" />
+
+            <!-- 
+            <property name="javax.persistence.schema-generation.database.action" value="create" />
+            <property name="javax.persistence.schema-generation.create-database-schemas" value="true" />
+            <property name="javax.persistence.schema-generation.create-source" value="metadata" />
+            <property name="javax.persistence.schema-generation.drop-source" value="metadata" />
+            <property name="javax.persistence.schema-generation.scripts.action" value="drop-and-create" />
+            <property name="javax.persistence.schema-generation.scripts.drop-target" value="${javax.persistence.script.drop}" />
+            <property name="javax.persistence.schema-generation.scripts.create-target" value="${javax.persistence.script.create}" />
+            <property name="eclipselink.ddlgen-terminate-statements" value="true"/>
+             -->
+             
+            <property name="eclipselink.target-database" value="${target.database}" />
+            
+            <!-- Logging -->
+            <property name="eclipselink.logging.logger﻿﻿" value="JavaLogger" />
+            <property name="eclipselink.logging.level" value="FINE" />
+            <property name="eclipselink.logging.level.sql" value="FINE" />
+            <property name="eclipselink.logging.parameters" value="true" />
+            <property name="eclipselink.logging.timestamp" value="true" />
+            <property name="eclipselink.logging.thread" value="false" />
+            <property name="eclipselink.logging.session" value="false" />
+            <property name="eclipselink.logging.exceptions" value="false" />
+
+        </properties>
+    </persistence-unit>
+
+</persistence>
