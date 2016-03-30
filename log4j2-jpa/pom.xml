@@ -15,6 +15,7 @@
         <eclipselink.version>2.6.2</eclipselink.version>
         <derby.version>10.12.1.1</derby.version>
         <mysql.version>5.1.36</mysql.version>
+        <log4j2.version>2.5</log4j2.version>
     </properties>
 
     <build>
@@ -27,39 +28,6 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>sql-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>drop-table-before-test-if-any</id>
-                        <phase>process-test-resources</phase>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <configuration>
-                            <autocommit>true</autocommit>
-                            <srcFiles>
-                                <srcFile>${javax.persistence.script.drop}</srcFile>
-                            </srcFiles>
-                            <onError>continue</onError>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>create-table-before-test</id>
-                        <phase>process-test-resources</phase>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <configuration>
-                            <autocommit>true</autocommit>
-                            <srcFiles>
-                                <srcFile>${javax.persistence.script.create}</srcFile>
-                            </srcFiles>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
         <pluginManagement>
@@ -101,12 +69,12 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>2.5</version>
+            <version>${log4j2.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>2.5</version>
+            <version>${log4j2.version}</version>
         </dependency>
 
         <!-- für den JSON-Converter von Log4j2 wird diese Abhängigkeit benötigt -->
@@ -144,29 +112,10 @@
 
     <profiles>
         <profile>
-            <id>derby-inmemory</id>
+            <id>derby-embedded</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-            <properties>
-                <target.database>Derby</target.database>
-                <javax.persistence.jdbc.driver>org.apache.derby.jdbc.EmbeddedDriver</javax.persistence.jdbc.driver>
-                <javax.persistence.jdbc.url>jdbc:derby:memory:loggingdatabase;create=true</javax.persistence.jdbc.url>
-                <javax.persistence.jdbc.user></javax.persistence.jdbc.user>
-                <javax.persistence.jdbc.password></javax.persistence.jdbc.password>
-                <javax.persistence.script.drop>src/main/scripts/sql/derby-drop-tables.sql</javax.persistence.script.drop>
-                <javax.persistence.script.create>src/main/scripts/sql/derby-create-Tables.sql</javax.persistence.script.create>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.apache.derby</groupId>
-                    <artifactId>derby</artifactId>
-                    <version>${derby.version}</version>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>derby-embedded</id>
             <properties>
                 <target.database>Derby</target.database>
                 <javax.persistence.jdbc.driver>org.apache.derby.jdbc.EmbeddedDriver</javax.persistence.jdbc.driver>
@@ -188,8 +137,9 @@
             <id>mysql-local</id>
             <properties>
                 <target.database>MySQL</target.database>
+                <jdbc.connect.url>jdbc:mysql://localhost</jdbc.connect.url>
                 <javax.persistence.jdbc.driver>com.mysql.jdbc.Driver</javax.persistence.jdbc.driver>
-                <javax.persistence.jdbc.url>jdbc:mysql://localhost/LoggingDatabase</javax.persistence.jdbc.url>
+                <javax.persistence.jdbc.url>${jdbc.connect.url}/loggingdatabase</javax.persistence.jdbc.url>
                 <javax.persistence.jdbc.user>logging</javax.persistence.jdbc.user>
                 <javax.persistence.jdbc.password>logging</javax.persistence.jdbc.password>
                 <javax.persistence.script.drop>src/main/scripts/sql/mysql-drop-Tables.sql</javax.persistence.script.drop>
@@ -203,6 +153,78 @@
                     <version>${mysql.version}</version>
                 </dependency>
             </dependencies>
+        </profile>
+        <profile>
+            <id>drop-create-table</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>sql-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>drop-table-before-test-if-any</id>
+                                <phase>process-test-resources</phase>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <configuration>
+                                    <autocommit>true</autocommit>
+                                    <srcFiles>
+                                        <srcFile>${javax.persistence.script.drop}</srcFile>
+                                    </srcFiles>
+                                    <onError>continue</onError>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>create-table-before-test</id>
+                                <phase>process-test-resources</phase>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <configuration>
+                                    <autocommit>true</autocommit>
+                                    <srcFiles>
+                                        <srcFile>${javax.persistence.script.create}</srcFile>
+                                    </srcFiles>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>mysql-createDatabaseAndUser</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>sql-maven-plugin</artifactId>
+                        <configuration>
+                            <driver>${javax.persistence.jdbc.driver}</driver>
+                            <url>${jdbc.connect.url}</url>
+                            <username>root</username>
+                            <password>lernwerkst@tt</password>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>create-database-and-user</id>
+                                <phase>process-test-resources</phase>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <configuration>
+                                    <autocommit>true</autocommit>
+                                    <srcFiles>
+                                        <srcFile>src/main/scripts/sql/mysql-createUserAndSchema.sql</srcFile>
+                                    </srcFiles>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 </project>

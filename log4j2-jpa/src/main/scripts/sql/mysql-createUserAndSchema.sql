@@ -1,3 +1,3 @@
-CREATE DATABASE IF NOT EXISTS `LoggingDatabase`;
+CREATE DATABASE IF NOT EXISTS `loggingdatabase`;
 CREATE USER 'logging'@'localhost' IDENTIFIED BY 'logging';
-GRANT ALL PRIVILEGES ON `recipes`.* TO 'logging'@'localhost';
+GRANT ALL PRIVILEGES ON `loggingdatabase`.* TO 'logging'@'localhost';
