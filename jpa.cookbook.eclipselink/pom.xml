@@ -172,8 +172,9 @@
             <id>mysql-local</id>
             <properties>
                 <target.database>MySQL</target.database>
+                <jdbc.connect.url>jdbc:mysql://localhost</jdbc.connect.url>
                 <javax.persistence.jdbc.driver>com.mysql.jdbc.Driver</javax.persistence.jdbc.driver>
-                <javax.persistence.jdbc.url>jdbc:mysql://localhost/recipes</javax.persistence.jdbc.url>
+                <javax.persistence.jdbc.url>j${jdbc.connect.url}/recipes</javax.persistence.jdbc.url>
                 <javax.persistence.jdbc.user>cookbook</javax.persistence.jdbc.user>
                 <javax.persistence.jdbc.password>cookbook</javax.persistence.jdbc.password>
                 <javax.persistence.script.drop>src/main/sql/mysql-drop-Tables.sql</javax.persistence.script.drop>
@@ -200,7 +201,7 @@
                         <artifactId>sql-maven-plugin</artifactId>
                         <configuration>
                             <driver>${javax.persistence.jdbc.driver}</driver>
-                            <url>${javax.persistence.jdbc.url}</url>
+                            <url>${jdbc.connect.url}</url>
                             <username>root</username>
                             <password>lernwerkst@tt</password>
                         </configuration>
