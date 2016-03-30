@@ -28,7 +28,7 @@
             <property name="eclipselink.target-database" value="${target.database}" />
             
             <!-- Logging -->
-            <property name="eclipselink.logging.logger﻿﻿" value="JavaLogger" />
+            <property name="eclipselink.logging.logger" value="JavaLogger"/>
             <property name="eclipselink.logging.level" value="FINE" />
             <property name="eclipselink.logging.level.sql" value="FINE" />
             <property name="eclipselink.logging.parameters" value="true" />
