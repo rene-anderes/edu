@@ -35,26 +35,22 @@ public class CmdDateTimeIntegrationTest extends IntegrationTestBase {
 		// Fails
 		testOutput.reset();
 		commandInvoker.executeCommand("Time gaga", testOutput);
-		assertTrue(testOutput.toString().contains(
-				"Wrong time format. It must be HH:MM:SS"));
+		assertTrue(testOutput.toString().contains("Wrong time format. It must be HH:MM:SS"));
 		
 		testOutput.reset();
 		commandInvoker.executeCommand("Time 25", testOutput);
-		assertTrue(testOutput.toString().contains(
-				"Wrong time format. It must be HH:MM:SS"));
+		assertTrue(testOutput.toString().contains("Wrong time format. It must be HH:MM:SS"));
 
 		testOutput.reset();
 		commandInvoker.executeCommand("Time 12:70", testOutput);
-		assertTrue(testOutput.toString().contains(
-				"Wrong time format. It must be HH:MM:SS"));
+		assertTrue(testOutput.toString().contains("Wrong time format. It must be HH:MM:SS"));
 	}
 
 	@Test
 	public void getDate() {
 		commandInvoker.executeCommand("Date", testOutput);
 
-		assertTrue(testOutput.toString().toLowerCase().contains(
-				"the current date is"));
+		assertTrue(testOutput.toString().toLowerCase().contains("the current date is"));
 	}
 
 	@Test
@@ -71,18 +67,15 @@ public class CmdDateTimeIntegrationTest extends IntegrationTestBase {
 		// Fails
 		testOutput.reset();
 		commandInvoker.executeCommand("Date gaga", testOutput);
-		assertTrue(testOutput.toString().contains(
-				"Wrong date format. It must be YYYY-MM-DD."));
+		assertTrue(testOutput.toString().contains("Wrong date format. It must be YYYY-MM-DD."));
 
 		testOutput.reset();
 		commandInvoker.executeCommand("Date 2007-02-29", testOutput);
-		assertTrue(testOutput.toString().contains(
-				"Invalid date input."));
+		assertTrue(testOutput.toString().contains("Invalid date input."));
 
 		testOutput.reset();
 		commandInvoker.executeCommand("Date 50", testOutput);
-		assertTrue(testOutput.toString().contains(
-				"Wrong date format. It must be YYYY-MM-DD."));
+		assertTrue(testOutput.toString().contains("Wrong date format. It must be YYYY-MM-DD."));
 	}
 	
 	@Test

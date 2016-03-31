@@ -13,7 +13,6 @@ public class CmdExitIntegrationTest extends IntegrationTestBase {
 	public void noErrorOutput() {
 		commandInvoker.executeCommand("exit", testOutput);
 
-		assertTrue(testOutput.toString().toLowerCase().contains(
-						"is not recognized as an internal or external command") == false);
+		assertTrue(testOutput.toString().toLowerCase().contains("is not recognized as an internal or external command") == false);
 	}
 }

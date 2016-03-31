@@ -16,8 +16,7 @@ public class CmdFormatIntegrationTest extends IntegrationTestBase {
 		commandInvoker.executeCommand("format", testOutput);
 
 		assertTrue(testOutput.characterWasRead());
-		assertTrue(drive.getRootDirectory()
-				.getNumberOfDirectories() == 0);
+		assertTrue(drive.getRootDirectory().getNumberOfDirectories() == 0);
 		assertTrue(drive.getRootDirectory().getNumberOfFiles() == 0);
 	}
 	
@@ -28,8 +27,7 @@ public class CmdFormatIntegrationTest extends IntegrationTestBase {
 		commandInvoker.executeCommand("format c:", testOutput);
 
 		assertTrue(testOutput.characterWasRead());
-		assertTrue(drive.getRootDirectory()
-				.getNumberOfDirectories() == 0);
+		assertTrue(drive.getRootDirectory().getNumberOfDirectories() == 0);
 		assertTrue(drive.getRootDirectory().getNumberOfFiles() == 0);
 	}
 	

@@ -26,9 +26,7 @@ public class CmdRenameIntegrationTest extends IntegrationTestBase {
 		final String newFileName = "anotherName.tst";
 		Directory previousParent = fileBullet.getParent();
 		drive.setCurrentDirectory(previousParent);
-		commandInvoker.executeCommand(commandName + " "
-				+ fileBullet.getName() + " " + newFileName,
-				testOutput);
+		commandInvoker.executeCommand(commandName + " " + fileBullet.getName() + " " + newFileName, testOutput);
 
 		assertTrue(fileBullet.getName().compareTo(newFileName) == 0);
 		assertTrue(fileBullet.getParent() == previousParent);
@@ -50,9 +48,7 @@ public class CmdRenameIntegrationTest extends IntegrationTestBase {
 	private void renameTestWithFullPath(String commandName) {
 		String newFileName = "anotherName.tst";
 		Directory previousParent = fileBullet.getParent();
-		commandInvoker.executeCommand(commandName + " "
-				+ fileBullet.getPath() + " " + newFileName,
-				testOutput);
+		commandInvoker.executeCommand(commandName + " " + fileBullet.getPath() + " " + newFileName, testOutput);
 
 		assertTrue(fileBullet.getName().compareTo(newFileName) == 0);
 		assertTrue(fileBullet.getParent() == previousParent);
@@ -64,8 +60,7 @@ public class CmdRenameIntegrationTest extends IntegrationTestBase {
 		String newDirName = "MyTemp";
 		Directory previousParent = dirTemp.getParent();
 		drive.setCurrentDirectory(previousParent);
-		commandInvoker.executeCommand("ren " + dirTemp.getName()
-				+ " " + newDirName, testOutput);
+		commandInvoker.executeCommand("ren " + dirTemp.getName() + " " + newDirName, testOutput);
 
 		assertTrue(dirTemp.getName().compareTo(newDirName) == 0);
 		assertTrue(dirTemp.getParent() == previousParent);
@@ -77,8 +72,7 @@ public class CmdRenameIntegrationTest extends IntegrationTestBase {
 	public void renameDirectoryWithFullPath() {
 		String newDirName = "MyTemp";
 		Directory previousParent = dirTemp.getParent();
-		commandInvoker.executeCommand("ren " + dirTemp.getPath()
-				+ " " + newDirName, testOutput);
+		commandInvoker.executeCommand("ren " + dirTemp.getPath() + " " + newDirName, testOutput);
 
 		assertTrue(dirTemp.getName().compareTo(newDirName) == 0);
 		assertTrue(dirTemp.getParent() == previousParent);
@@ -90,13 +84,10 @@ public class CmdRenameIntegrationTest extends IntegrationTestBase {
 		String newFileName = fileWinWord.getName();
 		String previousFileName = fileExcel.getName();
 		drive.setCurrentDirectory(dirProgramFiles);
-		commandInvoker.executeCommand("ren " + fileExcel.getName()
-				+ " " + newFileName, testOutput);
+		commandInvoker.executeCommand("ren " + fileExcel.getName() + " " + newFileName, testOutput);
 
-		assertTrue(fileExcel.getName()
-				.compareTo(previousFileName) == 0);
-		assertTrue(testOutput.toString().toLowerCase().contains(
-				"destination already exists"));
+		assertTrue(fileExcel.getName() .compareTo(previousFileName) == 0);
+		assertTrue(testOutput.toString().toLowerCase().contains("destination already exists"));
 	}
 
 	@Test
@@ -109,11 +100,9 @@ public class CmdRenameIntegrationTest extends IntegrationTestBase {
 
 	private void renameWithInvalildNewFileName(String newFileName) {
 		String previousFileName = fileBullet.getName();
-		commandInvoker.executeCommand("ren " + fileBullet.getName()
-				+ " " + newFileName, testOutput);
+		commandInvoker.executeCommand("ren " + fileBullet.getName() + " " + newFileName, testOutput);
 
-		assertTrue(fileBullet.getName().compareTo(
-				previousFileName) == 0);
+		assertTrue(fileBullet.getName().compareTo(previousFileName) == 0);
 		assertTrue(testOutput.toString().toLowerCase().contains("syntax"));
 		assertTrue(testOutput.toString().toLowerCase().contains("incorrect"));
 	}
