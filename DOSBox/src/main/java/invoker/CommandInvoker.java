@@ -27,9 +27,7 @@ import command.framework.Outputter;
  */
 public class CommandInvoker implements CommandInvokerService {
 
-    /**
-     * List of all active commands
-     */
+    /** List of all active commands */
     private ArrayList<Command> commands;
 
     /** The Command History Logger */
