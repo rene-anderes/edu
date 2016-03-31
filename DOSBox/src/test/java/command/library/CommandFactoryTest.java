@@ -1,22 +1,19 @@
 package command.library;
 
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import command.framework.Command;
-
 import filesystem.Drive;
 
 /**
- * Test für die Command-Factory
+ * Test fÃ¼r die Command-Factory
  * 
  * @author ra, hum
  */

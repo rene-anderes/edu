@@ -1,7 +1,5 @@
 /*
  * Course Agile Software Development
- * 
- * (c) 2010 by Zuehlke Engineering AG
  */ 
 package invoker;
 

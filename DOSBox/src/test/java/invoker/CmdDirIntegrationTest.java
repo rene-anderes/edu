@@ -1,7 +1,5 @@
 /*
  * Course Agile Software Development
- * 
- * (c) 2010 by Zuehlke Engineering AG
  */ 
 package invoker;
 
@@ -117,7 +115,7 @@ public class CmdDirIntegrationTest extends IntegrationTestBase {
 		assertTrue(output.contains("0 file"));
 	}
 	 /**
-	  * Test für die Kombination der Optionen /s und /w
+	  * Test fï¿½r die Kombination der Optionen /s und /w
 	  */
 	@Test
 	public void optionSW() {

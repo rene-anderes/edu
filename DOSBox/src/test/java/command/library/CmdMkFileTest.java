@@ -1,7 +1,5 @@
 /*
  * Course Agile Software Development
- * 
- * (c) 2010 by Zuehlke Engineering AG
  */ 
 package command.library;
 
@@ -10,7 +8,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import filesystem.File;

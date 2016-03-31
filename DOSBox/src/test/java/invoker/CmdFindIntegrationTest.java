@@ -1,7 +1,5 @@
 /*
  * Course Agile Software Development
- * 
- * (c) 2010 by Zuehlke Engineering AG
  */ 
 package invoker;
 
@@ -25,7 +23,7 @@ public class CmdFindIntegrationTest extends IntegrationTestBase {
 	public void setUp() throws Exception {
 		super.setUp();
 		
-		searchFileText = "Rainer Grau\nDaniel Tobler\nZuehlke Engineering AG\nWiesenstrasse 10a\n8952 Schlieren";
+		searchFileText = "René Descartes\nAntoinette Deshoulières\nPhilisophen AG\nPhilosophenstrasse 1\n1000 Lausanne";
 		
 		searchFile = new File("SearchFile.txt", searchFileText);
 		dirRoot.add(searchFile);
@@ -40,19 +38,19 @@ public class CmdFindIntegrationTest extends IntegrationTestBase {
 	@Test
 	public void findInAFile() {
 		drive.setCurrentDirectory(dirRoot);
-		commandInvoker.executeCommand("Find \"Daniel\" " + searchFile.getName(), testOutput);
+		commandInvoker.executeCommand("Find \"René\" " + searchFile.getName(), testOutput);
 		
 		assertTrue(testOutput.toString().contains("-- " + searchFile.getName()));
-		assertTrue(testOutput.toString().toLowerCase().contains("daniel tobler"));
+		assertTrue(testOutput.toString().toLowerCase().contains("René Descartes"));
 	}
 	
 	@Test
 	public void findInAFileOptionI() {
 		drive.setCurrentDirectory(dirRoot);
-		commandInvoker.executeCommand("Find /i \"daniel\" " + searchFile.getName(), testOutput);
+		commandInvoker.executeCommand("Find /i \"Antoinette\" " + searchFile.getName(), testOutput);
 		
 		assertTrue(testOutput.toString().contains("-- " + searchFile.getName()));
-		assertTrue(testOutput.toString().toLowerCase().contains("daniel tobler"));
+		assertTrue(testOutput.toString().toLowerCase().contains("Antoinette Deshoulières"));
 	}
 	
 	@Test
@@ -60,11 +58,11 @@ public class CmdFindIntegrationTest extends IntegrationTestBase {
 		drive.setCurrentDirectory(dirRoot);
 		commandInvoker.executeCommand("Find \"Peter\" " + searchFile.getName(), testOutput);
 		assertTrue(testOutput.toString().contains("-- " + searchFile.getName()));
-		assertTrue(testOutput.toString().toLowerCase().contains("daniel tobler") == false);
+		assertTrue(testOutput.toString().toLowerCase().contains("Antoinette Deshoulières") == false);
 
 		testOutput.reset();
 		drive.setCurrentDirectory(dirRoot);
-		commandInvoker.executeCommand("Find \"daniel\" " + searchFile.getName(), testOutput);
+		commandInvoker.executeCommand("Find \"René\" " + searchFile.getName(), testOutput);
 		assertTrue(testOutput.toString().toLowerCase().contains("-- " + searchFile.getName().toLowerCase()));
 		assertTrue(testOutput.toString().toLowerCase().contains("peter") == false);
 	}
@@ -72,7 +70,7 @@ public class CmdFindIntegrationTest extends IntegrationTestBase {
 	@Test
 	public void findInDirectory() {
 		drive.setCurrentDirectory(dirTemp);
-		commandInvoker.executeCommand("Find \"Daniel\" .", testOutput);
+		commandInvoker.executeCommand("Find \"René\" .", testOutput);
 		
 		assertTrue(testOutput.toString().contains("-- " + dirSearchFile1.getName()));
 		assertTrue(testOutput.toString().contains("-- " + dirSearchFile2.getName()));
@@ -81,7 +79,7 @@ public class CmdFindIntegrationTest extends IntegrationTestBase {
 	@Test
 	public void findMultipleInSubdirectory() {
 		drive.setCurrentDirectory(dirRoot);
-		commandInvoker.executeCommand("Find \"Daniel\" .", testOutput);
+		commandInvoker.executeCommand("Find \"Antoinette\" .", testOutput);
 		
 		assertTrue(testOutput.toString().contains("-- " + searchFile.getName()));
 		assertTrue(testOutput.toString().contains("-- " + dirSearchFile1.getName()));
