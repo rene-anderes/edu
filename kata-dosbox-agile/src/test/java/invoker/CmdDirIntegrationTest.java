@@ -5,6 +5,7 @@ package invoker;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class CmdDirIntegrationTest extends IntegrationTestBase {
@@ -12,6 +13,7 @@ public class CmdDirIntegrationTest extends IntegrationTestBase {
 	/**
 	 * Tests whether dir /w outputs the files in []
 	 */
+    @Ignore
 	@Test
 	public void optionWOutput() {
 		String output = null;
@@ -49,6 +51,7 @@ public class CmdDirIntegrationTest extends IntegrationTestBase {
 	/**
 	 * Tests whether dir /s outputs directories and subdirectories
 	 */
+	@Ignore
 	@Test
 	public void optionSForTempDirCheckListedDirectories() {
 		String output = null;
@@ -68,6 +71,7 @@ public class CmdDirIntegrationTest extends IntegrationTestBase {
 	 * Tests whether dir /s outputs the files contained in the directory and the
 	 * subdirectories
 	 */
+	@Ignore
 	@Test
 	public void optionSForTempDirCheckListedFiles() {
 		String output = null;
@@ -87,6 +91,7 @@ public class CmdDirIntegrationTest extends IntegrationTestBase {
 	 * 6 File(s) XX bytes<br>
 	 * 3 Dir(s)
 	 */
+	@Ignore
 	@Test
 	public void optionSForTempDirCheckSummaryAtEnd() {
 		String output = null;
@@ -104,6 +109,7 @@ public class CmdDirIntegrationTest extends IntegrationTestBase {
 	 * Tests whether dir /w also outputs correct format when executed on a
 	 * directory without any subdirectories.
 	 */
+	@Ignore
 	@Test
 	public void optionSForAnEmptyDirectory() {
 		String output = null;
@@ -114,9 +120,8 @@ public class CmdDirIntegrationTest extends IntegrationTestBase {
 		assertTrue(output.length() != 0);
 		assertTrue(output.contains("0 file"));
 	}
-	 /**
-	  * Test f�r die Kombination der Optionen /s und /w
-	  */
+	 
+	@Ignore
 	@Test
 	public void optionSW() {
 		drive.setCurrentDirectory(dirRoot);
