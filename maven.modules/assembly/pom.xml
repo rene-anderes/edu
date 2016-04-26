@@ -23,6 +23,16 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+                    <!-- mit Konfigurationsfile  
+                    <descriptors>
+                        <descriptor>src/assembly/assembly.xml</descriptor>
+                    </descriptors>
+                     -->
+                    <archive>
+                        <manifest>
+                            <mainClass>org.anderes.edu.maven.modules.application.App</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
                 <executions>
                     <execution>
@@ -31,16 +41,6 @@
                         <goals>
                             <goal>single</goal>
                         </goals>
-                        <configuration>
-                            <descriptors>
-                                <descriptor>src/assembly/assembly.xml</descriptor>
-                            </descriptors>
-                            <archive>
-                                <manifest>
-                                    <mainClass>org.anderes.edu.maven.modules.application.App</mainClass>
-                                </manifest>
-                            </archive>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
