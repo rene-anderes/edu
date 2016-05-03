@@ -13,12 +13,12 @@ import org.junit.Test;
 
 public class MeasuredValuesImportTest {
     
-    final private Path xmlPath = Paths.get(".\\", "target", "classes", "org", "anderes", "edu", "regex", "measured_values.txt");
+    final private Path txtPath = Paths.get(".\\", "target", "classes", "org", "anderes", "edu", "regex", "measured_values.txt");
     
     @Test
     public void shouldBeCorrectValues() throws IOException {
         final MeasuredValuesImport valuesImport = MeasuredValuesImport.build();
-        final Map<Integer, MeasuredValue> values = valuesImport.read(xmlPath);
+        final Map<Integer, MeasuredValue> values = valuesImport.read(txtPath);
         assertThat(values, is(notNullValue()));
         assertThat(values.size(), is(9));
     }

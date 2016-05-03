@@ -4,6 +4,18 @@ public class MeasuredValue {
 
     private Integer index;
     private String description;
+    public String getDescription() {
+        return description;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
     private String value;
     private String unit;
 
