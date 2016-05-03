@@ -1,0 +1,9 @@
+Temperatur		25 Grad
+Gewicht			200 mg
+Wasser			150 ml
+Temperatur		24.5 Grad
+Gewicht			1.01 kg
+Wasser			1.2 l
+Temperatur		-1.3 Grad
+Gewicht			2.5 g
+Wasser			50 ml
