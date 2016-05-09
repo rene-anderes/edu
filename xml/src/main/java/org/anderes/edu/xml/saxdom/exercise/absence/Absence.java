@@ -1,6 +1,7 @@
 package org.anderes.edu.xml.saxdom.exercise.absence;
 
 import java.util.Calendar;
+import java.util.Optional;
 
 public interface Absence {
 
@@ -17,18 +18,6 @@ public interface Absence {
 	public String getPeriod();
 	
 	public Calendar getDate();
-
-	public void setAbsenceDate(final Calendar absenceDate);
-
-	public void setPeriod(final String period);
-
-	public void setTitle(final String title);
-
-	public void setDivision(final String division);
-
-	public void setPersonalnr(final String personalnr);
-
-	public void setLastname(final String lastname);
-
-	public void setFirstname(final String firstname);
+	
+	public Optional<String> getNote();
 }

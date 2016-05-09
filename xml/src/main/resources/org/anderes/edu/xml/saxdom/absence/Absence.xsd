@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-	<xs:element name="Title">
-		<xs:simpleType>
-			<xs:restriction base="xs:string">
-				<xs:enumeration value="Herr"/>
-                <xs:enumeration value="Frau"/>
-			</xs:restriction>
-		</xs:simpleType>
-	</xs:element>
 	<xs:element name="Absence">
 		<xs:complexType>
 			<xs:sequence>
@@ -18,9 +10,18 @@
 				<xs:element ref="Division"/>
 				<xs:element ref="AbsenceDate"/>
 				<xs:element ref="Period"/>
+                <xs:element ref="Note" minOccurs="0"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+    <xs:element name="Title">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="Herr"/>
+                <xs:enumeration value="Frau"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
 	<xs:element name="Period">
 		<xs:simpleType>
 			<xs:restriction base="xs:string">
@@ -68,4 +69,12 @@
 			</xs:restriction>
 		</xs:simpleType>	
 	</xs:element>
+    <xs:element name="Note">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:minLength value="1"/>
+                <xs:maxLength value="200"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
 </xs:schema>

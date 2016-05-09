@@ -31,6 +31,7 @@ public class DomReaderAbsenceTest {
 		assertThat(absence.getDivision(), is("Entwicklung"));
 		assertThat(absence.getPeriod(), is("Ganzer Tag"));
 		assertThat(absence.getDate(), is(truncateDate(2014, FEBRUARY, 21)));
+		assertThat(absence.getNote().isPresent(), is(false));
 	}
 
 	@Test(expected = IllegalArgumentException.class)

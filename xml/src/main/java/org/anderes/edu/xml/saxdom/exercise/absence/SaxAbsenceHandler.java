@@ -11,7 +11,7 @@ import org.xml.sax.SAXException;
 
 public class SaxAbsenceHandler implements ContentHandler {
 
-	private Absence absence = new AbsenceData();
+	private AbsenceData absence = new AbsenceData();
 	private String currentValue;
 	
 	public SaxAbsenceHandler() {
@@ -70,6 +70,9 @@ public class SaxAbsenceHandler implements ContentHandler {
 				// Nothing to do
 			}
 			absence.setAbsenceDate(cal);
+		}
+		if (localName.equals("Note")) {
+		    absence.setNote(currentValue);
 		}
 	}
 
