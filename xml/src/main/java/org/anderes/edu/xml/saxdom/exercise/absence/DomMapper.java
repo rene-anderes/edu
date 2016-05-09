@@ -1,8 +1,8 @@
 package org.anderes.edu.xml.saxdom.exercise.absence;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Optional;
 
 import org.apache.commons.lang3.Validate;
@@ -11,6 +11,8 @@ import org.w3c.dom.NodeList;
 
 public abstract class DomMapper {
 
+    private final static DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    
     public static Absence mapToAbsence(final Document document) {
         Validate.notNull(document);
         
@@ -21,8 +23,8 @@ public abstract class DomMapper {
         absence.setPersonalnr(getText(document, "PersonalNr").orElse(null));
         absence.setDivision(getText(document, "Division").orElse(null));
         absence.setPeriod(getText(document, "Period").orElse(null));
-        absence.setAbsenceDate(getCalendar(document, "AbsenceDate"));
-        absence.setNote(getText(document, "Note").orElse(null));
+        absence.setAbsenceDate(getDate(document, "AbsenceDate"));
+        absence.setComment(getText(document, "Note").orElse(null));
         return absence;
     }
 
@@ -34,14 +36,11 @@ public abstract class DomMapper {
         return Optional.ofNullable(ndList.item(0).getTextContent());
     }
     
-    private static Calendar getCalendar(final Document document, final String element) {
-        final SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
-        final Calendar cal = Calendar.getInstance();
+    private static LocalDate getDate(final Document document, final String element){
         try {
-            cal.setTime(dateformat.parse(getText(document, element).orElse("")));
-        } catch (ParseException e) {
-            // Nothing to do
+            return LocalDate.parse(getText(document, element).orElse(""), FORMATTER);
+        } catch (DateTimeParseException e) {
+            return LocalDate.now();
         }
-        return cal;
     }
 }

@@ -1,14 +1,13 @@
 package org.anderes.edu.xml.saxdom;
 
-import static java.util.Calendar.FEBRUARY;
+import static java.time.Month.FEBRUARY;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 
 import org.anderes.edu.xml.saxdom.exercise.absence.Absence;
 import org.anderes.edu.xml.saxdom.exercise.absence.SaxAbsenceHandler;
-import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXParseException;
@@ -35,8 +34,8 @@ public class SaxReaderAbsenceTest {
 		assertThat(absence.getPersonalNr(), is("A-123-8"));
 		assertThat(absence.getDivision(), is("Entwicklung"));
 		assertThat(absence.getPeriod(), is("Ganzer Tag"));
-		assertThat(absence.getDate(), is(truncateDate(2014, FEBRUARY, 21)));
-		assertThat(absence.getNote().isPresent(), is(false));
+		assertThat(absence.getDate(), is(LocalDate.of(2014, FEBRUARY, 21)));
+		assertThat(absence.getComment().isPresent(), is(false));
 		
 	}
 	@Test(expected = IllegalArgumentException.class)
@@ -53,10 +52,4 @@ public class SaxReaderAbsenceTest {
     public void shouldBeReadAExceptionWrongCharacter() throws Exception {
         SaxReader.parseFile("/org/anderes/edu/xml/saxdom/absence/Absence_wrong_character.xml", xsdPath, contentHandler);
     }
-    
-	private Calendar truncateDate(final int year, final int month, final int day) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(year, month, day);
-		return DateUtils.truncate(calendar, Calendar.DAY_OF_MONTH);
-	}
 }

@@ -1,8 +1,8 @@
 package org.anderes.edu.xml.saxdom.exercise.absence;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
@@ -13,6 +13,8 @@ public class SaxAbsenceHandler implements ContentHandler {
 
 	private AbsenceData absence = new AbsenceData();
 	private String currentValue;
+	private final static DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
 	
 	public SaxAbsenceHandler() {
 	}
@@ -62,17 +64,15 @@ public class SaxAbsenceHandler implements ContentHandler {
 			absence.setPeriod(currentValue);
 		}
 		if (localName.equals("AbsenceDate")) {
-			final SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
-			final Calendar cal = Calendar.getInstance();
-			try {
-				cal.setTime(dateformat.parse(currentValue));
-			} catch (ParseException e) {
-				// Nothing to do
-			}
-			absence.setAbsenceDate(cal);
+		    try {
+		        final LocalDate date = LocalDate.parse(currentValue, FORMATTER);
+	            absence.setAbsenceDate(date);
+	        } catch (DateTimeParseException e) {
+	            absence.setAbsenceDate(LocalDate.now());
+	        }
 		}
 		if (localName.equals("Note")) {
-		    absence.setNote(currentValue);
+		    absence.setComment(currentValue);
 		}
 	}
 

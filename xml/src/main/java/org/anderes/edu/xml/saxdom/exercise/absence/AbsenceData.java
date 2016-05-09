@@ -1,6 +1,6 @@
 package org.anderes.edu.xml.saxdom.exercise.absence;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.Optional;
 
 public class AbsenceData implements Absence {
@@ -11,8 +11,8 @@ public class AbsenceData implements Absence {
     private String division;
     private String title;
     private String period;
-    private Calendar absenceDate;
-    private String note;
+    private LocalDate absenceDate;
+    private String comment;
     
        @Override
     public String getFirstname() {
@@ -45,13 +45,13 @@ public class AbsenceData implements Absence {
     }
 
     @Override
-    public Calendar getDate() {
+    public LocalDate getDate() {
         return absenceDate;
     }
 
     @Override
-    public Optional<String> getNote() {
-        return Optional.ofNullable(note);
+    public Optional<String> getComment() {
+        return Optional.ofNullable(comment);
     }
 
     public void setFirstname(final String firstname) {
@@ -78,12 +78,11 @@ public class AbsenceData implements Absence {
         this.period = period;
     }
 
-    public void setAbsenceDate(final Calendar absenceDate) {
-        this.absenceDate = absenceDate;
+    public void setComment(String note) {
+        this.comment = note;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setAbsenceDate(LocalDate date) {
+        this.absenceDate = date;
     }
-
 }
