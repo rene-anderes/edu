@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<systeminformationen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Systeminformationen.xsd">
+	<Betriebssystem>Microsoft Windows 7 Professional</Betriebssystem>
+	<Version>6.1.7601 Service Pack 1 Build 7601</Version>
+	<Prozessor>Intel(R) Core(TM) i7-2600 CPU @ 3.40GHz, 3401 MHz, 4 Kern(e), 8 logische(r) Prozessor(en)</Prozessor>
+	<Komponenten>
+		<Speicher>
+			<Laufwerke>
+				<Laufwerk Laufwerksbuchstabe="C:">
+					<Beschreibung>Lokale Festplatte</Beschreibung>
+					<Dateisystem>NTFS</Dateisystem>
+				</Laufwerk>
+				<Laufwerk Laufwerksbuchstabe="E:">
+					<Beschreibung>CD</Beschreibung>
+				</Laufwerk>
+			</Laufwerke>
+			<storages>
+				<Datenträger>
+					<Beschreibung>Laufwerk</Beschreibung>
+					<Hersteller>Standardlaufwerk</Hersteller>
+					<Modell>INTEL SSDSA2CW160G3</Modell>
+				</Datenträger>
+			</storages>
+		</Speicher>
+		<CD Laufwerksbuchstabe="E:">
+			<Beschreibung>CD-ROM-Laufwerk</Beschreibung>
+		</CD>
+	</Komponenten>
+	<Hardwareresourcen>
+		<DMA>
+			<Resource>Kanal 4</Resource>
+			<Gerät>DMA-Controller</Gerät>
+			<Status>OK</Status>
+		</DMA>
+	</Hardwareresourcen>
+</systeminformationen>
