@@ -59,10 +59,8 @@ public class MarshallerUnmarshallerJaxbTest {
 	
 	@Test
 	public void unmarshaller() {
-		try {
+		try (InputStream is = getClass().getResourceAsStream("/org/anderes/edu/xml/introduction/contactlist.xml")) {
 			
-			// XML-File befindet sich im Klassenpfad
-			final InputStream is = getClass().getResourceAsStream("/org/anderes/edu/xml/introduction/contactlist.xml");
 			assertThat(is, is(notNullValue()));
 
             final JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
@@ -71,12 +69,8 @@ public class MarshallerUnmarshallerJaxbTest {
             
             assertThat(contactlist, is(notNullValue()));
             assertThat(contactlist.getContact().size(), is(2));
- 
-            try {
-                is.close();
-            } catch (IOException e) {}
             
-          } catch (JAXBException e) {
+          } catch (JAXBException | IOException e) {
         	  fail(e.getMessage());
           }
 	}
