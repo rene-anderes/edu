@@ -1,4 +1,4 @@
-package org.anderes.edu.xml.jaxb.modeldriven;
+package org.anderes.edu.xml.jaxb.modeldriven.withadapter;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

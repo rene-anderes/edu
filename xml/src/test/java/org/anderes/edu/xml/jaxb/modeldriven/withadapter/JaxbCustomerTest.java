@@ -1,14 +1,15 @@
-package org.anderes.edu.xml.jaxb.modeldriven;
+package org.anderes.edu.xml.jaxb.modeldriven.withadapter;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
-import org.anderes.edu.xml.jaxb.adapter.generated.ObjectFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +20,7 @@ public class JaxbCustomerTest {
 
     @Before
     public void setUp() throws Exception {
-        file = File.createTempFile("person", "xml");
+        file = File.createTempFile("customer", ".xml");
     }
 
     @After
@@ -37,7 +38,10 @@ public class JaxbCustomerTest {
 
     private Customer createSampleCustomer() {
         final Customer customer = new Customer("Hans Pfister");
-        
+        customer.setId(1234);
+        final Order order = new Order("Heckenschere", BigDecimal.valueOf(123.45));
+        order.setOderDate(LocalDate.now());
+        customer.addOrder(order);
         return customer;
     }
 }
