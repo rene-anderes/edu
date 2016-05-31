@@ -20,7 +20,7 @@ public class MethodeReference {
         persons.forEach(p -> System.out.println(p.getName()));
         
         // Klassenname::Instanzmethodenname
-        persons.stream().map(Person::getName).forEach(n -> System.out.println(n));
+        persons.stream().map(Person::getName).forEach(System.out::println);
         
         // Objektreferenz::Instanzmethodenname
         PersonProcessor personProcessor =  new PersonProcessor();

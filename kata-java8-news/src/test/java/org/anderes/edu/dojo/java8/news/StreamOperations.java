@@ -1,6 +1,7 @@
 package org.anderes.edu.dojo.java8.news;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
@@ -8,11 +9,16 @@ import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.ConcurrentModificationException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
@@ -54,7 +60,7 @@ public class StreamOperations {
     @Test
     public void intermediateStreamOperationsFilter() {
         
-        Stream<String> filtered = stringStream.filter(element -> element.matches("\\w{0,}[e]\\w{0,}"));
+        Stream<String> filtered = stringStream.filter(element -> element.matches("\\w*[e]\\w*"));
         assertThat(filtered.count(), is(5L));
     }
     
@@ -63,7 +69,7 @@ public class StreamOperations {
          
         Stream<String> filtered = stringStream
                         .filter(element -> element.length() > 4)
-                        .filter(element -> element.matches("\\w{0,}[e]\\w{0,}"));
+                        .filter(element -> element.matches("\\w*[e]\\w*"));
         assertThat(filtered.count(), is(4L));
     }
     
@@ -73,7 +79,7 @@ public class StreamOperations {
         Stream<String> filtered = stringStream
                         .filter(((Predicate<String>) 
                                         element -> element.length() > 4)
-                                        .and(element -> element.matches("\\w{0,}[e]\\w{0,}"))
+                                        .and(element -> element.matches("\\w*[e]\\w*"))
                         );
         assertThat(filtered.count(), is(4L));
     }
@@ -187,8 +193,21 @@ public class StreamOperations {
     }
     
     @Test
-    public void filterMapReduceFilterMapReduce() {
-        Integer sum = stringStream.filter(planet -> !planet.contentEquals("Sonne")).map(String::length).reduce(0, Integer::sum);
+    public void filterMapReduce() {
+        Integer sum = stringStream.
+                        filter(planet -> !planet.contentEquals("Sonne"))
+                        .map(String::length)
+                        .reduce(0, Integer::sum);
+        assertThat(sum, is(36));
+    }
+    
+    @Test
+    public void filterMapReduceParallel() {
+        Integer sum = stringStream
+                        .parallel()
+                        .filter(planet -> !planet.contentEquals("Sonne"))
+                        .map(String::length)
+                        .reduce(0, Integer::sum);
         assertThat(sum, is(36));
     }
     
@@ -207,9 +226,66 @@ public class StreamOperations {
     public void iterateFibonacci() {
         
         Stream.iterate(new BigDecimal[]{ BigDecimal.valueOf(1), BigDecimal.valueOf(1)}, a -> new BigDecimal[]{a[1], a[0].add(a[1]) })
-                 .limit(100)
+                .limit(100)
                 .map(v -> v[0])
                 .forEach(System.out::println);
     }
+    
+    @Test
+    public void streamWithSideEffectsNotStateless() {
+        /** dont do this.... */
+        Set<Character> charsAlreadySeen = new HashSet<>();
+        stringStream.map(p -> p.charAt(0))
+                .filter(c -> {
+                    if (charsAlreadySeen.contains(c)) {
+                        return false;
+                    } else {
+                        charsAlreadySeen.add(c);
+                        return true;
+                    }})
+                .forEach(System.out::println);
+    }
    
+    @Test
+    public void streamNotStatelessButAllowed() {
+        final StringBuffer sb = new  StringBuffer() ; 
+        stringStream.parallel().forEach(s -> sb.append(s)); 
+        String resultString = sb.toString(); 
+        
+        assertThat(resultString.length(), is(41));
+    }
+    
+    @Test(expected = ConcurrentModificationException.class)
+    public void streamWithInterference1() {
+        final List<Integer> underlyingList = new ArrayList<>(Arrays.asList(1,2,3,4,5,6,7,8,9)); 
+        underlyingList.stream()
+            .map(i->2*i)
+            .forEach(underlyingList::add);  // <=  ConcurrentModificationException 
+    }
+    
+    @Test(expected = ConcurrentModificationException.class)
+    public void streamWithInterference2() {
+        final List<Integer> underlyingList = Collections.synchronizedList(new ArrayList<>(Arrays.asList(1,2,3,4,5,6,7,8,9))); 
+        underlyingList.stream()
+            .map(i->2*i)
+            .forEach( underlyingList ::add);  // <=  ConcurrentModificationException 
+
+    }
+    
+    @Test
+    public void comparatorFunctionalInterface() {
+        final List<String> myList = Arrays.asList( "Kallisto", "Io", "Europa", "Ganymed" );
+        /** old style */
+//        myList.sort(new Comparator<String>() {
+//            @Override
+//            public int compare(String o1, String o2) {
+//                return Integer.compare(o1.length(), o2.length());
+//            }
+//            
+//        });
+        /** with Lambda */
+        Comparator<String> c = (o1, o2) -> Integer.compare(o1.length(), o2.length());
+        myList.sort(c);
+        assertThat(myList, contains("Io", "Europa", "Ganymed", "Kallisto"));
+    }
 }
