@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<handler-chains xmlns="http://java.sun.com/xml/ns/javaee">
+  <handler-chain>
+    <handler>
+      <handler-name>ch.vrsg.edu.webservice.application.ws.PayloadLoggingHandler</handler-name>
+      <handler-class>ch.vrsg.edu.webservice.application.ws.PayloadLoggingHandler</handler-class>
+    </handler>
+    <handler>
+      <handler-name>ch.vrsg.edu.webservice.application.ws.SOAPMonitorHandler</handler-name>
+      <handler-class>ch.vrsg.edu.webservice.application.ws.SOAPMonitorHandler</handler-class>
+    </handler>
+  </handler-chain>
+</handler-chains>
