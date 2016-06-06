@@ -1,7 +1,7 @@
 package org.anderes.edu.effective.domain;
 
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import org.anderes.edu.effective.immutability.EmployeeBase;
@@ -12,7 +12,7 @@ public class Employee implements Cloneable, EmployeeBase<Project, Address> {
 
     private String[] respnsibilities;
     private Address address;
-    private HashSet<Project> projects = new HashSet<>();
+    private TreeSet<Project> projects = new TreeSet<>();
     private int age;
     private String name;
 
@@ -76,7 +76,7 @@ public class Employee implements Cloneable, EmployeeBase<Project, Address> {
             if (address != null) {
                 clone.address = address.clone();
             }
-            clone.projects = projects.stream().map(p -> p.clone()).collect(Collectors.toCollection(HashSet::new));
+            clone.projects = projects.stream().map(p -> p.clone()).collect(Collectors.toCollection(TreeSet::new));
             return clone;
         } catch (CloneNotSupportedException e) { }  // Won't happen
         return clone;

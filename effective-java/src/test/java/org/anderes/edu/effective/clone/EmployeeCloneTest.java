@@ -2,6 +2,7 @@ package org.anderes.edu.effective.clone;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.Matchers.arrayContainingInAnyOrder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertThat;
@@ -18,13 +19,12 @@ public class EmployeeCloneTest {
         final Employee employee = createEmployee();
         
         final Employee clone = employee.clone();
-        
         assertEquals("Die zwei Objekte Employee sollte mittels equals gleich sein:", employee, clone);
         assertNotSame("Die zwei Objekte Employee dürfen nicht die Selben (selbe Referenz) sein:", employee, clone);
         assertEquals("Die zwei Objekte Address sollte mittels equals gleich sein:", employee.getAddress(), clone.getAddress());
         assertNotSame("Die zwei Objekte Address dürfen nicht die Selben (selbe Referenz) sein:", employee.getAddress(), clone.getAddress());
-        assertEquals("Die zwei Collections sollte mittels equals gleich sein:", employee.getProjects(), clone.getProjects());
         assertNotSame("Die zwei Collections dürfen nicht die Selben (selbe Referenz) sein:", employee.getProjects(), clone.getProjects());
+        assertThat("Die zwei Collections sollte den selben Inhalt haben:", clone.getProjects().toArray(), arrayContainingInAnyOrder(employee.getProjects().toArray()));
         employee.getProjects().forEach(p -> {
             clone.getProjects().forEach(cloneProject -> {
                 if (cloneProject.equals(p)) {

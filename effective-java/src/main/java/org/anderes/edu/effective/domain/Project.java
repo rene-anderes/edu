@@ -4,7 +4,7 @@ import org.anderes.edu.effective.immutability.ProjectBase;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public class Project implements Cloneable, ProjectBase {
+public class Project implements Cloneable, ProjectBase, Comparable<Project> {
 
     private String name;
 
@@ -46,5 +46,10 @@ public class Project implements Cloneable, ProjectBase {
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37).append(name).toHashCode();
+    }
+
+    @Override
+    public int compareTo(Project o) {
+        return this.getName().compareTo(o.getName());
     }
 }

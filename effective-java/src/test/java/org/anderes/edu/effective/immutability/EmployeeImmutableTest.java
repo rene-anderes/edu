@@ -1,6 +1,7 @@
 package org.anderes.edu.effective.immutability;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.Assert.assertThat;
 
@@ -29,12 +30,15 @@ public class EmployeeImmutableTest {
     @Test
     public void shouldBeImmutable() {
         
+        assertThat(immutableEmployee.getAddress(), is(notNullValue()));
         assertThat(immutableEmployee.getAddress(), is(instanceOf(ImmutableAddress.class)));
         assertThat(immutableEmployee.getAddress(), is(instanceOf(AddressBase.class)));
         immutableEmployee.getProjects().forEach(p -> {
             assertThat(p, is(instanceOf(ImmutableProject.class)));
             assertThat(p, is(instanceOf(ProjectBase.class)));
         });
+        assertThat(immutableEmployee.getAge(), is(46));
+        assertThat(immutableEmployee.getName(), is("John Way"));
     }
 
     private Employee createEmployee() {
