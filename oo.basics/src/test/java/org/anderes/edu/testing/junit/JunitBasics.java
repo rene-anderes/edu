@@ -1,4 +1,4 @@
-package org.anderes.edu.testing.junit.sample01;
+package org.anderes.edu.testing.junit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

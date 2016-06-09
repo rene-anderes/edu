@@ -1,6 +1,8 @@
 package org.anderes.edu.testing.junit.sample01;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
@@ -14,7 +16,7 @@ public class PersonTest {
     @Test
     public void shouldBeBirthdayInDecember() {
         
-        // Given
+        // given
         Person person = new Person("René");
         
         // when
@@ -27,5 +29,35 @@ public class PersonTest {
     
     private LocalDate december(int day, int year) {
         return LocalDate.of(year, DECEMBER, day);
+    }
+    
+    @Test
+    public void shouldBeFindAlias() {
+        
+        // given
+        Person person = new Person("Bill");
+        
+        // when
+        person.addAlias("oncle sam");
+        
+        // then
+        assertThat(person.hasAlias(), is(true));
+        assertThat(person.isAlias("oncle sam"), is(true));
+    }
+    
+    @Test
+    public void shouldBeFindNoAlias() {
+        
+        // given
+        Person person = new Person("Bill");
+        person.addAlias("oncle sam");
+        
+        // when
+        person.removeAlias("oncle sam");
+        
+        // then
+        assertThat(person.hasAlias(), is(false));
+        assertThat(person.isAlias("oncle sam"), is(false));
+        
     }
 }
