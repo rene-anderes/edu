@@ -61,10 +61,7 @@ public class Cal {
 
     private void appendDayOfMonth(final Calendar cal, final StringBuilder buffer) {
         final int day = cal.get(DAY_OF_MONTH);
-        if (day < 10) {
-            buffer.append(" ");
-        }
-        buffer.append(day);
+        buffer.append(String.format("%1$2d", day));
     }
     
     private void writeDayOfWeek(final Calendar cal, final OutputStream outputStream) throws IOException {

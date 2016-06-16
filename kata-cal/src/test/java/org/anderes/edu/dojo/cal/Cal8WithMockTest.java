@@ -1,11 +1,12 @@
 package org.anderes.edu.dojo.cal;
 
-import static org.mockito.Mockito.*;
-import static java.util.Calendar.*;
+import static org.mockito.Mockito.inOrder;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Calendar;
+import java.time.DayOfWeek;
+import java.time.Month;
+import java.time.YearMonth;
 import java.util.Locale;
 
 import org.junit.Test;
@@ -15,14 +16,14 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CalTest {
+public class Cal8WithMockTest {
   
     @Mock
     private OutputStream mockOutputStream;
     
     @Test
     public void shouldBeFebruaryUsa() throws IOException {
-        final Cal cal = new Cal(februaryUsa(2014));
+        final Cal8 cal = new Cal8(YearMonth.of(2014, Month.FEBRUARY), Locale.GERMAN, DayOfWeek.SUNDAY);
         cal.printTo(mockOutputStream);
         
         final InOrder inOrder = inOrder(mockOutputStream);
@@ -47,8 +48,9 @@ public class CalTest {
     
     @Test
     public void shouldBeFebruaryEu() throws IOException {
-        final Cal cal = new Cal(februaryEu(2014));
+        final Cal8 cal = new Cal8(YearMonth.of(2014, Month.FEBRUARY), Locale.GERMAN, DayOfWeek.MONDAY);
         cal.printTo(mockOutputStream);
+        cal.printTo(System.out);
         
         final InOrder inOrder = inOrder(mockOutputStream);
         inOrder.verify(mockOutputStream).write("    Februar 2014".getBytes());
@@ -67,22 +69,6 @@ public class CalTest {
         inOrder.verify(mockOutputStream).write(System.lineSeparator().getBytes());
         inOrder.verifyNoMoreInteractions();
         
-        cal.printTo(System.out);
     }
 
-    private Calendar februaryUsa(int year) {
-        final Calendar date = Calendar.getInstance(Locale.GERMAN);
-        date.clear();
-        date.set(year, Calendar.FEBRUARY, 1);
-        date.setFirstDayOfWeek(SUNDAY);
-        return date;
-    }
-    
-    private Calendar februaryEu(int year) {
-        final Calendar date = Calendar.getInstance(Locale.GERMAN);
-        date.clear();
-        date.set(year, Calendar.FEBRUARY, 1);
-        date.setFirstDayOfWeek(MONDAY);
-        return date;
-    }
 }
