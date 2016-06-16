@@ -36,7 +36,7 @@ public class MarshallerUnmarshallerJaxbTest {
 		final Contactlist contactlist = createData();
         try {
  
-            final File file = File.createTempFile("ContactList", "xml");
+            final File file = File.createTempFile("ContactList", ".xml");
             final JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
             final Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
             // output pretty printed
@@ -49,9 +49,7 @@ public class MarshallerUnmarshallerJaxbTest {
             assertThat(file.exists(), is(true));
             assertThat(file.length() > 200L, is(true));
  
-        } catch (JAXBException e) {
-            fail(e.getMessage());
-        } catch (IOException e) {
+        } catch (JAXBException | IOException e) {
         	fail(e.getMessage());
         }
  

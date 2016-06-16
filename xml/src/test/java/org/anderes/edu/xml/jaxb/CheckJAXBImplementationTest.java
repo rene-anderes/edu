@@ -47,7 +47,7 @@ public class CheckJAXBImplementationTest {
     public void jaxbImplementationTest() throws JAXBException {
         final JAXBContext jc = JAXBContext.newInstance(ObjectFactory.class);
         String jaxbname = JAXB_CONTEXT.getJaxbName(jc.getClass().getName());
-        assertThat(jaxbname, is("Glassfish Metro"));
+        assertThat(jaxbname, is("Eclipselink MOXy"));
         logger.info("JAXB Implementation: " + jaxbname);
     }
 

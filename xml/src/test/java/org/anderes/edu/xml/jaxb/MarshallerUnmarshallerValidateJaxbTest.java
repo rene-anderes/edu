@@ -64,7 +64,7 @@ public class MarshallerUnmarshallerValidateJaxbTest {
             final SchemaFactory schemaFactrory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             final Schema schema = schemaFactrory.newSchema(schemaFile);
  
-            final File file = File.createTempFile("ContactList", "xml");
+            final File file = File.createTempFile("ContactList", ".xml");
             final JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
             final Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 

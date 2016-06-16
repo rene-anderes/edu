@@ -1,0 +1,26 @@
+{
+	"contactlist": {
+		"contact": [{
+			"name": "Hans Oberhänsli",
+			"address": "Zürcherstrasse 1, 9000 St.Gallen",
+			"phone": [{
+				"type": "mobile",
+				"value": "+41 77 223 44 55"
+			}],
+			"mail": "info@mail.com"
+		},
+		{
+			"name": "Bill Gates",
+			"address": "Langstrasse 1, 9000 St.Gallen",
+			"phone": [{
+				"type": "mobile",
+				"value": "+41 77 211 32 55"
+			},
+			{
+				"type": "mobile",
+				"value": "+41 79 211 34 55"
+			}],
+			"mail": "info@mail.com"
+		}]
+	}
+}

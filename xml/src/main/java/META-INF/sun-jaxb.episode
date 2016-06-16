@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jaxb:bindings version="2.1" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb">
+  <!--
+
+Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.11 generiert 
+Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
+Generiert: 2016.06.16 um 04:05:21 PM CEST 
+
+  -->
+  <jaxb:bindings scd="x-schema::">
+    <jaxb:schemaBindings map="false">
+      <jaxb:package name="org.anderes.edu.xml.jaxb.generated"/>
+    </jaxb:schemaBindings>
+    <jaxb:bindings scd="contactlist">
+      <jaxb:class ref="org.anderes.edu.xml.jaxb.generated.Contactlist"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~contact">
+      <jaxb:class ref="org.anderes.edu.xml.jaxb.generated.Contact"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="phone">
+      <jaxb:class ref="org.anderes.edu.xml.jaxb.generated.Phone"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~phonetype">
+      <jaxb:typesafeEnumClass ref="org.anderes.edu.xml.jaxb.generated.Phonetype"/>
+    </jaxb:bindings>
+  </jaxb:bindings>
+</jaxb:bindings>
+

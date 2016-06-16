@@ -1,8 +1,8 @@
 //
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.11 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.05.23 um 05:40:37 PM CEST 
+// Generiert: 2016.06.16 um 04:05:21 PM CEST 
 //
 
 
@@ -19,14 +19,14 @@ import javax.xml.bind.annotation.XmlType;
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * <p>
  * <pre>
- * &lt;simpleType name="phonetype">
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="mobile"/>
- *     &lt;enumeration value="private"/>
- *     &lt;enumeration value="office"/>
- *     &lt;enumeration value="fax"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
+ * &lt;simpleType name="phonetype"&gt;
+ *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *     &lt;enumeration value="mobile"/&gt;
+ *     &lt;enumeration value="private"/&gt;
+ *     &lt;enumeration value="office"/&gt;
+ *     &lt;enumeration value="fax"/&gt;
+ *   &lt;/restriction&gt;
+ * &lt;/simpleType&gt;
  * </pre>
  * 
  */
