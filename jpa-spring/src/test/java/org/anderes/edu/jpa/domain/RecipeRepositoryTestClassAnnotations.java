@@ -12,13 +12,11 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 
 import org.anderes.edu.jpa.rules.DbUnitRule;
 import org.anderes.edu.jpa.rules.DbUnitRule.CleanupUsingScript;
 import org.anderes.edu.jpa.rules.DbUnitRule.ShouldMatchDataSet;
 import org.anderes.edu.jpa.rules.DbUnitRule.UsingDataSet;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -37,19 +35,12 @@ public class RecipeRepositoryTestClassAnnotations {
 
     @Inject
     private RecipeRepository repository;
-    @Inject
-    private EntityManager manager;
-    
+  
     @Inject @Rule 
     public DbUnitRule dbUnitRule;
    
     @Before
     public void setup() {
-    }
-    
-    @After
-    public void tearDown() {
-        manager.clear();
     }
     
     @Test

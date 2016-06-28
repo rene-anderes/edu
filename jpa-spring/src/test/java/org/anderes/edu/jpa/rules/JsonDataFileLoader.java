@@ -10,7 +10,7 @@ import org.dbunit.util.fileloader.AbstractDataFileLoader;
 public class JsonDataFileLoader extends AbstractDataFileLoader {
 
     @Override
-    protected IDataSet loadDataSet(URL url) throws DataSetException, IOException {
+    public IDataSet loadDataSet(URL url) throws DataSetException, IOException {
         return new JsonDataSet(url);
     }
 

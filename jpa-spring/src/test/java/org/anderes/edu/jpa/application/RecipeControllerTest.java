@@ -75,7 +75,7 @@ public class RecipeControllerTest {
     public void shouldBeAllRecipes() throws Exception {
         MvcResult result = mockMvc.perform(get("/recipes").accept(APPLICATION_JSON).param("limit", "50"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(APPLICATION_JSON))
+            .andExpect(content().contentType(APPLICATION_JSON.toString() + ";charset=UTF-8"))
             .andExpect(jsonPath("$.*", hasSize(9)))
             .andExpect(jsonPath("$.totalElements", is(2)))
             .andReturn();

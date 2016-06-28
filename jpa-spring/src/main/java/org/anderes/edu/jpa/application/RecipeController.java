@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/recipes")
+@RequestMapping("recipes")
 public class RecipeController {
 
     @Inject 
@@ -29,7 +29,7 @@ public class RecipeController {
         return repository.findAll(pageable);
     }
 
-    @RequestMapping("/{id}")
+    @RequestMapping("{id}")
     @PreAuthorize("hasRole('ROLE_USER')")
     public @ResponseBody Recipe showRecipe(@PathVariable("id") Recipe recipe) {
         return repository.findOne(recipe.getUuid());

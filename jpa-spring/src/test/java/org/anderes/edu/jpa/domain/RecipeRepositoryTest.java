@@ -12,13 +12,11 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 
 import org.anderes.edu.jpa.rules.DbUnitRule;
 import org.anderes.edu.jpa.rules.DbUnitRule.CleanupUsingScript;
 import org.anderes.edu.jpa.rules.DbUnitRule.ShouldMatchDataSet;
 import org.anderes.edu.jpa.rules.DbUnitRule.UsingDataSet;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -35,8 +33,6 @@ public class RecipeRepositoryTest {
 
     @Inject
     private RecipeRepository repository;
-    @Inject
-    private EntityManager manager;
     
     @Inject @Rule 
     public DbUnitRule dbUnitRule;
@@ -44,12 +40,7 @@ public class RecipeRepositoryTest {
     @Before
     public void setup() {
     }
-    
-    @After
-    public void tearDown() {
-        manager.clear();
-    }
-    
+        
     @Test
     @UsingDataSet(value = { "/prepare.json" })
     @ShouldMatchDataSet(
@@ -127,6 +118,7 @@ public class RecipeRepositoryTest {
         final Recipe findRecipe = repository.findOne(savedRecipe.getUuid());
         assertThat(findRecipe, is(not(nullValue())));
         assertThat(findRecipe.getPreamble(), is("Neuer Preamble vom Test"));
+        assertThat(findRecipe.getIngredients().size(), is(4));
         assertNotSame(updateRecipe, findRecipe);
         assertThat(updateRecipe, is(findRecipe));
     }

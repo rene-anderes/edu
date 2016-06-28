@@ -10,9 +10,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.version>4.1.6.RELEASE</spring.version>
+        <spring.version>4.3.0.RELEASE</spring.version>
         <spring.security.version>4.0.1.RELEASE</spring.security.version>
-        <db.derby.version>10.11.1.1</db.derby.version>
+        <db.derby.version>10.12.1.1</db.derby.version>
         <db.driver>org.apache.derby.jdbc.EmbeddedDriver</db.driver>
         <db.user>APP</db.user>
         <db.password>APP</db.password>
@@ -29,10 +29,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>3.5</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -211,7 +211,7 @@
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
-            <version>1.8.0.RELEASE</version>
+            <version>1.10.2.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -225,7 +225,7 @@
         <dependency>
             <groupId>org.springframework.hateoas</groupId>
             <artifactId>spring-hateoas</artifactId>
-            <version>0.17.0.RELEASE</version>
+            <version>0.20.0.RELEASE</version>
         </dependency>
         <!-- Spring Security -->
         <dependency>
@@ -270,12 +270,12 @@
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.jpa</artifactId>
-            <version>2.5.2</version>
+            <version>2.6.3</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>eclipselink</artifactId>
-            <version>2.5.2</version>
+            <version>2.6.3</version>
         </dependency>
         <!-- Derby als Embedded Database -->
         <dependency>
@@ -287,18 +287,18 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.3.2</version>
+            <version>3.4</version>
         </dependency>
         <!-- JSON Jackson -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>2.4.3</version>
+            <version>2.7.5</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.4.3</version>
+            <version>2.7.5</version>
         </dependency>
         <!-- Testabhängigkeiten -->
         <dependency>
@@ -334,7 +334,7 @@
         <dependency>
             <groupId>org.dbunit</groupId>
             <artifactId>dbunit</artifactId>
-            <version>2.5.1</version>
+            <version>2.5.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -356,7 +356,7 @@
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
-            <version>0.9.1</version>
+            <version>2.2.0</version>
             <scope>test</scope>
         </dependency>
         <!-- Servlet 2.5 kann für Test's nicht genommen werden -->
