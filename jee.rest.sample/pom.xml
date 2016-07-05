@@ -20,7 +20,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
+                <version>3.5.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -37,7 +37,7 @@
             </plugin>
         </plugins>
     </build>
-    
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -49,7 +49,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    
+
     <dependencies>
         <dependency>
             <groupId>javax</groupId>
@@ -70,7 +70,7 @@
             <scope>test</scope>
         </dependency>
         <!-- / JAX-RS Client 2.0 Implementation -->
-        
+
         <!-- Jersey Test Framework -->
         <dependency>
             <groupId>org.glassfish.jersey.test-framework.providers</groupId>
@@ -78,7 +78,7 @@
             <scope>test</scope>
         </dependency>
         <!-- / Jersey Test Framework -->
-        
+
         <!-- Wird für Grizzly benötigt (Test) -->
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
@@ -90,8 +90,13 @@
             <artifactId>jersey-media-json-processing</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <scope>test</scope>
+        </dependency>
         <!-- / Wird für Grizzly benötigt (Test) -->
-        
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
