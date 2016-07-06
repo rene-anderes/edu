@@ -23,7 +23,7 @@ public class RecipeRepositoryEntityManagerTest {
 	@Test
 	public void shouldBeOneRecipe() {
 		final Recipe recipe = repository.findOne(10001l);
-		
+
 		assertNotNull(recipe);
 		assertThat(recipe.getTitle(), is("Dies und Das"));
 		assertThat(repository.getPersistenceUnitUtil().isLoaded(recipe, Recipe_.ingredients.getName()), is(false));

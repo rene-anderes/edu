@@ -11,7 +11,7 @@
         <class>org.anderes.edu.jpa.cookbook.solution1.Image</class>
         <class>org.anderes.edu.jpa.cookbook.solution1.Ingredient</class>
 
-        <shared-cache-mode>NONE</shared-cache-mode>
+        <shared-cache-mode>ALL</shared-cache-mode>
 
         <properties>
             <!-- JPA connection information for the database -->

@@ -10,6 +10,8 @@ import javax.persistence.PersistenceUnitUtil;
 import javax.persistence.TypedQuery;
 
 import org.apache.commons.lang3.Validate;
+import org.eclipse.persistence.config.CacheUsage;
+import org.eclipse.persistence.config.QueryHints;
 
 /**
  * In diesem Beispiel eines Repository wird der Entity-Manager für jeden
@@ -72,8 +74,15 @@ public class RecipeRepositoryEntityManager {
 		final TypedQuery<Recipe> query = entityManager.createNamedQuery(Recipe.RECIPE_QUERY_BYTITLE, Recipe.class);
 		query.setParameter("title", "%" + title + "%");
 		
+		/* ----- query cache */
+		query.setHint(QueryHints.CACHE_USAGE, CacheUsage.CheckCacheThenDatabase);
+		/* siehe http://www.eclipse.org/eclipselink/documentation/2.6/jpa/extensions/queryhints.htm */
+		/* ----- / query cache */
+
+		
         final List<Recipe> recipes =  query.getResultList();
         entityManager.close();
+        
         return recipes;
 	}
 
@@ -109,7 +118,13 @@ public class RecipeRepositoryEntityManager {
 		
 		final EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
-		final Recipe savedRecipe = entityManager.merge(entity);
+		Recipe savedRecipe = null;
+		if (entity.getId() == null || entity.getId() == 0) {
+		    entityManager.persist(entity);
+		    savedRecipe = entity;
+		} else {
+		    savedRecipe = entityManager.merge(entity);
+		}
 		entityManager.getTransaction().commit();
 		entityManager.close();
 		return savedRecipe;
