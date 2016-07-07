@@ -29,7 +29,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5</version>
+                <version>3.5.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -43,7 +43,7 @@
             <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
-                <version>3.2.1</version>
+                <version>4.0.3</version>
                 <configuration>
                     <driver>${db.driver}</driver>
                     <url>${db.url};create=true</url>
@@ -351,8 +351,6 @@
             <version>${spring.security.version}</version>
         </dependency>
         <!-- / Spring Security Test -->
-        <!-- / Testabhängigkeiten -->
-        <!-- JSON-Path: z.Z. funktioniert es mit neuerer Version (noch) nicht -->
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
@@ -367,6 +365,7 @@
             <version>1.0</version>
             <scope>test</scope>
         </dependency>
+        <!-- / Testabhängigkeiten -->
         <!-- Maven kann beim compile mit der obigen Abhängigkeit aus unerfindlichen Gründen nichts anfangen -->
         <dependency>
             <groupId>javax.servlet</groupId>
