@@ -1,6 +1,5 @@
 package org.anderes.edu.jee.archetype.domain;
 
-import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,11 +14,8 @@ public class Person {
 	@Id
 	@GeneratedValue
 	private Long id;
-	@Basic
 	private String firstname;
-	@Basic
 	private String lastname;
-
 	
 	Person() {
 		super();
