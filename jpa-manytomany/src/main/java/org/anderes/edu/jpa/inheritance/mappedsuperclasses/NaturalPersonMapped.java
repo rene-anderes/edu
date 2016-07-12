@@ -4,17 +4,17 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "NP")
-public class NaturalPerson extends Person {
+@Table(name = "NP_MAPPED")
+public class NaturalPersonMapped extends PersonMapped {
     
     private String firstname;
     private String lastname;
     
-    NaturalPerson() {
+    NaturalPersonMapped() {
         super();
     }
 
-    public NaturalPerson(final String firstname, final String lastname) {
+    public NaturalPersonMapped(final String firstname, final String lastname) {
         super();
         this.firstname = firstname;
         this.lastname = lastname;

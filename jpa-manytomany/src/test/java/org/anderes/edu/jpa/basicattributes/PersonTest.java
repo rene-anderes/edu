@@ -1,7 +1,7 @@
 package org.anderes.edu.jpa.basicattributes;
 
 import static java.util.Calendar.JANUARY;
-import static org.anderes.edu.jpa.basicattributes.Person.Gender.FEMALE;
+import static org.anderes.edu.jpa.basicattributes.PersonBasic.Gender.FEMALE;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
@@ -24,7 +24,7 @@ public class PersonTest {
     
     @Before
     public void setUp() throws Exception {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("testDB");
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("testPU");
         entityManager = entityManagerFactory.createEntityManager();
     }
 
@@ -37,7 +37,7 @@ public class PersonTest {
     public void shouldBePersist() {
     	
     	// given
-    	final Person person = new Person("Mona-Lisa", "DaVinci");
+    	final PersonBasic person = new PersonBasic("Mona-Lisa", "DaVinci");
     	person.setBirthday(birthday());
     	person.setSalary(BigDecimal.valueOf(45000D));
     	person.setGender(FEMALE);
@@ -48,7 +48,7 @@ public class PersonTest {
         entityManager.getTransaction().commit();
     	
         // then
-        final Person storedPerson = entityManager.find(Person.class, person.getId());
+        final PersonBasic storedPerson = entityManager.find(PersonBasic.class, person.getId());
         assertThat(storedPerson.getFirstname(), is("Mona-Lisa"));
         assertThat(storedPerson.getLastname(), is("DaVinci"));
         assertThat(storedPerson.getBirthday(), is(birthday()));
@@ -68,7 +68,7 @@ public class PersonTest {
     public void shouldBePersistNameAndFirstname() {
     	
     	// given
-    	final Person person = new Person("Mona-Lisa", "DaVinci");
+    	final PersonBasic person = new PersonBasic("Mona-Lisa", "DaVinci");
 
     	// when
         entityManager.getTransaction().begin();
@@ -76,7 +76,7 @@ public class PersonTest {
         entityManager.getTransaction().commit();
     	
         // then
-        final Person storedPerson = entityManager.find(Person.class, person.getId());
+        final PersonBasic storedPerson = entityManager.find(PersonBasic.class, person.getId());
         assertThat(storedPerson.getFirstname(), is("Mona-Lisa"));
         assertThat(storedPerson.getLastname(), is("DaVinci"));
         assertThat(storedPerson.getBirthday(), is(nullValue()));
@@ -89,7 +89,7 @@ public class PersonTest {
     public void shouldBePersistWithoutTransient() {
     	
     	// given
-    	final Person person = new Person("Mona-Lisa", "DaVinci");
+    	final PersonBasic person = new PersonBasic("Mona-Lisa", "DaVinci");
     	person.setState("OK");
 
     	// when
@@ -107,7 +107,7 @@ public class PersonTest {
         // ==== Transient bleibt unangetastet
         assertThat(person.getState(), is("OK"));				
         
-        final Person storedPerson = entityManager.find(Person.class, person.getId());
+        final PersonBasic storedPerson = entityManager.find(PersonBasic.class, person.getId());
         assertThat(storedPerson.getFirstname(), is("Mona-Lisa"));
         assertThat(storedPerson.getLastname(), is("DaVinci"));
         assertThat(storedPerson.getBirthday(), is(nullValue()));
@@ -118,9 +118,9 @@ public class PersonTest {
         assertThat(storedPerson.getState(), is("OK"));
         
         
-        final TypedQuery<Person> query = entityManager.createQuery("select p from Person p where p.id = :id", Person.class);
+        final TypedQuery<PersonBasic> query = entityManager.createQuery("select p from Person p where p.id = :id", PersonBasic.class);
         query.setParameter("id", person.getId());
-        final Person findPerson = query.getSingleResult();
+        final PersonBasic findPerson = query.getSingleResult();
         assertThat(findPerson.getFirstname(), is("Mona-Lisa"));
         assertThat(findPerson.getLastname(), is("DaVinci"));
         assertThat(findPerson.getBirthday(), is(nullValue()));
@@ -135,12 +135,12 @@ public class PersonTest {
     public void shouldBeMergeWithoutTransient() {
     	
     	// given
-    	final Person person = new Person("Mona-Lisa", "DaVinci");
+    	final PersonBasic person = new PersonBasic("Mona-Lisa", "DaVinci");
     	person.setState("OK");
 
     	// when
         entityManager.getTransaction().begin();
-        final Person storedPerson = entityManager.merge(person);
+        final PersonBasic storedPerson = entityManager.merge(person);
         entityManager.getTransaction().commit();
     	
         // then

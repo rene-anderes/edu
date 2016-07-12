@@ -22,7 +22,7 @@ public class PersonTest {
     
     @Before
     public void setUp() throws Exception {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("testDB");
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("testPU");
         entityManager = entityManagerFactory.createEntityManager();
     }
 
@@ -35,19 +35,19 @@ public class PersonTest {
     public void simpleTest() {
         addPersonToDatabase();
         
-        final Collection<NaturalPerson> persons = getAllNaturalPersons();
+        final Collection<NaturalPersonMapped> persons = getAllNaturalPersons();
         
         assertThat(persons, is(not(nullValue())));
         assertThat(persons.size(), is(1));
     }
     
-    private Collection<NaturalPerson> getAllNaturalPersons() {
-        final TypedQuery<NaturalPerson> query = entityManager.createQuery("Select e From NaturalPerson e", NaturalPerson.class);
+    private Collection<NaturalPersonMapped> getAllNaturalPersons() {
+        final TypedQuery<NaturalPersonMapped> query = entityManager.createQuery("Select e From NaturalPersonMapped e", NaturalPersonMapped.class);
         return query.getResultList();
     }
 
     private void addPersonToDatabase() {
-        final Person person = new NaturalPerson("Mona-Lisa", "DaVinci");
+        final PersonMapped person = new NaturalPersonMapped("Mona-Lisa", "DaVinci");
 
         entityManager.getTransaction().begin();
         entityManager.persist(person);

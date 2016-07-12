@@ -19,7 +19,7 @@ import javax.persistence.Transient;
  * Beispiel welches die Möglichkeiten der Basic Attributes veranschaulicht.
  */
 @Entity
-public class Person implements Serializable {
+public class PersonBasic implements Serializable {
 
 	public enum Gender { MALE, FEMALE };
 	
@@ -49,11 +49,11 @@ public class Person implements Serializable {
 	@Transient
 	private String state;
     
-    Person() {
+    PersonBasic() {
         super();
     }
 
-    public Person(final String firstname, final String lastname) {
+    public PersonBasic(final String firstname, final String lastname) {
         super();
         this.firstname = firstname;
         this.lastname = lastname;

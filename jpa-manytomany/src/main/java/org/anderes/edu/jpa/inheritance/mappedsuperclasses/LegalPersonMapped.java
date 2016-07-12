@@ -4,16 +4,16 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "JP")
-public class LegalPerson extends Person {
+@Table(name = "JP_MAPPED")
+public class LegalPersonMapped extends PersonMapped {
     
     private String legalForm;
     
-    LegalPerson() {
+    LegalPersonMapped() {
         super();
     }
 
-    public LegalPerson(final String legalForm) {
+    public LegalPersonMapped(final String legalForm) {
         super();
         this.legalForm = legalForm;
     }

@@ -1,14 +1,12 @@
 package org.anderes.edu.jpa.inheritance.mappedsuperclasses;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-@Entity
 @MappedSuperclass
-public class Person {
+public class PersonMapped {
 
     @Id
     @GeneratedValue

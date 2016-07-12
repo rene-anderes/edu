@@ -16,7 +16,7 @@ public class PersonRepository {
 	private EntityManager entityManager;
     
     private PersonRepository() {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("testDB");
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("testPU");
         entityManager = entityManagerFactory.createEntityManager();
     }
     
