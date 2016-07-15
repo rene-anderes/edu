@@ -1,23 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-	<xs:element name="Von">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="Bahnhof"/>
-				<xs:element name="Zeit" type="xs:time"/>
-				<xs:element name="Gleis" type="xs:positiveInteger"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="Nach">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="Bahnhof"/>
-				<xs:element name="Zeit" type="xs:time"/>
-				<xs:element name="Gleis" type="xs:positiveInteger"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
 	<xs:element name="Bahnhof">
 		<xs:simpleType>
 			<xs:restriction base="xs:string">
@@ -26,6 +8,13 @@
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
+    <xs:complexType name="VonNach">
+            <xs:sequence>
+                <xs:element ref="Bahnhof"/>
+                <xs:element name="Zeit" type="xs:time"/>
+                <xs:element name="Gleis" type="xs:positiveInteger"/>
+            </xs:sequence>
+        </xs:complexType>
 	<xs:simpleType name="Auslastung">
 		<xs:restriction base="xs:positiveInteger">
 			<xs:enumeration value="1"/>
@@ -37,7 +26,7 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="ErsteKlasse" type="Auslastung"/>
-				<xs:element name="ZweiteKlasse" type="xs:positiveInteger"/>
+				<xs:element name="ZweiteKlasse" type="Auslastung"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -60,8 +49,8 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="Datum" type="xs:date"/>
-				<xs:element ref="Von"/>
-				<xs:element ref="Nach"/>
+				<xs:element name="Von" type="VonNach"/>
+				<xs:element name="Nach" type="VonNach"/>
 				<xs:element ref="ReiseMit"/>
 				<xs:element ref="Belegung"/>
 				<xs:element ref="Bemerkung" minOccurs="0"/>
