@@ -19,7 +19,7 @@ import org.junit.Test;
  * @author René Anderes
  *
  */
-public class QueryResultCachTest {
+public class QueryResultCacheIT {
 
     private RecipeRepositoryEntityManager repository;
     
@@ -34,7 +34,7 @@ public class QueryResultCachTest {
      * dann wird eine zweite Abfrage keinen Zugriff auf die Datenbank
      * machen müssen, da der Query Result Cache bei dieser Abfrage
      * eingeschaltet ist. (Lässt sich leider mit asserts nicht überprüfen)
-     * Bitte Eclipselink SQL-Log darafhin überprüfen. 
+     * Bitte Eclipselink SQL-Log daraufhin überprüfen. 
      */
     @Test
     public void shouldBeFindRecipesByTitle() {

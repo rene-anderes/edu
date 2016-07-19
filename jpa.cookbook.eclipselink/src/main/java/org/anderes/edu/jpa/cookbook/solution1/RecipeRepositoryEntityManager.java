@@ -159,4 +159,15 @@ public class RecipeRepositoryEntityManager {
 		entityManager.getTransaction().commit();
 		entityManager.close();
 	}
+
+	/**
+	 * Zugriff und Mapping einer View mittels JPA
+	 */
+    public List<TagCounterView> getTags() {
+        final EntityManager entityManager = entityManagerFactory.createEntityManager();
+        final TypedQuery<TagCounterView> query = entityManager.createNamedQuery("TagCounterView.All",TagCounterView.class);
+        final List<TagCounterView> recipes =  query.getResultList();
+        entityManager.close();
+        return recipes;
+    }
 }

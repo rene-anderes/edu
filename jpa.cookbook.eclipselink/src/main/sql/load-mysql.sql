@@ -25,4 +25,4 @@ insert into `INGREDIENT` (`ID`, `ANNOTATION`, `DESCRIPTION`, `QUANTITY`, `RECIPE
 insert into `TAGS` (`RECIPE_ID`, `TAGS`) values(10004, "fleischlos");
 insert into `RECIPE` (`ID`, `LASTUPDATE`, `NOOFPERSON`, `PREAMBLE`, `PREPARATION`, `TITLE`, `IMAGE_DESCRIPTION`, `IMAGE_URL`) values(10005, "2015-01-31 12:00:00", 4, "Ein schönes Rezept welches sich vorbereiten lässt.", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque convallis lacus at sagittis scelerisque. Donec at mauris ac mi pharetra.", "Fast fertig", null, null);
 insert into `INGREDIENT` (`ID`, `ANNOTATION`, `DESCRIPTION`, `QUANTITY`, `RECIPE_ID`) values(500, null, "Mehl", "300g", 10005);
-insert into `TAGS` (`RECIPE_ID`, `TAGS`) values(10004, "vorspeise");
+insert into `TAGS` (`RECIPE_ID`, `TAGS`) values(10005, "vorspeise");

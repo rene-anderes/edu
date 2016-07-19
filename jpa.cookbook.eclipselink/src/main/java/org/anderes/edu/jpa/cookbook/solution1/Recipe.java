@@ -31,7 +31,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 		@NamedQuery(name = "Recipe.All", query = "Select r from Recipe r"),
 		@NamedQuery(name = "Recipe.ByTitle", query = "Select r from Recipe r where r.title like :title"),
 		@NamedQuery(name = "Recipe.ByIngredient", query = "Select r from Recipe r join r.ingredients i where i.description like :description"),
-		})
+})
 public class Recipe implements Serializable {
 	
 	public final static String RECIPE_QUERY_ALL = "Recipe.All";

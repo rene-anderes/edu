@@ -15,6 +15,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <mysql.version>5.1.36</mysql.version>
         <derby.version>10.11.1.1</derby.version>
     </properties>
@@ -31,13 +32,13 @@
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.jpa</artifactId>
-            <version>2.6.2</version>
+            <version>2.6.3</version>
         </dependency>
         <!-- Diese Abhängigkeit sorgt dafür, dass der Kompiler auch die JPA Metadaten generiert -->
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
-            <version>2.6.2</version>
+            <version>2.6.3</version>
         </dependency>
 
         <!-- Weitere Dependencies -->
@@ -68,11 +69,28 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
+                <version>3.5.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.19.1</version>
+                <configuration>
+                    <threadCount>1</threadCount>
+                    <reuseForks>true</reuseForks>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <!-- Dadurch wird das generierte Metamodell in den Source-Pfad aufgenommen -->
@@ -127,18 +145,15 @@
     <profiles>
         <profile>
             <id>derby-inmemory</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <properties>
                 <target.database>Derby</target.database>
                 <javax.persistence.jdbc.driver>org.apache.derby.jdbc.EmbeddedDriver</javax.persistence.jdbc.driver>
-                <javax.persistence.jdbc.url>jdbc:derby:memory:cookbook;create=true</javax.persistence.jdbc.url>
+                <javax.persistence.jdbc.url>jdbc:derby:memory:cookbookDatabase;create=true</javax.persistence.jdbc.url>
                 <javax.persistence.jdbc.user></javax.persistence.jdbc.user>
                 <javax.persistence.jdbc.password></javax.persistence.jdbc.password>
                 <javax.persistence.script.drop>src/main/sql/derby-drop-tables.sql</javax.persistence.script.drop>
                 <javax.persistence.script.create>src/main/sql/derby-create-Tables.sql</javax.persistence.script.create>
-                <javax.persistence.sql.load>META-INF/load-derby.sql</javax.persistence.sql.load>
+                <javax.persistence.sql.load>src/main/sql/load-derby.sql</javax.persistence.sql.load>
             </properties>
             <dependencies>
                 <dependency>
@@ -150,15 +165,18 @@
         </profile>
         <profile>
             <id>derby-embedded</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
                 <target.database>Derby</target.database>
                 <javax.persistence.jdbc.driver>org.apache.derby.jdbc.EmbeddedDriver</javax.persistence.jdbc.driver>
-                <javax.persistence.jdbc.url>jdbc:derby:cookbook;create=true</javax.persistence.jdbc.url>
+                <javax.persistence.jdbc.url>jdbc:derby:cookbookDatabase;create=true</javax.persistence.jdbc.url>
                 <javax.persistence.jdbc.user>APP</javax.persistence.jdbc.user>
                 <javax.persistence.jdbc.password>APP</javax.persistence.jdbc.password>
                 <javax.persistence.script.drop>src/main/sql/derby-drop-tables.sql</javax.persistence.script.drop>
                 <javax.persistence.script.create>src/main/sql/derby-create-Tables.sql</javax.persistence.script.create>
-                <javax.persistence.sql.load>META-INF/load-derby.sql</javax.persistence.sql.load>
+                <javax.persistence.sql.load>src/main/sql/load-derby.sql</javax.persistence.sql.load>
             </properties>
             <dependencies>
                 <dependency>
@@ -179,7 +197,7 @@
                 <javax.persistence.jdbc.password>cookbook</javax.persistence.jdbc.password>
                 <javax.persistence.script.drop>src/main/sql/mysql-drop-Tables.sql</javax.persistence.script.drop>
                 <javax.persistence.script.create>src/main/sql/mysql-create-tables.sql</javax.persistence.script.create>
-                <javax.persistence.sql.load>META-INF/load-mysql.sql</javax.persistence.sql.load>
+                <javax.persistence.sql.load>src/main/sql/load-mysql.sql</javax.persistence.sql.load>
                 <database.create>src/main/sql/mysql-createUserAndSchema.sql</database.create>
             </properties>
             <dependencies>
@@ -226,6 +244,9 @@
 
         <profile>
             <id>create-tables</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <build>
                 <plugins>
                     <plugin>
@@ -257,6 +278,30 @@
                                     <srcFiles>
                                         <srcFile>${javax.persistence.script.create}</srcFile>
                                     </srcFiles>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>load-testdata</id>
+                                <phase>process-test-resources</phase>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <configuration>
+                                    <autocommit>true</autocommit>
+                                    <srcFiles>
+                                        <srcFile>${javax.persistence.sql.load}</srcFile>
+                                    </srcFiles>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>shutdown-database-so-that-test-can-run</id>
+                                <phase>process-test-resources</phase>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <configuration>
+                                    <url>jdbc:derby:;shutdown=true</url>
+                                    <skipOnConnectionError>true</skipOnConnectionError>
                                 </configuration>
                             </execution>
                         </executions>
