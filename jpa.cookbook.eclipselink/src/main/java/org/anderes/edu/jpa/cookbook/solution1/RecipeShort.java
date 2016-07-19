@@ -8,7 +8,7 @@ import javax.persistence.NamedQuery;
 /**
  * Immutable Objekt für die Liste aller Rezepte.
  * <p>
- * Diese Entität wird nicht in der Datenban gespeichert.
+ * Diese Entität wird nicht in der Datenbank gespeichert.
  * Sie dient dazu, ein Rezept mit "abgespeckten" Informationen
  * verarbeiten zu können. Dazu wird der 'JPQL Constructor Expressions' NEW
  * verwendet.
