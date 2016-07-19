@@ -188,11 +188,14 @@
         </profile>
         <profile>
             <id>mysql-local</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
             <properties>
                 <target.database>MySQL</target.database>
                 <jdbc.connect.url>jdbc:mysql://localhost</jdbc.connect.url>
                 <javax.persistence.jdbc.driver>com.mysql.jdbc.Driver</javax.persistence.jdbc.driver>
-                <javax.persistence.jdbc.url>j${jdbc.connect.url}/recipes</javax.persistence.jdbc.url>
+                <javax.persistence.jdbc.url>${jdbc.connect.url}/recipes</javax.persistence.jdbc.url>
                 <javax.persistence.jdbc.user>cookbook</javax.persistence.jdbc.user>
                 <javax.persistence.jdbc.password>cookbook</javax.persistence.jdbc.password>
                 <javax.persistence.script.drop>src/main/sql/mysql-drop-Tables.sql</javax.persistence.script.drop>
@@ -294,6 +297,7 @@
                                 </configuration>
                             </execution>
                             <execution>
+                                <!-- Wird für Derby-Embedded Driver benötigt, da sonst die DB-Instanz offen bleibt -->
                                 <id>shutdown-database-so-that-test-can-run</id>
                                 <phase>process-test-resources</phase>
                                 <goals>
