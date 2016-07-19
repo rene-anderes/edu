@@ -133,7 +133,7 @@
             <properties>
                 <target.database>Derby</target.database>
                 <javax.persistence.jdbc.driver>org.apache.derby.jdbc.EmbeddedDriver</javax.persistence.jdbc.driver>
-                <javax.persistence.jdbc.url>jdbc:derby:memory:testDB;create=true</javax.persistence.jdbc.url>
+                <javax.persistence.jdbc.url>jdbc:derby:memory:cookbook;create=true</javax.persistence.jdbc.url>
                 <javax.persistence.jdbc.user></javax.persistence.jdbc.user>
                 <javax.persistence.jdbc.password></javax.persistence.jdbc.password>
                 <javax.persistence.script.drop>src/main/sql/derby-drop-tables.sql</javax.persistence.script.drop>
@@ -153,7 +153,7 @@
             <properties>
                 <target.database>Derby</target.database>
                 <javax.persistence.jdbc.driver>org.apache.derby.jdbc.EmbeddedDriver</javax.persistence.jdbc.driver>
-                <javax.persistence.jdbc.url>jdbc:derby:testDB;create=true</javax.persistence.jdbc.url>
+                <javax.persistence.jdbc.url>jdbc:derby:cookbook;create=true</javax.persistence.jdbc.url>
                 <javax.persistence.jdbc.user>APP</javax.persistence.jdbc.user>
                 <javax.persistence.jdbc.password>APP</javax.persistence.jdbc.password>
                 <javax.persistence.script.drop>src/main/sql/derby-drop-tables.sql</javax.persistence.script.drop>

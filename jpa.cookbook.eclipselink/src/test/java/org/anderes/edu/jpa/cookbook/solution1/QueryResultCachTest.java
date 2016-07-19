@@ -11,9 +11,9 @@ import org.junit.Test;
 
 /**
  * Dieser Test zeigt, wie mit aktiviertem Query Results Cache von EclipseLink
- * Daten einer Query in den Cache abgelegt werden und beim zweiten Zugriff
- * mittels der gleichen Query keine Daten mehr von der Datenbank gelesen
- * werden. Siehe dazu die Eclipselink Doc:
+ * Daten einer Query in den Shared Cache abgelegt werden und beim zweiten
+ * Zugriff mittels der gleichen Query keine Daten mehr von der Datenbank 
+ * gelesen werden. Siehe dazu die Eclipselink Doc:<br>
  * https://wiki.eclipse.org/EclipseLink/UserGuide/JPA/Basic_JPA_Development/Caching/Query_Cache
  * 
  * @author René Anderes

@@ -8,6 +8,7 @@
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
         <class>org.anderes.edu.jpa.cookbook.solution1.Recipe</class>
+        <class>org.anderes.edu.jpa.cookbook.solution1.RecipeShort</class>
         <class>org.anderes.edu.jpa.cookbook.solution1.Image</class>
         <class>org.anderes.edu.jpa.cookbook.solution1.Ingredient</class>
 

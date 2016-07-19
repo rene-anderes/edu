@@ -64,8 +64,10 @@ public class RecipeRepositoryEntityManager {
 		
 	/**
 	 * Gibt alle Rezepte zurück die im Titel den übergeben Wert enthalten.
+	 * <p>
+	 * Bei eingeschaltetem Shared Cache wird die Query gespeichert.
 	 * 
-	 * @param title
+	 * @param title Titel oder Teil eines Titels
 	 * @return Rezept
 	 */
 	public Collection<Recipe> getRecipesByTitle(final String title) {
@@ -103,7 +105,23 @@ public class RecipeRepositoryEntityManager {
         entityManager.close();
         return recipes;
     }
-	
+
+    /**
+     * Beispiel für 'JPQL Constructor Expressions' : NEW
+     * <br>
+     * Siehe Named-Query 'Recipe.Short.ByIngredient'
+     * 
+     */
+    public Collection<RecipeShort> getRecipesShortByIngredient(String ingredientDescription) {
+        final EntityManager entityManager = entityManagerFactory.createEntityManager();
+        final TypedQuery<RecipeShort> query = entityManager.createNamedQuery("RecipeShort.ByIngredient", RecipeShort.class);
+        query.setParameter("description", "%" + ingredientDescription + "%");
+        
+        final List<RecipeShort> recipes =  query.getResultList();
+        entityManager.close();
+        return recipes;
+    }
+    
 	/**
 	 * Nur für Testzwecke
 	 * @return Persistence-Util

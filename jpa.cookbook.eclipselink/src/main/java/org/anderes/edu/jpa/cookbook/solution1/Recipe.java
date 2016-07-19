@@ -30,7 +30,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 @NamedQueries({
 		@NamedQuery(name = "Recipe.All", query = "Select r from Recipe r"),
 		@NamedQuery(name = "Recipe.ByTitle", query = "Select r from Recipe r where r.title like :title"),
-		@NamedQuery(name = "Recipe.ByIngredient", query = "Select r from Recipe r join r.ingredients i where i.description like :description")
+		@NamedQuery(name = "Recipe.ByIngredient", query = "Select r from Recipe r join r.ingredients i where i.description like :description"),
 		})
 public class Recipe implements Serializable {
 	
@@ -71,6 +71,18 @@ public class Recipe implements Serializable {
 	@CollectionTable(name="TAGS", joinColumns=@JoinColumn(name="RECIPE_ID"))
 	private Set<String> tags = new HashSet<String>();
 
+	public Recipe() {
+	    super();
+	}
+	
+	/**
+	 * Konstruktor für die JPQL 'Recipe.Short.ByIngredient' 
+	 */
+	public Recipe(String title, String preamble) {
+	    this.title = title;
+	    this.preamble = preamble;
+	}
+	
 	public Image getImage() {
 		return image;
 	}

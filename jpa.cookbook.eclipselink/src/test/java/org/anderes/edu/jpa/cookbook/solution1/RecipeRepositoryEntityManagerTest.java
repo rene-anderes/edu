@@ -2,6 +2,7 @@ package org.anderes.edu.jpa.cookbook.solution1;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
@@ -49,6 +50,19 @@ public class RecipeRepositoryEntityManagerTest {
 	    assertNotNull(recipes);
         assertThat(recipes.size(), is(2));
 	}
+	
+	@Test
+    public void shouldBeFindRecipesShortByIngredient() {
+        final Collection<RecipeShort> recipes = repository.getRecipesShortByIngredient("Mehl");
+        
+        assertNotNull(recipes);
+        assertThat(recipes.size(), is(2));
+        recipes.stream().forEach(r -> {
+            assertThat(r.getTitle(), is(notNullValue()));
+            assertThat(r.getPreamble(), is(notNullValue()));
+            assertThat(r.getId(), is(not(nullValue())));
+        });
+    }
 	
 	@Test
 	public void shouldBeSaveNewRecipe() {
