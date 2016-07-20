@@ -8,6 +8,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnitUtil;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang3.Validate;
 import org.eclipse.persistence.config.CacheUsage;
@@ -71,7 +74,7 @@ public class RecipeRepositoryEntityManager {
 	 * @return Rezept
 	 */
 	public Collection<Recipe> getRecipesByTitle(final String title) {
-		
+		Validate.notBlank(Validate.notNull(title));
 	    final EntityManager entityManager = entityManagerFactory.createEntityManager();
 		final TypedQuery<Recipe> query = entityManager.createNamedQuery(Recipe.RECIPE_QUERY_BYTITLE, Recipe.class);
 		query.setParameter("title", "%" + title + "%");
@@ -108,13 +111,13 @@ public class RecipeRepositoryEntityManager {
 
     /**
      * Beispiel für 'JPQL Constructor Expressions' : NEW
-     * <br>
-     * Siehe Named-Query 'Recipe.Short.ByIngredient'
      * 
      */
     public Collection<RecipeShort> getRecipesShortByIngredient(String ingredientDescription) {
+        final String queryStr = "Select NEW org.anderes.edu.jpa.cookbook.solution1.RecipeShort(r.id, r.title, r.preamble) "
+                        + "from Recipe r join r.ingredients i where i.description like :description";
         final EntityManager entityManager = entityManagerFactory.createEntityManager();
-        final TypedQuery<RecipeShort> query = entityManager.createNamedQuery("RecipeShort.ByIngredient", RecipeShort.class);
+        final TypedQuery<RecipeShort> query = entityManager.createQuery(queryStr, RecipeShort.class);
         query.setParameter("description", "%" + ingredientDescription + "%");
         
         final List<RecipeShort> recipes =  query.getResultList();
@@ -162,11 +165,18 @@ public class RecipeRepositoryEntityManager {
 
 	/**
 	 * Zugriff und Mapping einer View mittels JPA
+	 * <p>
+	 * Anstelle einer JPQl Abfrage "SELECT t FROM TagCounterView t" wird hier
+	 * eine Criteria Query eingesetzt. Dies hat jedoch nichts mit dem Mapping
+	 * einer View zu tun, sondern soll als Abwechslung da sein.
 	 */
     public List<TagCounterView> getTags() {
         final EntityManager entityManager = entityManagerFactory.createEntityManager();
-        final TypedQuery<TagCounterView> query = entityManager.createNamedQuery("TagCounterView.All",TagCounterView.class);
-        final List<TagCounterView> recipes =  query.getResultList();
+        final CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        final CriteriaQuery<TagCounterView> criteria = cb.createQuery(TagCounterView.class);
+        final Root<TagCounterView> entity = criteria.from(TagCounterView.class);
+        criteria.select(entity);
+        final List<TagCounterView> recipes =  entityManager.createQuery(criteria).getResultList();
         entityManager.close();
         return recipes;
     }

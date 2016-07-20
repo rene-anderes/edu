@@ -3,8 +3,6 @@ package org.anderes.edu.jpa.cookbook.solution1;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -13,9 +11,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "TAG_COUNT")
-@NamedQueries({
-    @NamedQuery(name = "TagCounterView.All", query = "Select t from TagCounterView t"),
-})
 public class TagCounterView {
 
     @Column(name = "NUMBER_OF_APPEARANCE")

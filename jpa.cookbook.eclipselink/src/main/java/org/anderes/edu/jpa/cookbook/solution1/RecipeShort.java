@@ -1,31 +1,13 @@
 package org.anderes.edu.jpa.cookbook.solution1;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-
 /**
  * Immutable Objekt für die Liste aller Rezepte.
- * <p>
- * Diese Entität wird nicht in der Datenbank gespeichert.
- * Sie dient dazu, ein Rezept mit "abgespeckten" Informationen
- * verarbeiten zu können. Dazu wird der 'JPQL Constructor Expressions' NEW
- * verwendet.
  * 
  * @author René Anderes
  *
  */
-@Entity
-@NamedQueries({
-    @NamedQuery(
-        name = "RecipeShort.ByIngredient", 
-        query = "Select NEW org.anderes.edu.jpa.cookbook.solution1.RecipeShort(r.id, r.title, r.preamble) "
-                        + "from Recipe r join r.ingredients i where i.description like :description")
-})
 public class RecipeShort {
 
-    @Id
     private long id;
     private String title;
     private String preamble;
