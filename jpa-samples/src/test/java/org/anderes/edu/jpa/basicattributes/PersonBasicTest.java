@@ -18,7 +18,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PersonTest {
+public class PersonBasicTest {
 
     private EntityManager entityManager;
     
@@ -118,7 +118,7 @@ public class PersonTest {
         assertThat(storedPerson.getState(), is("OK"));
         
         
-        final TypedQuery<PersonBasic> query = entityManager.createQuery("select p from Person p where p.id = :id", PersonBasic.class);
+        final TypedQuery<PersonBasic> query = entityManager.createQuery("select p from PersonBasic p where p.id = :id", PersonBasic.class);
         query.setParameter("id", person.getId());
         final PersonBasic findPerson = query.getSingleResult();
         assertThat(findPerson.getFirstname(), is("Mona-Lisa"));
