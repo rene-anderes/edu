@@ -15,7 +15,6 @@ import org.anderes.edu.appengine.cookbook.ObjectifyTestRule.CleanupStrategy;
 import org.anderes.edu.appengine.cookbook.ObjectifyTestRule.Strategy;
 import org.anderes.edu.appengine.cookbook.ObjectifyTestRule.UsingDataSet;
 import org.anderes.edu.appengine.cookbook.dto.Recipe;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 
