@@ -37,8 +37,8 @@ public class ImmutableEmployee implements EmployeeBase<ImmutableProject, Immutab
     }
 
     @Override
-    public String[] getResponibilities() {
-        return employee.getResponibilities();
+    public String[] getResponsibilities() {
+        return employee.getResponsibilities();
     }
 
     @Override
@@ -54,7 +54,7 @@ public class ImmutableEmployee implements EmployeeBase<ImmutableProject, Immutab
         }
         ImmutableEmployee other = (ImmutableEmployee) obj;
         return new EqualsBuilder()
-                        .append(employee.getResponibilities(), other.getResponibilities())
+                        .append(employee.getResponsibilities(), other.getResponsibilities())
                         .append(employee.getAddress(), other.getAddress())
                         .append(employee.getProjects().toArray(), other.getProjects().toArray())
                         .append(employee.getAge(), other.getAge())
@@ -67,7 +67,7 @@ public class ImmutableEmployee implements EmployeeBase<ImmutableProject, Immutab
         return new HashCodeBuilder(17, 37)
                         .append(employee.getName())
                         .append(employee.getAge())
-                        .append(employee.getResponibilities())
+                        .append(employee.getResponsibilities())
                         .append(employee.getAddress())
                         .append(employee.getProjects().toArray())
                         .toHashCode();

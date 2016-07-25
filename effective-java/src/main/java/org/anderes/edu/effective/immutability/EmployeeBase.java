@@ -9,5 +9,5 @@ public interface EmployeeBase<P extends ProjectBase, A extends AddressBase> {
     int getAge();
     A getAddress();
     Collection<P> getProjects();
-    String[] getResponibilities();
+    String[] getResponsibilities();
 }

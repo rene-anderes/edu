@@ -10,14 +10,14 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class Employee implements Cloneable, EmployeeBase<Project, Address> {
 
-    private String[] respnsibilities;
+    private String[] responsibilities;
     private Address address;
     private TreeSet<Project> projects = new TreeSet<>();
     private int age;
     private String name;
 
     public void setResponsibilities(String[] respnsibilities) {
-        this.respnsibilities = respnsibilities;
+        this.responsibilities = respnsibilities;
         
     }
     
@@ -59,8 +59,8 @@ public class Employee implements Cloneable, EmployeeBase<Project, Address> {
     }
 
     @Override
-    public String[] getResponibilities() {
-        return respnsibilities;
+    public String[] getResponsibilities() {
+        return responsibilities;
     }
     
     @Override
@@ -70,8 +70,8 @@ public class Employee implements Cloneable, EmployeeBase<Project, Address> {
             clone = (Employee) super.clone();
             clone.name = name;
             clone.age = age;
-            if (respnsibilities != null) {
-                clone.respnsibilities = respnsibilities.clone();
+            if (responsibilities != null) {
+                clone.responsibilities = responsibilities.clone();
             }
             if (address != null) {
                 clone.address = address.clone();
@@ -95,7 +95,7 @@ public class Employee implements Cloneable, EmployeeBase<Project, Address> {
         }
         Employee other = (Employee) obj;
         return new EqualsBuilder()
-                        .append(respnsibilities, other.respnsibilities)
+                        .append(responsibilities, other.responsibilities)
                         .append(address, other.address)
                         .append(projects.toArray(), other.projects.toArray())
                         .append(age, other.age)
@@ -108,7 +108,7 @@ public class Employee implements Cloneable, EmployeeBase<Project, Address> {
         return new HashCodeBuilder(17, 37)
                         .append(name)
                         .append(age)
-                        .append(respnsibilities)
+                        .append(responsibilities)
                         .append(address)
                         .append(projects.toArray())
                         .toHashCode();
