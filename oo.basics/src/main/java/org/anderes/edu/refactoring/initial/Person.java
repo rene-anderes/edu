@@ -58,7 +58,7 @@ public class Person {
 	}
 
 	/**
-	 * Erzeugt einen Banner f�r die Ausgabe
+	 * Erzeugt einen Banner für die Ausgabe
 	 */
 	private void printBanner() {
 		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -68,7 +68,7 @@ public class Person {
 	// Refactoring: Collection kapseln
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	/**
-	 * Gibt eine Liste mit allen verf�gbaren Adressen zur�ck.
+	 * Gibt eine Liste mit allen verfügbaren Adressen zurück.
 	 * 
 	 * @return Map mit Adressen
 	 */
@@ -96,7 +96,7 @@ public class Person {
 	}
 	
 	/**
-	 * Gibt das Datum für den Geburtstag zur�ck.
+	 * Gibt das Datum für den Geburtstag zurück.
 	 * 
 	 * @return Datum des Geburtstag
 	 */
@@ -105,7 +105,7 @@ public class Person {
 	}
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	// Refactoring: Erkl�rende Variablen einf�hren
+	// Refactoring: Erklärende Variablen einführen
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	
 	
 	/**

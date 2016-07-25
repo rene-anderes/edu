@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class Person {
 
-	/** M�gliche Adress-Typen */
+	/** Mögliche Adress-Typen */
 	public enum AddressType { PRIVATE, BUSINESS };
 	/** Der Name der Person */
 	private String name = "";
@@ -45,7 +45,7 @@ public class Person {
 	}
 
 	/**
-	 * Druckt alle �bergebenen Details
+	 * Druckt alle übergebenen Details
 	 * 
 	 * @param details Daten der Person
 	 */
@@ -57,7 +57,7 @@ public class Person {
 	}
 	
 	/**
-	 * Erzeugt eine Liste f�r die Ausgabe
+	 * Erzeugt eine Liste für die Ausgabe
 	 * 
 	 * @return Liste mit Daten
 	 */
@@ -87,17 +87,17 @@ public class Person {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	/**
-	 * Gibt die entsprechende Adresse zur�ck.
+	 * Gibt die entsprechende Adresse zurück.
 	 * 
 	 * @param Adress-Typ
-	 * @return Adresse oder {@code null}, wenn keine Adresse f�r den Typ existiert.
+	 * @return Adresse oder {@code null}, wenn keine Adresse für den Typ existiert.
 	 */
 	public String getAddress(AddressType type) {
 		return addresses.get(type);
 	}
 	
 	/**
-	 * Setzt eine Adresse f�r einen bestimmten Typ
+	 * Setzt eine Adresse für einen bestimmten Typ
 	 * 
 	 * @param type Adress-Type
 	 * @param address Adresse
@@ -129,7 +129,7 @@ public class Person {
 	}
 	
 	/**
-	 * Gibt das Datum f�r den Geburtstag zur�ck.
+	 * Gibt das Datum für den Geburtstag zurück.
 	 * 
 	 * @return Datum des Geburtstag
 	 */
@@ -138,7 +138,7 @@ public class Person {
 	}
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	// Refactoring: Erkl�rende Variablen einf�hren
+	// Refactoring: Erklärende Variablen einführen
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	
 	
 	/**
