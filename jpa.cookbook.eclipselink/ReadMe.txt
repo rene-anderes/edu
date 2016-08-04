@@ -16,4 +16,4 @@ Profile:
 
 Testing
 Mittels Maven laufen alle Tests (wie es sein sollte) duch.
-Um Tests mittels Eclipse auszuführen kann mittels mvn clean install -P derby-embedded,create-tables -DskipTests=true die entsprechende Datenbank mit Testdaten gefüllt (nach dem Löschen und der Neuerstellung)
+Um Tests mittels Eclipse auszuführen kann mittels mvn clean install -P derby-embedded,create-tables -DskipTests=false die entsprechende Datenbank mit Testdaten gefüllt (nach dem Löschen und der Neuerstellung)
