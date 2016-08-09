@@ -1,6 +1,5 @@
 package org.anderes.edu.jpa;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
@@ -19,12 +18,10 @@ import javax.persistence.Transient;
  * Beispiel welches die Möglichkeiten der Basic Attributes veranschaulicht.
  */
 @Entity
-public class Person implements Serializable {
+public class Person {
 
 	public enum Gender { MALE, FEMALE };
 	
-	private static final long serialVersionUID = 1L;
-
 	@Id
     @GeneratedValue
     @Column(updatable = false, nullable = false)

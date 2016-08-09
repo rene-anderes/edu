@@ -14,7 +14,6 @@ import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -30,7 +29,7 @@ public class PersonTest {
     @BeforeClass
     public static void setUpOnce() {
         // Der Name der Persistence-Unit entspricht der in der Konfigurationsdatei META-INF/persistence.xml
-        entityManagerFactory = Persistence.createEntityManagerFactory("testPU");
+        entityManagerFactory = Persistence.createEntityManagerFactory("derbyPU");
     }
     
     @Before
@@ -48,39 +47,59 @@ public class PersonTest {
         entityManagerFactory.close();
     }
     
+    /**
+     * Person mittels Datenbankidentität finden.
+     */
     @Test
-    public void simpleTest() {
-        addPersonToDatabase();
-        assertThat(entityManager.contains(person), is(true));
+    public void shouldBeFindOnePerson() {
         
-        final Collection<Person> persons = getAllPersons();
+        // given
+        final Person person = addPersonToDatabase();
+        final Long id = person.getId();
         
-        assertThat(persons, is(not(nullValue())));
-        assertThat(persons.size(), is(1));
+        // when
+        final Person findPerson = entityManager.find(Person.class, id);
+        
+        // then
+        assertThat(findPerson, is(not(nullValue())));
+        assertThat(findPerson.getFirstname(), is("Mona-Lisa"));
     }
+    
+    /**
+     * Besipiel einet JPQL-Query
+     */
+    @Test
+    public void shouldBeFindAllPersons() {
         
-    private Collection<Person> getAllPersons() {
-        // Einfaches Beispiel für eine JPQL
-        final TypedQuery<Person> query = entityManager.createQuery("Select e From Person e", Person.class);
-        return query.getResultList();
+        // given
+        final Person person = addPersonToDatabase();
+        
+        // when
+        final Collection<Person> allPersons = entityManager.createQuery("Select e From Person e", Person.class).getResultList();
+        
+        // then
+        assertThat(entityManager.contains(person), is(true));   // Das Personen-Objekt liegt im Persistence-Context
+        assertThat(allPersons, is(not(nullValue())));
+        assertThat(allPersons.size(), is(not(0)));
     }
-
-    private static Person person; 
-    private void addPersonToDatabase() {
-    	person = new Person("Mona-Lisa", "DaVinci");
-    	person.setBirthday(birthday());
+    
+    private Person addPersonToDatabase() {
+    	final Person person = new Person("Mona-Lisa", "DaVinci");
+    	person.setBirthday(january(1, 1973));
     	person.setSalary(BigDecimal.valueOf(45000D));
     	person.setGender(FEMALE);
 
         entityManager.getTransaction().begin();     // Transaktion gestartet
-        entityManager.persist(person);
+        entityManager.persist(person);              // Status der Entity auf 'managed'
         entityManager.getTransaction().commit();    // Transaktion beendet
+        
+        return person;
     }
 
-    private Calendar birthday() {
+    private Calendar january(int day, int year) {
     	final Calendar birthday = Calendar.getInstance();
     	birthday.clear();
-    	birthday.set(1973, JANUARY, 1);
+    	birthday.set(year, JANUARY, day);
     	return birthday;
     }
 }
