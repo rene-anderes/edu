@@ -71,6 +71,7 @@
 
     <build>
         <finalName>jee7-sample</finalName>
+        <defaultGoal>clean archetype:create-from-project</defaultGoal>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
