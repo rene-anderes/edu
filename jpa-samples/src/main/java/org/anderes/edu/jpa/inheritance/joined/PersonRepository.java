@@ -25,10 +25,10 @@ public class PersonRepository {
     }
     
     /**
-     * Gibt eine einzelne Person mittels ID (Datenbankidentiät) zurück.
+     * Gibt eine einzelne Person mittels ID (Datenbankidentität) zurück.
      * </p>
-     * Technisch: Die Abfrage erfolgr via JSQL
-     * @param id Datenbankidentiät
+     * Technisch: Die Abfrage erfolgt via JPQL
+     * @param id Datenbankidentität
      * @return Person
      */
     public Person getPersonById(final Long id) {
@@ -40,10 +40,10 @@ public class PersonRepository {
     }
     
     /**
-     * Gibt eine einzelne Person mittels ID (Datenbankidentiät) zurück.
+     * Gibt eine einzelne Person mittels ID (Datenbankidentität) zurück.
      * </p>
-     * Technisch: Die Abfrage erfolgr via Citeria Query
-     * @param id Datenbankidentiät
+     * Technisch: Die Abfrage erfolgt via Citeria Query
+     * @param id Datenbankidentität
      * @return Person
      */
     public Person getPersonByIdCriteria(final Long id) {
