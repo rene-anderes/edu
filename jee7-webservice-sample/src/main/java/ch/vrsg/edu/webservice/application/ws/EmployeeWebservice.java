@@ -1,5 +1,7 @@
 package ch.vrsg.edu.webservice.application.ws;
 
+import java.util.Collection;
+
 import javax.inject.Inject;
 import javax.jws.HandlerChain;
 import javax.jws.WebMethod;
@@ -24,5 +26,11 @@ public class EmployeeWebservice {
     public Employee findEmployee(@WebParam(name="firstname") final String firstname, @WebParam(name="lastname") final String lastname) throws EmployeeNotFoundException {
 
         return facade.findEmployee(firstname, lastname);
+    }
+    
+    @WebMethod(operationName = "find-all")
+    @WebResult(name = "employees")
+    public Collection<Employee> findAll() {
+        return facade.findAll();
     }
 }

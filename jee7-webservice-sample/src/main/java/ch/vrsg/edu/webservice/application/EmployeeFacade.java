@@ -20,6 +20,7 @@ public class EmployeeFacade {
         employees.add(Employee.build("Leonardo", "Da Vinci", 1));
         employees.add(Employee.build("Maria", "Magdalena", 2));
         employees.add(Employee.build("Mona Lisa", "Medico", 3));
+        employees.add(Employee.build("Raffael", "Santi", 3)); 
     }
 
     @Inject

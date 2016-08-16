@@ -45,6 +45,6 @@ public class PersonResources {
 	public Response saveNew(Person person) {
 	    final Person personAfterSave = repository.save(person);
 	    final URI location = UriBuilder.fromResource(PersonResources.class).path(Long.toString(personAfterSave.getId())).build();
-	    return Response.ok().location(location).build();
+	    return Response.created(location).build();
 	}
 }
