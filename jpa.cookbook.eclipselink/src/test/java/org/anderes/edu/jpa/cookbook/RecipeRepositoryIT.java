@@ -1,4 +1,4 @@
-package org.anderes.edu.jpa.cookbook.solution1;
+package org.anderes.edu.jpa.cookbook;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;

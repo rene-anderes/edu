@@ -1,4 +1,4 @@
-package org.anderes.edu.jpa.cookbook.solution1;
+package org.anderes.edu.jpa.cookbook;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -13,13 +13,13 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class RecipeRepositoryEntityManagerIT {
+public class RecipeRepositoryAlternativeIT {
 	
-	private RecipeRepositoryEntityManager repository;
+	private RecipeRepositoryAlternative repository;
 	
 	@Before
 	public void setup() {
-		repository = RecipeRepositoryEntityManager.build();
+		repository = RecipeRepositoryAlternative.build();
 	}
 
 	@Test

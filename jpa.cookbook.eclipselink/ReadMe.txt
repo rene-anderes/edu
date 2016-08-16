@@ -15,5 +15,6 @@ Profile:
  	-> mittels mvn clean install -P mysql-local,create-schema-user wird das entsprechende Datenbankschema erstellt und der User für das Schema angelegt
 
 Testing
-Mittels Maven laufen alle Tests (wie es sein sollte) duch.
+Mittels Maven laufen alle Tests (wie es sein sollte) durch: mvn clean install -> BUILD SUCCESS
+
 Um Tests mittels Eclipse auszuführen kann mittels mvn clean install -P derby-embedded,create-tables -DskipTests=false die entsprechende Datenbank mit Testdaten gefüllt (nach dem Löschen und der Neuerstellung)

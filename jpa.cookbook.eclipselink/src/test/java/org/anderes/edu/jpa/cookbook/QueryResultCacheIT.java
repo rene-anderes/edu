@@ -1,4 +1,4 @@
-package org.anderes.edu.jpa.cookbook.solution1;
+package org.anderes.edu.jpa.cookbook;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
@@ -6,6 +6,8 @@ import static org.junit.Assert.assertThat;
 
 import java.util.Collection;
 
+import org.anderes.edu.jpa.cookbook.Recipe;
+import org.anderes.edu.jpa.cookbook.RecipeRepositoryAlternative;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,11 +23,11 @@ import org.junit.Test;
  */
 public class QueryResultCacheIT {
 
-    private RecipeRepositoryEntityManager repository;
+    private RecipeRepositoryAlternative repository;
     
     @Before
     public void setup() {
-        repository = RecipeRepositoryEntityManager.build();
+        repository = RecipeRepositoryAlternative.build();
     }
     
     /**

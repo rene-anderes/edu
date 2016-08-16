@@ -7,10 +7,10 @@
 
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
-        <class>org.anderes.edu.jpa.cookbook.solution1.Recipe</class>
-        <class>org.anderes.edu.jpa.cookbook.solution1.Image</class>
-        <class>org.anderes.edu.jpa.cookbook.solution1.Ingredient</class>
-        <class>org.anderes.edu.jpa.cookbook.solution1.TagCounterView</class>
+        <class>org.anderes.edu.jpa.cookbook.Recipe</class>
+        <class>org.anderes.edu.jpa.cookbook.Image</class>
+        <class>org.anderes.edu.jpa.cookbook.Ingredient</class>
+        <class>org.anderes.edu.jpa.cookbook.TagCounterView</class>
 
         <shared-cache-mode>ALL</shared-cache-mode>
 

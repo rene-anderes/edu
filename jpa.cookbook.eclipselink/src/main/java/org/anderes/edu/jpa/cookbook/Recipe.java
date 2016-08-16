@@ -1,4 +1,4 @@
-package org.anderes.edu.jpa.cookbook.solution1;
+package org.anderes.edu.jpa.cookbook;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -73,14 +73,6 @@ public class Recipe implements Serializable {
 
 	public Recipe() {
 	    super();
-	}
-	
-	/**
-	 * Konstruktor für die JPQL 'Recipe.Short.ByIngredient' 
-	 */
-	public Recipe(String title, String preamble) {
-	    this.title = title;
-	    this.preamble = preamble;
 	}
 	
 	public Image getImage() {

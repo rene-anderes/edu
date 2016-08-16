@@ -1,4 +1,4 @@
-package org.anderes.edu.jpa.cookbook.solution1;
+package org.anderes.edu.jpa.cookbook;
 
 import java.util.Collection;
 
@@ -76,6 +76,7 @@ public class RecipeRepository {
 
 	public Recipe save(final Recipe entity) {
 		Validate.notNull(entity, "Der Parameter 'entity' darf nicht null sein.");
+		
 		Recipe savedRecipe = null;
 		entityManager.getTransaction().begin();
 		if (entity.getId() == null || entity.getId() == 0) {
@@ -88,8 +89,13 @@ public class RecipeRepository {
 		return savedRecipe;
 	}
 		
+	/**
+	 * Bei dieser Methode wird erwartet, dass die Entity bereits den Status 'managed'
+	 * hat. Dies kann natürlich auch anderes gelöst werden. Siehe alternatives Repository
+	 */
 	public void remove(final Recipe entity) {
 		Validate.notNull(entity, "Der Parameter 'entity' darf nicht null sein.");
+		
 		if (!entityManager.contains(entity)) {
 			throw new IllegalArgumentException("Die Entität besitzt nicht den Status managed");
 		}

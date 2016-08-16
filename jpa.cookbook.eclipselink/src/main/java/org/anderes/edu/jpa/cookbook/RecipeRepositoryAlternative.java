@@ -1,4 +1,4 @@
-package org.anderes.edu.jpa.cookbook.solution1;
+package org.anderes.edu.jpa.cookbook;
 
 import java.util.Collection;
 import java.util.List;
@@ -45,20 +45,21 @@ import org.eclipse.persistence.config.QueryHints;
  * @author René Anderes
  *
  */
-public class RecipeRepositoryEntityManager {
+public class RecipeRepositoryAlternative {
 
 	private final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("eclipseLinkPU");
 	
-	private RecipeRepositoryEntityManager() {
+	private RecipeRepositoryAlternative() {
         super();
 	}
 	
-	public static RecipeRepositoryEntityManager build() {
-		return new RecipeRepositoryEntityManager();
+	public static RecipeRepositoryAlternative build() {
+		return new RecipeRepositoryAlternative();
 	}
 
 	public Recipe findOne(final Long databaseidentity) {
 		Validate.notNull(databaseidentity, "Der Parameter darf nicht null sein.");
+		
 		final EntityManager entityManager = entityManagerFactory.createEntityManager();
 		final Recipe recipe =  entityManager.find(Recipe.class, databaseidentity);
 		entityManager.close();
@@ -75,6 +76,7 @@ public class RecipeRepositoryEntityManager {
 	 */
 	public Collection<Recipe> getRecipesByTitle(final String title) {
 		Validate.notBlank(Validate.notNull(title));
+		
 	    final EntityManager entityManager = entityManagerFactory.createEntityManager();
 		final TypedQuery<Recipe> query = entityManager.createNamedQuery(Recipe.RECIPE_QUERY_BYTITLE, Recipe.class);
 		query.setParameter("title", "%" + title + "%");
@@ -99,6 +101,7 @@ public class RecipeRepositoryEntityManager {
 	 * @return Liste von rezepten
 	 */
     public Collection<Recipe> getRecipesByIngredient(String ingredientDescription) {
+        Validate.notBlank(Validate.notNull(ingredientDescription));
         
         final EntityManager entityManager = entityManagerFactory.createEntityManager();
         final TypedQuery<Recipe> query = entityManager.createNamedQuery(Recipe.RECIPE_QUERY_BYINGREDIENT, Recipe.class);
@@ -114,7 +117,9 @@ public class RecipeRepositoryEntityManager {
      * 
      */
     public Collection<RecipeShort> getRecipesShortByIngredient(String ingredientDescription) {
-        final String queryStr = "Select NEW org.anderes.edu.jpa.cookbook.solution1.RecipeShort(r.id, r.title, r.preamble) "
+        Validate.notBlank(Validate.notNull(ingredientDescription));
+        
+        final String queryStr = "Select NEW org.anderes.edu.jpa.cookbook.RecipeShort(r.id, r.title, r.preamble) "
                         + "from Recipe r join r.ingredients i where i.description like :description";
         final EntityManager entityManager = entityManagerFactory.createEntityManager();
         final TypedQuery<RecipeShort> query = entityManager.createQuery(queryStr, RecipeShort.class);
@@ -166,7 +171,7 @@ public class RecipeRepositoryEntityManager {
 	/**
 	 * Zugriff und Mapping einer View mittels JPA
 	 * <p>
-	 * Anstelle einer JPQl Abfrage "SELECT t FROM TagCounterView t" wird hier
+	 * Anstelle einer JPQL Abfrage "SELECT t FROM TagCounterView t" wird hier
 	 * eine Criteria Query eingesetzt. Dies hat jedoch nichts mit dem Mapping
 	 * einer View zu tun, sondern soll als Abwechslung da sein.
 	 */

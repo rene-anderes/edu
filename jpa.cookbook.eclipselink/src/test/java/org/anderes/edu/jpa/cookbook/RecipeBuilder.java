@@ -1,5 +1,7 @@
-package org.anderes.edu.jpa.cookbook.solution1;
+package org.anderes.edu.jpa.cookbook;
 
+import org.anderes.edu.jpa.cookbook.Ingredient;
+import org.anderes.edu.jpa.cookbook.Recipe;
 
 public class RecipeBuilder {
 

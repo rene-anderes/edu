@@ -1,4 +1,4 @@
-package org.anderes.edu.jpa.cookbook.solution1;
+package org.anderes.edu.jpa.cookbook;
 
 /**
  * Immutable Objekt für die Liste aller Rezepte.
@@ -15,9 +15,11 @@ public class RecipeShort {
     RecipeShort() {
         super();
     }
-    
+
     /**
-     * Konstruktor für die JPQL 'RecipeShort.ByIngredient' 
+     * Konstruktor für die JPQL
+     * 
+     * @see RecipeRepositoryAlternative#getRecipesShortByIngredient(String)
      */
     public RecipeShort(long id, String title, String preamble) {
         this.id = id;
