@@ -8,7 +8,6 @@ import java.net.URI;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
@@ -17,7 +16,7 @@ import javax.ws.rs.core.UriBuilder;
 @Path("helloworld")
 public class HelloWorldResource {
 
-	@PUT
+	@POST
 	@Consumes(TEXT_PLAIN)
 	public Response putMessage(String message) {
 		// Store the message
@@ -32,9 +31,4 @@ public class HelloWorldResource {
 		return "Hello World";
 	}
 	
-	@POST
-	@Consumes(TEXT_PLAIN)
-	public Response postMessage(final String message) {
-	    return Response.ok(message).encoding("UTF-8").build();
-	}
 }
