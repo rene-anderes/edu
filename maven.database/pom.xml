@@ -7,8 +7,18 @@
     <packaging>jar</packaging>
 
     <name>maven.database</name>
-    <url>http://maven.apache.org</url>
-
+    <description>
+        mvn clean install -P drop-tables  -> alle Tabellen des Schemas APP werden gelöscht
+        mvn clean install -P create-tables  -> alle Tabellen des Schemas APP werden erstellt
+        Vorausetzung: Derby-Database-Instanz läuft, kann mittels %JAVA_HOME%/db/bin/startNetworkServer.bat gestartet werden
+    </description>
+    
+    <developers>
+        <developer>
+            <name>René Anderes</name>
+        </developer>
+    </developers>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -37,7 +47,7 @@
                         <dependency>
                             <groupId>org.apache.derby</groupId>
                             <artifactId>derbyclient</artifactId>
-                            <version>10.10.1.1</version>
+                            <version>10.11.1.1</version>
                             <scope>compile</scope>
                         </dependency>
                     </dependencies>
@@ -45,8 +55,8 @@
                     <configuration>
                         <driver>org.apache.derby.jdbc.ClientDriver</driver>
                         <url>jdbc:derby://localhost:1527/sun-appserv-samples;create=true</url>
-                        <username>DEVELOPER</username>
-                        <password>DEVELOPER</password>
+                        <username>APP</username>
+                        <password>APP</password>
                     </configuration>
                 </plugin>
             </plugins>
@@ -55,7 +65,7 @@
 
     <profiles>
         <profile>
-            <id>drop-schema</id>
+            <id>drop-tables</id>
             <build>
                 <plugins>
                     <plugin>
@@ -72,7 +82,6 @@
                                     <autocommit>true</autocommit>
                                     <orderFile>descending</orderFile>
                                     <srcFiles>
-                                        <srcFile>src/main/scripts/drop_tables.sql</srcFile>
                                         <srcFile>src/main/scripts/drop_schema.sql</srcFile>
                                     </srcFiles>
                                 </configuration>
@@ -83,7 +92,7 @@
             </build>
         </profile>
         <profile>
-            <id>create-database</id>
+            <id>create-tables</id>
             <build>
                 <plugins>
                     <plugin>
@@ -91,20 +100,6 @@
                         <artifactId>sql-maven-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>create-schema</id>
-                                <phase>process-test-resources</phase>
-                                <goals>
-                                    <goal>execute</goal>
-                                </goals>
-                                <configuration>
-                                    <autocommit>true</autocommit>
-                                    <srcFiles>
-                                        <srcFile>src/main/scripts/create_schema.sql</srcFile>
-                                    </srcFiles>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>create-tables</id>
                                 <phase>process-test-resources</phase>
                                 <goals>
                                     <goal>execute</goal>
