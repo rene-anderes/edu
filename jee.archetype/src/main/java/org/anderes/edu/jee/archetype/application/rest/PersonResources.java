@@ -1,7 +1,7 @@
 package org.anderes.edu.jee.archetype.application.rest;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static javax.ws.rs.core.MediaType.*;
 
 import java.net.URI;
 import java.util.Collection;
@@ -28,8 +28,9 @@ public class PersonResources {
     
 	@GET
 	@Path("{id}")
-	public String getPerson(@PathParam("id") Long id) {
-		return repository.findOne(id).toString();
+	@Produces(APPLICATION_JSON)
+	public Person getPerson(@PathParam("id") Long id) {
+		return repository.findOne(id);
 	}
 
 	@GET

@@ -12,4 +12,7 @@ Glassfish Administration-Guide: https://glassfish.java.net/docs/4.0/administrati
 
 Beschreibung
 Als Datenbank wird die mit JEE7 vorgegebene Default-Datasource verwendet (siehe persistence.xml --> java:comp/DefaultDataSource).
-Bei Glassfish 4 wird dazu eine JDBC-Connection zu der Derby Datanbank "sun-appserv-samples" aufgebaut (allenfalls zuerst erzeugt).
+Bei Glassfish 4 wird dazu eine JDBC-Connection zu der Derby Datanbank "sun-appserv-samples" aufgebaut (wenn diese nicht existiert, wird sie durch Glassfish zuerst erzeugt).
+
+[glassfish_installation]\glassfish\modules\org.eclipse.persistence.moxy.jar ersetzen
+(sonst Fehlermeldung "BeanValidationHelper not found)
