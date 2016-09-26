@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 public class MeasuredValuesImport {
     
-    private final static Pattern pattern = Pattern.compile("(\\w+?)\\s+([-]?\\d+[.]?\\d*)\\s+(\\w+?)");
+    private final static Pattern pattern = Pattern.compile("(\\w+)\\s+([-]?\\d+[.]?\\d*)\\s+(\\w+)");
 
     public static MeasuredValuesImport build() {
         return new MeasuredValuesImport();
