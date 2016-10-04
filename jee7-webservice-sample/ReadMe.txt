@@ -5,7 +5,7 @@ Technologien:
 - JEE 7
 - Application Server WebLogic 12.2.1
 
-Mittels dem Befehl 'mvn' wird die Applikation gebilder (clean install ist default).
+Mittels dem Befehl 'mvn' wird die Applikation gebildet (clean install ist default).
 
 Der Deploy mittels 'mvn -Pdeploy-weblogic' deployed das war auf einen WebLogic-Server
 
@@ -20,3 +20,6 @@ URL ?WSDL:
 
 REST-Service (das Verzeichnis /resources/* ist mit Basic Autorization geschützt)
 	URL /application.wadl: http://localhost:7001/ws-sample/resources/application.wadl
+
+HTML
+	http://localhost:7001/ws-sample zeigt eine Liste aller registrierten Servlets / Services
