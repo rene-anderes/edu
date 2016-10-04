@@ -11,10 +11,11 @@
 <body>
 	<section class="w3-container w3-content" style="max-with:600px">
 		<form action="FileUploadServlet" method="post" enctype="multipart/form-data">
-			<p><label>Select File to Upload:</label>
-			<input class="w3-input" type="file" name="fileName" multiple="multiple"><br>
-			<button class="w3-btn w3-red" type="submit" value="Upload">upload</button>
+			<p>
+				<label>Select File to Upload:</label>
+				<input class="w3-input" type="file" name="fileName" multiple="multiple" required autofocus value=""><br>
 			</p>
+			<button class="w3-btn w3-red" type="submit" value="Upload">upload</button>
 		</form>
 	</section>
 </body>
