@@ -1,7 +1,9 @@
 package org.anderes.logging;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import java.util.Collection;
@@ -9,7 +11,6 @@ import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -51,15 +52,27 @@ public class Log4j2ToDatabaseTest {
     }
     
     @Test
-    public void shouldBeSimpleLog() {
+    public void shouldBeSimpleLogAndReadTheLog() {
        
         logger.info("Dies ist eine einfache Log-Meldung");
         
-        final TypedQuery<JpaLogEntity> query = entityManager.createNamedQuery("LogEntity.All", JpaLogEntity.class);
-        final Collection<JpaLogEntity> logs = query.getResultList();
+        final Collection<LogInformation> logs = entityManager.createNamedQuery("LogInformation.All", LogInformation.class).getResultList();
         
         assertThat(logs, is(notNullValue()));
         assertThat(logs.size() > 0, is(true));
+        final LogInformation log = logs.iterator().next();
+        assertThat(log.getLogDate(), is(not(nullValue())));
+        assertThat(log.getLevel(), is(not(nullValue())));
+        assertThat(log.getLevel().isPresent(), is(true));
+        assertThat(log.getMessage(), is(not(nullValue())));
+        assertThat(log.getMessage().isPresent(), is(true));
+        assertThat(log.getSource(), is(not(nullValue())));
+        assertThat(log.getSource().isPresent(), is(true));
+        assertThat(log.getThreadname(), is(not(nullValue())));
+        assertThat(log.getThreadname().isPresent(), is(true));
+        assertThat(log.getContextMap(), is(not(nullValue())));
+        assertThat(log.getLogDate(), is(not(nullValue())));
+        assertThat(log.getLogDate().isPresent(), is(true));
     }
     
     @Test

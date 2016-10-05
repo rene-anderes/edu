@@ -16,6 +16,7 @@
         <class>org.apache.logging.log4j.core.appender.db.jpa.converter.ThrowableAttributeConverter</class>
         <class>org.apache.logging.log4j.core.appender.db.jpa.converter.LevelAttributeConverter</class>
         <class>org.anderes.logging.JpaLogEntity</class>
+        <class>org.anderes.logging.LogInformation</class>
         
         <shared-cache-mode>NONE</shared-cache-mode>
         
