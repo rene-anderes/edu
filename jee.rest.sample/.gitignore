@@ -1,4 +1,6 @@
+# Maven build Verzeichnis
 /target
-/.classpath
-/.project
+# Eclipse Projekt-Settings
+.classpath
+.project
 /.settings
