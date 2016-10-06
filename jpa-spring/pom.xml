@@ -77,32 +77,6 @@
                         <skip>${maven.test.skip}</skip>
                     </configuration>
                 </plugin>
-
-                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
-                <plugin>
-                    <groupId>org.eclipse.m2e</groupId>
-                    <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
-                    <configuration>
-                        <lifecycleMappingMetadata>
-                            <pluginExecutions>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.codehaus.mojo</groupId>
-                                        <artifactId>sql-maven-plugin</artifactId>
-                                        <versionRange>[1.5,)</versionRange>
-                                        <goals>
-                                            <goal>execute</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore></ignore>
-                                    </action>
-                                </pluginExecution>
-                            </pluginExecutions>
-                        </lifecycleMappingMetadata>
-                    </configuration>
-                </plugin>
             </plugins>
         </pluginManagement>
     </build>
@@ -279,7 +253,7 @@
             <artifactId>derby</artifactId>
             <version>${db.derby.version}</version>
         </dependency>
-        <!-- Weitere Dependencies -->
+        <!-- Apache Commons ... -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -296,6 +270,14 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.7.5</version>
         </dependency>
+        <!-- Servlet API -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        
         <!-- Testabhängigkeiten -->
         <dependency>
             <groupId>junit</groupId>
@@ -353,21 +335,6 @@
             <version>2.2.0</version>
             <scope>test</scope>
         </dependency>
-        <!-- Servlet 2.5 kann für Test's nicht genommen werden -->
-        <!-- ClassNotFound Exception: javay/servlet/SessionCookieConfig -->
-        <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-servlet_3.0_spec</artifactId>
-            <version>1.0</version>
-            <scope>test</scope>
-        </dependency>
         <!-- / Testabhängigkeiten -->
-        <!-- Maven kann beim compile mit der obigen Abhängigkeit aus unerfindlichen Gründen nichts anfangen -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
 </project>
