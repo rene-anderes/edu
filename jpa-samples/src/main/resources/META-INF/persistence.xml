@@ -16,6 +16,10 @@
         <class>org.anderes.edu.jpa.inheritance.joined.Person</class>
         <class>org.anderes.edu.jpa.inheritance.joined.LegalPerson</class>
         <class>org.anderes.edu.jpa.inheritance.joined.NaturalPerson</class>
+        <class>org.anderes.edu.jpa.relation.onetomany.Order</class>
+        <class>org.anderes.edu.jpa.relation.onetomany.OrderItem</class>
+        <class>org.anderes.edu.jpa.relation.manytoone.Classroom</class>
+        <class>org.anderes.edu.jpa.relation.manytoone.Student</class>
                
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver" />
