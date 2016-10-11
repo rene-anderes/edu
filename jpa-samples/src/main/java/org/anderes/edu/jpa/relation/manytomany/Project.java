@@ -1,4 +1,4 @@
-package org.anderes.edu.jpa.manytomany;
+package org.anderes.edu.jpa.relation.manytomany;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

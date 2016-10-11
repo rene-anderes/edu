@@ -7,20 +7,19 @@
 
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
-        <class>org.anderes.edu.jpa.manytomany.Employee</class>
-        <class>org.anderes.edu.jpa.manytomany.Project</class>
+        <class>org.anderes.edu.jpa.relation.manytomany.Employee</class>
+        <class>org.anderes.edu.jpa.relation.manytomany.Project</class>
         <class>org.anderes.edu.jpa.basicattributes.PersonBasic</class>
+        <class>org.anderes.edu.jpa.inheritance.mappedsuperclass.Cash</class>
+        <class>org.anderes.edu.jpa.inheritance.mappedsuperclass.Payment</class>
+        <class>org.anderes.edu.jpa.inheritance.mappedsuperclass.CreditCard</class>
         <class>org.anderes.edu.jpa.inheritance.joined.Person</class>
-        <class>org.anderes.edu.jpa.inheritance.joined.NaturalPerson</class>
         <class>org.anderes.edu.jpa.inheritance.joined.LegalPerson</class>
-        <class>org.anderes.edu.jpa.inheritance.mappedsuperclasses.PersonMapped</class>
-        <class>org.anderes.edu.jpa.inheritance.mappedsuperclasses.NaturalPersonMapped</class>
-        <class>org.anderes.edu.jpa.inheritance.mappedsuperclasses.LegalPersonMapped</class>
-        
-
+        <class>org.anderes.edu.jpa.inheritance.joined.NaturalPerson</class>
+               
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/myEmployee;create=true" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/myDatabase;create=true" />
             <property name="javax.persistence.jdbc.user" value="APP" />
             <property name="javax.persistence.jdbc.password" value="APP" />
 

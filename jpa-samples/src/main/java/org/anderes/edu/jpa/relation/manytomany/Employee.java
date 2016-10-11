@@ -1,22 +1,18 @@
-package org.anderes.edu.jpa.manytomany;
+package org.anderes.edu.jpa.relation.manytomany;
 
-import java.math.BigDecimal;
-import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * Beispiel welches die Möglichkeiten der Basic Attributes veranschaulicht.
@@ -24,8 +20,6 @@ import javax.persistence.TemporalType;
 @Entity
 public class Employee {
 
-	public enum Gender { MALE, FEMALE };
-	
 	@Id
     @GeneratedValue
     @Column(updatable = false, nullable = false)
@@ -36,15 +30,6 @@ public class Employee {
 	
 	@Column(name = "L_NAME", nullable = false, length = 200)
     private String lastname;
-
-	@Column(precision=8, scale=2)
-	private BigDecimal salary;
-	
-	@Temporal(TemporalType.DATE)
-	private Calendar birthday;
-	
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
 	
     @ManyToMany(cascade = { CascadeType.ALL } )
     @JoinTable(name = "EMP_PROJ",
@@ -61,30 +46,6 @@ public class Employee {
         this.firstname = firstname;
         this.lastname = lastname;
     }
-
-    public Gender getGender() {
-		return gender;
-	}
-
-	public void setGender(Gender gender) {
-		this.gender = gender;
-	}
-
-	public BigDecimal getSalary() {
-		return salary;
-	}
-
-	public void setSalary(BigDecimal salary) {
-		this.salary = salary;
-	}
-
-	public Calendar getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(Calendar birthday) {
-		this.birthday = birthday;
-	}
 
 	public String getFirstname() {
         return firstname;
@@ -106,7 +67,11 @@ public class Employee {
         return id;
     }
 
-    public void addProject(Project project) {
+    public void addProject(final Project project) {
         projects.add(project);
+    }
+    
+    public Collection<Project> getProjects() {
+        return Collections.unmodifiableSet(projects);
     }
 }

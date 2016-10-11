@@ -33,10 +33,7 @@ public class PersonRepository {
      */
     public Person getPersonById(final Long id) {
         
-        TypedQuery<Person> query = entityManager.createQuery("select p from Person p where p.id = :id", Person.class);
-        query.setParameter("id", id);
-        
-        return query.getSingleResult();
+        return entityManager.find(Person.class, id);
     }
     
     /**

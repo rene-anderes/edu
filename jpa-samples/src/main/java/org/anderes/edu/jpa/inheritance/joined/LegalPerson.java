@@ -10,8 +10,6 @@ import javax.persistence.Table;
 @DiscriminatorValue(value = "JP")
 public class LegalPerson extends Person {
 
-    private static final long serialVersionUID = 1L;
-    
     @Column(name = "LEGALFORM")
     private String legalForm;
  

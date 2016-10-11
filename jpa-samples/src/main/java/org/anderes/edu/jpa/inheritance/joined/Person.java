@@ -1,7 +1,5 @@
 package org.anderes.edu.jpa.inheritance.joined;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -11,15 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "PERSON")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "PERSON_TYPE", discriminatorType = DiscriminatorType.STRING)
-public class Person implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
