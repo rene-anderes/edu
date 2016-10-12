@@ -15,7 +15,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <eclipselink.version>2.6.3</eclipselink.version>
+        <eclipselink.version>2.6.4</eclipselink.version>
         <derby.version>10.12.1.1</derby.version>
     </properties>
 

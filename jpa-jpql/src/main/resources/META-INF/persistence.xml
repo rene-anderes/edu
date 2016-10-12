@@ -27,17 +27,18 @@
             <property name="javax.persistence.schema-generation.scripts.create-target" value="src/main/scripts/sql/createDatabase.sql"/>
             <property name="javax.persistence.sql-load-script-source" value="sql/create_testdata.sql" />
 
+
             <!-- 
                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
                     Ab hier folgen EclipseLink spezifische Properties für die Persistence-Unit Doku 
                     siehe dazu http://www.eclipse.org/eclipselink/api/2.5/index.html?org/eclipse/persistence/config/PersistenceUnitProperties.html
                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
             -->
-            
             <property name="eclipselink.target-database" value="Derby" />
             <property name="eclipselink.jdbc.native-sql" value="true" />
             <property name="eclipselink.ddlgen-terminate-statements" value="true"/>
-
+            
+            <!-- Konfiguration des Logger -->
             <property name="eclipselink.logging.logger﻿﻿" value="JavaLogger" />
             <property name="eclipselink.logging.level" value="FINE" />
             <property name="eclipselink.logging.level.sql" value="FINE" />

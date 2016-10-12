@@ -19,37 +19,52 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+/**
+ * Beispiele für JPQL
+ * 
+ * @author René Anderes
+ *
+ */
 public class JpqlTest {
 
     private EntityManager entityManager;
     private static EntityManagerFactory entityManagerFactory;
        
     /**
-     * Select all entities
-     * 
-     * @see <a href="https://en.wikibooks.org/wiki/Java_Persistence/JPQL#Select_query_examples">Select Queries</a>
+     * Einfache Abfrage die alle Records einer Entity zurück liefert
      */
     @Test
     public void selectAllEntities() {
+        
         final List<Book> books = entityManager.createQuery("SELECT b FROM Book b", Book.class).getResultList();
-        assertThat(books.size(), is(3));
+        
+        assertThat(books.size(), is(6));
     }
     
     /**
-     * Use WHERE clause
-     * 
-     * @see <a href="https://en.wikibooks.org/wiki/Java_Persistence/JPQL#Select_query_examples">Select Queries</a>
+     * Einfache Abfrage aller Records mittel untypisierten Query
+     */
+    @Test
+    public void nontypedQuery() {
+        
+        final List<?> books = entityManager.createQuery("SELECT b FROM Book b").getResultList();
+        
+        assertThat(books.size(), is(6));
+    }
+    
+    /**
+     * Einfach Abfrage in der eine WHERE verwendet wird
      */
     @Test
     public void simpleWhereClause() {
+        
         final List<Book> books = entityManager.createQuery("SELECT b FROM Book b WHERE b.title LIKE '%Scrum%'", Book.class).getResultList();
-        assertThat(books.size(), is(1));
+        
+        assertThat(books.size(), is(2));
     }
     
     /**
-     * Define the attributes you want to select
-     * 
-     * @see <a href="https://en.wikibooks.org/wiki/Java_Persistence/JPQL#Constructors">SELECT Clause with Constructors</a>
+     * Einzelne Attribute einer Entity deklarieren
      */
     @Test
     @SuppressWarnings("unchecked")
@@ -59,16 +74,14 @@ public class JpqlTest {
         final List<Object[]> authorNames = entityManager.createQuery("SELECT a.firstName, a.lastName FROM Author a").getResultList();
         assertThat(authorNames.size(), is(2));
         
-        /* Pojo mit den gewünschten Daten erstellen */
+        /* Erzeugen eines neuen Pojo-Objekt pro Entity */
         final List<AuthorInfo> authorInfos = entityManager.createQuery(
                         "SELECT NEW org.anderes.edu.jpa.model.AuthorInfo(a.firstName, a.lastName) FROM Author a", AuthorInfo.class).getResultList();
         assertThat(authorInfos.size(), is(2));
     }
     
     /**
-     * Join related entities in the FROM clause
-     * 
-     * @see <a href="https://en.wikibooks.org/wiki/Java_Persistence/JPQL#FROM_Clause">FROM Clause</a>
+     * Impliziter und expliziter JOIN für Entities mit Beziehungen zueinander
      */
     @Test
     @SuppressWarnings("unchecked")
@@ -76,17 +89,15 @@ public class JpqlTest {
         
         /* Impliziter JOIN */
         final List<Object[]> booksInfo = entityManager.createQuery("SELECT b.title, b.publisher.name FROM Book b").getResultList();
-        assertThat(booksInfo.size(), is(3));
+        assertThat(booksInfo.size(), is(6));
         
         /* Expliziter JOIN entspricht dem obigen Beispiel */
         final List<Object[]> books = entityManager.createQuery("SELECT b.title, p.name FROM Book b JOIN b.publisher p").getResultList();
-        assertThat(books.size(), is(3));
+        assertThat(books.size(), is(6));
     }
     
     /**
-     * Join unrelated entities in the FROM clause
-     * 
-     * @see <a href="https://en.wikibooks.org/wiki/Java_Persistence/JPQL#FROM_Clause">FROM clause</a>
+     * JOIN für Entities die keine Beziehung zueinander haben
      */
     @Test
     @SuppressWarnings("unchecked")
@@ -99,9 +110,7 @@ public class JpqlTest {
     }
     
     /**
-     * Join related entities with WHERE clause
-     * 
-     * @see <a href="https://en.wikibooks.org/wiki/Java_Persistence/JPQL#WHERE_Clause">WHERE clause</a>
+     * JOIN für Entities mit Beziehungen und WHERE
      */
     @Test
     @SuppressWarnings("unchecked")
@@ -110,56 +119,56 @@ public class JpqlTest {
         final List<Object[]> booksInfo = entityManager.createQuery(
                         "SELECT b.title, b.publisher.name FROM Book b WHERE b.publisher.name = 'Redline Verlag'").getResultList();
         
-        assertThat(booksInfo.size(), is(1));
+        assertThat(booksInfo.size(), is(2));
         
         /* Expliziter JOIN bei @ManyTo... notwendig */
         final List<Author> authors = entityManager.createQuery(
                         "SELECT a FROM Author a JOIN a.books b WHERE b.title like '%Scrum%'", Author.class).getResultList();
         
-        assertThat(authors.size(), is(1));
+        assertThat(authors.size(), is(2));
+        
+        /* Mehrere JOIN's */
+        final List<Object[]> infos = entityManager.createQuery(
+                        "SELECT a.firstName, a.lastName FROM Author a JOIN a.books b JOIN b.publisher p WHERE b.title like '%Komplexithoden%' AND p.name like '%Redline%'")
+                        .getResultList();
+        
+        assertThat(infos.size(), is(1));
     }
     
     /**
-     * Order your query resuls with ORDER BY
-     * 
-     * @see <a href="https://en.wikibooks.org/wiki/Java_Persistence/JPQL#ORDER_BY_clause">ORDER BY clause</a>
+     * Ordnen des Query-Resultats mittels ORDER BY
      */
     @Test
     public void simpleOrderBy() {
     
-        final List<Book> booksOrdered = entityManager.createQuery("SELECT b FROM Book b ORDER BY b.title", Book.class).getResultList();
+        final List<Book> booksOrdered = entityManager.createQuery("SELECT b FROM Book b ORDER BY b.title ASC", Book.class).getResultList();
         
-        assertThat(booksOrdered.size(), is(3));
-        assertThat(booksOrdered.iterator().next().getTitle(), startsWith("Komplexithoden"));
+        assertThat(booksOrdered.size(), is(6));
+        assertThat(booksOrdered.iterator().next().getTitle(), startsWith("Der agile Festpreis"));
     }
     
     /**
-     * Group your query results with GROUP BY
+     * Gruppieren des Query-Resultats mittels GROUP BY
      * <p/>
-     * JPQL also supports a small <a href="https://en.wikibooks.org/wiki/Java_Persistence/JPQL#JPQL_supported_functions">set of standard functions</a>
-     * that you can use in your queries.
-     * 
-     * @see <a href="https://en.wikibooks.org/wiki/Java_Persistence/JPQL#GROUP_BY_Clause">GROUP BY clause</a>
+     * Verwendung von JPQL Funktionen (hier count())
      */
     @Test
     @SuppressWarnings("unchecked")
     public void simpleGroupBy() {
         
         final List<Object[]> authorsInfo = entityManager.createQuery(
-                        "SELECT a, count(b) FROM Author a JOIN a.books b GROUP BY a").getResultList();
+                        "SELECT a, count(b) FROM Author a JOIN a.books b GROUP BY a ORDER BY a.lastName").getResultList();
         
         assertThat(authorsInfo.size(), is(2));
-        assertThat(((Author)authorsInfo.get(0)[0]).getLastName(), is("Glogger"));
-        assertThat(authorsInfo.get(0)[1], is(2L));
+        assertThat(((Author)authorsInfo.get(0)[0]).getLastName(), is("Gloger"));
+        assertThat(authorsInfo.get(0)[1], is(4L));
         assertThat(((Author)authorsInfo.get(1)[0]).getLastName(), is("Pfläging"));
-        assertThat(authorsInfo.get(1)[1], is(1L));
+        assertThat(authorsInfo.get(1)[1], is(2L));
 
     }
     
     /**
-     * Use subqueries in the WHERE clause
-     * 
-     * @see <a href="https://en.wikibooks.org/wiki/Java_Persistence/JPQL#Sub-selects_in_FROM_clause">Sub-selects in FROM clause</a>
+     * Verwendung von Sub-Query im WHERE Abschnitt
      */
     @Test
     public void simpleSubQuery() {
@@ -169,23 +178,40 @@ public class JpqlTest {
         assertThat(authors.size(), is(1));
         assertThat(authors.iterator().next().getFirstName(), is("Boris"));
     }
-    
+
     /**
-     * Limit the number of records in your result set
+     * Limitieren der Anzahl Records aus dem Query-Result
+     * <p/>
+     * Hier wird es als Paging verwendet
      */
     @Test
     public void limitNumberOfRecords() {
         final List<Book> books = entityManager
-                        .createQuery("SELECT b FROM Book b", Book.class)
-                        .setMaxResults(2)
+                        .createQuery("SELECT b FROM Book b ORDER BY b.title", Book.class)
+                        .setFirstResult(2)
+                        .setMaxResults(3)
                         .getResultList();
         
-        assertThat(books.size(), is(2));
+        assertThat(books.size(), is(3));
+    }
+    
+    /**
+     * Die Named-Query befindet sich im orm.xml
+     */
+    @Test
+    public void namedQueryFromOrmXml() {
+        final List<Book> books =  entityManager
+                        .createNamedQuery("Book.findByAuthor", Book.class)
+                        .setParameter("firstname", "Boris")
+                        .setParameter("lastname", "Gloger")
+                        .getResultList();
+
+        assertThat("Boris Gloger hat 4 Bücher", books.size(), is(4));
     }
 
     @BeforeClass
     public static void setUpOnce() {
-        // Der Name der Persistence-Unit entspricht der in der Konfigurationsdatei META-INF/persistence.xml
+        /* Der Name der Persistence-Unit entspricht der in der Konfigurationsdatei META-INF/persistence.xml */
         entityManagerFactory = Persistence.createEntityManagerFactory("testPU");
     }
     
