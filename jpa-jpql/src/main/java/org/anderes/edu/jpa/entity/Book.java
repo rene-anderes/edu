@@ -12,6 +12,8 @@ public class Book {
     @Id @GeneratedValue
     private Long id;
     private String title;
+    private String isbn;
+    
     @OneToOne
     @JoinColumn(name="PUBLISHER_ID")
     private Publisher publisher;
@@ -30,5 +32,13 @@ public class Book {
 
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
+    }
+    
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 }

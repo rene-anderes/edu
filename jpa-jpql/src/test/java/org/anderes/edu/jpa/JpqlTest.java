@@ -196,6 +196,34 @@ public class JpqlTest {
     }
     
     /**
+     * Flexibilität durch Binding
+     */
+    @Test
+    public void simpleBinding() {
+        final String wantedTitle = "%Scrum%";
+        
+        final List<Book> books = entityManager
+                        .createQuery("SELECT b FROM Book b WHERE b.title LIKE :title", Book.class)
+                        .setParameter("title", wantedTitle)
+                        .getResultList();
+        
+        assertThat(books.size(), is(2));
+    }
+    
+    /**
+     * Einzelnes Resultat aus der Query erwartet
+     */
+    @Test
+    public void singleResultSample() {
+        final Book book = entityManager
+                        .createQuery("SELECT b FROM Book b WHERE b.isbn = :isbn", Book.class)
+                        .setParameter("isbn", "978-3868815863")
+                        .getSingleResult();
+        
+        assertThat(book.getPublisher().getName(), is("Redline Verlag"));
+    }
+    
+    /**
      * Die Named-Query befindet sich im orm.xml
      */
     @Test
