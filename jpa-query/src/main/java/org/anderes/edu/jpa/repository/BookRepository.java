@@ -1,6 +1,5 @@
 package org.anderes.edu.jpa.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +13,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.anderes.edu.jpa.entity.Book;
+import org.anderes.edu.jpa.entity.Book_;
 
 public class BookRepository {
 
@@ -32,34 +32,39 @@ public class BookRepository {
     /**
      * Beispiel mit JPQL: Sind Parameter optional, wird der Zusammenbau einer JPQL abenteuerlich! 
      */
-    public List<Book> getBooksByJpql(final String title, final Optional<String> authorFirstName, final Optional<String> authorLastName) {
+    public List<Book> getBooksByJpql(final String title, final Optional<String> description) {
+    	if (title == null || description == null) {
+    		throw new IllegalArgumentException("Argumente dürfen nicht null sein!");
+    	}
+    	
         final StringBuilder queryString = new StringBuilder(); 
         queryString.append("SELECT b FROM Book b ").append("WHERE b.title LIKE :title ");
-        if (authorFirstName.isPresent() || authorLastName.isPresent()) {
-            queryString.append("AND b IN ").append("(SELECT b FROM Author a JOIN a.books b WHERE ");
-            if (authorLastName.isPresent() && authorFirstName.isPresent()) {
-                queryString.append("a.lastName = :lastname AND a.firstName = :firstname");
-            } else if (authorLastName.isPresent()) {
-                queryString.append("a.lastName = :lastname");
-            } else if (authorFirstName.isPresent()) {
-                queryString.append("a.firstName = :firstname");
-            }
-            queryString.append(")");
+        if (description.isPresent() ) {
+        	queryString.append("OR b.description LIKE :description");
         }
-        final TypedQuery<Book> query = entityManager.createQuery(queryString.toString(), Book.class).setParameter("title", "%" + title + "%");
-        authorLastName.ifPresent(value -> query.setParameter("lastname", value));
-        authorFirstName.ifPresent(value -> query.setParameter("firstname", value));
+        final TypedQuery<Book> query = entityManager
+        		.createQuery(queryString.toString(), Book.class)
+        		.setParameter("title", "%" + title + "%");
+        description.ifPresent(value -> query.setParameter("description", "%" + value + "%"));
         return query.getResultList();
     }
     
-    public List<Book> getBooksByCriteria(final String title, final Optional<String> authorFirstName, final Optional<String> authorLastName) {
-
+    public List<Book> getBooksByCriteria(final String title, final Optional<String> description) {
+    	if (title == null || description == null) {
+    		throw new IllegalArgumentException("Argumente dürfen nicht null sein!");
+    	}
+    	
         final CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         final CriteriaQuery<Book> criteria = cb.createQuery(Book.class);
-        final Root<Book> entity = criteria.from(Book.class);
-        final Predicate titleLike = cb.like(entity.get("title"), "%" + title + "%");
-        criteria.where(titleLike);
-
+        final Root<Book> book = criteria.from(Book.class);
+        final Predicate titleLike = cb.like(book.get(Book_.title), "%" + title + "%");
+        final Predicate descriptionLike = cb.like(book.get(Book_.description), "%" + title + "%");
+        if (description.isPresent()) {
+        	criteria.where(cb.or(titleLike, descriptionLike));
+        } else {
+        	criteria.where(titleLike);
+        }
+        
         return entityManager.createQuery(criteria).getResultList();
     }
 }

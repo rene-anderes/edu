@@ -25,16 +25,16 @@ public class CompareJpqlAndCriteriaQuery {
     @Test
     public void bookRepositoryJpqlTitleOnly() {
 
-        final List<Book> books = repository.getBooksByJpql("Scrum", Optional.empty(), Optional.empty());
+        final List<Book> books = repository.getBooksByJpql("Scrum", Optional.empty());
         
         assertThat(books, is(not(nullValue())));
         assertThat(books.size(), is(2));
     }
     
     @Test
-    public void bookRepositoryJpqlTitleAndFirstname() {
+    public void bookRepositoryJpqlTitleOrDescription() {
 
-        final List<Book> books = repository.getBooksByJpql("Scrum", Optional.of("Boris"), Optional.empty());
+        final List<Book> books = repository.getBooksByJpql("Scrum", Optional.of("Boris"));
         
         assertThat(books, is(not(nullValue())));
         assertThat(books.size(), is(2));
@@ -43,16 +43,16 @@ public class CompareJpqlAndCriteriaQuery {
     @Test
     public void bookRepositoryCriteriaQueryTitleOnly() {
 
-        final List<Book> books = repository.getBooksByCriteria("Scrum", Optional.empty(), Optional.empty());
+        final List<Book> books = repository.getBooksByCriteria("Scrum", Optional.empty());
         
         assertThat(books, is(not(nullValue())));
         assertThat(books.size(), is(2));
     }
     
     @Test
-    public void bookRepositoryCriteriaQueryTitleAndFirstname() {
+    public void bookRepositoryCriteriaQueryTitleOrDescription() {
 
-        final List<Book> books = repository.getBooksByCriteria("Scrum", Optional.of("Boris"), Optional.empty());
+        final List<Book> books = repository.getBooksByCriteria("Scrum", Optional.of("Boris"));
         
         assertThat(books, is(not(nullValue())));
         assertThat(books.size(), is(2));

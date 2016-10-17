@@ -13,8 +13,8 @@ public class Book {
     private Long id;
     private String title;
     private String isbn;
-    
-    @OneToOne
+    private String description;
+	@OneToOne
     @JoinColumn(name="PUBLISHER_ID")
     private Publisher publisher;
 
@@ -41,4 +41,12 @@ public class Book {
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
+    
+    public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 }
