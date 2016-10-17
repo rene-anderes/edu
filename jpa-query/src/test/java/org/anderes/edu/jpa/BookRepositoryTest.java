@@ -13,7 +13,7 @@ import org.anderes.edu.jpa.repository.BookRepository;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CompareJpqlAndCriteriaQuery {
+public class BookRepositoryTest {
 
     private BookRepository repository;
     

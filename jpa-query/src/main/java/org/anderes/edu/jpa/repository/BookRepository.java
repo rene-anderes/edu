@@ -16,8 +16,8 @@ import org.anderes.edu.jpa.entity.Book;
 import org.anderes.edu.jpa.entity.Book_;
 
 /**
- * Dieses Repository dient dazu die zwei unterscheidlichen Query-Arten
- * JPQL und Criteria Query zu vergelichen. 
+ * Dieses Repository dient dazu die zwei unterschiedlichen Query-Arten
+ * JPQL und Criteria Query zu vergleichen. 
  *
  */
 public class BookRepository {
