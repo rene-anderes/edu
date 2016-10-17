@@ -1,5 +1,6 @@
 package org.anderes.edu.jpa.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -8,6 +9,7 @@ import javax.persistence.Id;
 public class PhoneBook {
     
     @Id @GeneratedValue
+    @Column(nullable = false, updatable = false)
     private Long id;
     private String phoneNumber;
     private String lastname;

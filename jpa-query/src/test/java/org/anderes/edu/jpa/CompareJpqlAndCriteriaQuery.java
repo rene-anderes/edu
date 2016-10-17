@@ -34,7 +34,7 @@ public class CompareJpqlAndCriteriaQuery {
     @Test
     public void bookRepositoryJpqlTitleOrDescription() {
 
-        final List<Book> books = repository.getBooksByJpql("Scrum", Optional.of("Boris"));
+        final List<Book> books = repository.getBooksByJpql("Scrum", Optional.of("agile"));
         
         assertThat(books, is(not(nullValue())));
         assertThat(books.size(), is(2));
@@ -52,7 +52,7 @@ public class CompareJpqlAndCriteriaQuery {
     @Test
     public void bookRepositoryCriteriaQueryTitleOrDescription() {
 
-        final List<Book> books = repository.getBooksByCriteria("Scrum", Optional.of("Boris"));
+        final List<Book> books = repository.getBooksByCriteria("Scrum", Optional.of("agile"));
         
         assertThat(books, is(not(nullValue())));
         assertThat(books.size(), is(2));

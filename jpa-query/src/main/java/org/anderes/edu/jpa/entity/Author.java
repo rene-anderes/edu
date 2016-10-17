@@ -3,6 +3,7 @@ package org.anderes.edu.jpa.entity;
 import java.util.Collection;
 import java.util.HashSet;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,8 +14,8 @@ import javax.persistence.ManyToMany;
 @Entity
 public class Author {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
+    @Column(nullable = false, updatable = false)
     private Long id;
     private String firstName;
     private String lastName;

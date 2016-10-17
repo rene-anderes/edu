@@ -15,6 +15,11 @@ import javax.persistence.criteria.Root;
 import org.anderes.edu.jpa.entity.Book;
 import org.anderes.edu.jpa.entity.Book_;
 
+/**
+ * Dieses Repository dient dazu die zwei unterscheidlichen Query-Arten
+ * JPQL und Criteria Query zu vergelichen. 
+ *
+ */
 public class BookRepository {
 
     private final EntityManager entityManager;
@@ -49,6 +54,9 @@ public class BookRepository {
         return query.getResultList();
     }
     
+    /**
+     * Der dynamische Aufbau einer Query ist mittels Criteria Query elegant möglich
+     */
     public List<Book> getBooksByCriteria(final String title, final Optional<String> description) {
     	if (title == null || description == null) {
     		throw new IllegalArgumentException("Argumente dürfen nicht null sein!");
@@ -58,8 +66,8 @@ public class BookRepository {
         final CriteriaQuery<Book> criteria = cb.createQuery(Book.class);
         final Root<Book> book = criteria.from(Book.class);
         final Predicate titleLike = cb.like(book.get(Book_.title), "%" + title + "%");
-        final Predicate descriptionLike = cb.like(book.get(Book_.description), "%" + title + "%");
         if (description.isPresent()) {
+        	final Predicate descriptionLike = cb.like(book.get(Book_.description), "%" + description.get() + "%");
         	criteria.where(cb.or(titleLike, descriptionLike));
         } else {
         	criteria.where(titleLike);
