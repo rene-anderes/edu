@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Book {
@@ -16,7 +16,7 @@ public class Book {
     private String title;
     private String isbn;
     private String description;
-	@OneToOne
+	@ManyToOne
     @JoinColumn(name="PUBLISHER_ID")
     private Publisher publisher;
 
