@@ -172,6 +172,7 @@ public class JpqlTest {
      */
     @Test
     public void simpleSubQuery() {
+        
         final List<Author> authors = entityManager.createQuery(
                         "SELECT a FROM Author a WHERE a.lastName IN (SELECT p.lastname FROM PhoneBook p WHERE p.firstname = 'Boris')", Author.class).getResultList();
         
@@ -186,6 +187,7 @@ public class JpqlTest {
      */
     @Test
     public void limitNumberOfRecords() {
+        
         final List<Book> books = entityManager
                         .createQuery("SELECT b FROM Book b ORDER BY b.title", Book.class)
                         .setFirstResult(2)
@@ -215,12 +217,28 @@ public class JpqlTest {
      */
     @Test
     public void singleResultSample() {
+        
         final Book book = entityManager
                         .createQuery("SELECT b FROM Book b WHERE b.isbn = :isbn", Book.class)
                         .setParameter("isbn", "978-3868815863")
                         .getSingleResult();
         
         assertThat(book.getPublisher().getName(), is("Redline Verlag"));
+    }
+    
+    /**
+     * Eine NamedQuery die bei der Entity Author definiert wurde, wird hier eingesetzt
+     * 
+     * @see Author
+     */
+    @Test
+    public void namedQueryFromAuthor() {
+        
+        final List<Author> authors = entityManager
+                        .createNamedQuery("Author.All.OrderByLastname", Author.class)
+                        .getResultList();
+        
+        assertThat(authors.size(), is(2));
     }
     
     /**

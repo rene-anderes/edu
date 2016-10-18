@@ -10,8 +10,19 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQueries({
+    @NamedQuery(
+      name = "Author.All.OrderByLastname", 
+      query = "SELECT a FROM Author a ORDER BY a.lastName ASC"),
+    @NamedQuery(
+      name = "Author.ByLastname", 
+      query = "SELECT a FROM Author a WHERE a.lastName = :lastname")
+   })
+
 public class Author {
 
     @Id @GeneratedValue
