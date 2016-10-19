@@ -179,7 +179,7 @@ public class CriteriaQueryTest {
      * als Criteria Query 
      */
     @Test
-    public void subQuery() {
+    public void subQueryAuthorList() {
         
         final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         final CriteriaQuery<Author> criteria = builder.createQuery(Author.class);
@@ -197,6 +197,35 @@ public class CriteriaQueryTest {
         final List<Author> authors = entityManager.createQuery(criteria).getResultList();
         
         assertThat(authors.size(), is(1));
+    }
+    
+    /**
+     * Beispiel mit SubQuery: Eine Liste von Bücher eines bestimmten Authors
+     * <p/>
+     * Die JPQL Abfrage "SELECT b FROM Book b WHERE b IN (SELECT b FROM Author a JOIN a.books b WHERE a.lastName = 'Gloger' AND a.firstName = 'Boris')"
+     * als Criteria Query 
+     */
+    @Test
+    public void subQueryBookList() {
+        
+        final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        final CriteriaQuery<Book> criteria = builder.createQuery(Book.class);
+        final Root<Book> entity = criteria.from(Book.class);
+        
+        /* Zusammenbau der SubQuery */
+        final Subquery<Long> subquery = criteria.subquery(Long.class);
+        final Root<Author> author = subquery.from(Author.class);
+        final Join<Author, Book> book = author.join(Author_.books);
+        final Predicate equalLastname = builder.equal(author.get(Author_.lastName), "Gloger");
+        final Predicate equalFirstname = builder.equal(author.get(Author_.firstName), "Boris");
+        subquery.select(book.get(Book_.id));
+        subquery.where(equalFirstname, equalLastname);
+        
+        criteria.where(entity.get(Book_.id).in(subquery));
+        final List<Book> books = entityManager.createQuery(criteria).getResultList();
+        
+        assertThat(books.size(), is(4));
+        
     }
     
     @BeforeClass
