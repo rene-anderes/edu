@@ -13,6 +13,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Subquery;
 
 import org.anderes.edu.jpa.entity.Author;
 import org.anderes.edu.jpa.entity.Author_;
@@ -41,8 +42,13 @@ public class CriteriaQueryTest {
     public void selectAllEntities() {
         
         final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        final CriteriaQuery<Book> criteria = builder.createQuery(Book.class);
-        criteria.from(Book.class);
+        
+        // Ergebnismenge vom Typ Book
+        final CriteriaQuery<Book> criteria = builder.createQuery(Book.class);  
+        
+        // Entität über die die anderen Entitäten durch Navigation erreicht werden können
+        criteria.from(Book.class);                                                      
+        
         final List<Book> books = entityManager.createQuery(criteria).getResultList();
 
         assertThat(books.size(), is(6));
@@ -161,6 +167,33 @@ public class CriteriaQueryTest {
         final Predicate equalFirstame = builder.equal(author.get(Author_.firstName), phoneBook.get(PhoneBook_.firstname));
         final Predicate equalLastname = builder.equal(author.get(Author_.lastName), phoneBook.get(PhoneBook_.lastname));
         criteria.where(equalFirstame, equalLastname);
+        final List<Author> authors = entityManager.createQuery(criteria).getResultList();
+        
+        assertThat(authors.size(), is(1));
+    }
+    
+    /**
+     * Beispiel mit SubQuery
+     * <p/>
+     * Die JPQL Abfrage "SELECT a FROM Author a WHERE a.lastName IN (SELECT p.lastname FROM PhoneBook p WHERE p.firstname = 'Boris')"
+     * als Criteria Query 
+     */
+    @Test
+    public void subQuery() {
+        
+        final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        final CriteriaQuery<Author> criteria = builder.createQuery(Author.class);
+        final Root<Author> author = criteria.from(Author.class);
+        
+        /* Zusammenbau der SubQuery: SELECT p.lastname FROM PhoneBook p WHERE p.firstname = 'Boris' */
+        final Subquery<String> subquery = criteria.subquery(String.class);    // Ergebnismenge vom Type String: Nachnameliste
+        final Root<PhoneBook> phoneBook = subquery.from(PhoneBook.class);  
+        subquery.select(phoneBook.get(PhoneBook_.lastname));
+        subquery.where(builder.equal(phoneBook.get(PhoneBook_.firstname), "Boris"));
+        
+        /* Zusammenbau der WHERE Klausel: WHERE a.lastName IN (SELECT p.lastname FROM PhoneBook p WHERE p.firstname = 'Boris') */
+        criteria.where((author.get(Author_.lastName).in(subquery)));
+        
         final List<Author> authors = entityManager.createQuery(criteria).getResultList();
         
         assertThat(authors.size(), is(1));
