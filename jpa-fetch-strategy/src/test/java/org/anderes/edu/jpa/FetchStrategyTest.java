@@ -3,7 +3,7 @@ package org.anderes.edu.jpa;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +15,9 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnitUtil;
 
 import org.anderes.edu.jpa.entity.Author;
+import org.anderes.edu.jpa.entity.Author_;
 import org.anderes.edu.jpa.entity.Book;
+import org.anderes.edu.jpa.entity.Book_;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -51,7 +53,7 @@ public class FetchStrategyTest {
          */
         
         assertThat(book, is(not(nullValue())));
-        assertThat(util.isLoaded(book, "publisher"), is(true));
+        assertThat(util.isLoaded(book, Book_.publisher.getName()), is(true));
     }
     
     /**
@@ -68,11 +70,11 @@ public class FetchStrategyTest {
          */
         
         assertThat(author, is(not(nullValue())));
-        assertThat(util.isLoaded(author, "books"), is(false));
+        assertThat(util.isLoaded(author, Author_.books.getName()), is(false));
     }
 
     /**
-     * Beispiel einer Verwendung einer NamedEntityGraph
+     * Beispiel einer Verwendung einer NamedEntityGraph: LoadGraph
      */
     @Test
     public void namedEntityLoadGraph() {
@@ -84,9 +86,12 @@ public class FetchStrategyTest {
         final Author author = entityManager.find(Author.class, 1000L, hints);
         
         assertThat(author, is(not(nullValue())));
-        assertThat(util.isLoaded(author, "books"), is(true));
+        assertThat(util.isLoaded(author, Author_.books.getName()), is(true));
     }
     
+    /**
+     * Beispiel einer Verwendung einer NamedEntityGraph: FetchGraph
+     */
     @Test
     public void namedEntityFetchGraph() {
    
@@ -97,7 +102,10 @@ public class FetchStrategyTest {
         final Book book = entityManager.find(Book.class, 3000L, hints);
         
         assertThat(book, is(not(nullValue())));
-        assertThat(util.isLoaded(book, "publisher"), is(false));
+        assertThat(util.isLoaded(book, Book_.id.getName()), is(true));
+        assertThat(util.isLoaded(book, Book_.title.getName()), is(true));
+        assertThat(util.isLoaded(book, Book_.publisher.getName()), is(false));
+        assertThat(util.isLoaded(book, Book_.description.getName()), is(false));
     }
     
     @BeforeClass

@@ -15,8 +15,7 @@ import javax.persistence.NamedEntityGraph;
     attributeNodes = {
         @NamedAttributeNode("id"),
         @NamedAttributeNode("title"),
-        @NamedAttributeNode("isbn"),
-        @NamedAttributeNode("description")
+        @NamedAttributeNode("isbn")
     }
 )
 public class Book {
