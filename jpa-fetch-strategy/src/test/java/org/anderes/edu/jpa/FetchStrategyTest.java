@@ -6,6 +6,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityGraph;
@@ -13,11 +14,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnitUtil;
+import javax.persistence.Subgraph;
 
 import org.anderes.edu.jpa.entity.Author;
 import org.anderes.edu.jpa.entity.Author_;
 import org.anderes.edu.jpa.entity.Book;
 import org.anderes.edu.jpa.entity.Book_;
+import org.eclipse.persistence.config.QueryHints;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -74,7 +77,7 @@ public class FetchStrategyTest {
     }
 
     /**
-     * Beispiel einer Verwendung einer NamedEntityGraph: LoadGraph
+     * Beispiel einer Verwendung von NamedEntityGraph: LoadGraph
      */
     @Test
     public void namedEntityLoadGraph() {
@@ -82,7 +85,7 @@ public class FetchStrategyTest {
         final EntityGraph<?> entityGraph = entityManager.getEntityGraph("Author.books");
          
         final Map<String, Object> hints = new HashMap<String, Object>();
-        hints.put("javax.persistence.loadgraph", entityGraph);
+        hints.put(QueryHints.JPA_LOAD_GRAPH, entityGraph);
         final Author author = entityManager.find(Author.class, 1000L, hints);
         
         assertThat(author, is(not(nullValue())));
@@ -90,7 +93,7 @@ public class FetchStrategyTest {
     }
     
     /**
-     * Beispiel einer Verwendung einer NamedEntityGraph: FetchGraph
+     * Beispiel einer Verwendung von NamedEntityGraph: FetchGraph
      */
     @Test
     public void namedEntityFetchGraph() {
@@ -98,7 +101,7 @@ public class FetchStrategyTest {
         final EntityGraph<?> entityGraph = entityManager.getEntityGraph("Book.plain");
          
         final Map<String, Object> hints = new HashMap<String, Object>();
-        hints.put("javax.persistence.fetchgraph", entityGraph);
+        hints.put(QueryHints.JPA_FETCH_GRAPH, entityGraph);
         final Book book = entityManager.find(Book.class, 3000L, hints);
         
         assertThat(book, is(not(nullValue())));
@@ -108,9 +111,33 @@ public class FetchStrategyTest {
         assertThat(util.isLoaded(book, Book_.description.getName()), is(false));
     }
     
+    /**
+     * Beispiel einer Verwendung von Dynamic Entity Graph 
+     */
+    @Test
+    public void dynamicEntityGraph() {
+        
+        final EntityGraph<?> authorGraph = entityManager.createEntityGraph(Author.class);
+        authorGraph.addAttributeNodes(Author_.firstName.getName());
+        authorGraph.addAttributeNodes(Author_.lastName.getName());
+        final Subgraph<Book> bookGraph = authorGraph.addSubgraph(Author_.books.getName());
+        bookGraph.addAttributeNodes(Book_.title.getName());
+        bookGraph.addAttributeNodes(Book_.isbn.getName());
+        
+        final List<Author> authors = entityManager
+                        .createQuery("SELECT DISTINCT a FROM Author a", Author.class)
+                        .setHint(QueryHints.JPA_FETCH_GRAPH, authorGraph)
+                        .getResultList();
+        
+        assertThat(authors.size(), is(2));
+        authors.stream().forEach(author -> {
+            assertThat(util.isLoaded(author, Author_.books.getName()), is(true));
+        });
+    }
+    
     @BeforeClass
     public static void setUpOnce() {
-        /* Der Name der Persistence-Unit entspricht der in der Konfigurationsdatei META-INF/persistence.xml */
+        /* Der Name der Persistence-Unit entspricht dem in der Konfigurationsdatei META-INF/persistence.xml */
         entityManagerFactory = Persistence.createEntityManagerFactory("testPU");
     }
     
