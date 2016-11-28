@@ -67,9 +67,24 @@ public class RepositoryUtilsTest {
     }
     
     @Test
+    public void shouldBeSaveExsistsPersonWithTransaction() {
+        final EntityManager entityManager = entityManagerFactory.createEntityManager();
+        
+        final JpaFunction<PersonBasic> function = () -> {
+            Optional<PersonBasic> entity = Optional.ofNullable(entityManager.find(PersonBasic.class, Long.valueOf(20000)));
+            PersonBasic person = entity.orElseThrow(() -> new IllegalArgumentException("Der Datensatz existiert nicht."));
+            person.setLastname("Jobs");
+            return entityManager.merge(person);
+        };
+        
+        final RepositoryUtils<PersonBasic> repositoryUtils = new RepositoryUtils<PersonBasic>();
+        repositoryUtils.withTransaction(entityManager, function);
+    }
+    
+    @Test
     public void shouldBeDeletePersonWithTransaction() {
         final EntityManager entityManager = entityManagerFactory.createEntityManager();
-        final VoidJpaFunction<PersonBasic> function = () -> {
+        final VoidJpaFunction function = () -> {
             Optional<PersonBasic> entity = Optional.ofNullable(entityManager.find(PersonBasic.class, Long.valueOf(99999)));
             entityManager.remove(entity.orElseThrow(() -> new IllegalArgumentException("Der Datensatz existiert nicht.")));
         };

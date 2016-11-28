@@ -23,7 +23,7 @@ public class RepositoryUtils<T> {
         }
     }
     
-    public void withTransaction(final EntityManager entityManager, final VoidJpaFunction<T> function) {
+    public void withTransaction(final EntityManager entityManager, final VoidJpaFunction function) {
         try {
             entityManager.getTransaction().begin();
             function.execute();
