@@ -17,19 +17,26 @@ public class LoggingInterceptor {
     @AroundInvoke
     public Object log(InvocationContext context) throws Exception {
         
-        String parameters = "";
+        String beginMsg = "";
+        String endMsg = "";
         if (logger.isTraceEnabled()) {
             final StringBuffer buffer = new StringBuffer();
             for(Object o : context.getParameters()) {
-                buffer.append(o.toString()).append(" ");
+                if (o == null) {
+                    buffer.append("NULL");
+                } else {
+                    buffer.append("'").append(o.toString()).append("'").append(" ");
+                }
             }
-            parameters = buffer.toString();
+            final String parameters = buffer.toString().trim();
+            beginMsg = String.format("Call %s:%s:[%s]", context.getTarget().getClass().getName(), context.getMethod().getName(), parameters);
+            endMsg = String.format("End %s:%s:[%s]", context.getTarget().getClass().getCanonicalName(), context.getMethod().getName(), parameters);
         }
-        logger.trace("Call %s:%s:[%s]", context.getTarget().getClass().getCanonicalName(), context.getMethod().getName(), parameters);
+        logger.trace(beginMsg);
         try {
             return context.proceed();
         } finally {
-            logger.trace("End %s:%s:[%s]", context.getTarget().getClass().getCanonicalName(), context.getMethod().getName(), parameters); 
+            logger.trace(endMsg); 
         }
     }
 }

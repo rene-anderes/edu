@@ -10,19 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 
 @Entity
-@NamedQueries({
-    @NamedQuery(
-      name = "Author.All.OrderByLastname", 
-      query = "SELECT a FROM Author a ORDER BY a.lastName ASC"),
-    @NamedQuery(
-      name = "Author.ByLastname", 
-      query = "SELECT a FROM Author a WHERE a.lastName = :lastname")
-   })
-
+@NamedEntityGraph(
+      name = "Author.books",
+      attributeNodes = @NamedAttributeNode("books")
+)
 public class Author {
 
     @Id @GeneratedValue

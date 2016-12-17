@@ -13,7 +13,7 @@ import org.anderes.edu.jee.cdi.interceptor.Logging;
 public class HelloWorldResource {
 
     @Inject @Relaxed
-    private RelaxedGreetingService service;
+    private GreetingService service;
     
 	@GET
 	@Produces(TEXT_PLAIN)

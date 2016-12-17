@@ -41,7 +41,7 @@ public class NativeQueryTest {
     
     @BeforeClass
     public static void setUpOnce() {
-        /* Der Name der Persistence-Unit entspricht der in der Konfigurationsdatei META-INF/persistence.xml */
+        /* Der Name der Persistence-Unit entspricht dem in der Konfigurationsdatei META-INF/persistence.xml */
         entityManagerFactory = Persistence.createEntityManagerFactory("testPU");
     }
     
