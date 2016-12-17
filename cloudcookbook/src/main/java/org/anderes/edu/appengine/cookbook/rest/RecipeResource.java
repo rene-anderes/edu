@@ -36,11 +36,13 @@ public class RecipeResource {
     
     @GET
     @Path("{id}")
+    @Produces(APPLICATION_JSON)
     public Recipe findOne(@PathParam("id") String id) {
         return repository.findOne(id);
     }
     
     @GET
+    @Produces(APPLICATION_JSON)
     public Response findAll() {
         final List<RecipeShort> recipes = repository.getRecipeCollection();
         return Response.ok().encoding(UTF_8.displayName()).entity(recipes).build();
@@ -83,6 +85,7 @@ public class RecipeResource {
     
     @GET
     @Path("tags")
+    @Produces(APPLICATION_JSON)
     public Response tags() {
         final ArrayList<TagDto> tags = mapToTagDto(repository.findAllTags());
         return Response.ok(tags).build();

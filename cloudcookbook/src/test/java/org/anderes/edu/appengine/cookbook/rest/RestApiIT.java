@@ -1,9 +1,11 @@
 package org.anderes.edu.appengine.cookbook.rest;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static javax.json.stream.JsonGenerator.PRETTY_PRINTING;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON_TYPE;
 import static javax.ws.rs.core.Response.Status.CREATED;
+import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 import static javax.ws.rs.core.Response.Status.OK;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -21,7 +23,6 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.JsonValue;
-import static javax.json.stream.JsonGenerator.*;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -86,12 +87,12 @@ public class RestApiIT {
         assertThat(response.getMediaType(), is(APPLICATION_JSON_TYPE));
         assertThat(response.hasEntity(), is(true));
      
-        final JsonArray  jsonArray = response.readEntity(JsonArray .class);
+        final JsonArray  jsonArray = response.readEntity(JsonArray.class);
         assertThat(jsonArray, is(notNullValue()));
     }
     
     @Test
-    public void shouldBeSaveNewRecipe() throws Exception {
+    public void shouldBeSaveNewRecipePOST() throws Exception {
         
         // given
         final WebTarget target = client.target(uri);
@@ -113,7 +114,7 @@ public class RestApiIT {
     }
     
     @Test
-    public void shouldBePutRecipe() throws Exception {
+    public void shouldBeInsertNewRecipePUT() throws Exception {
         // given
         final Path jsonFile = Paths.get(".", "target", "test-classes", "recipe2.json");
         final JsonObject json = readJsonFile(jsonFile);
@@ -133,6 +134,15 @@ public class RestApiIT {
         assertThat(responseFromGet.getStatus(), is(OK.getStatusCode()));
     }
     
+    @Test
+    public void shouldBeDeleteNotExistRecipe() {
+    	// given
+    	final WebTarget target = client.target(uri).path("abc-000");
+        // when
+    	final Response response = target.request().delete();
+    	// then
+    	assertThat(response.getStatus(), is(NOT_FOUND.getStatusCode()));
+    }
     @Test
     public void shouldBeReadJsonFileFromPath() throws Exception {
         final Path jsonFile = Paths.get(".", "target", "test-classes", "recipe1.json");

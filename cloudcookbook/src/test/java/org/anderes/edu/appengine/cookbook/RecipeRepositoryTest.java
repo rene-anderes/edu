@@ -84,6 +84,7 @@ public class RecipeRepositoryTest {
         final Recipe savedRecipe = repository.findOne("d60588da-7971-42f1-b514-85e1bfa02b1e");
         repository.delete("d60588da-7971-42f1-b514-85e1bfa02b1e");
         assertThat(repository.exists(savedRecipe), is(false));
+        assertThat(repository.exist("d60588da-7971-42f1-b514-85e1bfa02b1e"), is(false));
         repository.findOne("d60588da-7971-42f1-b514-85e1bfa02b1e");
     }
     

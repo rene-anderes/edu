@@ -12,7 +12,7 @@
     <properties>
         <app.id>primeval-falcon-839</app.id>
         <app.version>1-5</app.version>
-        <appengine.version>1.9.40</appengine.version>
+        <appengine.version>1.9.48</appengine.version>
         <gcloud.plugin.version>2.0.9.111.v20160527</gcloud.plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
@@ -47,7 +47,7 @@
         <dependency>
             <groupId>com.googlecode.objectify</groupId>
             <artifactId>objectify</artifactId>
-            <version>5.1.10</version>
+            <version>5.1.13</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -167,7 +167,7 @@
             <plugin>
                 <groupId>com.google.appengine</groupId>
                 <artifactId>appengine-maven-plugin</artifactId>
-                <version>1.9.38</version>
+                <version>${appengine.version}</version>
                 <configuration>
                     <enableJarClasses>false</enableJarClasses>
                     <version>${app.version}</version>
