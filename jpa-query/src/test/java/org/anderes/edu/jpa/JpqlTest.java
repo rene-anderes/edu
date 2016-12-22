@@ -74,7 +74,16 @@ public class JpqlTest {
         final List<Object[]> authorNames = entityManager.createQuery("SELECT a.firstName, a.lastName FROM Author a").getResultList();
         assertThat(authorNames.size(), is(2));
         
-        /* Erzeugen eines neuen Pojo-Objekt pro Entity */
+        
+    }
+    
+    /**
+     * Erzeugen eines neuen Pojo-Objekt pro Entity.<br>
+     * Auch Hier werden einzelne Attribute eine Entity selektiert
+     */
+    @Test
+    public void createPojoObject() {
+
         final List<AuthorInfo> authorInfos = entityManager.createQuery(
                         "SELECT NEW org.anderes.edu.jpa.model.AuthorInfo(a.firstName, a.lastName) FROM Author a", AuthorInfo.class).getResultList();
         assertThat(authorInfos.size(), is(2));

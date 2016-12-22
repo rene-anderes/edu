@@ -102,18 +102,16 @@ public class CriteriaQueryTest {
     }
     
     /**
-     * Einzelne Attribute einer Entity deklarieren und damit ein neues Pojo instanziieren
+     * Erzeugen eines neuen Pojo-Objekt pro Entity.<br>
+     * Auch Hier werden einzelne Attribute eine Entity selektiert
      */
     @Test
-    public void defineTheAttributesWithNewPojo() {
+    public void createPojoObject() {
         
         final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         final CriteriaQuery<AuthorInfo> criteria = builder.createQuery(AuthorInfo.class);
         final Root<Author> entity = criteria.from(Author.class);
-        criteria.select(builder.construct(
-                        AuthorInfo.class, 
-                        entity.get(Author_.firstName), 
-                        entity.get(Author_.lastName)));
+        criteria.select(builder.construct(AuthorInfo.class, entity.get(Author_.firstName), entity.get(Author_.lastName)));
         final List<AuthorInfo> authors = entityManager.createQuery(criteria).getResultList();
 
         assertThat(authors.size(), is(2));
