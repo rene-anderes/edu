@@ -70,7 +70,7 @@ public class RecipeRepository {
 	}
 
 	public Collection<Recipe> findByTitle(final String title) {
-		return new ArrayList(); //ofy().load().type(Recipe.class).filter("title >=", title).filter("title <", title + "\ufffd").list();
+		return ofy().load().type(Recipe.class).filter("title >=", title).filter("title <", title + "\ufffd").list();
 	}
 
 	public List<Recipe> findAll() {
