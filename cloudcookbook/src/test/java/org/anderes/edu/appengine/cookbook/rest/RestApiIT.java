@@ -31,8 +31,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.Variant;
 
-import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.jsonp.JsonProcessingFeature;
+import org.glassfish.jersey.logging.LoggingFeature;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -49,7 +49,7 @@ public class RestApiIT {
         client = ClientBuilder.newClient();
         client.register(JsonProcessingFeature.class)
             .property(PRETTY_PRINTING, true)
-            .register(new LoggingFilter(logger, true)); 
+            .register(new LoggingFeature(logger)); 
     }
     
     @BeforeClass
@@ -57,7 +57,7 @@ public class RestApiIT {
         final Client client = ClientBuilder.newClient();
         client.register(JsonProcessingFeature.class)
             .property(PRETTY_PRINTING, true)
-            .register(new LoggingFilter(logger, true)); 
+            .register(new LoggingFeature(logger)); 
         final WebTarget target = client.target(uri);
         final Response response = target.request(APPLICATION_JSON).buildGet().invoke();
         final JsonArray jsonArray = response.readEntity(JsonArray.class);
