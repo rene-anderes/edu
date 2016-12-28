@@ -11,9 +11,9 @@
 
     <properties>
         <app.id>primeval-falcon-839</app.id>
-        <app.version>1-5</app.version>
+        <app.version>1-7</app.version>
         <appengine.version>1.9.48</appengine.version>
-        <gcloud.plugin.version>2.0.9.111.v20160527</gcloud.plugin.version>
+        <gcloud.plugin.version>2.0.9.133.v201611104</gcloud.plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
         <jersey.version>2.22.1</jersey.version>
@@ -61,17 +61,16 @@
             <artifactId>jersey-container-servlet-core</artifactId>
             <version>${jersey.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-client</artifactId>
-            <version>${jersey.version}</version>
-        </dependency>
+        
+        <!-- ======================== POJO-Mapping ======================== -->
         <!-- Jersey JSON Jackson (2.x) entity providers support module. -->
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-jackson</artifactId>
             <version>${jersey.version}</version>
         </dependency>
+        <!-- /======================= POJO-Mapping ======================== -->
+        
         <!-- Jersey Media Json Processing for REST-Client -->
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>

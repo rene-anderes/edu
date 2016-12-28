@@ -1,18 +1,128 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>welcome</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>Kochbuch chez René</title>
+    <script>document.write('<base href="' + document.location + '" />');</script>
+    <!-- Angular Material style sheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.3/angular-material.min.css" rel="stylesheet" >
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
+    <!-- Cookbook style sheet -->
+    <link href="css/cookbook.css" rel="stylesheet">
+    
+    <style type="text/css">
+        /** Hide when Angular is not yet loaded and initialized */
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+          display: none !important;
+        }
+    </style>
+    
 </head>
-<body>
-<h1>Welcome</h1>
-<p>Services:</p>
-<ul>
-<li><a href="/cookbook.html">Kochbuch Web-Client</a></li>
-<li><a href="/_ah/admin">Admin</a></li>
-<li><a href="/services/users">User REST-Service</a></li>
-<li><a href="/services/helloworld">Hello World REST-Service</a></li>
-<li><a href="/services/recipes">Kochbuch REST-Service</a></li>
-</ul>
+
+<body layout="column" ng-app="recipeApp" ng-controller="recipeCtrl as ctrl" ng-cloak>
+        
+        <md-toolbar class="md-whiteframe-z2">
+            <div class="md-toolbar-tools">
+                <md-button class="md-icon-button" ng-click="ctrl.toggleList()" aria-label="Show Recipe List">
+                    <md-icon md-svg-icon="menu"></md-icon>
+                </md-button>
+                <h2 class="md-flex"><span>Kochbuch <i>chez René</i></span></h2>
+                <md-menu>
+                    <md-button class="md-icon-button" aria-label="More" ng-click="$mdOpenMenu($event)">
+                        <md-icon md-menu-origin md-svg-icon="more_vert"></md-icon>
+                    </md-button>
+                    <md-menu-content width="4">
+                       <md-menu-item>
+                           <md-button ng-click="ctrl.showNewDialog()" ng-disabled="!ctrl.credentials.logonOk">Neues Rezept</md-button>
+                       </md-menu-item>
+                       <md-menu-item>
+                           <md-button ng-click="ctrl.showEditDialog()" ng-disabled="!ctrl.selected || !ctrl.credentials.logonOk">Edit Rezept</md-button>
+                       </md-menu-item>
+                       <md-menu-item>
+                           <md-button ng-click="ctrl.showDeleteDialog()" ng-disabled="!ctrl.credentials.logonOk">Rezept löschen</md-button>
+                       </md-menu-item>
+                  </md-menu-content>
+                </md-menu>
+            </div>
+        </md-toolbar>
+
+        <md-sidenav
+            class="site-sidenav md-sidenav-left md-whiteframe-z2" 
+            md-component-id="left" 
+            ng-click="ctrl.toggleList()" 
+            aria-label="Show Recipe List">
+            
+            <md-toolbar>
+                <h1 class="md-toolbar-tools">Rezepte</h1>
+            </md-toolbar>
+            <md-list>
+                <md-item ng-repeat="recipe in recipes">
+                    <md-button ng-click="ctrl.selectRecipe(recipe)" ng-class="{'selected' : recipe === ctrl.selected }">{{recipe.title}}</md-button>
+                </md-item>
+            </md-list>
+        </md-sidenav>
+        
+        <md-content flex layout-padding>
+            <div ng-show="ctrl.selected">
+                <p>Rezept für</p>
+                <h1>{{recipe.title}}</h1>
+                <p ng-bind-html="recipe.preamble"></p>
+                <h2>Zutaten</h2>
+                <p>für {{recipe.noOfPeople}} Person(en):</p>
+                <md-grid-list
+                    md-cols="1" md-cols-sm="3" md-cols-md="4" md-cols-gt-md="5"
+                    md-row-height-gt-md="150px" md-row-height="150px"
+                    md-gutter="8px" md-gutter-gt-sm="4px" >
+                    <md-grid-tile
+                        ng-repeat="ingredient in recipe.ingredients | orderBy:'description'"
+                        ng-init="ctrl.colorTiles()"
+                        md-colspan-gt-sm="{{ctrl.tiles[$index].colspan}}"
+                        md-rowspan-gt-sm="{{ctrl.tiles[$index].rowspan}}"                        
+                        ng-style="{ 'background': ctrl.tiles[$index].color }"
+                        md-colspan-sm="1">
+                        <p>{{ingredient.description}}<br>{{ingredient.comment}}</p>
+                        <md-grid-tile-footer><h3>{{ingredient.portion}}</h3></md-grid-tile-footer>
+                    </md-grid-tile>
+                </md-grid-list>
+                <p>&nbsp;</p>
+                <h2>Zubereitung</h2>
+                <p ng-bind-html="recipe.preparation"></p>
+                <p>&nbsp;</p>
+                <small>Letzte Änderung: {{recipe.editingDate | date:'EEE dd. MMM yyyy - HH:mm'}}<br>Erfasst am: {{recipe.addingDate | date:'EEE dd. MMM yyyy - HH:mm'}}</small><br>
+                <small>Rating: {{recipe.rating}}</small><br>
+                <small id="tags">Tags: <span class="tag" ng-repeat="tag in recipe.tags">{{tag}}&nbsp;</span></small>
+                <p>&nbsp;</p>
+            </div>
+            <div ng-hide="ctrl.selected">
+                <md-button ng-click="ctrl.toggleList()" class="md-primary" hide-gt-md>Bitte Rezept auswählen</md-button>
+            </div>
+        </md-content>
+
+    <!-- Angular Material requires Angular.js Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-messages.min.js"></script>
+    
+    <!-- Application Angular requires Angular.js Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-sanitize.min.js"></script>
+    
+    <!-- Angular Material Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.3/angular-material.min.js"></script>
+    
+    <!-- CK-Editor -->
+    <script src="ckeditor/ckeditor.js"></script>
+    
+    <script src="js/appConstants.js"></script>
+    <script src="js/base64.js"></script>
+    <script src="js/notification.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/app.js"></script>
+
 </body>
 </html>
