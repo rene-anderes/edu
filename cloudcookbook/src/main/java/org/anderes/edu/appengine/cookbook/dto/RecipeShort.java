@@ -7,6 +7,10 @@ public class RecipeShort {
     private String id;
     private Date editingDate;
     
+    public RecipeShort() {
+        super();
+    }
+    
     public RecipeShort(String title, String id, Date editingDate) {
         super();
         this.title = title;
