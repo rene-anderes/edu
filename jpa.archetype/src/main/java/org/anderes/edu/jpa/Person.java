@@ -10,14 +10,17 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 /**
  * Beispiel welches die Möglichkeiten der Basic Attributes veranschaulicht.
+ * Es werden die grundlegenden Annotations von JPA eingesetzt.
  */
 @Entity
+@Table(name = "T_PERSON")
 public class Person {
 
 	public enum Gender { MALE, FEMALE };
