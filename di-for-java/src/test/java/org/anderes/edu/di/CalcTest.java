@@ -14,6 +14,9 @@ import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
 
 /**
  * Testklasse welche das Verhalten eines 
@@ -24,10 +27,11 @@ import org.junit.Test;
 public class CalcTest {
     
     private Calc calc;
+    private final Injector injector = Guice.createInjector(new CalcGuiceModule());
     
     @Before
     public void setup() {
-        calc = new Calc();
+        calc = injector.getInstance(Calc.class);
     }
 
     @Test

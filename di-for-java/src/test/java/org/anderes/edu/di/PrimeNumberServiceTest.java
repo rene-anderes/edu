@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class PrimeNumberServiceTest {
 
-    private PrimeNumberService service;
+    private Service service;
     
     @Before
     public void setup() {

@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.inject.Inject;
+
 /**
  * Einfacher Taschenrechner mit UPN
  * 
@@ -16,9 +18,14 @@ import java.util.stream.Collectors;
  */
 public class Calc {
 
-    private PrimeNumberService service = new PrimeNumberService();
+    private Service service;
     private Deque<BigDecimal> stack = new ArrayDeque<BigDecimal>();
 
+    @Inject
+    void setService(Service service) {
+        this.service = service;
+    }
+    
     /**
      * Fügt die Zahl zuoberts auf den Stack hinzu.
      * 
