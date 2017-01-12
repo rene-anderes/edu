@@ -11,7 +11,6 @@ public class PrimeNumberService implements Service {
 
     @Override
     public Boolean isPrimeNumber(final Integer number) {
-        // nicht so effiziente Primzahlberechnung
         return number > 1 && LongStream.rangeClosed(2, (long)sqrt(number)).noneMatch(divisor -> number % divisor == 0);
     }
 

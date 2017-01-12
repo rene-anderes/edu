@@ -14,6 +14,7 @@ import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
@@ -27,7 +28,13 @@ import com.google.inject.Injector;
 public class CalcTest {
     
     private Calc calc;
-    private final Injector injector = Guice.createInjector(new CalcGuiceModule());
+    private final Injector injector = Guice.createInjector(new AbstractModule() {
+        
+        @Override
+        protected void configure() {
+            bind(Service.class).to(PrimeNumberClassicService.class);
+        }
+    });
     
     @Before
     public void setup() {
