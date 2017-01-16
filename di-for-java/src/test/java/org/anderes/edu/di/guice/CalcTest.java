@@ -1,4 +1,4 @@
-package org.anderes.edu.di;
+package org.anderes.edu.di.guice;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.contains;
@@ -11,6 +11,9 @@ import static org.junit.Assert.assertThat;
 import java.math.BigDecimal;
 import java.util.Optional;
 
+import org.anderes.edu.di.Calc;
+import org.anderes.edu.di.PrimeNumberClassicService;
+import org.anderes.edu.di.Service;
 import org.junit.Before;
 import org.junit.Test;
 

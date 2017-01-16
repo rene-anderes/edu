@@ -1,4 +1,7 @@
-package org.anderes.edu.di;
+package org.anderes.edu.di.guice;
+
+import org.anderes.edu.di.PrimeNumberService;
+import org.anderes.edu.di.Service;
 
 import com.google.inject.AbstractModule;
 

@@ -1,7 +1,9 @@
-package org.anderes.edu.di;
+package org.anderes.edu.di.guice;
 
 import java.math.BigDecimal;
 import java.util.Optional;
+
+import org.anderes.edu.di.Calc;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
