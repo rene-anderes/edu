@@ -107,6 +107,8 @@ public class CalcController implements Initializable {
         
         initUiControls();
                
+        /* ReactFx siehe https://github.com/TomasMikula/ReactFX */
+        /*                                                      */
         EventStreams.eventsOf(btnEnter, ACTION)
                 .subscribe(event -> addNewValueIfNotEmpty(), ex -> showErrorMessage("error.wrong.input"));
         EventStreams.eventsOf(btnAddition, ACTION)
@@ -123,7 +125,7 @@ public class CalcController implements Initializable {
         EventStreams.eventsOf(btnSigned, ACTION).subscribe(event -> signedInput());
         EventStreams.eventsOf(btnStack, ACTION).subscribe(event -> formStackToInput());
         
-        EventStream<KeyEvent> inValueKeyEventStream = EventStreams.eventsOf(inValue, KeyEvent.KEY_RELEASED);
+        final EventStream<KeyEvent> inValueKeyEventStream = EventStreams.eventsOf(inValue, KeyEvent.KEY_RELEASED);
         inValueKeyEventStream.filter(event -> event.getCode() == ENTER).subscribe(e -> btnEnter.fire());
         inValueKeyEventStream.filter(event -> event.getCode() == ESCAPE).subscribe(e -> initValueForInputField());
         inValueKeyEventStream.filter(event -> event.getCode() == ADD).subscribe(event -> btnAddition.fire());
@@ -134,7 +136,7 @@ public class CalcController implements Initializable {
         inValueKeyEventStream.filter(event -> event.getCode() == BACK_SPACE)
                 .filter(event -> isEmpty(inValue.getText())).subscribe(event -> initValueForInputField());
         inValueKeyEventStream.filter(event -> event.getCode().isDigitKey())
-                .filter(event -> inValue.getText().startsWith(ZERO)).subscribe(event -> removeLeadingZero());
+                .filter(event -> startsWith(inValue.getText(), ZERO)).subscribe(event -> removeLeadingZero());
         
         Platform.runLater(() -> {
             initValueForInputField();
