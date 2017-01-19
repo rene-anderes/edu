@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import org.reactfx.BiEventStream;
 import org.reactfx.EventStream;
@@ -36,6 +37,7 @@ import javafx.scene.input.KeyEvent;
 
 public class CalcController implements Initializable {
 
+    public final static String FXMLCALC = "/fxml/JavaFX-Calc.fxml";
     @FXML
     private Button btnZero;
     @FXML
@@ -97,7 +99,7 @@ public class CalcController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+        System.out.println("CalcController: " + this.toString());
         initUiControls();
                
         /* ReactFx siehe https://github.com/TomasMikula/ReactFX */
@@ -153,7 +155,7 @@ public class CalcController implements Initializable {
         Platform.runLater(() -> {
             initValueForInputField();
             EventStreams.eventsOf(inValue.getScene(), KEY_RELEASED)
-                .hook(event -> System.out.println(event.getCode()))
+//                .hook(event -> System.out.println(event.getCode()))
                 .filter(event -> event.getCode().isDigitKey()).subscribe(event -> redirect(event));
             inValue.requestFocus();
         });

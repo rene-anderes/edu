@@ -26,6 +26,31 @@
                     </compilerArguments>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.19.1</version>
+                <configuration>
+                    <reuseForks>false</reuseForks>
+                    <forkCount>4</forkCount>
+                    <additionalClasspathElements>
+                        <additionalClasspathElement>${java.home}/lib/jfxrt.jar</additionalClasspathElement>
+                    </additionalClasspathElements>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+            </plugin>
         </plugins>
     </build>
 
@@ -78,6 +103,14 @@
             <version>1.3</version>
             <scope>test</scope>
         </dependency>
+        
+        <!-- TestFX -->
+		<dependency>
+			<groupId>org.loadui</groupId>
+			<artifactId>testFx</artifactId>
+			<version>3.1.2 </version>
+            <scope>test</scope>
+		</dependency>
     </dependencies>
 
 </project>

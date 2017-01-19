@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 
 public class CalcStarter extends Application {
 
-    private final static Injector injector = Guice.createInjector(new CalcGuiceModule());
+    private final static Injector INJECTOR = Guice.createInjector(new CalcGuiceModule());
 
     public static void main(String[] args) {
         launch(args);
@@ -24,10 +24,10 @@ public class CalcStarter extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         
-        final CalcController calcController = injector.getInstance(CalcController.class);
+        final CalcController calcController = INJECTOR.getInstance(CalcController.class);
         final ResourceBundle resourceBundle = ResourceBundle.getBundle("CalcLanguagePack");
 
-        final FXMLLoader myLoader = new FXMLLoader(getClass().getResource("/fxml/JavaFX-Calc.fxml"), resourceBundle);
+        final FXMLLoader myLoader = new FXMLLoader(getClass().getResource(CalcController.FXMLCALC), resourceBundle);
         myLoader.setController(calcController);
         
         Parent calcScreen = myLoader.load();

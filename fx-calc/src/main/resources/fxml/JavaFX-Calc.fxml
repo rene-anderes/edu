@@ -42,7 +42,7 @@
             <Button fx:id="btnTwo" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="2" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <Button fx:id="btnThree" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="3" GridPane.columnIndex="2" GridPane.rowIndex="7" />
             <Button fx:id="btnZero" maxHeight="30.0" maxWidth="65.0" minHeight="30.0" minWidth="65.0" mnemonicParsing="false" text="0" GridPane.columnSpan="2" GridPane.rowIndex="8" />
-            <Button fx:id="btnEnter" maxHeight="35.0" maxWidth="65.0" minHeight="35.0" minWidth="65.0" mnemonicParsing="false" rotate="-90.0" text="enter" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.rowSpan="2">
+            <Button id="enterButton" fx:id="btnEnter" maxHeight="35.0" maxWidth="65.0" minHeight="35.0" minWidth="65.0" mnemonicParsing="false" rotate="-90.0" text="enter" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.rowSpan="2">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin></Button>
@@ -52,11 +52,11 @@
             <Button fx:id="btnMultiply" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="*" GridPane.columnIndex="3" GridPane.rowIndex="6" />
             <Button fx:id="btnDivide" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="/" GridPane.columnIndex="3" GridPane.rowIndex="5" />
             <Button fx:id="btnSigned" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="+_" GridPane.columnIndex="4" GridPane.rowIndex="5" />
-            <Button fx:id="btnCancel" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="C" GridPane.rowIndex="4" />
-            <ListView fx:id="lwStack" maxHeight="150.0" minHeight="150.0" GridPane.columnSpan="5" GridPane.rowIndex="1" />
-            <TextField fx:id="inValue" GridPane.columnSpan="5" />
-            <Button fx:id="btnCE" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="CE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Button fx:id="btnStack" layoutX="30.0" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="ST" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <Button id="cButton" fx:id="btnCancel" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="C" GridPane.rowIndex="4" />
+            <ListView id="stackView" fx:id="lwStack" maxHeight="150.0" minHeight="150.0" GridPane.columnSpan="5" GridPane.rowIndex="1" />
+            <TextField id="inputField" fx:id="inValue" GridPane.columnSpan="5" />
+            <Button id="ceButton" fx:id="btnCE" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="CE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Button id="stButton" fx:id="btnStack" layoutX="30.0" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="ST" GridPane.columnIndex="4" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </children>
