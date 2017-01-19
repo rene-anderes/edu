@@ -3,6 +3,7 @@ package org.anderes.edu.di;
 
 import static javafx.event.ActionEvent.ACTION;
 import static javafx.scene.input.KeyCode.*;
+import static javafx.scene.input.KeyEvent.*;
 import static org.apache.commons.lang3.StringUtils.*;
 import static org.apache.commons.lang3.math.NumberUtils.INTEGER_ZERO;
 import static org.apache.commons.lang3.math.NumberUtils.createBigDecimal;
@@ -15,13 +16,13 @@ import java.util.function.UnaryOperator;
 
 import javax.inject.Inject;
 
+import org.reactfx.BiEventStream;
 import org.reactfx.EventStream;
 import org.reactfx.EventStreams;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -93,15 +94,7 @@ public class CalcController implements Initializable {
         }
         return null;
     };
-    
-    private final EventHandler<KeyEvent> numericHandler = event -> {
-        final TextField textField = (TextField) event.getSource();
-        final String character = event.getCharacter();
-        if(notAllowedInputCharacter(character, textField)) {
-            event.consume();
-        }
-    };
-    
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
@@ -125,22 +118,41 @@ public class CalcController implements Initializable {
         EventStreams.eventsOf(btnSigned, ACTION).subscribe(event -> signedInput());
         EventStreams.eventsOf(btnStack, ACTION).subscribe(event -> formStackToInput());
         
-        final EventStream<KeyEvent> inValueKeyEventStream = EventStreams.eventsOf(inValue, KeyEvent.KEY_RELEASED);
-        inValueKeyEventStream.filter(event -> event.getCode() == ENTER).subscribe(e -> btnEnter.fire());
-        inValueKeyEventStream.filter(event -> event.getCode() == ESCAPE).subscribe(e -> initValueForInputField());
-        inValueKeyEventStream.filter(event -> event.getCode() == ADD).subscribe(event -> btnAddition.fire());
-        inValueKeyEventStream.filter(event -> event.getCode() == SUBTRACT).subscribe(event -> btnSubtract.fire());
-        inValueKeyEventStream.filter(event -> event.getCode() == MULTIPLY).subscribe(event -> btnMultiply.fire());
-        inValueKeyEventStream.filter(event -> event.getCode() == DIVIDE).subscribe(event -> btnDivide.fire());
-        inValueKeyEventStream.filter(event -> event.getCode() == DELETE).subscribe(event -> initValueForInputField());
-        inValueKeyEventStream.filter(event -> event.getCode() == BACK_SPACE)
-                .filter(event -> isEmpty(inValue.getText())).subscribe(event -> initValueForInputField());
-        inValueKeyEventStream.filter(event -> event.getCode().isDigitKey())
-                .filter(event -> startsWith(inValue.getText(), ZERO)).subscribe(event -> removeLeadingZero());
+        EventStream<KeyEvent> keyPressed = EventStreams.eventsOf(inValue, KEY_PRESSED);
+        EventStream<KeyEvent> keyReleased = EventStreams.eventsOf(inValue, KEY_RELEASED);
+        EventStream<KeyEvent> keyTyped = EventStreams.eventsOf(inValue, KEY_TYPED);
+        EventStream<KeyEvent> keyPressedOrReleased = EventStreams.merge(keyPressed, keyReleased);
+        EventStream<Boolean> shiftPresses = keyPressedOrReleased.filter(key -> key.getCode().equals(SHIFT)).map(key -> key.isShiftDown());
+        
+        keyTyped.filter(key -> notAllowedInputCharacter(key.getCharacter())).subscribe(key -> key.consume());
+        
+        keyReleased.filter(key -> key.getCode().equals(ENTER)).subscribe(key -> btnEnter.fire());
+        keyReleased.filter(key -> key.getCode().equals(ESCAPE)).subscribe(key -> initValueForInputField());
+        keyReleased.filter(key -> key.getCode().equals(ADD)).subscribe(key -> btnAddition.fire());
+        keyReleased.filter(key -> key.getCode().equals(SUBTRACT)).subscribe(key -> btnSubtract.fire());
+        keyReleased.filter(key -> key.getCode().equals(MINUS)).subscribe(key -> btnSubtract.fire());
+        keyReleased.filter(key -> key.getCode().equals( MULTIPLY)).subscribe(key -> btnMultiply.fire());
+        keyReleased.filter(key -> key.getCode().equals(DIVIDE)).subscribe(key -> btnDivide.fire());
+        keyReleased.filter(key -> key.getCode().equals(DELETE)).subscribe(key -> initValueForInputField());
+        keyReleased.filter(key -> key.getCode().equals(BACK_SPACE)).filter(key -> isEmpty(inValue.getText())).subscribe(key -> initValueForInputField());
+        keyReleased.filter(key -> key.getCode().isDigitKey()).filter(key -> startsWith(inValue.getText(), ZERO)).subscribe(key -> removeLeadingZero());
+        
+        final BiEventStream<KeyEvent, Boolean> combo = EventStreams.combine(keyReleased, shiftPresses);
+        combo.subscribe((key, shift) -> {
+            if (shift && key.getCode() == DIGIT1) {
+                btnAddition.fire();
+            }
+            if (shift && key.getCode() == DIGIT3) {
+                btnMultiply.fire();
+            }
+            if (shift && key.getCode() == DIGIT7) {
+                btnDivide.fire();
+            }
+        });
         
         Platform.runLater(() -> {
             initValueForInputField();
-            EventStreams.eventsOf(inValue.getScene(), KeyEvent.KEY_RELEASED)
+            EventStreams.eventsOf(inValue.getScene(), KEY_RELEASED)
                 .hook(event -> System.out.println(event.getCode()))
                 .filter(event -> event.getCode().isDigitKey()).subscribe(event -> redirect(event));
             inValue.requestFocus();
@@ -151,7 +163,6 @@ public class CalcController implements Initializable {
         final TextFormatter<String> textFormatter = new TextFormatter<>(textFormatterDigitFilter);
         inValue.setTextFormatter(textFormatter);
         inValue.setStyle("-fx-display-caret: false");
-        inValue.addEventFilter(KeyEvent.KEY_TYPED, numericHandler);
         lwStack.setItems(stack);
         lwStack.setFocusTraversable(false);
         
@@ -188,11 +199,12 @@ public class CalcController implements Initializable {
         btnStack.setFocusTraversable(false);
     }
 
-    private boolean notAllowedInputCharacter(final String character, final TextField textField) {
+    private boolean notAllowedInputCharacter(final String character) {
+        final String text = inValue.getText();
         if (character.matches("[0-9.]")) {
-            if (textField.getText().contains(".") && character.matches("[.]")) {
+            if (text.contains(".") && character.matches("[.]")) {
                 return true;
-            } else if (textField.getText().length() == 0 && character.matches("[.]")) {
+            } else if (text.length() == 0 && character.matches("[.]")) {
                 return true;
             }
         } else {
@@ -287,7 +299,7 @@ public class CalcController implements Initializable {
     }
     
     private void appendText(final String text) {
-        if (notAllowedInputCharacter(text, inValue)) {
+        if (notAllowedInputCharacter(text)) {
             return;
         }
         inValue.appendText(text);
