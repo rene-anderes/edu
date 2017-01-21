@@ -5,6 +5,6 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="primeNumberService" class="org.anderes.edu.di.PrimeNumberService"/>
-    <bean id="calc" class="org.anderes.edu.di.Calc"/>
+    <bean id="calc" class="org.anderes.edu.di.Calc" scope="prototype"/>
     
 </beans>
