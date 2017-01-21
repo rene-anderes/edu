@@ -15,7 +15,6 @@ import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import org.reactfx.BiEventStream;
 import org.reactfx.EventStream;
