@@ -1,6 +1,7 @@
 package org.anderes.edu.di;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Collections;
@@ -116,7 +117,7 @@ public class Calc {
             return Optional.empty();
         }
         BigDecimal toDivide = stack.pop();
-        BigDecimal result = stack.pop().divide(toDivide);
+        BigDecimal result = stack.pop().divide(toDivide, MathContext.DECIMAL128);
         stack.push(result);
         return Optional.of(stack.getFirst());
     }

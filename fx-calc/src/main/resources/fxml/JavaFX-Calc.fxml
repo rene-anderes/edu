@@ -32,26 +32,26 @@
             <RowConstraints maxHeight="35.0" minHeight="35.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="btnSeven" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="7" GridPane.rowIndex="5" />
-            <Button fx:id="btnEight" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="8" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Button fx:id="btnNine" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="9" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <Button fx:id="btnFour" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="4" GridPane.rowIndex="6" />
-            <Button fx:id="btnFive" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="5" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Button fx:id="btnSix" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="6" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-            <Button fx:id="btnOne" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="1" GridPane.rowIndex="7" />
-            <Button fx:id="btnTwo" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="2" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <Button fx:id="btnThree" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="3" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-            <Button fx:id="btnZero" maxHeight="30.0" maxWidth="65.0" minHeight="30.0" minWidth="65.0" mnemonicParsing="false" text="0" GridPane.columnSpan="2" GridPane.rowIndex="8" />
+            <Button id="sevenButton" fx:id="btnSeven" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="7" GridPane.rowIndex="5" />
+            <Button id="eightButton" fx:id="btnEight" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="8" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Button id="nineButton" fx:id="btnNine" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="9" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Button id="fourButton" fx:id="btnFour" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="4" GridPane.rowIndex="6" />
+            <Button id="fiveButton" fx:id="btnFive" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="5" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Button id="sixButton" fx:id="btnSix" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="6" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <Button id="oneButton" fx:id="btnOne" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="1" GridPane.rowIndex="7" />
+            <Button id="twoButton" fx:id="btnTwo" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="2" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Button id="threeButton" fx:id="btnThree" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="3" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+            <Button id="zeroButton" fx:id="btnZero" maxHeight="30.0" maxWidth="65.0" minHeight="30.0" minWidth="65.0" mnemonicParsing="false" text="0" GridPane.columnSpan="2" GridPane.rowIndex="8" />
             <Button id="enterButton" fx:id="btnEnter" maxHeight="35.0" maxWidth="65.0" minHeight="35.0" minWidth="65.0" mnemonicParsing="false" rotate="-90.0" text="enter" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.rowSpan="2">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin></Button>
-            <Button fx:id="btnPoint" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="." GridPane.columnIndex="2" GridPane.rowIndex="8" />
-            <Button fx:id="btnSubtract" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="-" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-            <Button fx:id="btnAddition" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="+" GridPane.columnIndex="3" GridPane.rowIndex="8" />
-            <Button fx:id="btnMultiply" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="*" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-            <Button fx:id="btnDivide" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="/" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-            <Button fx:id="btnSigned" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="+_" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+            <Button id="pointButton" fx:id="btnPoint" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="." GridPane.columnIndex="2" GridPane.rowIndex="8" />
+            <Button id="subtractButton" fx:id="btnSubtract" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="-" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+            <Button id="additionButton" fx:id="btnAddition" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="+" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+            <Button id="multiplyButton" fx:id="btnMultiply" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="*" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <Button id="divideButton" fx:id="btnDivide" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="/" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+            <Button id="signedButton" fx:id="btnSigned" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="+_" GridPane.columnIndex="4" GridPane.rowIndex="5" />
             <Button id="cButton" fx:id="btnCancel" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" text="C" GridPane.rowIndex="4" />
             <ListView id="stackView" fx:id="lwStack" maxHeight="150.0" minHeight="150.0" GridPane.columnSpan="5" GridPane.rowIndex="1" />
             <TextField id="inputField" fx:id="inValue" GridPane.columnSpan="5" />

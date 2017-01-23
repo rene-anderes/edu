@@ -8,11 +8,11 @@ import static org.junit.Assert.assertThat;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.ResourceBundle;
 
 import org.anderes.edu.di.guice.CalcGuiceModule;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.loadui.testfx.GuiTest;
 
@@ -23,7 +23,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
+import static javafx.scene.input.KeyCode.*;
 
 public class CalcGuiIT extends GuiTest {
 
@@ -45,7 +45,7 @@ public class CalcGuiIT extends GuiTest {
         final BigDecimal expectedValue = BigDecimal.valueOf(29121967);
         
         // when
-        type(expectedValue.toString()).type(KeyCode.ENTER);
+        type(expectedValue.toString()).type(ENTER);
         
         // then
         assertThat(inputField.getText(), is(""));
@@ -73,10 +73,20 @@ public class CalcGuiIT extends GuiTest {
     }
     
     @Test
+    public void shouldBeCorrectInputByButton() {
+        // when
+        click("#nineButton").click("#eightButton").click("#sevenButton").click("#sixButton").click("#fiveButton")
+            .click("#fourButton").click("#threeButton").click("#twoButton").click("#oneButton").click("#zeroButton").click("#pointButton").click("#sevenButton");
+        
+        // then
+        assertThat(inputField.getText(), is("9876543210.7"));
+    }
+    
+    @Test
     public void shouldBeStackMove() {
         
         // when
-        type("20.45").type(KeyCode.ENTER).type("30.89").type(KeyCode.ENTER).click("#stButton");
+        type("20.45").type(ENTER).type("30.89").type(ENTER).click("#stButton");
         
         // then
         assertThat(stackView.getItems().size(), is(1));
@@ -94,7 +104,7 @@ public class CalcGuiIT extends GuiTest {
     public void shouldBeCheckCE() {
         
         // when
-        type("111").type(KeyCode.ENTER).type("222").type(KeyCode.ENTER).click("#ceButton").sleep(20);
+        type("111").type(ENTER).type("222").type(ENTER).click("#ceButton").sleep(20);
         
         assertThat(stackView.getItems().size(), is(1));
         assertThat(inputField.getText(), is(""));
@@ -104,7 +114,7 @@ public class CalcGuiIT extends GuiTest {
     public void shouldBeCheckEsc() {
         
         // when
-        type("20.45").type(KeyCode.ESCAPE);
+        type("20.45").type(ESCAPE);
         
         // then
         assertThat(inputField.getText(), is(""));
@@ -112,18 +122,159 @@ public class CalcGuiIT extends GuiTest {
     }
     
     @Test
-    public void shouldBeCheckAddition() {
+    public void shouldBeCheckAddition_1() {
         // given
         final BigDecimal expectedValue = BigDecimal.valueOf(51.34);
         
         // when
-        type("20.45").type(KeyCode.ENTER).type("30.89").type(KeyCode.ENTER)
-                        .press(KeyCode.SHIFT).type(KeyCode.DIGIT1).release(KeyCode.SHIFT);
+        type("20.45").type(ENTER).type("30.89").type(ENTER).press(SHIFT).type(DIGIT1).release(SHIFT);
         
         // then
         assertThat(inputField.getText(), is(""));
         assertThat(stackView.getItems().size(), is(1));
         assertThat(stackView.getItems().get(0), is(expectedValue));
+    }
+    
+    @Test
+    public void shouldBeCheckAddition_2() {
+        // given
+        final BigDecimal expectedValue = BigDecimal.valueOf(51.34);
+        
+        // when
+        type("20.45").type(ENTER).type("30.89").click("#additionButton");
+        
+        // then
+        assertThat(inputField.getText(), is(""));
+        assertThat(stackView.getItems().size(), is(1));
+        assertThat(stackView.getItems().get(0), is(expectedValue));
+    }
+    
+    @Test
+    public void shouldBeCheckAddition_3() {
+        // given
+        final BigDecimal expectedValue = BigDecimal.valueOf(51.34);
+        
+        // when
+        type("20.45").type(ENTER).type("30.89").type(ADD);
+        
+        // then
+        assertThat(inputField.getText(), is(""));
+        assertThat(stackView.getItems().size(), is(1));
+        assertThat(stackView.getItems().get(0), is(expectedValue));
+    }
+    
+    @Test
+    public void shouldBeCheckAdditionWithSigned() {
+        // given
+        final BigDecimal expectedValue = BigDecimal.valueOf(-10.44);
+        
+        // when
+        type("20.45").type(ENTER).type("30.89").click("#signedButton").type(ADD);
+        
+        // then
+        assertThat(inputField.getText(), is(""));
+        assertThat(stackView.getItems().size(), is(1));
+        assertThat(stackView.getItems().get(0), is(expectedValue));
+    }
+    
+    @Test
+    public void shouldBeCheckSubtract() {
+        // given
+        final BigDecimal expectedValue = BigDecimal.valueOf(-10.44);
+        
+        // when
+        type("20.45").type(ENTER).type("30.89").click("#subtractButton");
+        
+        // then
+        assertThat(inputField.getText(), is(""));
+        assertThat(stackView.getItems().size(), is(1));
+        assertThat(stackView.getItems().get(0), is(expectedValue));
+    }
+    
+    @Test
+    public void shouldBeCheckMultiply() {
+        // given
+        final BigDecimal expectedValue = BigDecimal.valueOf(631.7005);
+        
+        // when
+        type("20.45").type(ENTER).type("30.89").click("#multiplyButton");
+        
+        // then
+        assertThat(inputField.getText(), is(""));
+        assertThat(stackView.getItems().size(), is(1));
+        assertThat(stackView.getItems().get(0), is(expectedValue));
+    }
+    
+    @Test
+    public void shouldBeCheckDivide() {
+        // given
+        final BigDecimal expectedValue = new BigDecimal("0.6620265458077047588216251213985108", MathContext.DECIMAL128);
+        
+        // when
+        type("20.45").type(ENTER).type("30.89").click("#divideButton");
+        
+        // then
+        assertThat(inputField.getText(), is(""));
+        assertThat(stackView.getItems().size(), is(1));
+        assertThat(stackView.getItems().get(0), is(expectedValue));
+    }
+    
+    @Test
+    public void shouldBeCheckSigned() {
+        // when
+        click("#signedButton");
+        
+        // then
+        assertThat(inputField.getText(), is(""));
+        
+        // when
+        type("22.2").click("#signedButton");
+        
+        // then
+        assertThat(inputField.getText(), is("-22.2"));
+        
+        // when
+        click("#signedButton");
+        
+        // then
+        assertThat(inputField.getText(), is("22.2"));
+    }
+    
+    @Test
+    public void shouldBeCheckCancelStack() {
+        // when
+        type("20.45").type(ENTER).type("30.89").type(ENTER).type("88").type(ENTER).click("#cButton");
+        
+        // then
+        assertThat(inputField.getText(), is(""));
+        assertThat(stackView.getItems().size(), is(0));
+    }
+    
+    @Test
+    public void shouldBeCheckNotAllowedCharcter_1() {
+        // when
+        type("abcdEfG");
+        
+        // then
+        assertThat(inputField.getText(), is(""));
+    }
+    
+    @Test
+    public void shouldBeCheckNotAllowedCharcter_2() {
+        // when
+        type(".");
+        
+        // then
+        assertThat(inputField.getText(), is(""));
+    }
+    
+    @Test
+    public void shouldBeCheckNotAllowedCharcter_3() {
+        // when
+        type("2.5634.");
+        
+        // then
+        assertThat(inputField.getText(), is("2.5634"));
     }
     
     @Override

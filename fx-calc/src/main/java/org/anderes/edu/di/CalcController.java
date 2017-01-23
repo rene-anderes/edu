@@ -273,7 +273,7 @@ public class CalcController implements Initializable {
             handleCalcValue(calcValue);
         } catch (ArithmeticException e) {
             stack.setAll(calc.getStack());
-            throw new IllegalStateException();
+            throw new IllegalStateException(e);
         }
     }
 
