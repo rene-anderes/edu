@@ -12,12 +12,23 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedEntityGraphs;
+import javax.persistence.NamedSubgraph;
 
 @Entity
-@NamedEntityGraph(
-      name = "Author.books",
-      attributeNodes = @NamedAttributeNode("books")
-)
+@NamedEntityGraphs({
+    @NamedEntityGraph(
+              name = "Author.books",
+              attributeNodes = @NamedAttributeNode("books")
+          ),
+    @NamedEntityGraph(
+              // Dieser EntityGraph ist nur exemplarisch, da in diesem Fall 'Publisher' sowieso 'eager' geladen wird
+              name = "Author.books.publisher",
+              attributeNodes = @NamedAttributeNode(value = "books", subgraph = "books"),
+              subgraphs = @NamedSubgraph(name = "books", attributeNodes = @NamedAttributeNode("publisher"))
+          ) 
+})
+
 public class Author {
 
     @Id @GeneratedValue
