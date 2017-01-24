@@ -1,7 +1,9 @@
 package org.anderes.edu.di;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
+import static java.math.RoundingMode.*;
+
+import static java.math.MathContext.*;
 import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Collections;
@@ -20,6 +22,7 @@ public class Calc {
 
     private Service service;
     private Deque<BigDecimal> stack = new ArrayDeque<BigDecimal>();
+    private final static Integer MAX_SCALE = 12;
 
     @Inject
     void setService(Service service) {
@@ -73,7 +76,10 @@ public class Calc {
         if (stack.size() < 2) {
             return Optional.empty();
         }
-        BigDecimal result = stack.pop().add(stack.pop());
+        BigDecimal result = stack.pop().add(stack.pop(), DECIMAL128);
+        if (result.scale() > MAX_SCALE) {
+            result = result.setScale(MAX_SCALE, HALF_EVEN);
+        }
         stack.push(result);
         return Optional.of(stack.getFirst());
     }
@@ -88,7 +94,10 @@ public class Calc {
             return Optional.empty();
         }
         BigDecimal toSubtract = stack.pop();
-        BigDecimal result = stack.pop().subtract(toSubtract);
+        BigDecimal result = stack.pop().subtract(toSubtract, DECIMAL128);
+        if (result.scale() > MAX_SCALE) {
+            result = result.setScale(MAX_SCALE, HALF_EVEN);
+        }
         stack.push(result);
         return Optional.of(stack.getFirst());
     }
@@ -102,7 +111,10 @@ public class Calc {
         if (stack.size() < 2) {
             return Optional.empty();
         }
-        BigDecimal result = stack.pop().multiply(stack.pop());
+        BigDecimal result = stack.pop().multiply(stack.pop(), DECIMAL128);
+        if (result.scale() > MAX_SCALE) {
+            result = result.setScale(MAX_SCALE, HALF_EVEN);
+        }
         stack.push(result);
         return Optional.of(stack.getFirst());
     }
@@ -117,7 +129,10 @@ public class Calc {
             return Optional.empty();
         }
         BigDecimal toDivide = stack.pop();
-        BigDecimal result = stack.pop().divide(toDivide, MathContext.DECIMAL128);
+        BigDecimal result = stack.pop().divide(toDivide, DECIMAL128);
+        if (result.scale() > MAX_SCALE) {
+            result = result.setScale(MAX_SCALE, HALF_EVEN);
+        }
         stack.push(result);
         return Optional.of(stack.getFirst());
     }

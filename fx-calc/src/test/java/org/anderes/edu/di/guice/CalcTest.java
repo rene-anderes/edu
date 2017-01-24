@@ -123,9 +123,9 @@ public class CalcTest {
     public void shouldBeDivide() {
         
         // given
-        calc.addToStack(new BigDecimal(40));
         calc.addToStack(new BigDecimal(10));
-        final BigDecimal expectedValue = new BigDecimal(4);
+        calc.addToStack(new BigDecimal(2.45));
+        final BigDecimal expectedValue = new BigDecimal("4.081632653061");
         
         // when
         Optional<BigDecimal> calculatedValue = calc.divide();
@@ -134,7 +134,7 @@ public class CalcTest {
         assertThat(calculatedValue.isPresent(), is(true));
         assertEquals(expectedValue, calculatedValue.get());
         assertThat(calc.getStack(), hasSize(1));
-        assertThat(calc.getStack(), hasItem(BigDecimal.valueOf(4)));
+        assertThat(calc.getStack(), hasItem(expectedValue));
     }
     
     @Test(expected = ArithmeticException.class)

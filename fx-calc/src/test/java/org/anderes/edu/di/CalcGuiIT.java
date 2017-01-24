@@ -8,7 +8,6 @@ import static org.junit.Assert.assertThat;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.ResourceBundle;
 
 import org.anderes.edu.di.guice.CalcGuiceModule;
@@ -208,7 +207,7 @@ public class CalcGuiIT extends GuiTest {
     @Test
     public void shouldBeCheckDivide() {
         // given
-        final BigDecimal expectedValue = new BigDecimal("0.6620265458077047588216251213985108", MathContext.DECIMAL128);
+        final BigDecimal expectedValue = new BigDecimal("0.662026545808");
         
         // when
         type("20.45").type(ENTER).type("30.89").click("#divideButton");

@@ -32,6 +32,7 @@ public class CalcStarter extends Application {
         
         Parent calcScreen = myLoader.load();
         Scene scene = new Scene(calcScreen);
+        scene.getStylesheets().add("/fxml/calc.css");
         primaryStage.setScene(scene);
         primaryStage.setTitle("UPN Calc");
         primaryStage.setResizable(false);

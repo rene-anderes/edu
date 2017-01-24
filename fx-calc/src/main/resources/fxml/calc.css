@@ -1,0 +1,30 @@
+.root {
+    -fx-background-color: #3c3c3c;
+}
+
+.button {
+    -fx-border-color: #c0c0c0;
+    -fx-border-width: 2;
+
+    -fx-background-radius: 0;
+
+    -fx-background-color: #3c3c3c;
+
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 11pt;
+    -fx-text-fill: #c0c0c0;
+}
+
+.text-field {
+	-fx-border-color: #c0c0c0;
+	-fx-background-color: #ffffff;
+	-fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 14pt;
+}
+
+.list-view {
+	-fx-border-color: #c0c0c0;
+	-fx-background-color: #ffffff;
+	-fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 11pt;
+}
