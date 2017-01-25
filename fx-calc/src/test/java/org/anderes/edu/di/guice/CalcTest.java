@@ -50,18 +50,18 @@ public class CalcTest {
         
         assertThat(calc.getStack(), hasSize(1));
         assertThat(calc.getStackSize(), is(1));
-        assertThat(calc.getStack(), hasItem(BigDecimal.valueOf(10)));
+        assertThat(calc.getStack(), hasItem(BigDecimal.valueOf(10L)));
         
         calc.addToStack(new BigDecimal(22D));
         calc.addToStack(new BigDecimal(33D));
         assertThat(calc.getStack(), hasSize(3));
         assertThat(calc.getStackSize(), is(3));
-        assertThat(calc.getStack(), contains(BigDecimal.valueOf(33), BigDecimal.valueOf(22), BigDecimal.valueOf(10)));
+        assertThat(calc.getStack(), contains(BigDecimal.valueOf(33L), BigDecimal.valueOf(22L), BigDecimal.valueOf(10L)));
 
         assertThat(calc.removeFromStack().isPresent(), is(true));
         assertThat(calc.getStack(), hasSize(2));
         assertThat(calc.getStackSize(), is(2));
-        assertThat(calc.getStack(), contains(BigDecimal.valueOf(22), BigDecimal.valueOf(10)));
+        assertThat(calc.getStack(), contains(BigDecimal.valueOf(22L), BigDecimal.valueOf(10L)));
     }
     
     @Test

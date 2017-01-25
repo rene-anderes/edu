@@ -1,9 +1,9 @@
 package org.anderes.edu.di;
 
-import java.math.BigDecimal;
-import static java.math.RoundingMode.*;
+import static java.math.MathContext.DECIMAL128;
+import static java.math.RoundingMode.HALF_EVEN;
 
-import static java.math.MathContext.*;
+import java.math.BigDecimal;
 import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Collections;
@@ -20,12 +20,13 @@ import javax.inject.Inject;
  */
 public class Calc {
 
-    private Service service;
+    private final Service service;
     private Deque<BigDecimal> stack = new ArrayDeque<BigDecimal>();
     private final static Integer MAX_SCALE = 12;
 
     @Inject
-    void setService(Service service) {
+    public Calc(Service service) {
+        super();
         this.service = service;
     }
     
@@ -73,15 +74,7 @@ public class Calc {
      * @return Resultat, Optional.empty wenn der Stack keine zwei Werte enthält
      */
     public Optional<BigDecimal> addition() {
-        if (stack.size() < 2) {
-            return Optional.empty();
-        }
-        BigDecimal result = stack.pop().add(stack.pop(), DECIMAL128);
-        if (result.scale() > MAX_SCALE) {
-            result = result.setScale(MAX_SCALE, HALF_EVEN);
-        }
-        stack.push(result);
-        return Optional.of(stack.getFirst());
+        return function((d1, d2) -> d1.add(d2, DECIMAL128));
     }
 
     /**
@@ -90,16 +83,7 @@ public class Calc {
      * @return Resultat, Optional.empty wenn der Stack keine zwei Werte enthält
      */
     public Optional<BigDecimal> subtract() {
-        if (stack.size() < 2) {
-            return Optional.empty();
-        }
-        BigDecimal toSubtract = stack.pop();
-        BigDecimal result = stack.pop().subtract(toSubtract, DECIMAL128);
-        if (result.scale() > MAX_SCALE) {
-            result = result.setScale(MAX_SCALE, HALF_EVEN);
-        }
-        stack.push(result);
-        return Optional.of(stack.getFirst());
+        return function((d1, d2) -> d2.subtract(d1, DECIMAL128));
     }
 
     /**
@@ -108,36 +92,38 @@ public class Calc {
      * @return Resultat, Optional.empty wenn der Stack keine zwei Werte enthält
      */
     public Optional<BigDecimal> multiply() {
-        if (stack.size() < 2) {
-            return Optional.empty();
-        }
-        BigDecimal result = stack.pop().multiply(stack.pop(), DECIMAL128);
-        if (result.scale() > MAX_SCALE) {
-            result = result.setScale(MAX_SCALE, HALF_EVEN);
-        }
-        stack.push(result);
-        return Optional.of(stack.getFirst());
+        return function((d1, d2) -> d1.multiply(d2, DECIMAL128));
     }
-      
+    
     /**
      * Dividiert zwei Werte
      * 
      * @return Resultat
      */
     public Optional<BigDecimal> divide() {
+        return function((divisor, dividend) -> dividend.divide(divisor, DECIMAL128));
+    }
+      
+    @FunctionalInterface
+    interface CalcFunction<T, U> {
+
+        BigDecimal eval(T t, U u);
+    }
+
+    private Optional<BigDecimal> function(CalcFunction<BigDecimal, BigDecimal> c) {
         if (stack.size() < 2) {
             return Optional.empty();
         }
-        BigDecimal toDivide = stack.pop();
-        BigDecimal result = stack.pop().divide(toDivide, DECIMAL128);
+        BigDecimal result = c.eval(stack.pop(), stack.pop());
         if (result.scale() > MAX_SCALE) {
             result = result.setScale(MAX_SCALE, HALF_EVEN);
         }
         stack.push(result);
         return Optional.of(stack.getFirst());
     }
-
+    
     public Boolean isPrimeNumber() {
         return service.isPrimeNumber(stack.peek().intValue());
     }
+
 }

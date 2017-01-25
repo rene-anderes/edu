@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<Configuration status="WARN">
+	<Appenders>
+		<RollingFile name="FILE" fileName="logs/calc.log" filePattern="calc-%d{yyyy-MM-dd}-%i.log.gz">
+			<PatternLayout pattern="%d{ISO8601} %-5p [%t]: %m%n" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="5 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="5" />
+		</RollingFile>
+
+		<Async name="ASYNC_FILE">
+			<AppenderRef ref="FILE" />
+		</Async>
+		<Console name="CONSOLE" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{ISO8601} %-5p [%t]: %m%n" />
+		</Console>
+	</Appenders>
+
+	<Loggers>
+		<Root level="ALL">
+			<AppenderRef ref="ASYNC_FILE" level="${log4j.logging.file.level}" />
+			<AppenderRef ref="CONSOLE" level="${log4j.logging.console.level}" />
+		</Root>
+	</Loggers>
+</Configuration>

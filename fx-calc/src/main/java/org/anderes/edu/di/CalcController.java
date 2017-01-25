@@ -16,6 +16,8 @@ import java.util.function.UnaryOperator;
 
 import javax.inject.Inject;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.reactfx.BiEventStream;
 import org.reactfx.EventStream;
 import org.reactfx.EventStreams;
@@ -33,6 +35,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.KeyCode;
 
 public class CalcController implements Initializable {
 
@@ -84,9 +87,9 @@ public class CalcController implements Initializable {
     
     @Inject
     private Calc calc;
-    private final ResourceBundle resourceBundle = ResourceBundle.getBundle("CalcLanguagePack");
     private final static String ZERO = INTEGER_ZERO.toString();
     private ObservableList<BigDecimal> stack = FXCollections.observableArrayList();
+    private Logger logger = LogManager.getLogger(this.getClass().getName());
 
     private final UnaryOperator<Change> textFormatterDigitFilter = change -> {
         final String text = change.getText();
@@ -98,21 +101,21 @@ public class CalcController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("CalcController: " + this.toString());
+        logger.debug("CalcController-Instanz: " + this.toString());
         initUiControls();
                
         /* ReactFx siehe https://github.com/TomasMikula/ReactFX */
         /*                                                      */
         EventStreams.eventsOf(btnEnter, ACTION)
-                .subscribe(event -> addNewValueIfNotEmpty(), ex -> showErrorMessage("error.wrong.input"));
+                .subscribe(event -> addNewValueIfNotEmpty(), exception -> handleError(exception, resources));
         EventStreams.eventsOf(btnAddition, ACTION)
-                .subscribe(event -> additionWithNewValue(), ex -> showErrorMessage("error.wrong.input"));
+                .subscribe(event -> addition(), exception -> handleError(exception, resources));
         EventStreams.eventsOf(btnSubtract, ACTION)
-                .subscribe(event -> subtractWithNewValue(), ex -> showErrorMessage("error.wrong.input"));
+                .subscribe(event -> subtract(), exception -> handleError(exception, resources));
         EventStreams.eventsOf(btnMultiply, ACTION)
-                .subscribe(event -> multiplyWithNewValue(), ex -> showErrorMessage("error.wrong.input"));
+                .subscribe(event -> multiply(), exception -> handleError(exception, resources));
         EventStreams.eventsOf(btnDivide, ACTION)
-                .subscribe(event -> divideWithNewValue(), ex -> showErrorMessage("error.wrong.input"));
+                .subscribe(event -> divide(), exception -> handleError(exception, resources));
         
         EventStreams.eventsOf(btnCancel, ACTION).subscribe(event -> cancelStack());
         EventStreams.eventsOf(btnCE, ACTION).subscribe(event -> removeFromStack());
@@ -127,36 +130,36 @@ public class CalcController implements Initializable {
         
         keyTyped.filter(key -> notAllowedInputCharacter(key.getCharacter())).subscribe(key -> key.consume());
         
-        keyReleased.filter(key -> key.getCode().equals(ENTER)).subscribe(key -> btnEnter.fire());
-        keyReleased.filter(key -> key.getCode().equals(ESCAPE)).subscribe(key -> initValueForInputField());
-        keyReleased.filter(key -> key.getCode().equals(ADD)).subscribe(key -> btnAddition.fire());
-        keyReleased.filter(key -> key.getCode().equals(SUBTRACT)).subscribe(key -> btnSubtract.fire());
-        keyReleased.filter(key -> key.getCode().equals(MINUS)).subscribe(key -> btnSubtract.fire());
-        keyReleased.filter(key -> key.getCode().equals( MULTIPLY)).subscribe(key -> btnMultiply.fire());
-        keyReleased.filter(key -> key.getCode().equals(DIVIDE)).subscribe(key -> btnDivide.fire());
-        keyReleased.filter(key -> key.getCode().equals(DELETE)).subscribe(key -> initValueForInputField());
-        keyReleased.filter(key -> key.getCode().equals(BACK_SPACE)).filter(key -> isEmpty(inValue.getText())).subscribe(key -> initValueForInputField());
-        keyReleased.filter(key -> key.getCode().isDigitKey()).filter(key -> startsWith(inValue.getText(), ZERO)).subscribe(key -> removeLeadingZero());
+        final EventStream<KeyCode> keyCode = keyReleased.map(key -> key.getCode());
+        keyCode.filter(key -> key.equals(ENTER)).subscribe(key -> btnEnter.fire());
+        keyCode.filter(key -> key.equals(ESCAPE)).subscribe(key -> initValueForInputField());
+        keyCode.filter(key -> key.equals(ADD)).subscribe(key -> btnAddition.fire());
+        keyCode.filter(key -> key.equals(SUBTRACT)).subscribe(key -> btnSubtract.fire());
+        keyCode.filter(key -> key.equals(MINUS)).subscribe(key -> btnSubtract.fire());
+        keyCode.filter(key -> key.equals( MULTIPLY)).subscribe(key -> btnMultiply.fire());
+        keyCode.filter(key -> key.equals(DIVIDE)).subscribe(key -> btnDivide.fire());
+        keyCode.filter(key -> key.equals(DELETE)).subscribe(key -> initValueForInputField());
+        keyCode.filter(key -> key.equals(BACK_SPACE)).filter(key -> isEmpty(inValue.getText())).subscribe(key -> initValueForInputField());
+        keyCode.filter(key -> key.isDigitKey()).filter(key -> startsWith(inValue.getText(), ZERO)).subscribe(key -> removeLeadingZero());
         
-        final BiEventStream<KeyEvent, Boolean> combo = EventStreams.combine(keyReleased, shiftPresses);
+        final BiEventStream<KeyCode, Boolean> combo = EventStreams.combine(keyCode, shiftPresses);
         combo.subscribe((key, shift) -> {
-            if (shift && key.getCode() == DIGIT1) {
+            if (shift && key.equals(DIGIT1)) {
                 btnAddition.fire();
             }
-            if (shift && key.getCode() == DIGIT3) {
+            if (shift && key.equals(DIGIT3)) {
                 btnMultiply.fire();
             }
-            if (shift && key.getCode() == DIGIT7) {
+            if (shift && key.equals(DIGIT7)) {
                 btnDivide.fire();
             }
         });
         
         Platform.runLater(() -> {
-            initValueForInputField();
-            EventStreams.eventsOf(inValue.getScene(), KEY_RELEASED)
-//                .hook(event -> System.out.println(event.getCode()))
-                .filter(event -> event.getCode().isDigitKey()).subscribe(event -> redirect(event));
-            inValue.requestFocus();
+            final EventStream<KeyEvent> sceneKeyReleased = EventStreams.eventsOf(inValue.getScene(), KEY_RELEASED)
+//                          .hook(event -> System.out.println(event.getCode()))
+                            .filter(event -> event.getCode().isDigitKey());
+            sceneKeyReleased.subscribe(event -> redirect(event));
         });
     }
 
@@ -237,37 +240,8 @@ public class CalcController implements Initializable {
     }
 
 
-    private void divideWithNewValue() {
-        addNewValueIfNotEmpty();
-        divide();
-    }
-
-    private void multiplyWithNewValue() {
-        addNewValueIfNotEmpty();
-        multiply();
-    }
-
-    private void additionWithNewValue() {
-        addNewValueIfNotEmpty();
-        addition();
-    }
-    
-    private void subtractWithNewValue() {
-        addNewValueIfNotEmpty();
-        subtract();
-    }
-    
-    private void subtract() {
-        final Optional<BigDecimal> calcValue = calc.subtract();
-        handleCalcValue(calcValue);
-    }
-
-    private void multiply() {
-        final Optional<BigDecimal> calcValue = calc.multiply();
-        handleCalcValue(calcValue);
-    }
-
     private void divide() {
+        addNewValueIfNotEmpty();
         try {
             final Optional<BigDecimal> calcValue = calc.divide();
             handleCalcValue(calcValue);
@@ -275,6 +249,24 @@ public class CalcController implements Initializable {
             stack.setAll(calc.getStack());
             throw new IllegalStateException(e);
         }
+    }
+
+    private void multiply() {
+        addNewValueIfNotEmpty();
+        final Optional<BigDecimal> calcValue = calc.multiply();
+        handleCalcValue(calcValue);
+    }
+
+    private void addition() {
+        addNewValueIfNotEmpty();
+        final Optional<BigDecimal> calcValue = calc.addition();
+        handleCalcValue(calcValue);
+    }
+    
+    private void subtract() {
+        addNewValueIfNotEmpty();
+        final Optional<BigDecimal> calcValue = calc.subtract();
+        handleCalcValue(calcValue);
     }
 
     private void handleCalcValue(final Optional<BigDecimal> calcValue) {
@@ -294,11 +286,6 @@ public class CalcController implements Initializable {
         newValueToStack(newValue);
     }
     
-    private void addition() {
-        final Optional<BigDecimal> calcValue = calc.addition();
-        handleCalcValue(calcValue);
-    }
-    
     private void appendText(final String text) {
         if (notAllowedInputCharacter(text)) {
             return;
@@ -314,8 +301,9 @@ public class CalcController implements Initializable {
         stack.clear();
     }
 
-    private void showErrorMessage(String messageKey) {
-        final String message = resourceBundle.getString(messageKey);
+    private void handleError(final Throwable e, final ResourceBundle resources) {
+        logger.warn(e.getMessage());
+        final String message = resources.getString("error.wrong.input");
         Alert alert = new Alert(AlertType.ERROR);
         alert.setContentText(message);
         alert.show();
