@@ -1,4 +1,4 @@
-package org.anderes.edu.di;
+package org.anderes.edu.upncalc;
 
 
 import static javafx.event.ActionEvent.ACTION;
@@ -53,6 +53,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TextFormatter.Change;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -106,13 +107,15 @@ public class CalcController implements Initializable {
     @FXML
     private Button btnInverse;
     @FXML
+    private Button btnHelp;
+    @FXML
     private ListView<BigDecimal> lwStack;
     
     @Inject
     private Calc calc;
     private final static String ZERO = INTEGER_ZERO.toString();
-    private ObservableList<BigDecimal> stack = FXCollections.observableArrayList();
-    private Logger logger = LogManager.getLogger(this.getClass().getName());
+    private final ObservableList<BigDecimal> stack = FXCollections.observableArrayList();
+    private final Logger logger = LogManager.getLogger(this.getClass().getName());
 
     private final UnaryOperator<Change> textFormatterDigitFilter = change -> {
         final String text = change.getText();
@@ -126,6 +129,7 @@ public class CalcController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         logger.debug("CalcController-Instanz: " + this.toString());
         initUiControls();
+        initToolTips(resources);
                
         /* ReactFx siehe https://github.com/TomasMikula/ReactFX */
         /*                                                      */
@@ -191,6 +195,12 @@ public class CalcController implements Initializable {
             .map(event -> lwStack.getSelectionModel().getSelectedItem())
             .filter(n -> n != null)
             .subscribe(n -> inValue.setText(n.toString()));
+    }
+
+    private void initToolTips(ResourceBundle resources) {
+        Tooltip toolTip = new Tooltip(resources.getString("command.st"));
+        btnStack.setTooltip(toolTip);
+        
     }
 
     private void initUiControls() {

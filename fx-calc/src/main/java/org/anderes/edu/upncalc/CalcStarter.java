@@ -1,8 +1,9 @@
-package org.anderes.edu.di;
+package org.anderes.edu.upncalc;
 
 import java.util.ResourceBundle;
 
-import org.anderes.edu.di.guice.CalcGuiceModule;
+import org.anderes.edu.upncalc.guice.CalcGuiceModule;
+import org.anderes.edu.upncalc.util.Utf8Control;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,7 +29,7 @@ public class CalcStarter extends Application {
     public void start(Stage primaryStage) throws Exception {
         logger.info("Start der Applikation 'UPN-Calc'");
         final CalcController calcController = INJECTOR.getInstance(CalcController.class);
-        final ResourceBundle resourceBundle = ResourceBundle.getBundle("CalcLanguagePack");
+        final ResourceBundle resourceBundle = ResourceBundle.getBundle("CalcLanguagePack", new Utf8Control());
 
         final FXMLLoader myLoader = new FXMLLoader(getClass().getResource(CalcController.FXMLCALC), resourceBundle);
         myLoader.setController(calcController);

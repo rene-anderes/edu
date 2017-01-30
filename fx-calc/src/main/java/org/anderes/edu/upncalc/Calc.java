@@ -1,4 +1,4 @@
-package org.anderes.edu.di;
+package org.anderes.edu.upncalc;
 
 import static java.math.MathContext.DECIMAL128;
 import static java.math.RoundingMode.HALF_EVEN;

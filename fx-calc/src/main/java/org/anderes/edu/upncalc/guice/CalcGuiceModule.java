@@ -1,9 +1,9 @@
-package org.anderes.edu.di.guice;
+package org.anderes.edu.upncalc.guice;
 
 import java.util.ResourceBundle;
 
-import org.anderes.edu.di.PrimeNumberService;
-import org.anderes.edu.di.Service;
+import org.anderes.edu.upncalc.PrimeNumberService;
+import org.anderes.edu.upncalc.Service;
 
 import com.google.inject.AbstractModule;
 

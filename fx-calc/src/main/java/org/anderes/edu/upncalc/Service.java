@@ -1,4 +1,4 @@
-package org.anderes.edu.di;
+package org.anderes.edu.upncalc;
 
 public interface Service {
 

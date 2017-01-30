@@ -1,4 +1,4 @@
-package org.anderes.edu.di.guice;
+package org.anderes.edu.upncalc.guice;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -12,9 +12,9 @@ import static org.junit.Assert.assertThat;
 import java.math.BigDecimal;
 import java.util.Optional;
 
-import org.anderes.edu.di.Calc;
-import org.anderes.edu.di.PrimeNumberClassicService;
-import org.anderes.edu.di.Service;
+import org.anderes.edu.upncalc.Calc;
+import org.anderes.edu.upncalc.PrimeNumberClassicService;
+import org.anderes.edu.upncalc.Service;
 import org.junit.Before;
 import org.junit.Test;
 

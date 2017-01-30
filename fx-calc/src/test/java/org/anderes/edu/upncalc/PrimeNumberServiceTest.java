@@ -1,8 +1,10 @@
-package org.anderes.edu.di;
+package org.anderes.edu.upncalc;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+import org.anderes.edu.upncalc.PrimeNumberService;
+import org.anderes.edu.upncalc.Service;
 import org.junit.Before;
 import org.junit.Test;
 

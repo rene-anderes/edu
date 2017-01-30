@@ -1,4 +1,4 @@
-package org.anderes.edu.di;
+package org.anderes.edu.upncalc;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -10,7 +10,8 @@ import java.io.UncheckedIOException;
 import java.math.BigDecimal;
 import java.util.ResourceBundle;
 
-import org.anderes.edu.di.guice.CalcGuiceModule;
+import org.anderes.edu.upncalc.CalcController;
+import org.anderes.edu.upncalc.guice.CalcGuiceModule;
 import org.junit.Before;
 import org.junit.Test;
 import org.loadui.testfx.GuiTest;
