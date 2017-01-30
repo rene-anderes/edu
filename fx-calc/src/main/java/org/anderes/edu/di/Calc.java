@@ -21,7 +21,8 @@ import javax.inject.Inject;
 public class Calc {
 
     private final Service service;
-    private Deque<BigDecimal> stack = new ArrayDeque<BigDecimal>();
+    private Deque<BigDecimal> stack = new ArrayDeque<>();
+    private Deque<BigDecimal> undoStack = new ArrayDeque<>();
     private final static Integer MAX_SCALE = 12;
 
     @Inject
@@ -38,6 +39,8 @@ public class Calc {
      */
     public void addToStack(BigDecimal bigDecimal) {
         stack.push(bigDecimal);
+        undoStack.clear();
+        undoStack.addAll(stack);
     }
 
     /**
@@ -74,7 +77,7 @@ public class Calc {
      * @return Resultat, Optional.empty wenn der Stack keine zwei Werte enthält
      */
     public Optional<BigDecimal> addition() {
-        return function((d1, d2) -> d1.add(d2, DECIMAL128));
+        return function((d1, d2) -> d2.add(d1, DECIMAL128));
     }
 
     /**
@@ -92,7 +95,12 @@ public class Calc {
      * @return Resultat, Optional.empty wenn der Stack keine zwei Werte enthält
      */
     public Optional<BigDecimal> multiply() {
-        return function((d1, d2) -> d1.multiply(d2, DECIMAL128));
+        return function((d1, d2) -> d2.multiply(d1, DECIMAL128));
+    }
+    
+
+    public Optional<BigDecimal> inverse() {
+        return function(d -> BigDecimal.ONE.divide(d, DECIMAL128));
     }
     
     /**
@@ -105,16 +113,38 @@ public class Calc {
     }
       
     @FunctionalInterface
-    interface CalcFunction<T, U> {
+    interface BiCalcFunction<T, U> {
 
         BigDecimal eval(T t, U u);
     }
+    
+    @FunctionalInterface
+    interface CalcFunction<T> {
 
-    private Optional<BigDecimal> function(CalcFunction<BigDecimal, BigDecimal> c) {
+        BigDecimal eval(T t);
+    }
+
+    private Optional<BigDecimal> function(BiCalcFunction<BigDecimal, BigDecimal> c) {
         if (stack.size() < 2) {
             return Optional.empty();
         }
+        undoStack.clear();
+        undoStack.addAll(stack);
         BigDecimal result = c.eval(stack.pop(), stack.pop());
+        if (result.scale() > MAX_SCALE) {
+            result = result.setScale(MAX_SCALE, HALF_EVEN);
+        }
+        stack.push(result);
+        return Optional.of(stack.getFirst());
+    }
+    
+    private Optional<BigDecimal> function(CalcFunction<BigDecimal> c) {
+        if (stack.size() < 1) {
+            return Optional.empty();
+        }
+        undoStack.clear();
+        undoStack.addAll(stack);
+        BigDecimal result = c.eval(stack.pop());
         if (result.scale() > MAX_SCALE) {
             result = result.setScale(MAX_SCALE, HALF_EVEN);
         }
@@ -124,6 +154,11 @@ public class Calc {
     
     public Boolean isPrimeNumber() {
         return service.isPrimeNumber(stack.peek().intValue());
+        
     }
 
+    public void undo() {
+        stack.clear();
+        stack.addAll(undoStack);
+    }
 }

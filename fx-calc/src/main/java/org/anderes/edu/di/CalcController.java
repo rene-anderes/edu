@@ -2,9 +2,28 @@ package org.anderes.edu.di;
 
 
 import static javafx.event.ActionEvent.ACTION;
-import static javafx.scene.input.KeyCode.*;
-import static javafx.scene.input.KeyEvent.*;
-import static org.apache.commons.lang3.StringUtils.*;
+import static javafx.scene.input.KeyCode.ADD;
+import static javafx.scene.input.KeyCode.BACK_SPACE;
+import static javafx.scene.input.KeyCode.DELETE;
+import static javafx.scene.input.KeyCode.DIGIT1;
+import static javafx.scene.input.KeyCode.DIGIT3;
+import static javafx.scene.input.KeyCode.DIGIT7;
+import static javafx.scene.input.KeyCode.DIVIDE;
+import static javafx.scene.input.KeyCode.ENTER;
+import static javafx.scene.input.KeyCode.ESCAPE;
+import static javafx.scene.input.KeyCode.MINUS;
+import static javafx.scene.input.KeyCode.MULTIPLY;
+import static javafx.scene.input.KeyCode.SHIFT;
+import static javafx.scene.input.KeyCode.SUBTRACT;
+import static javafx.scene.input.KeyEvent.KEY_PRESSED;
+import static javafx.scene.input.KeyEvent.KEY_RELEASED;
+import static javafx.scene.input.KeyEvent.KEY_TYPED;
+import static javafx.scene.input.MouseEvent.*;
+import static org.apache.commons.lang3.StringUtils.EMPTY;
+import static org.apache.commons.lang3.StringUtils.isEmpty;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+import static org.apache.commons.lang3.StringUtils.removeStart;
+import static org.apache.commons.lang3.StringUtils.startsWith;
 import static org.apache.commons.lang3.math.NumberUtils.INTEGER_ZERO;
 import static org.apache.commons.lang3.math.NumberUtils.createBigDecimal;
 
@@ -34,8 +53,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TextFormatter.Change;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class CalcController implements Initializable {
 
@@ -83,6 +102,10 @@ public class CalcController implements Initializable {
     @FXML
     private Button btnEnter;
     @FXML
+    private Button btnUndo;
+    @FXML
+    private Button btnInverse;
+    @FXML
     private ListView<BigDecimal> lwStack;
     
     @Inject
@@ -121,6 +144,8 @@ public class CalcController implements Initializable {
         EventStreams.eventsOf(btnCE, ACTION).subscribe(event -> removeFromStack());
         EventStreams.eventsOf(btnSigned, ACTION).subscribe(event -> signedInput());
         EventStreams.eventsOf(btnStack, ACTION).subscribe(event -> formStackToInput());
+        EventStreams.eventsOf(btnUndo, ACTION).subscribe(event -> undoLastFunction());
+        EventStreams.eventsOf(btnInverse, ACTION).subscribe(event -> inverse());
         
         EventStream<KeyEvent> keyPressed = EventStreams.eventsOf(inValue, KEY_PRESSED);
         EventStream<KeyEvent> keyReleased = EventStreams.eventsOf(inValue, KEY_RELEASED);
@@ -157,16 +182,20 @@ public class CalcController implements Initializable {
         
         Platform.runLater(() -> {
             final EventStream<KeyEvent> sceneKeyReleased = EventStreams.eventsOf(inValue.getScene(), KEY_RELEASED)
-//                          .hook(event -> System.out.println(event.getCode()))
+                            .hook(event -> logger.trace("Taste: " + event.getCode()))
                             .filter(event -> event.getCode().isDigitKey());
             sceneKeyReleased.subscribe(event -> redirect(event));
         });
+        EventStreams.eventsOf(lwStack, MOUSE_CLICKED)
+            .filter(event -> event.getClickCount() == 2)
+            .map(event -> lwStack.getSelectionModel().getSelectedItem())
+            .filter(n -> n != null)
+            .subscribe(n -> inValue.setText(n.toString()));
     }
 
     private void initUiControls() {
         final TextFormatter<String> textFormatter = new TextFormatter<>(textFormatterDigitFilter);
         inValue.setTextFormatter(textFormatter);
-        inValue.setStyle("-fx-display-caret: false");
         lwStack.setItems(stack);
         lwStack.setFocusTraversable(false);
         
@@ -226,19 +255,26 @@ public class CalcController implements Initializable {
 
     private void signedInput() {
         if (isNotEmpty(inValue.getText())) {
-            if (startsWith(inValue.getText(), "-")) {
-                inValue.setText(removeStart(inValue.getText(), "-"));
-            } else {
-                inValue.setText("-" + inValue.getText());
-            }
+            final BigDecimal temp = new BigDecimal(inValue.getText());
+            inValue.setText(temp.negate().toString());
         }
     }
 
+    private void undoLastFunction() {
+        calc.undo();
+        stack.setAll(calc.getStack());
+    }
+
+    private void inverse() {
+        addNewValueIfNotEmpty();
+        final Optional<BigDecimal> calcValue = calc.inverse();
+        handleCalcValue(calcValue);
+    }
+    
     private void removeFromStack() {
         calc.removeFromStack();
         stack.setAll(calc.getStack());
     }
-
 
     private void divide() {
         addNewValueIfNotEmpty();

@@ -276,6 +276,42 @@ public class CalcGuiIT extends GuiTest {
         assertThat(inputField.getText(), is("2.5634"));
     }
     
+    @Test
+    public void shouldBeInverse() {
+        
+        // when
+        type("5").click("#inverseButton");
+        
+        // then
+        assertThat(inputField.getText(), is(""));
+        assertThat(stackView.getItems().size(), is(1));
+        assertThat(stackView.getItems().get(0), is(BigDecimal.valueOf(0.2)));
+    }
+    
+    @Test
+    public void shouldBeUndo() {
+        
+        // when
+        type("20.45").type(ENTER).type("30.89").click("#divideButton").click("#undoButton");
+        
+        // then
+        assertThat(inputField.getText(), is(""));
+        assertThat(stackView.getItems().size(), is(2));
+        assertThat(stackView.getItems().get(0), is(BigDecimal.valueOf(30.89)));
+        assertThat(stackView.getItems().get(1), is(BigDecimal.valueOf(20.45)));
+    }
+    
+    @Test
+    public void shouldBeDoubleClickOnStack() {
+        
+        // when
+        type("20").type(ENTER).type("30").type(ENTER).type("40").type(ENTER).doubleClick(offset(stackView, 20D, 40D));
+        
+        // then
+        assertThat(inputField.getText(), is("30"));
+        assertThat(stackView.getItems().size(), is(3));
+    }
+    
     @Override
     protected Parent getRootNode() {
         final CalcController calcController = INJECTOR.getInstance(CalcController.class);

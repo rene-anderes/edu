@@ -1,6 +1,7 @@
 package org.anderes.edu.di.guice;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
@@ -151,5 +152,50 @@ public class CalcTest {
         assertThat(calc.isPrimeNumber(), is(false));
         calc.removeFromStack();
         assertThat(calc.isPrimeNumber(), is(true));
+    }
+    
+    @Test
+    public void shouldBeUndo() {
+        
+        // given
+        calc.addToStack(new BigDecimal(10));
+        calc.addToStack(new BigDecimal(20));
+        assertThat(calc.getStack(), contains(BigDecimal.valueOf(20L), BigDecimal.valueOf(10L)));
+        
+        // when
+        calc.addition();
+        calc.undo();
+        
+        // then
+        assertThat(calc.getStack(), contains(BigDecimal.valueOf(20L), BigDecimal.valueOf(10L)));
+    }
+    
+    @Test
+    public void shouldBeNotUndo() {
+        
+        // given
+        calc.addToStack(new BigDecimal(10));
+        calc.addToStack(new BigDecimal(20));
+        assertThat(calc.getStack(), contains(BigDecimal.valueOf(20L), BigDecimal.valueOf(10L)));
+        
+        // when
+        calc.undo();
+        
+        // then
+        assertThat(calc.getStack(), contains(BigDecimal.valueOf(20L), BigDecimal.valueOf(10L)));
+    }
+    
+    @Test
+    public void shouldBeInverse() {
+        // given
+        calc.addToStack(new BigDecimal(5));
+        
+        // when
+        final Optional<BigDecimal> inverse = calc.inverse();
+        
+        // then
+        assertThat(inverse, is(notNullValue()));
+        assertThat(inverse.isPresent(), is(true));
+        assertThat(inverse.get(), is(BigDecimal.valueOf(0.2)));
     }
 }
