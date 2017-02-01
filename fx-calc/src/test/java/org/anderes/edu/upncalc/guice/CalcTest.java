@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 import org.anderes.edu.upncalc.Calc;
-import org.anderes.edu.upncalc.PrimeNumberClassicService;
+import org.anderes.edu.upncalc.PrimeNumberService;
 import org.anderes.edu.upncalc.Service;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,7 +36,7 @@ public class CalcTest {
         
         @Override
         protected void configure() {
-            bind(Service.class).to(PrimeNumberClassicService.class);
+            bind(Service.class).to(PrimeNumberService.class);
         }
     });
     

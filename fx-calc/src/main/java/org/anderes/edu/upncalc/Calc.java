@@ -20,10 +20,10 @@ import javax.inject.Inject;
  */
 public class Calc {
 
-    private final Service service;
-    private Deque<BigDecimal> stack = new ArrayDeque<>();
-    private Deque<BigDecimal> undoStack = new ArrayDeque<>();
     private final static Integer MAX_SCALE = 12;
+    private final Service service;
+    private final Deque<BigDecimal> stack = new ArrayDeque<>();
+    private final Deque<BigDecimal> undoStack = new ArrayDeque<>();
 
     @Inject
     public Calc(Service service) {

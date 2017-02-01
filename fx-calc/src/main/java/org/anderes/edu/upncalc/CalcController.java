@@ -18,7 +18,7 @@ import static javafx.scene.input.KeyCode.SUBTRACT;
 import static javafx.scene.input.KeyEvent.KEY_PRESSED;
 import static javafx.scene.input.KeyEvent.KEY_RELEASED;
 import static javafx.scene.input.KeyEvent.KEY_TYPED;
-import static javafx.scene.input.MouseEvent.*;
+import static javafx.scene.input.MouseEvent.MOUSE_CLICKED;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
@@ -56,7 +56,6 @@ import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-
 public class CalcController implements Initializable {
 
     public final static String FXMLCALC = "/fxml/JavaFX-Calc.fxml";
@@ -113,6 +112,9 @@ public class CalcController implements Initializable {
     
     @Inject
     private Calc calc;
+    @Inject
+    private HelpDialog helpDialog;
+    
     private final static String ZERO = INTEGER_ZERO.toString();
     private final ObservableList<BigDecimal> stack = FXCollections.observableArrayList();
     private final Logger logger = LogManager.getLogger(this.getClass().getName());
@@ -150,6 +152,7 @@ public class CalcController implements Initializable {
         EventStreams.eventsOf(btnStack, ACTION).subscribe(event -> formStackToInput());
         EventStreams.eventsOf(btnUndo, ACTION).subscribe(event -> undoLastFunction());
         EventStreams.eventsOf(btnInverse, ACTION).subscribe(event -> inverse());
+        EventStreams.eventsOf(btnHelp, ACTION).subscribe(event -> helpDialog.showAndWait());
         
         EventStream<KeyEvent> keyPressed = EventStreams.eventsOf(inValue, KEY_PRESSED);
         EventStream<KeyEvent> keyReleased = EventStreams.eventsOf(inValue, KEY_RELEASED);
@@ -198,9 +201,14 @@ public class CalcController implements Initializable {
     }
 
     private void initToolTips(ResourceBundle resources) {
-        Tooltip toolTip = new Tooltip(resources.getString("command.st"));
-        btnStack.setTooltip(toolTip);
-        
+        final Tooltip toolTipForBtnStack = new Tooltip(resources.getString("command.st"));
+        btnStack.setTooltip(toolTipForBtnStack);
+        final Tooltip toolTipForBtnC = new Tooltip(resources.getString("command.c"));
+        btnCancel.setTooltip(toolTipForBtnC);
+        final Tooltip toolTipForBtnCE = new Tooltip(resources.getString("command.ce"));
+        btnCE.setTooltip(toolTipForBtnCE);
+        final Tooltip toolTipForBtnUndo = new Tooltip(resources.getString("command.undo"));
+        btnUndo.setTooltip(toolTipForBtnUndo);
     }
 
     private void initUiControls() {

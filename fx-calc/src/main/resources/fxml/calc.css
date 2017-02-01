@@ -3,7 +3,7 @@
 }
 
 .button {
-    -fx-border-color: #c0c0c0;
+    -fx-border-color: #808080;
     -fx-border-width: 2;
 
     -fx-background-radius: 0;
@@ -13,6 +13,10 @@
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 11pt;
     -fx-text-fill: #c0c0c0;
+}
+
+.button:hover {
+	-fx-background-color: #808080;
 }
 
 .text-field {
