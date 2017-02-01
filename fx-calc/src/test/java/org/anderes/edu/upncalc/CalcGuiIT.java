@@ -1,5 +1,10 @@
 package org.anderes.edu.upncalc;
 
+import static javafx.scene.input.KeyCode.ADD;
+import static javafx.scene.input.KeyCode.DIGIT1;
+import static javafx.scene.input.KeyCode.ENTER;
+import static javafx.scene.input.KeyCode.ESCAPE;
+import static javafx.scene.input.KeyCode.SHIFT;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -10,33 +15,42 @@ import java.io.UncheckedIOException;
 import java.math.BigDecimal;
 import java.util.ResourceBundle;
 
-import org.anderes.edu.upncalc.CalcController;
-import org.anderes.edu.upncalc.guice.CalcGuiceModule;
+import org.anderes.edu.upncalc.util.SystemInfoService;
+import org.anderes.edu.upncalc.util.Utf8Control;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.loadui.testfx.GuiTest;
 
+import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
+import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import static javafx.scene.input.KeyCode.*;
 
 public class CalcGuiIT extends GuiTest {
 
-    private final static Injector INJECTOR = Guice.createInjector(new CalcGuiceModule());
+    private final static Injector INJECTOR = Guice.createInjector(new AbstractModule() {
+        @Override
+        protected void configure() {
+            bind(Service.class).to(PrimeNumberService.class);
+            bind(ResourceBundle.class).toInstance(ResourceBundle.getBundle("CalcLanguagePack", new Utf8Control()));
+        }
+    });
    
     private TextField inputField;
     private ListView<BigDecimal> stackView;
-    
+
     @Before
     public void setup() {
         inputField = find("#inputField");
         stackView = find("#stackView");
         sleep(20);
+        System.out.println("@Before");
     }
     
     @Test
@@ -316,9 +330,9 @@ public class CalcGuiIT extends GuiTest {
     @Override
     protected Parent getRootNode() {
         final CalcController calcController = INJECTOR.getInstance(CalcController.class);
-        final ResourceBundle resourceBundle = ResourceBundle.getBundle("CalcLanguagePack");
+        final ResourceBundle resourceBundle = INJECTOR.getInstance(ResourceBundle.class);
 
-        final FXMLLoader myLoader = new FXMLLoader(getClass().getResource(CalcController.FXMLCALC), resourceBundle);
+        final FXMLLoader myLoader = new FXMLLoader(getClass().getResource(CalcStarter.FXMLCALC), resourceBundle);
         myLoader.setController(calcController);
         
         try {

@@ -58,7 +58,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 public class CalcController implements Initializable {
 
-    public final static String FXMLCALC = "/fxml/JavaFX-Calc.fxml";
     @FXML
     private Button btnZero;
     @FXML
@@ -218,36 +217,16 @@ public class CalcController implements Initializable {
         lwStack.setFocusTraversable(false);
         
         btnOne.setOnAction(e -> appendText("1"));
-        btnOne.setFocusTraversable(false);
         btnTwo.setOnAction(e -> appendText("2"));
-        btnTwo.setFocusTraversable(false);
         btnThree.setOnAction(e -> appendText("3"));
-        btnThree.setFocusTraversable(false);
         btnFour.setOnAction(e -> appendText("4"));
-        btnFour.setFocusTraversable(false);
         btnFive.setOnAction(e -> appendText("5"));
-        btnFive.setFocusTraversable(false);
         btnSix.setOnAction(e -> appendText("6"));
-        btnSix.setFocusTraversable(false);
         btnSeven.setOnAction(e -> appendText("7"));
-        btnSeven.setFocusTraversable(false);
         btnEight.setOnAction(e -> appendText("8"));
-        btnEight.setFocusTraversable(false);
         btnNine.setOnAction(e -> appendText("9"));
-        btnNine.setFocusTraversable(false);
         btnZero.setOnAction(e -> appendText("0"));
-        btnZero.setFocusTraversable(false);
         btnPoint.setOnAction(e -> appendText("."));
-        btnPoint.setFocusTraversable(false);
-        btnEnter.setFocusTraversable(false);
-        btnAddition.setFocusTraversable(false);
-        btnSubtract.setFocusTraversable(false);
-        btnMultiply.setFocusTraversable(false);
-        btnDivide.setFocusTraversable(false);
-        btnCancel.setFocusTraversable(false);
-        btnCE.setFocusTraversable(false);
-        btnSigned.setFocusTraversable(false);
-        btnStack.setFocusTraversable(false);
     }
 
     private boolean notAllowedInputCharacter(final String character) {
