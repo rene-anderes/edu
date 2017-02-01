@@ -1,0 +1,1 @@
+javaw -XX:MetaspaceSize=24m -XX:MaxMetaspaceSize=32m -Xms48m -Xmx64m -jar target/fx-calc-1.0.0-SNAPSHOT-jar-with-dependencies.jar 

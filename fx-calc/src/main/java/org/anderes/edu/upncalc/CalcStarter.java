@@ -40,9 +40,8 @@ public class CalcStarter extends Application {
         Scene scene = new Scene(calcScreen);
         scene.getStylesheets().add(BASIS_URL +"/fxml/calc.css");
         primaryStage.getIcons().add(new Image(BASIS_URL + "/images/calculator.png"));
-        primaryStage.setTitle("Wow!! UPN Calc");
         primaryStage.setScene(scene);
-        primaryStage.setTitle("UPN Calc");
+        primaryStage.setTitle("UPN Calc | WOW!!");
         primaryStage.setResizable(false);
         primaryStage.show();
         
