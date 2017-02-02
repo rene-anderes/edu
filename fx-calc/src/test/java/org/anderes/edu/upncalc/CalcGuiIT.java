@@ -15,10 +15,8 @@ import java.io.UncheckedIOException;
 import java.math.BigDecimal;
 import java.util.ResourceBundle;
 
-import org.anderes.edu.upncalc.util.SystemInfoService;
 import org.anderes.edu.upncalc.util.Utf8Control;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.loadui.testfx.GuiTest;
 
@@ -26,7 +24,6 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.ListView;
@@ -50,7 +47,6 @@ public class CalcGuiIT extends GuiTest {
         inputField = find("#inputField");
         stackView = find("#stackView");
         sleep(20);
-        System.out.println("@Before");
     }
     
     @Test

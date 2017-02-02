@@ -3,13 +3,13 @@
 <Configuration status="WARN">
 	<Appenders>
 		<Console name="CONSOLE" target="SYSTEM_OUT">
-			<PatternLayout pattern="%d{ISO8601} %-5p [%t]: %m%n" />
+			<PatternLayout pattern="%d{HH:mm:ss,SSS} %-5p [%t]: %m%n" />
 		</Console>
 	</Appenders>
 
 	<Loggers>
 		<Root level="ALL">
-			<AppenderRef ref="CONSOLE" level="${log4j.logging.console.level}" />
+			<AppenderRef ref="CONSOLE" level="ALL" />
 		</Root>
 	</Loggers>
 </Configuration>

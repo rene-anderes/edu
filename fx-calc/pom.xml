@@ -4,7 +4,7 @@
     <groupId>org.anderes.edu</groupId>
     <artifactId>fx-calc</artifactId>
 
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0-RELEASE</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -19,7 +19,6 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <log4j.logging.file.level>OFF</log4j.logging.file.level>
                 <log4j.logging.console.level>ALL</log4j.logging.console.level>
             </properties>
         </profile>
@@ -29,8 +28,7 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
-                <log4j.logging.file.level>INFO</log4j.logging.file.level>
-                <log4j.logging.console.level>OFF</log4j.logging.console.level>
+                <log4j.logging.console.level>INFO</log4j.logging.console.level>
             </properties>
         </profile>
     </profiles>
@@ -83,17 +81,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.0.2</version>
-                <configuration>
-                    <archive>
-                        <index>true</index>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <mainClass>org.anderes.edu.upncalc.CalcStarter</mainClass>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                        </manifest>
-                    </archive>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -118,6 +105,61 @@
                         <phase>package</phase>
                         <goals>
                             <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                <artifactId>launch4j-maven-plugin</artifactId>
+                <version>1.7.15</version>
+                <executions>
+                    <execution>
+                        <id>l4j-clui</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>launch4j</goal>
+                        </goals>
+                        <configuration>
+                            <headerType>gui</headerType>
+                            <jar>${project.build.directory}/${project.artifactId}-${project.version}-jar-with-dependencies.jar</jar>
+                            <outfile>${project.build.directory}/upncalc.exe</outfile>
+                            <classPath>
+                                <mainClass>org.anderes.edu.upncalc.CalcStarter</mainClass>
+                                <preCp>anything</preCp>
+                            </classPath>
+                            <jre>
+                                <path>\Java\jre8</path>
+                                <minVersion>1.8.0</minVersion>
+                                <jdkPreference>preferJre</jdkPreference>
+                            </jre>
+                            <icon>MetroUI Apps Calculator.ico</icon>
+                            <versionInfo>
+                                <fileVersion>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}.${parsedVersion.buildNumber}</fileVersion>
+                                <txtFileVersion>${project.version}</txtFileVersion>
+                                <fileDescription>UPNCalc</fileDescription>
+                                <copyright>2017 anderes.org</copyright>
+                                <productVersion>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}.${parsedVersion.buildNumber}</productVersion>
+                                <txtProductVersion>${project.version}</txtProductVersion>
+                                <productName>UPN Calc</productName>
+                                <companyName>anderes.org</companyName>
+                                <internalName>upncalc</internalName>
+                                <originalFilename>upncalc.exe</originalFilename>
+                            </versionInfo>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <id>parse-version</id>
+                        <goals>
+                            <goal>parse-version</goal>
                         </goals>
                     </execution>
                 </executions>
