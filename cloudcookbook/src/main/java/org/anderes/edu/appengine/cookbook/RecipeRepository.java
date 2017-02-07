@@ -16,6 +16,7 @@ import org.anderes.edu.appengine.cookbook.dto.RecipeShort;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
+import com.google.appengine.api.datastore.QueryResultIterator;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.NotFoundException;
 
@@ -78,11 +79,14 @@ public class RecipeRepository {
 	}
 
 	public List<RecipeShort> getRecipeCollection() {
-		final List<Recipe> collection = findAll();
-		final ArrayList<RecipeShort> recipes = new ArrayList<>(collection.size());
-		for (Recipe recipe : collection) {
-			recipes.add(new RecipeShort(recipe.getTitle(), recipe.getId(), recipe.getEditingDate()));
-		}
+	    
+	    final QueryResultIterator<Recipe> iterator = ofy().load().type(Recipe.class).iterator();
+	    
+	    final ArrayList<RecipeShort> recipes = new ArrayList<>();
+	    while (iterator.hasNext()) {
+	        final Recipe recipe = iterator.next();
+	        recipes.add(new RecipeShort(recipe.getTitle(), recipe.getId(), recipe.getEditingDate()));
+	    }
 		return recipes;
 	}
 
