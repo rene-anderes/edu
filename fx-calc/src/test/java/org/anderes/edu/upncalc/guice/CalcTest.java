@@ -198,4 +198,50 @@ public class CalcTest {
         assertThat(inverse.isPresent(), is(true));
         assertThat(inverse.get(), is(BigDecimal.valueOf(0.2)));
     }
+    
+    @Test
+    public void shouldBeSquared() {
+        // given
+        calc.addToStack(new BigDecimal(5));
+        
+        // when
+        final Optional<BigDecimal> squared = calc.squared();
+        
+        // then
+        assertThat(squared, is(notNullValue()));
+        assertThat(squared.isPresent(), is(true));
+        assertThat(squared.get(), is(BigDecimal.valueOf(25)));
+    }
+    
+    @Test
+    public void shouldBeSquaredRoot() {
+        // given
+        calc.addToStack(new BigDecimal(25));
+        
+        // when
+        final Optional<BigDecimal> squaredRoot = calc.squaredRoot();
+        
+        // then
+        assertThat(squaredRoot, is(notNullValue()));
+        assertThat(squaredRoot.isPresent(), is(true));
+        assertThat(squaredRoot.get(), is(BigDecimal.valueOf(5)));
+    }
+    
+    @Test(expected = NumberFormatException.class)
+    public void shouldBeSquaredRootNaN() {
+        // given
+        calc.addToStack(new BigDecimal(-9));
+        
+        // when
+        calc.squaredRoot();
+    }
+    
+    @Test
+    public void shouldBePiValue() {
+
+        // when
+        final BigDecimal pi = calc.pi();
+        
+        assertThat(pi.toString(), is("3.141592653590"));
+    }
 }

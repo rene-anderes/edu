@@ -300,6 +300,30 @@ public class CalcGuiIT extends GuiTest {
     }
     
     @Test
+    public void shouldBeSquared() {
+        
+        // when
+        type("5").click("#squaredButton");
+        
+        // then
+        assertThat(inputField.getText(), is(""));
+        assertThat(stackView.getItems().size(), is(1));
+        assertThat(stackView.getItems().get(0), is(BigDecimal.valueOf(25)));
+    }
+    
+    @Test
+    public void shouldBeSquaredRoot() {
+        
+        // when
+        type("25").click("#squaredRootButton");
+        
+        // then
+        assertThat(inputField.getText(), is(""));
+        assertThat(stackView.getItems().size(), is(1));
+        assertThat(stackView.getItems().get(0), is(BigDecimal.valueOf(5)));
+    }
+    
+    @Test
     public void shouldBeUndo() {
         
         // when
@@ -310,6 +334,17 @@ public class CalcGuiIT extends GuiTest {
         assertThat(stackView.getItems().size(), is(2));
         assertThat(stackView.getItems().get(0), is(BigDecimal.valueOf(30.89)));
         assertThat(stackView.getItems().get(1), is(BigDecimal.valueOf(20.45)));
+    }
+    
+    @Test
+    public void shouldBePi() {
+        
+        // when
+        click("#piButton");
+        
+        // then
+        assertThat(inputField.getText(), is("3.141592653590"));
+        assertThat(stackView.getItems().size(), is(0));
     }
     
     @Test
