@@ -4,7 +4,7 @@
     <groupId>org.anderes.edu</groupId>
     <artifactId>fx-calc</artifactId>
 
-    <version>2.0.0-RELEASE</version>
+    <version>2.1.0-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -137,11 +137,11 @@
                             <versionInfo>
                                 <fileVersion>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}.${parsedVersion.buildNumber}</fileVersion>
                                 <txtFileVersion>${project.version}</txtFileVersion>
-                                <fileDescription>UPNCalc</fileDescription>
+                                <fileDescription>UPNCalcFx</fileDescription>
                                 <copyright>2017 anderes.org</copyright>
                                 <productVersion>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}.${parsedVersion.buildNumber}</productVersion>
                                 <txtProductVersion>${project.version}</txtProductVersion>
-                                <productName>UPN Calc</productName>
+                                <productName>UPN Calc Fx</productName>
                                 <companyName>anderes.org</companyName>
                                 <internalName>upncalc</internalName>
                                 <originalFilename>upncalc.exe</originalFilename>
@@ -149,6 +149,26 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <!-- Java Web Start, Plugin Doku: https://github.com/javafx-maven-plugin/javafx-maven-plugin -->
+                <groupId>com.zenjava</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>8.8.3</version>
+                <configuration>
+                    <vendor>anderes.org</vendor>
+                    <mainClass>org.anderes.edu.upncalc.CalcStarter</mainClass>
+                    <verbose>true</verbose>
+                    <appName>UPNCalcFx</appName>
+                    <bundleArguments>
+                        <!-- to include "dtjava.js" and other related files, set this to TRUE -->
+                        <jnlp.includeDT>true</jnlp.includeDT>
+                        <!-- the JNLP-bundler needs this, they don't use "appName" for the filename ... you have to set this, otherwise it doesn't build -->
+                        <!-- for details of that JNLP-bundler, please have a look at the source -->
+                        <!-- https://github.com/Debian/openjfx/blob/e32fd960e20c58c9b7db27e426b4bca6d52add2f/modules/fxpackager/src/main/java/com/oracle/tools/packager/jnlp/JNLPBundler.java#L84 -->
+                        <jnlp.outfile>fx-UPNCalcFx</jnlp.outfile>
+                    </bundleArguments>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
