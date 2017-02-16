@@ -58,6 +58,8 @@ public class CalcStarter extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle(resourceBundle.getString("window.title"));
         primaryStage.setResizable(false);
+        primaryStage.setMaxWidth(280);
+        primaryStage.setMinWidth(280);
         primaryStage.show();
         
     }
