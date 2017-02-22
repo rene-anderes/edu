@@ -228,7 +228,7 @@
                         </configuration>
                         <executions>
                             <execution>
-                                <phase>process-test-resources</phase>
+                                <phase>initialize</phase>
                                 <goals>
                                     <goal>execute</goal>
                                 </goals>
@@ -258,7 +258,7 @@
                         <executions>
                             <execution>
                                 <id>drop-table</id>
-                                <phase>process-test-resources</phase>
+                                <phase>initialize</phase>
                                 <goals>
                                     <goal>execute</goal>
                                 </goals>

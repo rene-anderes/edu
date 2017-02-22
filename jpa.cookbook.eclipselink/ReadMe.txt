@@ -12,7 +12,7 @@ Profile:
 	 
  mysql-local 
  	-> Es wird eine MySQL Datenbank auf Standardport 3306 verwendet
- 	-> mittels mvn clean install -P mysql-local,create-schema-user wird das entsprechende Datenbankschema erstellt und der User für das Schema angelegt
+ 	-> mittels 'mvn initialize -P mysql-local,create-schema-user' wird das entsprechende Datenbankschema erstellt und der User für das Schema angelegt
 
 Testing
 Mittels Maven laufen alle Tests (wie es sein sollte) durch: mvn clean install -> BUILD SUCCESS
