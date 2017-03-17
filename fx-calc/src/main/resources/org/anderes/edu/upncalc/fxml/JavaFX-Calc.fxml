@@ -53,17 +53,19 @@
             <Button id="multiplyButton" fx:id="btnMultiply" focusTraversable="false" maxHeight="40.0" maxWidth="45.0" minHeight="40.0" minWidth="45.0" mnemonicParsing="false" text="*" GridPane.columnIndex="3" GridPane.rowIndex="7" />
             <Button id="divideButton" fx:id="btnDivide" focusTraversable="false" maxHeight="40.0" maxWidth="45.0" minHeight="40.0" minWidth="45.0" mnemonicParsing="false" text="/" GridPane.columnIndex="3" GridPane.rowIndex="6" />
             <Button id="signedButton" fx:id="btnSigned" focusTraversable="false" maxHeight="40.0" maxWidth="45.0" minHeight="40.0" minWidth="45.0" mnemonicParsing="false" text="±" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-            <Button id="cButton" fx:id="btnCancel" focusTraversable="false" maxHeight="40.0" maxWidth="45.0" minHeight="40.0" minWidth="45.0" mnemonicParsing="false" text="C" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <ListView id="stackView" fx:id="lwStack" focusTraversable="false" maxHeight="150.0" minHeight="150.0" GridPane.columnSpan="5" GridPane.rowIndex="1" />
-            <TextField id="inputField" fx:id="inValue" minHeight="45.0" style="-fx-display-caret: false;" GridPane.columnSpan="5" />
-            <Button id="ceButton" fx:id="btnCE" focusTraversable="false" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="45.0" mnemonicParsing="false" text="CE" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Button id="cButton" fx:id="btnCancel" focusTraversable="false" maxHeight="40.0" maxWidth="45.0" minHeight="40.0" minWidth="45.0" mnemonicParsing="false" text="C" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <ListView id="stackView" fx:id="lwStack" focusTraversable="false" maxHeight="150.0" maxWidth="245.0" minHeight="150.0" prefWidth="245.0" GridPane.columnSpan="5" GridPane.rowIndex="1" />
+            <TextField id="inputField" fx:id="inValue" maxHeight="45.0" maxWidth="245.0" minHeight="45.0" prefWidth="245.0" style="-fx-display-caret: false;" GridPane.columnSpan="5" />
+            <Button id="ceButton" fx:id="btnCE" focusTraversable="false" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="45.0" mnemonicParsing="false" text="CE" GridPane.rowIndex="5" />
             <Button id="stButton" fx:id="btnStack" focusTraversable="false" layoutX="30.0" maxHeight="25.0" maxWidth="45.0" minHeight="25.0" minWidth="45.0" mnemonicParsing="false" style="-fx-font-size: 10;" text="ST" GridPane.columnIndex="3" GridPane.rowIndex="2" />
             <Button id="undoButton" fx:id="btnUndo" focusTraversable="false" maxHeight="25.0" maxWidth="45.0" minHeight="25.0" minWidth="45.0" mnemonicParsing="false" style="-fx-font-size: 10;" text="undo" GridPane.columnIndex="4" GridPane.rowIndex="2" />
             <Button id="inverseButton" fx:id="btnInverse" focusTraversable="false" maxHeight="40.0" maxWidth="45.0" minHeight="40.0" minWidth="45.0" mnemonicParsing="false" text="1/x" GridPane.columnIndex="4" GridPane.rowIndex="7" />
             <Button id="helpButton" fx:id="btnHelp" focusTraversable="false" maxHeight="25.0" maxWidth="45.0" minHeight="25.0" minWidth="45.0" mnemonicParsing="false" style="-fx-font-size: 10;" text="?" GridPane.rowIndex="2" />
             <Button focusTraversable="false" maxHeight="25.0" maxWidth="45.0" minHeight="25.0" minWidth="45.0" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Button focusTraversable="false" maxHeight="25.0" maxWidth="45.0" minHeight="25.0" minWidth="45.0" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Button focusTraversable="false" maxHeight="40.0" maxWidth="45.0" minHeight="40.0" minWidth="45.0" mnemonicParsing="false" GridPane.rowIndex="5" />
+            <Button id="piButton" fx:id="btnPi" focusTraversable="false" maxHeight="40.0" maxWidth="45.0" minHeight="40.0" minWidth="45.0" mnemonicParsing="false" text="π" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Button id="squaredRootButton" fx:id="btnSquaredRoot" focusTraversable="false" maxHeight="40.0" maxWidth="45.0" minHeight="40.0" minWidth="45.0" mnemonicParsing="false" text="√" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+            <Button id="squaredButton" fx:id="btnSquared" focusTraversable="false" maxHeight="40.0" maxWidth="45.0" minHeight="40.0" minWidth="45.0" mnemonicParsing="false" text="x²" GridPane.columnIndex="4" GridPane.rowIndex="5" />
          </children>
       </GridPane>
    </children>

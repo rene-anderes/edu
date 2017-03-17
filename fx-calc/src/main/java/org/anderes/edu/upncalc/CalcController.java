@@ -1,6 +1,5 @@
 package org.anderes.edu.upncalc;
 
-
 import static javafx.event.ActionEvent.ACTION;
 import static javafx.scene.input.KeyCode.ADD;
 import static javafx.scene.input.KeyCode.BACK_SPACE;
@@ -56,6 +55,7 @@ import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+
 public class CalcController implements Initializable {
 
     @FXML
@@ -107,6 +107,12 @@ public class CalcController implements Initializable {
     @FXML
     private Button btnHelp;
     @FXML
+    private Button btnSquaredRoot;
+    @FXML
+    private Button btnPi;
+    @FXML
+    private Button btnSquared;
+    @FXML
     private ListView<BigDecimal> lwStack;
     
     @Inject
@@ -134,17 +140,14 @@ public class CalcController implements Initializable {
                
         /* ReactFx siehe https://github.com/TomasMikula/ReactFX */
         /*                                                      */
-        EventStreams.eventsOf(btnEnter, ACTION)
-                .subscribe(event -> addNewValueIfNotEmpty(), exception -> handleError(exception, resources));
-        EventStreams.eventsOf(btnAddition, ACTION)
-                .subscribe(event -> addition(), exception -> handleError(exception, resources));
-        EventStreams.eventsOf(btnSubtract, ACTION)
-                .subscribe(event -> subtract(), exception -> handleError(exception, resources));
-        EventStreams.eventsOf(btnMultiply, ACTION)
-                .subscribe(event -> multiply(), exception -> handleError(exception, resources));
-        EventStreams.eventsOf(btnDivide, ACTION)
-                .subscribe(event -> divide(), exception -> handleError(exception, resources));
-        
+        EventStreams.eventsOf(btnEnter, ACTION).subscribe(event -> addNewValueIfNotEmpty());
+        EventStreams.eventsOf(btnAddition, ACTION).subscribe(event -> addition());
+        EventStreams.eventsOf(btnSubtract, ACTION).subscribe(event -> subtract());
+        EventStreams.eventsOf(btnMultiply, ACTION).subscribe(event -> multiply());
+        EventStreams.eventsOf(btnDivide, ACTION).subscribe(event -> divide(), exception -> handleError(exception, resources));
+        EventStreams.eventsOf(btnSquared, ACTION).subscribe(event -> squared());
+        EventStreams.eventsOf(btnSquaredRoot, ACTION).subscribe(event -> squaredRoot(), exception -> handleError(exception, resources));
+        EventStreams.eventsOf(btnPi, ACTION).subscribe(event -> pi());
         EventStreams.eventsOf(btnCancel, ACTION).subscribe(event -> cancelStack());
         EventStreams.eventsOf(btnCE, ACTION).subscribe(event -> removeFromStack());
         EventStreams.eventsOf(btnSigned, ACTION).subscribe(event -> signedInput());
@@ -197,6 +200,10 @@ public class CalcController implements Initializable {
             .map(event -> lwStack.getSelectionModel().getSelectedItem())
             .filter(n -> n != null)
             .subscribe(n -> inValue.setText(n.toString()));
+    }
+
+    private void pi() {
+        inValue.appendText(calc.pi().toString());
     }
 
     private void initToolTips(ResourceBundle resources) {
@@ -260,6 +267,23 @@ public class CalcController implements Initializable {
     private void undoLastFunction() {
         calc.undo();
         stack.setAll(calc.getStack());
+    }
+
+    private void squared() {
+        addNewValueIfNotEmpty();
+        final Optional<BigDecimal> calcValue = calc.squared();
+        handleCalcValue(calcValue);
+    }
+
+    private void squaredRoot() {
+        addNewValueIfNotEmpty();
+        try {
+            final Optional<BigDecimal> calcValue = calc.squaredRoot();
+            handleCalcValue(calcValue);
+        } catch (NumberFormatException e) {
+            stack.setAll(calc.getStack());
+            throw new IllegalStateException(e);
+        }
     }
 
     private void inverse() {

@@ -111,6 +111,14 @@ public class Calc {
     public Optional<BigDecimal> divide() {
         return function((divisor, dividend) -> dividend.divide(divisor, DECIMAL128));
     }
+    
+    public Optional<BigDecimal> squared() {
+        return function(d -> d.pow(2, DECIMAL128));
+    }
+    
+    public Optional<BigDecimal> squaredRoot() {
+        return function(d -> new BigDecimal(Math.sqrt(d.doubleValue())));
+    }
       
     @FunctionalInterface
     interface BiCalcFunction<T, U> {
@@ -160,5 +168,13 @@ public class Calc {
     public void undo() {
         stack.clear();
         stack.addAll(undoStack);
+    }
+
+    public BigDecimal pi() {
+        BigDecimal result = new BigDecimal(Math.PI);
+        if (result.scale() > MAX_SCALE) {
+            result = result.setScale(MAX_SCALE, HALF_EVEN);
+        }
+        return result;
     }
 }
