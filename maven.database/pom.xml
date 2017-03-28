@@ -8,8 +8,8 @@
 
     <name>maven.database</name>
     <description>
-        mvn clean initialize -P drop-tables  -> alle Tabellen des Schemas APP werden gelöscht
-        mvn clean initialize -P create-tables  -> alle Tabellen des Schemas APP werden erstellt
+        mvn clean initialize -P drop-tables  -> löschen der Tabellen
+        mvn clean initialize -P create-tables  -> erstellen der Tabellen
         Vorausetzung: Derby-Database-Instanz läuft, kann mittels %JAVA_HOME%/db/bin/startNetworkServer.bat gestartet werden
     </description>
     
