@@ -3,13 +3,13 @@
 
     <groupId>org.anderes.edu</groupId>
     <artifactId>maven.database</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>maven.database</name>
     <description>
-        mvn clean install -P drop-tables  -> alle Tabellen des Schemas APP werden gelöscht
-        mvn clean install -P create-tables  -> alle Tabellen des Schemas APP werden erstellt
+        mvn clean initialize -P drop-tables  -> alle Tabellen des Schemas APP werden gelöscht
+        mvn clean initialize -P create-tables  -> alle Tabellen des Schemas APP werden erstellt
         Vorausetzung: Derby-Database-Instanz läuft, kann mittels %JAVA_HOME%/db/bin/startNetworkServer.bat gestartet werden
     </description>
     
@@ -28,7 +28,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
+                <version>3.6.0</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -47,7 +47,7 @@
                         <dependency>
                             <groupId>org.apache.derby</groupId>
                             <artifactId>derbyclient</artifactId>
-                            <version>10.11.1.1</version>
+                            <version>10.13.1.1</version>
                             <scope>compile</scope>
                         </dependency>
                     </dependencies>
@@ -73,16 +73,16 @@
                         <artifactId>sql-maven-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>drop-all</id>
-                                <phase>process-test-resources</phase>
+                                <phase>initialize</phase>
                                 <goals>
                                     <goal>execute</goal>
                                 </goals>
                                 <configuration>
                                     <autocommit>true</autocommit>
                                     <orderFile>descending</orderFile>
+                                    <onError>continue</onError>
                                     <srcFiles>
-                                        <srcFile>src/main/scripts/drop_schema.sql</srcFile>
+                                        <srcFile>src/main/scripts/sql/drop_tables.sql</srcFile>
                                     </srcFiles>
                                 </configuration>
                             </execution>
@@ -100,14 +100,14 @@
                         <artifactId>sql-maven-plugin</artifactId>
                         <executions>
                             <execution>
-                                <phase>process-test-resources</phase>
+                                <phase>initialize</phase>
                                 <goals>
                                     <goal>execute</goal>
                                 </goals>
                                 <configuration>
                                     <autocommit>true</autocommit>
                                     <srcFiles>
-                                        <srcFile>src/main/scripts/create_tables.sql</srcFile>
+                                        <srcFile>src/main/scripts/sql/create_tables.sql</srcFile>
                                     </srcFiles>
                                 </configuration>
                             </execution>
@@ -122,7 +122,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
