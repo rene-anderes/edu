@@ -22,8 +22,8 @@
         <class>org.anderes.edu.jpa.relation.manytoone.Student</class>
                
         <properties>
-            <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/myDatabase;create=true" />
+            <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:derby:inheritanceDatabase;create=true" />
             <property name="javax.persistence.jdbc.user" value="APP" />
             <property name="javax.persistence.jdbc.password" value="APP" />
 
