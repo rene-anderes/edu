@@ -50,7 +50,15 @@
             <version>2.2.10</version>
             <scope>provided</scope>
         </dependency>
-    
+
+        <!-- JSTL -->
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- JUnit Testabhängigkeit ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- JSON Processing - JSR 353 -->
         <dependency>
@@ -58,7 +66,7 @@
             <artifactId>jersey-media-json-processing</artifactId>
             <version>${jersey.version}</version>
             <scope>test</scope>
-        </dependency>        
+        </dependency>
         <!-- / JSON Processing - JSR 353 -->
         <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
@@ -110,9 +118,8 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.6</version>
+                <version>3.0.0</version>
                 <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
                     <archive>
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
@@ -247,7 +254,7 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-              <build>
+            <build>
                 <plugins>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
@@ -280,6 +287,15 @@
                         <groupId>com.oracle.weblogic</groupId>
                         <artifactId>weblogic-maven-plugin</artifactId>
                         <executions>
+                            <!-- CompilerException für JSP Files wenn appc eingeschalten ist
+                            <execution>
+                                <id>wls-appc</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>appc</goal>
+                                </goals>
+                            </execution>
+                             -->
                             <execution>
                                 <id>wls-deploy</id>
                                 <phase>pre-integration-test</phase>

@@ -9,4 +9,8 @@
         <wls:principal-name>weblogic</wls:principal-name>
     </wls:security-role-assignment>
     
+    <wls:container-descriptor>
+        <wls:show-archived-real-path-enabled>true</wls:show-archived-real-path-enabled>
+    </wls:container-descriptor>
+    
 </wls:weblogic-web-app>

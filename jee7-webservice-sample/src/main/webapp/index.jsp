@@ -2,8 +2,10 @@
 <%@page import="java.util.jar.Manifest,java.io.InputStream,java.util.*" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <c:set var="req" value="${ pageContext.request }" />
 <c:set var="baseURL" value="${ req.scheme }://${ req.serverName }:${ req.serverPort }${ req.contextPath }" /> 
+
 <%
 	InputStream inputStream = getServletConfig().getServletContext().getResourceAsStream("/META-INF/MANIFEST.MF");
 	Manifest manifest = new Manifest(inputStream);
@@ -14,6 +16,7 @@
 	Map<String, ? extends ServletRegistration> registrations = getServletConfig().getServletContext().getServletRegistrations();
 	pageContext.setAttribute("registrations", registrations);
  %>
+ 
 <!DOCTYPE html>
 <html>
 <head>
