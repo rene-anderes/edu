@@ -19,10 +19,10 @@ import java.util.UUID;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import org.anderes.edu.dbunitburner.DbUnitRule;
+import org.anderes.edu.dbunitburner.DbUnitRule.UsingDataSet;
 import org.anderes.edu.jpa.domain.Ingredient;
 import org.anderes.edu.jpa.domain.Recipe;
-import org.anderes.edu.jpa.rules.DbUnitRule;
-import org.anderes.edu.jpa.rules.DbUnitRule.UsingDataSet;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;

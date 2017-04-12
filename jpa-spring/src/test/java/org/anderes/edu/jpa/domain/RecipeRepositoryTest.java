@@ -13,10 +13,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.anderes.edu.jpa.rules.DbUnitRule;
-import org.anderes.edu.jpa.rules.DbUnitRule.CleanupUsingScript;
-import org.anderes.edu.jpa.rules.DbUnitRule.ShouldMatchDataSet;
-import org.anderes.edu.jpa.rules.DbUnitRule.UsingDataSet;
+import org.anderes.edu.dbunitburner.DbUnitRule;
+import org.anderes.edu.dbunitburner.DbUnitRule.CleanupUsingScript;
+import org.anderes.edu.dbunitburner.DbUnitRule.ShouldMatchDataSet;
+import org.anderes.edu.dbunitburner.DbUnitRule.UsingDataSet;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
