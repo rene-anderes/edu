@@ -4,7 +4,7 @@ import static java.lang.Math.sqrt;
 
 import java.util.stream.LongStream;
 
-import com.google.inject.Singleton;
+import javax.inject.Singleton;
 
 @Singleton
 public class PrimeNumberService implements Service {
