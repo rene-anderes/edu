@@ -30,10 +30,7 @@ public class JacksonPojoRestClientTest {
 
     @Before
     public void setUp() throws Exception {
-        System.getProperties().put("http.proxySet", "true");
-        System.getProperties().put("http.proxyHost", "localhost");
-        System.getProperties().put("http.proxyPort", "8080");
-        
+       
         restUrl = UriBuilder.fromPath("resources-api").path("recipes").host("www.anderes.org").scheme("http");
         
         /** 
