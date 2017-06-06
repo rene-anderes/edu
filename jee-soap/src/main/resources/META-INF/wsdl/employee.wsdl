@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="employee" 
+    xmlns:employee="http://www.anderes.org/xmlns/employee"
+    xmlns:tns="http://www.anderes.org/xmlns/employee/ws"
+    targetNamespace="http://www.anderes.org/xmlns/employee/ws">
+    
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="http://www.anderes.org/xmlns/employee" schemaLocation="employee.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="findEmployeeRequest">
+		<wsdl:part element="employee:findEmployeeRequest" name="parameter"/>
+	</wsdl:message>
+	<wsdl:message name="findEmployeeResponse">
+		<wsdl:part element="employee:findEmployeeResponse" name="response"/>
+	</wsdl:message>
+	<wsdl:message name="EmployeeNotFoundException">
+		<wsdl:part element="employee:EmployeeNotFoundException" name="fault"/>
+	</wsdl:message>
+	<wsdl:portType name="EmployeeService">
+		<wsdl:operation name="findEmployee">
+			<wsdl:input message="tns:findEmployeeRequest"/>
+			<wsdl:output message="tns:findEmployeeResponse"/>
+			<wsdl:fault message="tns:EmployeeNotFoundException" name="EmployeeNotFoundException"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="EmployeePortBinding" type="tns:EmployeeService">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="findEmployee">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="EmployeeNotFoundException">
+				<soap:fault name="EmployeeNotFoundException" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="EmployeeService">
+		<wsdl:port binding="tns:EmployeePortBinding" name="EmployeePortBinding">
+			<soap:address location="http://www.examples.com/webservices/EmployeeService"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
