@@ -1,41 +1,49 @@
-<definitions name="HelloService"
-   targetNamespace="http://www.examples.com/wsdl/HelloService.wsdl"
-   xmlns="http://schemas.xmlsoap.org/wsdl/"
-   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-   xmlns:tns="http://www.examples.com/wsdl/HelloService.wsdl"
-   xmlns:xsd="http://www.w3.org/2001/XMLSchema">
- 
-   <message name="SayHelloRequest">
-      <part name="firstName" type="xsd:string"/>
-   </message>
-   <message name="SayHelloResponse">
-      <part name="greeting" type="xsd:string"/>
-   </message>
- 
-   <portType name="Hello_PortType">
-      <operation name="sayHello">
-         <input message="tns:SayHelloRequest"/>
-         <output message="tns:SayHelloResponse"/>
-      </operation>
-   </portType>
- 
-   <binding name="Hello_Binding" type="tns:Hello_PortType">
-   <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
-   <operation name="sayHello">
-      <soap:operation soapAction="sayHello"/>
-      <input>
-         <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:examples:helloservice"/>
-      </input>
-      <output>
-         <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:examples:helloservice"/>
-      </output>
-   </operation>
-   </binding>
- 
-   <service name="Hello_Service">
-      <documentation>WSDL File for HelloService</documentation>
-      <port binding="tns:Hello_Binding" name="Hello_Port">
-         <soap:address location="http://www.examples.com/SayHello/"/>
-      </port>
-   </service>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions name="HelloService" 
+    xmlns="http://schemas.xmlsoap.org/wsdl/" 
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:ns0="http://www.anderes.org/xmlns/helloworld"
+    xmlns:tns="http://www.examples.com/wsdl/HelloService.wsdl"
+    targetNamespace="http://www.examples.com/wsdl/HelloService.wsdl">
+
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="http://www.anderes.org/xmlns/helloworld" schemaLocation="helloworld.xsd" />
+        </xsd:schema>
+    </types>
+
+    <portType name="HelloWorldService">
+        <operation name="sayHello">
+            <input message="tns:SayHelloRequest" />
+            <output message="tns:SayHelloResponse" />
+        </operation>
+    </portType>
+
+    <message name="SayHelloRequest">
+        <part name="parameter" element="ns0:helloWorldRequest" />
+    </message>
+    <message name="SayHelloResponse">
+        <part name="body" element="ns0:helloWorldResponse" />
+    </message>
+
+    <binding name="HelloWorldPortBinding" type="tns:HelloWorldService">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+        <operation name="sayHello">
+            <soap:operation soapAction="" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+        </operation>
+    </binding>
+
+    <service name="HelloWorldService">
+        <documentation>WSDL File for HelloService</documentation>
+        <port binding="tns:HelloWorldPortBinding" name="HelloWorldPortBinding">
+            <soap:address location="http://www.examples.com/SayHello/" />
+        </port>
+    </service>
 </definitions>

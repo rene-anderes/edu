@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema 
+    xmlns="http://www.w3.org/2001/XMLSchema" 
+    targetNamespace="http://www.anderes.org/xmlns/helloworld" 
+    xmlns:tns="http://www.anderes.org/xmlns/helloworld" elementFormDefault="qualified">
+    
+    <element name="helloWorldResponse" type="string"/>
+    <element name="helloWorldRequest" type="string"/>
+</schema>

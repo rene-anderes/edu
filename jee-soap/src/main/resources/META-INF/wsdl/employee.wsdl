@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+<wsdl:definitions name="employee" 
     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="employee" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
     xmlns:employee="http://www.anderes.org/xmlns/employee"
     xmlns:tns="http://www.anderes.org/xmlns/employee/ws"
     targetNamespace="http://www.anderes.org/xmlns/employee/ws">
