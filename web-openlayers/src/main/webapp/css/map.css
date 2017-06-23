@@ -1,0 +1,18 @@
+
+.w3-body {
+	background-color: #000000;
+	color: #ffffff;
+	font-family: 'Roboto', arial, sans-serif;
+}
+
+.w3Content {
+	line-height: 1.5;
+}
+
+#map {
+	height: 256px;
+	width: 512px;
+	padding: 0;
+	margin: 0;
+	boder: 1px solid #ffffff
+}
