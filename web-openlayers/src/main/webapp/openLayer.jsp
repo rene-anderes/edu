@@ -8,7 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <title>dev::OpenLayer</title>
-<title>dev::OpenStreetMap</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <meta http-equiv="content-script-type" content="text/javascript" />
 <meta http-equiv="content-style-type" content="text/css" />
