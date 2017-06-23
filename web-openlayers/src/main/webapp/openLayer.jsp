@@ -76,16 +76,18 @@
 		function handleTour(tour) {
 			$("#tour-name").text(tour.name);
 			$("#tour-description").html(tour.description);
+			tour.areas.sort( function( a, b ) {
+    			var a1 = a.name, b1 = b.name;
+    			if( a1 == b1 ) return 0;
+    			return a1 > b1 ? 1: -1;
+    		});
 			$.each(tour.areas, function(idx, area) {
 				console.log("startPoint: " + area.startPoint);
 				console.log("name: " + area.name);
 				$("#areas").append("<p>" + area.name + "</p>");
-				if (area.coordinates.length > 0 && area.coordinates[0].lon
-						&& area.coordinates[0].lat) {
-					console.log("coordinates: " + area.coordinates[0].lon
-							+ " | " + area.coordinates[0].lat);
-					addMarker(area.coordinates[0].lon, area.coordinates[0].lat,
-							area.name);
+				if (area.coordinates.length > 0 && area.coordinates[0].lon && area.coordinates[0].lat) {
+					console.log("coordinates: " + area.coordinates[0].lon + " | " + area.coordinates[0].lat);
+					addMarker(area.coordinates[0].lon, area.coordinates[0].lat, area.name);
 				}
 			})
 		}
