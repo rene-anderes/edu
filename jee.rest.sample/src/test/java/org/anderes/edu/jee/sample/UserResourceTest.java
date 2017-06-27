@@ -8,6 +8,7 @@ import static org.junit.Assert.assertThat;
 
 import java.util.List;
 import java.util.Map;
+import static java.lang.Boolean.*;
 
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.GenericType;
@@ -15,7 +16,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.anderes.edu.jee.rest.sample.UserResource;
-import org.glassfish.jersey.CommonProperties;
+import static org.glassfish.jersey.CommonProperties.*;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.glassfish.jersey.test.TestProperties;
@@ -27,7 +28,7 @@ public class UserResourceTest extends JerseyTest {
     protected Application configure() {
         enable(TestProperties.LOG_TRAFFIC);
         enable(TestProperties.DUMP_ENTITY);
-        return new ResourceConfig(UserResource.class).property(CommonProperties.MOXY_JSON_FEATURE_DISABLE_SERVER, Boolean.TRUE);
+        return new ResourceConfig(UserResource.class).property(MOXY_JSON_FEATURE_DISABLE_SERVER, TRUE);
         /** MOXY und List<String> funktioniert nicht (BUG) -> Disable MOXY */
     }
     
@@ -45,8 +46,11 @@ public class UserResourceTest extends JerseyTest {
     
     @Test
     public void shouldBeCorrectHeader() {
+    	
+    	// when
         final Response response = target("users/john").request(TEXT_PLAIN_TYPE).buildGet().invoke();
         
+        // then
         assertThat(response, is(notNullValue()));
         assertThat(response.getStatusInfo(), is(Status.OK));
         

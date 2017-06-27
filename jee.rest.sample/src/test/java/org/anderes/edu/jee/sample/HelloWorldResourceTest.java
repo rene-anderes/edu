@@ -27,7 +27,7 @@ public class HelloWorldResourceTest extends JerseyTest {
     }
  
     @Test
-    public void shouldBeSayHallo() {
+    public void shouldBeHalloWorld() {
              
     	// when
         final Response response = target("helloworld").request().get();
