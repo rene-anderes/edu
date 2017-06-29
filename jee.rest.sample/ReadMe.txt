@@ -40,7 +40,7 @@ JUnit-Test
 Mittels Jersey-Test-Framework werden die Schnittstellen getestet.
 
 Integrationstest
-Der Integrationstest "HelloWorldResourceTest" läuft, wenn die Applikation deployed ist.
+Der Integrationstest "HelloWorldResourceIT" läuft, wenn die Applikation deployed ist.
 Ist dieses Voraussetzung erfüllt, können die entsprechenden @Ignore-Annotations entfernt, die Variable 'uri' angepasst und der Test kann nun als JUnit-test gestartet werden. Dieser müsste nun Grün werden.
 
 
