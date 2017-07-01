@@ -1,4 +1,4 @@
-﻿{
+{
 	"id": "Site-eb69acac-7566-4b46-a7a5-889840841ef3",
 	"type": "site",
 	"timestamp": 1495869727,
@@ -7,7 +7,8 @@
 	"visibility": "all",
 	"image": "100_provence_2009.jpg",
 	"directory": "0000000104-5affa5245334bc243fab1034a75df7ac6e4347813951558d9b6f67a19bda7723",
-	"areas": [{
+	"areas": 
+		[{
 		"id": "Area-3577a8e8-3fa3-46c7-80e9-1f65bd290d43",
 		"type": "area",
 		"name": "15 - Borie",
