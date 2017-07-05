@@ -101,6 +101,7 @@
                                     <wsdlFiles>
                                         <wsdlFile>${basedir}/src/main/resources/META-INF/wsdl/helloworld.wsdl</wsdlFile>
                                         <wsdlFile>${basedir}/src/main/resources/META-INF/wsdl/employee.wsdl</wsdlFile>
+                                        <wsdlFile>${basedir}/src/main/resources/META-INF/wsdl/calculator.wsdl</wsdlFile>
                                     </wsdlFiles>
                                     <vmArgs>
                                         <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
