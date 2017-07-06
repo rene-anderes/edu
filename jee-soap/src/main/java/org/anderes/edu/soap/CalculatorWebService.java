@@ -4,7 +4,8 @@ import javax.jws.WebService;
 
 import org.anderes.wsdl.CalculatorWs;
 
-@WebService(name = "CalculatorWs", targetNamespace = "http://www.anderes.org/wsdl")
+@WebService(name = "CalculatorWs", 
+            targetNamespace = "http://www.anderes.org/wsdl")
 public class CalculatorWebService implements CalculatorWs {
 
     @Override

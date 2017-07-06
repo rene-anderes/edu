@@ -82,7 +82,7 @@
     </wsdl:binding>
     <wsdl:service name="CalculatorService">
         <wsdl:port binding="tns:CalculatorServiceSoapBinding" name="CalculatorPort">
-            <soap:address location="http://127.0.0.1:4204/Calculator?wsdl" />
+            <soap:address location="http://localhost/Calculator?wsdl" />
         </wsdl:port>
     </wsdl:service>
 </wsdl:definitions>
