@@ -98,9 +98,11 @@
                                     <goal>wsimport</goal>
                                 </goals>
                                 <configuration>
+                                    <wsdlDirectory>${basedir}/src/main/resources/META-INF/wsdl</wsdlDirectory>
                                     <wsdlFiles>
-                                        <wsdlFile>${basedir}/src/main/resources/META-INF/wsdl/helloworld.wsdl</wsdlFile>
-                                        <wsdlFile>${basedir}/src/main/resources/META-INF/wsdl/employee.wsdl</wsdlFile>
+                                        <wsdlFile>helloworld.wsdl</wsdlFile>
+                                        <wsdlFile>employee.wsdl</wsdlFile>
+                                        <wsdlFile>calculator.wsdl</wsdlFile>
                                     </wsdlFiles>
                                     <vmArgs>
                                         <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>

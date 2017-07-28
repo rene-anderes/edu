@@ -4,8 +4,8 @@
     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
     xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
     xmlns:ns0="http://www.anderes.org/xmlns/helloworld"
-    xmlns:tns="http://www.examples.com/wsdl/HelloService.wsdl"
-    targetNamespace="http://www.examples.com/wsdl/HelloService.wsdl">
+    xmlns:tns="http://www.anderes.org/wsdl/HelloService.wsdl"
+    targetNamespace="http://www.anderes.org/wsdl/HelloService.wsdl">
 
     <types>
         <xsd:schema>

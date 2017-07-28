@@ -5,7 +5,12 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 
-@WebService(name = "BmiServices")
+@WebService(
+                name = "BmiSOAPServices",       // Endpoint Name 
+                serviceName = "BmiService",     // Service Name - WSDL: .../BmiService?wsdl
+                portName = "BmiPort",           // Port Name
+                targetNamespace = "http://superbiz.org/wsdl"
+)
 public class BmiWebService {
 
     @WebMethod(operationName = "body-mass-index")
