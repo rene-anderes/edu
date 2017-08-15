@@ -1,6 +1,6 @@
 package org.anderes.edu.eventsource;
 
-public enum Port implements Location {
+public enum Port implements Location<Port> {
 
     AT_SEA, 
     NOT_DEFINED,
@@ -10,6 +10,11 @@ public enum Port implements Location {
     @Override
     public String getDescription() {
         return name();
+    }
+
+    @Override
+    public Port getLocation() {
+        return this;
     }
     
 }

@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Ship implements Location {
+public class Ship implements Location<Ship> {
 
     private final String name;
     private Port port = Port.NOT_DEFINED;
@@ -47,5 +47,10 @@ public class Ship implements Location {
 
     public Set<Cargo> getCargo() {
         return Collections.unmodifiableSet(lading);
+    }
+
+    @Override
+    public Ship getLocation() {
+        return this;
     }
 }
