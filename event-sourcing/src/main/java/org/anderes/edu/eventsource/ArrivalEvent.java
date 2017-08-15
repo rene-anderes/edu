@@ -32,7 +32,7 @@ public class ArrivalEvent extends ShippingEvent {
 
     @Override
     public void process() {
-        ship.setLocation(port);
+        ship.handleArrivalEvent(this);
     }
 
 }
