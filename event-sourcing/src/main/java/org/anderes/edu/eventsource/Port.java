@@ -11,10 +11,5 @@ public enum Port implements Location<Port> {
     public String getDescription() {
         return name();
     }
-
-    @Override
-    public Port getLocation() {
-        return this;
-    }
     
 }

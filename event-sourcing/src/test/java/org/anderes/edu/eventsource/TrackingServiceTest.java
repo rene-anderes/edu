@@ -38,7 +38,7 @@ public class TrackingServiceTest {
     @Test
     public void departurePutsShipOutToSea() {
         service.recordArrival(LocalDateTime.of(2017, JULY, 15, 12, 33), kingKamehameha, HAMBURG);
-        service.recordDeparture(LocalDateTime.of(2017, JULY, 15, 19, 12), kingKamehameha, HAMBURG);
+        service.recordDeparture(LocalDateTime.of(2017, JULY, 15, 19, 12), kingKamehameha);
         
         assertThat(kingKamehameha.getPort(), is(AT_SEA));
     }
@@ -50,5 +50,18 @@ public class TrackingServiceTest {
         
         assertThat(refact.getLocation().getDescription(), is("Meta"));
         assertThat(meta.getCargo(), hasItem(refact));
+    }
+    
+    @Test
+    public void unloadCargoToShip() {
+        service.recordArrival(LocalDateTime.of(2017, JULY, 22, 12, 33), meta, CAPETOWN);
+        service.recordLoad(LocalDateTime.of(2017, JULY, 22, 15, 00), refact, meta);
+        service.recordDeparture(LocalDateTime.of(2017, JULY, 22, 19, 10), meta);
+        service.recordArrival(LocalDateTime.of(2017, JULY, 30, 00, 24), meta, HAMBURG);
+        service.recordUnload(LocalDateTime.of(2017, JULY, 30, 9, 00), refact, HAMBURG);
+        
+        assertThat(refact.getLocation().getDescription(), is("HAMBURG"));
+        assertThat(meta.getCargo().contains(refact), is(false));
+        assertThat(meta.getPort(), is(HAMBURG));
     }
 }

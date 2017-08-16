@@ -49,8 +49,14 @@ public class Ship implements Location<Ship> {
         return Collections.unmodifiableSet(lading);
     }
 
+    public void removeCargo(Cargo cargo) {
+        if (!lading.remove(cargo)) {
+            throw new IllegalStateException();
+        }
+    }
+
     @Override
-    public Ship getLocation() {
-        return this;
+    public String toString() {
+        return name;
     }
 }

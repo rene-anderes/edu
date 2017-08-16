@@ -2,24 +2,24 @@ package org.anderes.edu.eventsource;
 
 import java.time.LocalDateTime;
 
-public class LoadEvent extends ShippingEvent {
+public class UnloadEvent extends ShippingEvent {
 
     private Cargo cargo;
-    private Ship ship;
+    private Port port;
 
-    public LoadEvent(LocalDateTime date, Cargo cargo, Ship ship) {
+    public UnloadEvent(LocalDateTime date, Cargo cargo, Port port) {
         super(date);
-        this.ship = ship;
+        this.port = port;
         this.cargo = cargo;
     }
 
     @Override
     public void process() {
-        cargo.handleLoadEvent(this);
+        cargo.handleUnloadEvent(this);
     }
 
-    public Ship getShip() {
-        return ship;
+    public Port getPort() {
+        return port;
     }
 
     public Cargo getCargo() {
@@ -28,7 +28,7 @@ public class LoadEvent extends ShippingEvent {
 
     @Override
     public String toString() {
-        return "LoadEvent [cargo=" + cargo + ", ship=" + ship + "]";
+        return "UnloadEvent [cargo=" + cargo + ", port=" + port + "]";
     }
 
 }
