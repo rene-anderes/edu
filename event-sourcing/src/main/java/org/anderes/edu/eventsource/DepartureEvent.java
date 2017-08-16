@@ -22,7 +22,7 @@ public class DepartureEvent extends ShippingEvent {
 
     @Override
     public String toString() {
-        return "DepartureEvent [ship=" + ship + "]";
+        return String.format("DepartureEvent (%s) [ship=%s]", super.toString(), ship);
     }
 
 }

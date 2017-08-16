@@ -28,7 +28,7 @@ public class UnloadEvent extends ShippingEvent {
 
     @Override
     public String toString() {
-        return "UnloadEvent [cargo=" + cargo + ", port=" + port + "]";
+        return String.format("UnloadEvent (%s) [cargo=%s, port=%s]", super.toString(), cargo, port);
     }
 
 }

@@ -28,7 +28,7 @@ public class ArrivalEvent extends ShippingEvent {
 
     @Override
     public String toString() {
-        return "ArrivalEvent [ship=" + ship + ", port=" + port + "]";
+        return String.format("ArrivalEvent (%s) [ship=%s, port=%s]", super.toString(), ship, port);
     }
 
 }

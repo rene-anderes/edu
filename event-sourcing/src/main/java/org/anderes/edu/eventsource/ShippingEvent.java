@@ -52,4 +52,9 @@ public abstract class ShippingEvent {
             return false;
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "uuid=" + uuid + ", accurred=" + accurred + ", recorded=" + recorded;
+    }
 }
