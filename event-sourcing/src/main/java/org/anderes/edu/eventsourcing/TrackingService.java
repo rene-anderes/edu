@@ -1,12 +1,14 @@
-package org.anderes.edu.eventsource;
+package org.anderes.edu.eventsourcing;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TrackingService {
     
     final List<ShippingEvent> events = new ArrayList<ShippingEvent>();
+    final EventLogPersistence persistenceLogger = new EventLogPersistence();
 
     public void recordArrival(LocalDateTime date, Ship ship, Port port) {
         final ArrivalEvent event = new ArrivalEvent(date, ship, port);
@@ -17,6 +19,7 @@ public class TrackingService {
     private void log(ShippingEvent event) {
         events.add(event);
         System.out.println(event);
+        //persistenceLogger.log(event);
     }
 
     public void recordDeparture(LocalDateTime date, Ship ship) {
@@ -37,5 +40,7 @@ public class TrackingService {
         log(event);
     }
 
-    
+    public List<ShippingEvent> getLog() {
+        return Collections.unmodifiableList(events);
+    }
 }

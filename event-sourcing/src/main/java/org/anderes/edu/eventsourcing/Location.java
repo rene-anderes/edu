@@ -1,4 +1,4 @@
-package org.anderes.edu.eventsource;
+package org.anderes.edu.eventsourcing;
 
 public interface Location<E> {
 

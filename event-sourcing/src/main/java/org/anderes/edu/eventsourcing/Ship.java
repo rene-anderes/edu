@@ -1,4 +1,4 @@
-package org.anderes.edu.eventsource;
+package org.anderes.edu.eventsourcing;
 
 import java.util.Collections;
 import java.util.HashSet;

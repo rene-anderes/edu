@@ -1,13 +1,16 @@
-package org.anderes.edu.eventsource;
+package org.anderes.edu.eventsourcing;
 
+import static org.anderes.edu.eventsourcing.Port.*;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.anderes.edu.eventsource.Port.*;
 
 import java.time.LocalDateTime;
 import static java.time.Month.*;
 
+import org.anderes.edu.eventsourcing.Cargo;
+import org.anderes.edu.eventsourcing.Ship;
+import org.anderes.edu.eventsourcing.TrackingService;
 import org.junit.Before;
 import org.junit.Test;
 
