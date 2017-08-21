@@ -1,26 +1,35 @@
 package org.anderes.edu.firebase;
 
 import static java.lang.Boolean.TRUE;
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON_TYPE;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonNumber;
+import javax.json.JsonObject;
+import javax.json.JsonString;
+import javax.json.JsonValue;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 
+import org.apache.commons.text.RandomStringGenerator;
 import org.glassfish.jersey.CommonProperties;
-import org.glassfish.jersey.jackson.JacksonFeature;
+import org.glassfish.jersey.jsonp.JsonProcessingFeature;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
@@ -29,22 +38,34 @@ public class RestApiTest {
 
     private UriBuilder restUrl;
     private Client client;
+    private static String accessToken;
+    private final RandomStringGenerator generator = new RandomStringGenerator.Builder().withinRange('a', 'z').build();
 
+    @BeforeClass
+    public static void setupOnce() {
+        GoogleCredential googleCred;
+        try {
+            googleCred = GoogleCredential.fromStream(new FileInputStream("codelab.service.account.json"));
+            GoogleCredential scoped = googleCred.createScoped(
+                            Arrays.asList(
+                                            "https://www.googleapis.com/auth/firebase.database",  // or use firebase.database.readonly for read-only access
+                                            "https://www.googleapis.com/auth/userinfo.email"
+                                            )
+                            );
+            scoped.refreshToken();
+            accessToken = scoped.getAccessToken();
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+    }
+    
     @Before
     public void setUp() throws Exception {
       
         restUrl = UriBuilder.fromPath("messages.json").host("codelab-82e5d.firebaseio.com").scheme("https");
-        /** 
-         * Hier wird das Jackson Feature registriert.
-         * Eine manuelle Registrierung eines Feature verhindert, dass Jersey
-         * die Feature automatisch registriert, daher wäre das "disable" 
-         * des auto discovery gar nicht notwendig. Wird hier jedoch exemplarisch explizit gemacht.
-         * siehe https://jersey.java.net/documentation/latest/user-guide.html#json.jackson 
-         */
         client = ClientBuilder.newBuilder()
-                        .register(JacksonFeature.class)
+                        .register(JsonProcessingFeature.class)
                         .property(CommonProperties.FEATURE_AUTO_DISCOVERY_DISABLE_CLIENT, TRUE)
-                        .property(CommonProperties.MOXY_JSON_FEATURE_DISABLE_CLIENT, TRUE)
                         .build();
     }
 
@@ -54,53 +75,70 @@ public class RestApiTest {
     }
     
     @Test
-    public void token() throws FileNotFoundException, IOException {
-        GoogleCredential googleCred = GoogleCredential.fromStream(new FileInputStream("codelab.service.account.json"));
-        GoogleCredential scoped = googleCred.createScoped(
-            Arrays.asList(
-              "https://www.googleapis.com/auth/firebase.database",  // or use firebase.database.readonly for read-only access
-              "https://www.googleapis.com/auth/userinfo.email"
-            )
-        );
-        scoped.refreshToken();
-        String token = scoped.getAccessToken();
-        System.out.println(token);
-        System.out.println(scoped.getExpiresInSeconds());
-        
-        restUrl.queryParam("access_token", token);
+    public void getAllMessages() {
+
+        restUrl.queryParam("access_token", accessToken);
         Response response = client.target(restUrl).request().get();
+
         assertThat(response.getStatusInfo(), is(Status.OK));
-        
-        Entity<Message> entity = Entity.entity(new Message("Bill", "Microsoft"), MediaType.APPLICATION_JSON_TYPE);
-        response = client.target(restUrl).request().buildPost(entity).invoke();
-        
-        assertThat(response.getStatusInfo(), is(Status.OK));
+        assertThat(response.hasEntity(), is(true));
+        JsonObject value = response.readEntity(JsonObject.class);
+        navigateTree(value, "messages");
     }
     
-    private class Message {
-        private String name;
-        private String text;
-       
-        public Message(String name, String text) {
-            super();
-            this.setName(name);
-            this.setText(text);
+    private void navigateTree(JsonValue tree, String key) {
+        if (key != null) {
+           System.out.print("Key " + key + ": ");
         }
-
-        public String getName() {
-            return name;
+        switch(tree.getValueType()) {
+           case OBJECT:
+              System.out.println("OBJECT");
+              JsonObject object = (JsonObject) tree;
+              for (String name : object.keySet()) {
+                 navigateTree(object.get(name), name);
+              }
+              break;
+           case ARRAY:
+              System.out.println("ARRAY");
+              JsonArray array = (JsonArray) tree;
+              for (JsonValue val : array) {
+                 navigateTree(val, null);
+              }
+              break;
+           case STRING:
+              JsonString st = (JsonString) tree;
+              System.out.println("STRING " + st.getString());
+              break;
+           case NUMBER:
+              JsonNumber num = (JsonNumber) tree;
+              System.out.println("NUMBER " + num.toString());
+              break;
+           case TRUE:
+           case FALSE:
+           case NULL:
+              System.out.println(tree.getValueType().toString());
+              break;
         }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getText() {
-            return text;
-        }
-
-        public void setText(String text) {
-            this.text = text;
-        }
+     }
+    
+    @Test
+    public void insertNewMessagePOST() throws FileNotFoundException, IOException {
+        
+        final JsonObject message = Json.createObjectBuilder()
+                        .add("name", generator.generate(15))
+                        .add("text", generator.generate(55))
+                        .add("photoUrl", generator.generate(55))
+                        .build();
+        Entity<JsonObject> entity = Entity.entity(message, APPLICATION_JSON_TYPE);
+        restUrl.queryParam("access_token", accessToken);
+        final Response response = client.target(restUrl).request().buildPost(entity).invoke();
+        
+        assertThat(response.getStatusInfo(), is(Status.OK));
+        assertThat(response.hasEntity(), is(true));
+        
+        JsonObject value = response.readEntity(JsonObject.class);
+        assertThat(value.containsKey("name"), is(true));
+        assertThat(value.getString("name").length(), is(20));
     }
+        
 }
