@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.UUID;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -44,14 +45,14 @@ public class RestApiTest {
     @BeforeClass
     public static void setupOnce() {
         GoogleCredential googleCred;
-        try {
-            googleCred = GoogleCredential.fromStream(new FileInputStream("codelab.service.account.json"));
+        try(FileInputStream fis = new FileInputStream("codelab.service.account.json")) {
+            googleCred = GoogleCredential.fromStream(fis);
             GoogleCredential scoped = googleCred.createScoped(
-                            Arrays.asList(
-                                            "https://www.googleapis.com/auth/firebase.database",  // or use firebase.database.readonly for read-only access
-                                            "https://www.googleapis.com/auth/userinfo.email"
-                                            )
-                            );
+                Arrays.asList(
+                    "https://www.googleapis.com/auth/firebase.database",  // or use firebase.database.readonly for read-only access
+                    "https://www.googleapis.com/auth/userinfo.email"
+                    )
+                );
             scoped.refreshToken();
             accessToken = scoped.getAccessToken();
         } catch (IOException e) {
@@ -62,7 +63,7 @@ public class RestApiTest {
     @Before
     public void setUp() throws Exception {
       
-        restUrl = UriBuilder.fromPath("messages.json").host("codelab-82e5d.firebaseio.com").scheme("https");
+        restUrl = UriBuilder.fromPath("/").host("codelab-82e5d.firebaseio.com").scheme("https");
         client = ClientBuilder.newBuilder()
                         .register(JsonProcessingFeature.class)
                         .property(CommonProperties.FEATURE_AUTO_DISCOVERY_DISABLE_CLIENT, TRUE)
@@ -77,6 +78,7 @@ public class RestApiTest {
     @Test
     public void getAllMessages() {
 
+        restUrl.path("messages.json");
         restUrl.queryParam("access_token", accessToken);
         Response response = client.target(restUrl).request().get();
 
@@ -130,6 +132,8 @@ public class RestApiTest {
                         .add("photoUrl", generator.generate(55))
                         .build();
         Entity<JsonObject> entity = Entity.entity(message, APPLICATION_JSON_TYPE);
+        
+        restUrl.path("messages.json");
         restUrl.queryParam("access_token", accessToken);
         final Response response = client.target(restUrl).request().buildPost(entity).invoke();
         
@@ -137,8 +141,37 @@ public class RestApiTest {
         assertThat(response.hasEntity(), is(true));
         
         JsonObject value = response.readEntity(JsonObject.class);
+        // z.B. { "name": "-K2ib4H77rj0LYewF7dP" }
         assertThat(value.containsKey("name"), is(true));
-        assertThat(value.getString("name").length(), is(20));
+        assertThat(value.getString("name").length(), is(20));   // Message-ID
+    }
+    
+    @Test
+    public void insertNewMessagePUT() throws FileNotFoundException, IOException {
+        
+        final JsonObject message = Json.createObjectBuilder()
+                        .add("name", generator.generate(15))
+                        .add("text", generator.generate(55))
+                        .add("photoUrl", generator.generate(55))
+                        .build();
+        Entity<JsonObject> entity = Entity.entity(message, APPLICATION_JSON_TYPE);
+        
+        restUrl.path("messages/" + UUID.randomUUID().toString() + ".json");
+        restUrl.queryParam("access_token", accessToken);
+        final Response response = client.target(restUrl).request().buildPut(entity).invoke();
+        
+        assertThat(response.getStatusInfo(), is(Status.OK));
+        assertThat(response.hasEntity(), is(true));
+        
+        JsonObject value = response.readEntity(JsonObject.class);
+        
+        // Der Response liefert das komplette Json zurück
+        assertThat(value.containsKey("name"), is(true));
+        assertThat(value.containsKey("text"), is(true));
+        assertThat(value.containsKey("photoUrl"), is(true));
+        assertThat(value.getString("name").length(), is(15));
+        assertThat(value.getString("text").length(), is(55));
+        assertThat(value.getString("photoUrl").length(), is(55));
     }
         
 }
