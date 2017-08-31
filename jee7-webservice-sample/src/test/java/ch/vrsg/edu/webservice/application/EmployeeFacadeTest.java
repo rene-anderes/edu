@@ -39,6 +39,6 @@ public class EmployeeFacadeTest {
     public void shouldBeFindAll() {
         final Collection<Employee> employees = facade.findAll();
         assertThat(employees, is(notNullValue()));
-        assertThat(employees.size(), is(3));
+        assertThat(employees.size(), is(4));
     }
 }

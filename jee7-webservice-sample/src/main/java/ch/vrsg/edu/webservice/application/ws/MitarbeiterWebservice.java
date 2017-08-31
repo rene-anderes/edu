@@ -15,8 +15,12 @@ import ch.vrsg.intra.xmlns.xmlns.mitarbeiter._1.MitarbeiterNotFoundException;
 import ch.vrsg.intra.xmlns.xmlns.mitarbeiter._1.MitarbeiterService;
 import ch.vrsg.intra.xmlns.xmlns.mitarbeiter._1.ObjectFactory;
 
-@WebService(name = "MitarbeiterService", serviceName="MitarbeiterService", 
-    targetNamespace = "http://xmlns.intra.vrsg.ch/xmlns/mitarbeiter/1", portName="MitarbeiterPort")
+@WebService(
+        name = "MitarbeiterService", 
+        serviceName="MitarbeiterService", 
+        portName="MitarbeiterPort",
+        targetNamespace = "http://xmlns.intra.vrsg.ch/xmlns/mitarbeiter/1", 
+        wsdlLocation = "WEB-INF/wsdl/mitarbeiter.wsdl")
 @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
 public class MitarbeiterWebservice implements MitarbeiterService {
 
