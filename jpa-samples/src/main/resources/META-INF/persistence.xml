@@ -22,21 +22,28 @@
         <class>org.anderes.edu.jpa.relation.manytoone.Student</class>
         <class>org.anderes.edu.jpa.relation.map.Story</class>
         <class>org.anderes.edu.jpa.relation.map.Task</class>
+        <class>org.anderes.edu.jpa.beanvalidation.Car</class>
+        
+        <validation-mode>AUTO</validation-mode>
                
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:derby:jpaDatabase;create=true" />
             <property name="javax.persistence.jdbc.user" value="APP" />
             <property name="javax.persistence.jdbc.password" value="APP" />
-
+            
+            <!-- Datenbank-Schema löschen und neu erstellen -->
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
             <property name="javax.persistence.schema-generation.create-database-schemas" value="true" />
             <property name="javax.persistence.schema-generation.create-source" value="metadata" />
             <property name="javax.persistence.schema-generation.drop-source" value="metadata" />
 
+            <!-- Datenbank-Schema-Scripts löschen und neu erstellen -->
             <property name="javax.persistence.schema-generation.scripts.action" value="drop-and-create" />
             <property name="javax.persistence.schema-generation.scripts.drop-target" value="src/main/scripts/sql/dropDatabase.sql" />
             <property name="javax.persistence.schema-generation.scripts.create-target" value="src/main/scripts/sql/createDatabase.sql"/>
+            
+            <!-- Testdaten in die Datenbank laden -->
             <property name="javax.persistence.sql-load-script-source" value="sql/create_testdata.sql" />
 
             <!-- 
@@ -50,7 +57,7 @@
             <property name="eclipselink.jdbc.native-sql" value="true" />
             <property name="eclipselink.ddlgen-terminate-statements" value="true"/>
 
-            <property name="eclipselink.logging.logger﻿﻿" value="JavaLogger" />
+            <!-- <property name="eclipselink.logging.logger﻿﻿" value="JavaLogger" /> -->
             <property name="eclipselink.logging.level" value="FINE" />
             <property name="eclipselink.logging.level.sql" value="FINE" />
             <property name="eclipselink.logging.parameters" value="true" />
