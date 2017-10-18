@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+
+<!-- LOG4j2 Konfiguration für JUnit und IT-Test's -->
+
+<Configuration status="INFO">
+	<Appenders>
+		<Console name="CONSOLE" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+	</Appenders>
+
+	<Loggers>
+		<Root level="ALL">
+			<AppenderRef ref="CONSOLE" level="ALL" />
+		</Root>
+        <Logger name="org.dbunit" level="WARN" additivity="false">
+            <AppenderRef ref="CONSOLE" />
+        </Logger>
+	</Loggers>
+</Configuration>
