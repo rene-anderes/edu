@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.anderes.edu.dbunitburner.SqlHelper;
+import org.apache.maven.shared.model.fileset.FileSet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -30,7 +31,7 @@ class DatabaseDataMojoTest {
     
     @BeforeEach
     public void setup() {
-        final String dbUrl = Paths.get("derbyEmbeddedDatabase").toAbsolutePath().toString();
+        final String dbUrl = Paths.get("target/derbyEmbeddedDatabase").toAbsolutePath().toString();
         databaseProperties = new Properties();
         databaseProperties.setProperty("url", "jdbc:derby:" + dbUrl + ";create=true");
         databaseProperties.setProperty("user", "APP");
@@ -48,15 +49,22 @@ class DatabaseDataMojoTest {
     }
 
     @Test @DisplayName("😎")
-    public void shouldBeExecute() throws Exception {
+    void shouldBeExecute() throws Exception {
         final DatabaseDataMojo mojo = new DatabaseDataMojo(databaseProperties);
-        final List<String> dataFiles = new ArrayList<>();
-        dataFiles.add("/test.json");
-        mojo.setDataFiles(dataFiles);
+        mojo.setFileset(createFileSet());
         mojo.execute();
         assertThat(checkDatabase(), is(true));
     }
     
+    private FileSet createFileSet() {
+        final FileSet fileSet = new FileSet();
+        fileSet.setDirectory("src/test/resources");
+        final List<String> includes = new ArrayList<>();
+        includes.add("*.json");
+        fileSet.setIncludes(includes);
+        return fileSet;
+    }
+
     private boolean checkDatabase() {
         try (Connection connection = createConnection(databaseProperties)) {
             checkRecipe(connection);

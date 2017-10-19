@@ -1,26 +1,30 @@
 package org.anderes.plugin;
 
+import static org.dbunit.IOperationListener.NO_OP_OPERATION_LISTENER;
 import static org.dbunit.database.DatabaseConfig.PROPERTY_DATATYPE_FACTORY;
-import static org.dbunit.operation.DatabaseOperation.*;
-import static org.dbunit.IOperationListener.*;
+import static org.dbunit.operation.DatabaseOperation.CLEAN_INSERT;
+import static org.dbunit.operation.DatabaseOperation.NONE;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 import org.anderes.edu.dbunitburner.CustomDataTypeFactory;
-import org.anderes.edu.dbunitburner.JsonDataFileLoader;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.shared.model.fileset.FileSet;
+import org.apache.maven.shared.model.fileset.util.FileSetManager;
 import org.dbunit.DefaultDatabaseTester;
 import org.dbunit.IDatabaseTester;
-
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.DatabaseSequenceFilter;
 import org.dbunit.database.IDatabaseConnection;
@@ -28,10 +32,7 @@ import org.dbunit.dataset.CompositeDataSet;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.FilteredDataSet;
 import org.dbunit.dataset.IDataSet;
-import org.dbunit.util.fileloader.CsvDataFileLoader;
 import org.dbunit.util.fileloader.DataFileLoader;
-import org.dbunit.util.fileloader.FlatXmlDataFileLoader;
-import org.dbunit.util.fileloader.XlsDataFileLoader;
 
 
 @Mojo( name = "execute", defaultPhase = LifecyclePhase.GENERATE_TEST_RESOURCES )
@@ -46,25 +47,25 @@ public class DatabaseDataMojo extends AbstractMojo {
     @Parameter( property = "password", required = true )
     private String password;
     
-    @Parameter( property = "dataFiles", required = true)
-    private List<String> dataFiles;
-
-    private Properties databaseProperties;
+    @Parameter ( defaultValue = "${project.basedir}" )
+    private String basedir;
+    
+    @Parameter ( required = true )
+    private FileSet fileset;
 
     public DatabaseDataMojo() {
         super();
     }
     
     /*package*/ DatabaseDataMojo(final Properties databaseProperties) {
-        this.databaseProperties = databaseProperties;
+        dbUrl = databaseProperties.getProperty("url");
+        username = databaseProperties.getProperty("user");
+        password = databaseProperties.getProperty("password");
     }
     
     @Override
     public void execute() throws MojoExecutionException {
-        if (databaseProperties == null) {
-            databaseProperties = createProperties();
-        }
-        try(final Connection connection = createConnection(databaseProperties)) {
+        try(final Connection connection = createConnection()) {
             final IDatabaseTester databaseTester = new DefaultDatabaseTester(new DatabaseConnection(connection));
             processUsingDataSet(getDataFiles() , databaseTester);
         } catch (Exception e) {
@@ -100,43 +101,29 @@ public class DatabaseDataMojo extends AbstractMojo {
     
     private DataFileLoader identifyLoader(String dataSetFile) {
         DataFileLoader loader;
-        if (dataSetFile.endsWith(".xml")) {
-            loader = new FlatXmlDataFileLoader();
-        } else if (dataSetFile.endsWith(".csv")) {
-            loader = new CsvDataFileLoader();
-        } else if (dataSetFile.endsWith(".xls")) {
-            loader = new XlsDataFileLoader();
-        } else if (dataSetFile.endsWith(".json")) {
-            loader = new JsonDataFileLoader();
+        if (dataSetFile.endsWith(".json")) {
+            loader = new MojoJsonDataFileLoader();
         } else {
-            throw new IllegalStateException("dbUnitBurner-plugin only supports XLS, CSV, JSON or Flat XML data sets for the moment");
+            throw new IllegalStateException("dbUnitBurner-plugin only supports JSON data sets for the moment");
         }
         return loader;
     }
     
-    private Connection createConnection(final Properties databaseProperties) throws SQLException {
-        final String url = databaseProperties.getProperty("url");
-        final String user = databaseProperties.getProperty("user");
-        final String password = databaseProperties.getProperty("password");
-        return DriverManager.getConnection(url, user, password);
-    }
-    
-    private Properties createProperties() {
-        final Properties databaseProperties = new Properties();
-        databaseProperties.setProperty("url", dbUrl);
-        databaseProperties.setProperty("user", username);
-        databaseProperties.setProperty("password", password);
-        return databaseProperties;
+    private Connection createConnection() throws SQLException {
+        return DriverManager.getConnection(dbUrl, username, password);
     }
 
-    public void setDataFiles(List<String> dataFiles) {
-        this.dataFiles = dataFiles;
+    /*package*/ void setFileset(final FileSet fileset) {
+        this.fileset = fileset;
     }
 
-    public List<String> getDataFiles() {
-        if (dataFiles == null) {
-            dataFiles = new ArrayList<>();
+    /*package*/ List<String> getDataFiles() {
+        if (fileset.getDirectory() == null) {
+            fileset.setDirectory(basedir);
         }
-        return dataFiles;
+        FileSetManager fileSetManager = new FileSetManager();
+        
+        return Arrays.asList(fileSetManager.getIncludedFiles(fileset)).stream()
+                        .map(f -> FilenameUtils.concat(fileset.getDirectory(), f)).collect(Collectors.toList());
     }
 }

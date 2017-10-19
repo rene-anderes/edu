@@ -19,12 +19,20 @@
         <groupId>@project.groupId@</groupId>
         <artifactId>@project.artifactId@</artifactId>
         <version>@project.version@</version>
+        <configuration>
+            <dbUrl>jdbc:derby:${project.basedir}\derbyEmbeddedDatabase;create=true</dbUrl>
+            <username>APP</username>
+            <password>APP</password>
+            <dataFiles>
+                <param>/test.json</param>    
+            </dataFiles>
+        </configuration>
         <executions>
           <execution>
-            <id>touch</id>
+            <id>execute</id>
             <phase>validate</phase>
             <goals>
-              <goal>touch</goal>
+              <goal>execute</goal>
             </goals>
           </execution>
         </executions>

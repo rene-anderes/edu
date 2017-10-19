@@ -3,13 +3,10 @@
 
     <groupId>org.anderes.plugin</groupId>
     <artifactId>dbunitburner-maven-plugin</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
 
     <name>dbunitburner-maven-plugin Maven Plugin</name>
-
-    <!-- FIXME change it to the project's website -->
-    <url>http://maven.apache.org</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -38,6 +35,11 @@
             <artifactId>plexus-utils</artifactId>
             <version>3.0.8</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.maven.shared</groupId>
+            <artifactId>file-management</artifactId>
+            <version>3.0.0</version>
+        </dependency>
 
         <!-- Projektspezifische Abhängigkeiten -->
         <dependency>
@@ -50,7 +52,7 @@
             <artifactId>derby</artifactId>
             <version>${apache.derby.version}</version>
         </dependency>
-        
+
         <!-- Log-Framework: log4j2 http://logging.apache.org/log4j/2.x/index.html -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -71,7 +73,7 @@
             <scope>runtime</scope>
         </dependency>
         <!-- / Log-Framework -->
-        
+
         <!-- Testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
