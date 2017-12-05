@@ -22,7 +22,7 @@ public class MojoJsonDataFileLoader extends JsonDataFileLoader {
             dataSet = loadDataSet(url);
             dataSet = processReplacementTokens(dataSet);
         } catch (DataSetException | IOException e) {
-            final String msg = String.format("DataSetException occurred loading data set file name='%', msg='%s'", filename, e.getLocalizedMessage());
+            final String msg = String.format("DataSetException occurred loading data set file name='%s', msg='%s'", filename, e.getLocalizedMessage());
             throw new DatabaseUnitRuntimeException(msg, e);
         } 
         return dataSet;
