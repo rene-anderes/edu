@@ -11,10 +11,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
-import org.anderes.edu.dbunitburner.CustomDataTypeFactory;
+import org.anderes.edu.dbunitburner.DbUnitBurnerHelper;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -32,6 +33,7 @@ import org.dbunit.dataset.CompositeDataSet;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.FilteredDataSet;
 import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.datatype.IDataTypeFactory;
 import org.dbunit.util.fileloader.DataFileLoader;
 
 
@@ -39,7 +41,10 @@ import org.dbunit.util.fileloader.DataFileLoader;
 public class DatabaseDataMojo extends AbstractMojo {
     
     @Parameter( property = "url", required = true )
-    private String dbUrl;
+    private String url;
+    
+    @Parameter( property = "driver", required = true )
+    private String driver;
     
     @Parameter( property = "username", required = true )
     private String username;
@@ -52,15 +57,19 @@ public class DatabaseDataMojo extends AbstractMojo {
     
     @Parameter ( required = true )
     private FileSet fileset;
+    
+    @Parameter ( property = "dataTypeFactory", required = false )
+    private String dataTypeFactory;
 
     public DatabaseDataMojo() {
         super();
     }
     
     /*package*/ DatabaseDataMojo(final Properties databaseProperties) {
-        dbUrl = databaseProperties.getProperty("url");
+        url = databaseProperties.getProperty("url");
         username = databaseProperties.getProperty("user");
         password = databaseProperties.getProperty("password");
+        driver = databaseProperties.getProperty("driver");
     }
     
     @Override
@@ -77,8 +86,9 @@ public class DatabaseDataMojo extends AbstractMojo {
     private void processUsingDataSet(final List<String> dataSetFiles, final IDatabaseTester databaseTester) throws Exception {
         final CompositeDataSet dataSet = buildDataSet(dataSetFiles);
         final IDatabaseConnection databaseConnection = databaseTester.getConnection();
-        final CustomDataTypeFactory dataTypeFactory = new CustomDataTypeFactory(); 
-        databaseConnection.getConfig().setProperty(PROPERTY_DATATYPE_FACTORY, dataTypeFactory);
+        final IDataTypeFactory resolveDataTypeFactory = DbUnitBurnerHelper.resolveDataTypeFactory(databaseTester.getConnection().getConnection());
+        databaseConnection.getConfig().setProperty(PROPERTY_DATATYPE_FACTORY, resolveDataTypeFactory);
+        getCustomDataTypeFactory().ifPresent(factory -> databaseConnection.getConfig().setProperty(PROPERTY_DATATYPE_FACTORY, factory));
         final IDataSet filteredDataSet = new FilteredDataSet(new DatabaseSequenceFilter(databaseConnection), dataSet);
         databaseTester.setOperationListener(NO_OP_OPERATION_LISTENER);
         databaseTester.setSetUpOperation(CLEAN_INSERT);
@@ -88,11 +98,23 @@ public class DatabaseDataMojo extends AbstractMojo {
         databaseTester.onTearDown();
     }
     
+    private Optional<IDataTypeFactory> getCustomDataTypeFactory() {
+        if (dataTypeFactory == null || dataTypeFactory.isEmpty()) {
+            return Optional.empty();
+        }
+        try {
+            return (Optional<IDataTypeFactory>) Optional.of((IDataTypeFactory) Class.forName(dataTypeFactory).newInstance());
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            getLog().warn(e);
+            return Optional.empty();
+        }
+    }
+    
     private CompositeDataSet buildDataSet(List<String> dataSetFiles) throws DataSetException {
         final List<IDataSet> dataSets = new ArrayList<IDataSet>(dataSetFiles.size());
         for (String dataSetFile : dataSetFiles) {
             DataFileLoader loader = identifyLoader(dataSetFile);
-            getLog().debug("Load file: '" + dataSetFile + "'.");
+            getLog().info("Load file: '" + dataSetFile + "'." + System.lineSeparator());
             IDataSet dataset = loader.load(dataSetFile);
             dataSets.add(dataset);
         }
@@ -110,11 +132,20 @@ public class DatabaseDataMojo extends AbstractMojo {
     }
     
     private Connection createConnection() throws SQLException {
-        return DriverManager.getConnection(dbUrl, username, password);
+        try {
+            Class.forName(driver);
+        } catch (ClassNotFoundException e) {
+            getLog().error(e); 
+        }
+        return DriverManager.getConnection(url, username, password);
     }
 
     /*package*/ void setFileset(final FileSet fileset) {
         this.fileset = fileset;
+    }
+
+    /*package*/ void setDataTypeFactory(String dataTypeFactory) {
+        this.dataTypeFactory = dataTypeFactory;
     }
 
     /*package*/ List<String> getDataFiles() {

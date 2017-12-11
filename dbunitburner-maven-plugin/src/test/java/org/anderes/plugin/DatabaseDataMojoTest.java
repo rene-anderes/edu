@@ -33,6 +33,7 @@ class DatabaseDataMojoTest {
     public void setup() {
         final String dbUrl = Paths.get("target/derbyEmbeddedDatabase").toAbsolutePath().toString();
         databaseProperties = new Properties();
+        databaseProperties.setProperty("driver", "org.apache.derby.jdbc.EmbeddedDriver");
         databaseProperties.setProperty("url", "jdbc:derby:" + dbUrl + ";create=true");
         databaseProperties.setProperty("user", "APP");
         databaseProperties.setProperty("password", "APP");
@@ -52,6 +53,7 @@ class DatabaseDataMojoTest {
     void shouldBeExecute() throws Exception {
         final DatabaseDataMojo mojo = new DatabaseDataMojo(databaseProperties);
         mojo.setFileset(createFileSet());
+        mojo.setDataTypeFactory("org.anderes.edu.dbunitburner.DerbyDateDataTypeFactory");
         mojo.execute();
         assertThat(checkDatabase(), is(true));
     }
