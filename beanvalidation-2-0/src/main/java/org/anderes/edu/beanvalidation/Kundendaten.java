@@ -1,5 +1,9 @@
 package org.anderes.edu.beanvalidation;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
 public class Kundendaten {
 
     private String firma;
@@ -7,8 +11,10 @@ public class Kundendaten {
     private String name;
     private String strasse;
     private String hausnummer;
+    @Min(value=1000) @Max(value=9999)
     private int plz;
     private String ort;
+    @Email
     private String email;
 
     public String getFirma() {

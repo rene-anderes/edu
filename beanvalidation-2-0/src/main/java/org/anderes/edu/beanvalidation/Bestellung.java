@@ -2,9 +2,15 @@ package org.anderes.edu.beanvalidation;
 
 import java.time.LocalDate;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
+
 public class Bestellung {
 
+    @Future
     private LocalDate lieferdatum;
+    @NotNull @Valid
     private Kundendaten kundendaten;
     private Kundendaten rechnungsadresse;
     private boolean rechnungAnKundenadresse;
