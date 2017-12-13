@@ -41,9 +41,9 @@ public class JsonProcessingRestClientTest {
         /** 
          * Hier wird explizit das JSON-P Feature registriert. Dies ist nicht notwendig, da Jersey
          * das entsprechende Feature im Klassenpfad hat und dadurch automatisch registriert.
-         * Das ausschalten des auto discovery wird hier nur exemplarisch gemacht und ist für
+         * Das Ausschalten des 'auto discovery' wird hier nur exemplarisch gemacht und ist für
          * JSON-P nicht notwendig.
-         * siehe https://jersey.java.net/documentation/latest/user-guide.html#deployment.autodiscoverable 
+         * siehe https://jersey.github.io/documentation/latest/user-guide.html#deployment.autodiscoverable 
          */
         client = ClientBuilder.newBuilder()
                         .register(JsonProcessingFeature.class)

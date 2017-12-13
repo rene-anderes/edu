@@ -37,8 +37,8 @@ public class JacksonPojoRestClientTest {
          * Hier wird das Jackson Feature registriert.
          * Eine manuelle Registrierung eines Feature verhindert, dass Jersey
          * die Feature automatisch registriert, daher wäre das "disable" 
-         * des auto discovery gar nicht notwendig. Wird hier jedoch exemplarisch explizit gemacht.
-         * siehe https://jersey.java.net/documentation/latest/user-guide.html#json.jackson 
+         * des 'auto discovery' gar nicht notwendig. Wird hier jedoch exemplarisch explizit gemacht.
+         * siehe https://jersey.github.io/documentation/latest/user-guide.html#json.jackson
          */
         client = ClientBuilder.newBuilder()
                         .register(JacksonFeature.class)
@@ -71,6 +71,6 @@ public class JacksonPojoRestClientTest {
         final Recipe recipe = response.readEntity(Recipe.class);
         assertThat(recipe.getId(), is(notNullValue()));
         assertThat(recipe.getId(), is("c0e5582e-252f-4e94-8a49-e12b4b047afb"));
-        assertThat(recipe.getTitle(), is("Arabische Spaghetti"));
+        assertThat(recipe.getTitle(), is("Arabische Pasta"));
     }
 }

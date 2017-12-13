@@ -32,7 +32,7 @@ public class MoxyPojoRestClientTest {
         
         /** 
          * Hier wird das MOXy Feature automatisch registriert.
-         * siehe https://jersey.java.net/documentation/latest/user-guide.html#json.moxy 
+         * siehe https://jersey.github.io/documentation/latest/user-guide.html#json.moxy
          */
         client = ClientBuilder.newClient();
 
@@ -61,6 +61,6 @@ public class MoxyPojoRestClientTest {
         final Recipe recipe = response.readEntity(Recipe.class);
         assertThat(recipe.getId(), is(notNullValue()));
         assertThat(recipe.getId(), is("c0e5582e-252f-4e94-8a49-e12b4b047afb"));
-        assertThat(recipe.getTitle(), is("Arabische Spaghetti"));
+        assertThat(recipe.getTitle(), is("Arabische Pasta"));
     }
 }
