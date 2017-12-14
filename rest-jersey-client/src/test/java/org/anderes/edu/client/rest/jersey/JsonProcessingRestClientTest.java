@@ -23,7 +23,7 @@ import org.junit.Test;
 /**
  * Beispiel für einen REST-Client der JSON mittels JOSN-P low level verarbeitet.
  * <p>
- * siehe https://jsonp.java.net/
+ * siehe https://javaee.github.io/jsonp/
  * 
  * @author René Anderes
  *
