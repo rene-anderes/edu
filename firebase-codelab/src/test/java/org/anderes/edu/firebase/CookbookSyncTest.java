@@ -169,6 +169,10 @@ public class CookbookSyncTest {
         assertThat(response.hasEntity(), is(true));
         final JsonObject content = response.readEntity(JsonObject.class);
         client.close();
+        return buildRecipe(content);
+    }
+
+    private JsonObject buildRecipe(final JsonObject content) {
         return Json.createObjectBuilder()
                         .add("uuid", content.getString("uuid"))
                         .add("title", content.getString("title"))
