@@ -141,6 +141,7 @@ public class RestApiTest {
         assertThat(response.hasEntity(), is(true));
         
         JsonObject value = response.readEntity(JsonObject.class);
+        System.out.println(value.toString());
         // z.B. { "name": "-K2ib4H77rj0LYewF7dP" }
         assertThat(value.containsKey("name"), is(true));
         assertThat(value.getString("name").length(), is(20));   // Message-ID
