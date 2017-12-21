@@ -5,7 +5,6 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.Matchers.startsWith;
 import static org.junit.Assert.assertThat;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -58,22 +57,6 @@ public class RecipeRepositoryTest {
         assertThat(findRecipe.getNoOfPeople(), is("2"));
         assertThat(findRecipe.getTitle(), is("Basilikum-Pesto"));
         assertThat(findRecipe.getIngredients().size(), is(2));
-    }
-    
-    @Test
-    public void shouldBefindByTitle() {
-        
-        Collection<Recipe> list = repository.findByTitle("Basilikum-Pesto");
-        assertThat(list, is(notNullValue()));
-        assertThat(list.size(), is(1));
-        
-        list = repository.findByTitle("Basilikum");
-        assertThat(list, is(notNullValue()));
-        assertThat(list.size(), is(1));
-        
-        list = repository.findByTitle("Pesto");
-        assertThat(list, is(notNullValue()));
-        assertThat(list.size(), is(0));
     }
 
     @Test

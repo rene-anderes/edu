@@ -3,7 +3,6 @@ package org.anderes.edu.appengine.cookbook;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +15,6 @@ import org.anderes.edu.appengine.cookbook.dto.RecipeShort;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
-import com.google.appengine.api.datastore.QueryResultIterator;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.NotFoundException;
 
@@ -70,23 +68,18 @@ public class RecipeRepository {
 		ofy().delete().entity(recipe).now();
 	}
 
-	public Collection<Recipe> findByTitle(final String title) {
-		return ofy().load().type(Recipe.class).filter("title >=", title).filter("title <", title + "\ufffd").list();
-	}
-
 	public List<Recipe> findAll() {
 		return ofy().load().type(Recipe.class).list();
 	}
 
 	public List<RecipeShort> getRecipeCollection() {
 	    
-	    final QueryResultIterator<Recipe> iterator = ofy().load().type(Recipe.class).iterator();
-	    
-	    final ArrayList<RecipeShort> recipes = new ArrayList<>();
-	    while (iterator.hasNext()) {
-	        final Recipe recipe = iterator.next();
-	        recipes.add(new RecipeShort(recipe.getTitle(), recipe.getId(), recipe.getEditingDate()));
+	    final List<Recipe> iterator = ofy().load().type(Recipe.class).list();
+	    final List<RecipeShort> recipes = new ArrayList<>(iterator.size());
+	    for (Recipe recipe : iterator) {
+	    	recipes.add(new RecipeShort(recipe.getTitle(), recipe.getId(), recipe.getEditingDate()));
 	    }
+	   
 		return recipes;
 	}
 
