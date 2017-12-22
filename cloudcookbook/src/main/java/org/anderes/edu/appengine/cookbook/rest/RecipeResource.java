@@ -19,6 +19,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
@@ -45,7 +46,10 @@ public class RecipeResource {
     @Produces(APPLICATION_JSON)
     public Response findAll() {
         final List<RecipeShort> recipes = repository.getRecipeCollection();
-        return Response.ok().encoding(UTF_8.displayName()).entity(recipes).build();
+        final CacheControl cache = new CacheControl();
+        cache.setMaxAge(10);
+        cache.setSMaxAge(10);
+        return Response.ok().cacheControl(cache).encoding(UTF_8.displayName()).entity(recipes).build();
     }
     
     @POST
