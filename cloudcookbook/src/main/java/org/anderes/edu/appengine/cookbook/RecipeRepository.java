@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import org.anderes.edu.appengine.cookbook.dto.Recipe;
 import org.anderes.edu.appengine.cookbook.dto.RecipeShort;
@@ -75,11 +76,10 @@ public class RecipeRepository {
 	public List<RecipeShort> getRecipeCollection() {
 	    
 	    final List<Recipe> iterator = ofy().load().type(Recipe.class).list();
-	    final List<RecipeShort> recipes = new ArrayList<>(iterator.size());
-	    for (Recipe recipe : iterator) {
-	    	recipes.add(new RecipeShort(recipe.getTitle(), recipe.getId(), recipe.getEditingDate()));
-	    }
-	   
+	    final List<RecipeShort> recipes = iterator.stream()
+	    		.map(recipe -> new RecipeShort(recipe.getTitle(), recipe.getId(), recipe.getEditingDate()))
+	    		.sorted()
+	    		.collect(Collectors.toList());
 		return recipes;
 	}
 
@@ -106,9 +106,7 @@ public class RecipeRepository {
 	public Map<String, Integer> findAllTags() {
 		final List<Recipe> recipes = findAll();
 		final List<String> tagCollection = new ArrayList<>(recipes.size());
-		for (Recipe recipe : recipes) {
-			tagCollection.addAll(recipe.getTags());
-		}
+		recipes.stream().forEach(recipe -> tagCollection.addAll(recipe.getTags()));
 		return toMap(tagCollection);
 	}
 
