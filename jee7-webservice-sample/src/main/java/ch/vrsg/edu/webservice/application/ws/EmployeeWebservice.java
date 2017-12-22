@@ -15,8 +15,11 @@ import ch.vrsg.edu.webservice.application.Employee;
 import ch.vrsg.edu.webservice.application.EmployeeFacade;
 import ch.vrsg.edu.webservice.application.EmployeeNotFoundException;
 
-@WebService(portName="EmployeePort", name = "EmployeeService", 
-            serviceName = "EmployeeService", targetNamespace = "http://xmlns.intra.vrsg.ch/xmlns/employee/1")
+@WebService(
+        name = "EmployeeService", 
+        serviceName = "EmployeeService", 
+        portName="EmployeePort", 
+        targetNamespace = "http://xmlns.intra.vrsg.ch/xmlns/employee/1")
 @HandlerChain(file = "handlers.xml")
 @SchemaValidation
 public class EmployeeWebservice {

@@ -23,7 +23,7 @@ import org.junit.Test;
 /**
  * Beispiel für einen REST-Client der JSON mittels JOSN-P low level verarbeitet.
  * <p>
- * siehe https://jsonp.java.net/
+ * siehe https://javaee.github.io/jsonp/
  * 
  * @author René Anderes
  *
@@ -41,9 +41,9 @@ public class JsonProcessingRestClientTest {
         /** 
          * Hier wird explizit das JSON-P Feature registriert. Dies ist nicht notwendig, da Jersey
          * das entsprechende Feature im Klassenpfad hat und dadurch automatisch registriert.
-         * Das ausschalten des auto discovery wird hier nur exemplarisch gemacht und ist für
+         * Das Ausschalten des 'auto discovery' wird hier nur exemplarisch gemacht und ist für
          * JSON-P nicht notwendig.
-         * siehe https://jersey.java.net/documentation/latest/user-guide.html#deployment.autodiscoverable 
+         * siehe https://jersey.github.io/documentation/latest/user-guide.html#deployment.autodiscoverable 
          */
         client = ClientBuilder.newBuilder()
                         .register(JsonProcessingFeature.class)

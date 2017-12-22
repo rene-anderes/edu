@@ -2,7 +2,7 @@ package org.anderes.edu.appengine.cookbook.dto;
 
 import java.util.Date;
 
-public class RecipeShort {
+public class RecipeShort implements Comparable<RecipeShort>{
     private String title;
     private String id;
     private Date editingDate;
@@ -41,6 +41,11 @@ public class RecipeShort {
     public void setEditingDate(Date editingDate) {
         this.editingDate = editingDate;
     }
+
+	@Override
+	public int compareTo(RecipeShort o) {
+		return this.title.compareToIgnoreCase(o.title);
+	}
     
     
 }

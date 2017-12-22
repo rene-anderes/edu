@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<constraint-mappings
+        xmlns="http://xmlns.jcp.org/xml/ns/validation/mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/validation/mapping http://xmlns.jcp.org/xml/ns/validation/mapping/validation-mapping-2.0.xsd"
+        version="2.0">
+
+    <default-package>org.anderes.edu.beanvalidation.xml</default-package>
+    <bean class="Employee" ignore-annotations="true">
+        <field name="lastname">
+            <constraint annotation="javax.validation.constraints.NotNull" />
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="min">2</element>
+            </constraint>
+        </field>
+        <field name="firstname">
+            <constraint annotation="javax.validation.constraints.NotNull" />
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="min">2</element>
+            </constraint>
+        </field>
+         <field name="jobtitle">
+            <constraint annotation="javax.validation.constraints.NotNull" />
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="min">2</element>
+            </constraint>
+        </field>
+        <field name="gender">
+            <constraint annotation="javax.validation.constraints.NotNull" />
+            <constraint annotation="javax.validation.constraints.Pattern">
+                <element name="regexp">(Male|Female)</element>
+            </constraint>
+        </field>
+        <field name="salary">
+            <constraint annotation="javax.validation.constraints.NotNull" />
+            <constraint annotation="javax.validation.constraints.Max">
+                <element name="value">999999</element>
+            </constraint>
+            <constraint annotation="javax.validation.constraints.Min">
+                <element name="value">1</element>
+            </constraint>
+
+        </field>
+    </bean>
+</constraint-mappings>
