@@ -40,7 +40,7 @@ import org.junit.Test;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 
-public class CookbookSyncTest {
+public class CookbookSyncByRestAPITest {
 
     private final String FIREBASE_IO = "codelab-82e5d.firebaseio.com";
     private static String accessToken;
@@ -53,9 +53,8 @@ public class CookbookSyncTest {
 
     @BeforeClass
     public static void setupOnce() {
-        GoogleCredential googleCred;
         try(FileInputStream fis = new FileInputStream("codelab.service.account.json")) {
-            googleCred = GoogleCredential.fromStream(fis);
+            GoogleCredential googleCred = GoogleCredential.fromStream(fis);
             GoogleCredential scoped = googleCred.createScoped(
                 Arrays.asList(
                     "https://www.googleapis.com/auth/firebase.database",  // or use firebase.database.readonly for read-only access
