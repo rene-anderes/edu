@@ -51,7 +51,7 @@ public class RecipeRepository {
 		recipeDto.setId(recipe.getId());
 		recipeDto.setTitle(recipe.getTitle());
 		recipeDto.setPreamble(recipe.getPreamble());
-		recipeDto.setPreparation(recipe.getPreamble());
+		recipeDto.setPreparation(recipe.getPreparation());
 		recipeDto.setNoOfPeople(recipe.getNoOfPeople());
 		recipeDto.setAddingDate(recipe.getAddingDate());
 		recipeDto.setEditingDate(recipe.getEditingDate());
