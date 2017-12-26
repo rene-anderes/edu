@@ -1,7 +1,10 @@
 {
 	"id": null,
 	"noOfPeople":"4",
-	"ingredients":[{"description":"Torrone","portion":"180 g","comment":" Mischverhältnis 60"},{"description":"Rahm","portion":"3 dl","comment":"grösse der Form beachten"}],
+	"ingredients":[
+		{"description":"Torrone","portion":"180 g","comment":" Mischverhältnis 60","id": null},
+		{"description":"Rahm","portion":"3 dl","comment":"grösse der Form beachten","id": null}
+	],
 	"tags":["dessert"],
 	"title":"Torroneparfait",
 	"preparation":"<p>Den Torroneriegel zerkrümeln, am besten im Mixer. Mit steif geschlagenem Rahm vermischen und schliesslich in einer kleinen Kastenform ins Gefrierfach stellen. Die Form zuvor mit Klarsichtfolie auslegen, dann kann man das gefrorene Parfait ganz einfach aus der Form ziehen.</p>\n",

@@ -18,14 +18,14 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
-import org.anderes.edu.appengine.cookbook.RecipeRepository;
-import org.anderes.edu.appengine.cookbook.dto.Recipe;
+import org.anderes.edu.appengine.cookbook.dto.RecipeDto;
 import org.anderes.edu.appengine.cookbook.dto.RecipeShort;
+import org.anderes.edu.appengine.cookbook.objectify.RecipeRepository;
 import org.glassfish.jersey.CommonProperties;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
 @Path("recipes")
-public class RecipeSynchResource {
+public class RecipeSyncResource {
 
     private final Logger logger = Logger.getLogger(this.getClass().getName());
     private final RecipeRepository repository = new RecipeRepository();
@@ -44,7 +44,7 @@ public class RecipeSynchResource {
         if (response.getStatus() == OK.getStatusCode() && response.hasEntity()) {
             final List<RecipeShort> recipes = response.readEntity(new GenericType<List<RecipeShort>>() {});
             for (RecipeShort recipeShort : recipes) {
-                Recipe recipe = getRecipeFromSource(recipeShort.getId());
+                RecipeDto recipe = getRecipeFromSource(recipeShort.getId());
                 repository.save(recipe);
                 logger.log(INFO, String.format("Rezept mit ID %s gespeichert.", recipe.getId()));
             }
@@ -56,20 +56,20 @@ public class RecipeSynchResource {
     }
     
     private void deleteAllRecipes() {
-        final List<Recipe> recipes = repository.findAll();
-        for (Recipe recipe : recipes) {
+        final List<RecipeDto> recipes = repository.findAll();
+        for (RecipeDto recipe : recipes) {
             repository.delete(recipe);
             logger.log(INFO, String.format("Rezept mit ID %s gelöscht.", recipe.getId()));
         }
     }
 
-    private Recipe getRecipeFromSource(final String id) {
+    private RecipeDto getRecipeFromSource(final String id) {
         final UriBuilder restUrl = UriBuilder.fromPath("resources-api").path("recipes").host("www.anderes.org").scheme("http");
         final Response response = client.target(restUrl.path(id)).request(APPLICATION_JSON_TYPE).get();
         final int status = response.getStatus();
         if (status == OK.getStatusCode() && response.hasEntity()) {
             logger.log(INFO, String.format("Rezept mit ID %s via REST empfangen.", id));
-            return response.readEntity(Recipe.class);
+            return response.readEntity(RecipeDto.class);
         }
         logger.log(WARNING, String.format("Synchronisationsfehler: Responsstatus = '%s'", status));
         throw new NotFoundException(String.format("Synchronisationsfehler: Rezept mit ID %s nicht gefunden!", id));

@@ -13,6 +13,7 @@ public class MyApplication extends Application {
     public Set<Class<?>> getClasses() {
         final Set<Class<?>> clazz = new HashSet<Class<?>>();
         clazz.add(RecipeResource.class);
+        clazz.add(RecipeSyncResource.class);
         clazz.add(NotFoundExceptionMapper.class);
         return clazz;
     }

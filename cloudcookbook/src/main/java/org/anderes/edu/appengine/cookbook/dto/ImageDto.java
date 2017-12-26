@@ -5,15 +5,15 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 
-public class Image {
+public class ImageDto {
 
     private String url;
     private String description;
 
-    public Image() {
+    public ImageDto() {
     }
 
-    public Image(String url, String description) {
+    public ImageDto(String url, String description) {
         super();
         this.url = url;
         this.description = description;
@@ -57,7 +57,7 @@ public class Image {
         if (obj.getClass() != getClass()) {
             return false;
         }
-        Image rhs = (Image) obj;
+        ImageDto rhs = (ImageDto) obj;
         return new EqualsBuilder().append(url, rhs.url).append(description, rhs.description).isEquals();
     }
 

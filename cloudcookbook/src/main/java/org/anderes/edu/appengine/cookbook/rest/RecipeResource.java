@@ -23,10 +23,10 @@ import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
-import org.anderes.edu.appengine.cookbook.RecipeRepository;
-import org.anderes.edu.appengine.cookbook.dto.Recipe;
+import org.anderes.edu.appengine.cookbook.dto.RecipeDto;
 import org.anderes.edu.appengine.cookbook.dto.RecipeShort;
 import org.anderes.edu.appengine.cookbook.dto.TagDto;
+import org.anderes.edu.appengine.cookbook.objectify.RecipeRepository;
 
 @Path("recipes")
 @Produces(APPLICATION_JSON)
@@ -38,7 +38,7 @@ public class RecipeResource {
     @GET
     @Path("{id}")
     @Produces(APPLICATION_JSON)
-    public Recipe findOne(@PathParam("id") String id) {
+    public RecipeDto findOne(@PathParam("id") String id) {
         return repository.findOne(id);
     }
     
@@ -54,9 +54,9 @@ public class RecipeResource {
     
     @POST
     @Consumes(APPLICATION_JSON)
-    public Response insert(Recipe recipe) {
+    public Response insert(RecipeDto recipe) throws IllegalAccessException {
         logger.fine("POST - Recipe: " + recipe);
-        final Recipe savedRecipe = repository.save(recipe);
+        final RecipeDto savedRecipe = repository.save(recipe);
         final URI location = UriBuilder.fromResource(RecipeResource.class).path(savedRecipe.getId()).build();
         return Response.created(location).build();
     }
@@ -64,7 +64,7 @@ public class RecipeResource {
     @PUT
     @Path("{id}")
     @Consumes(APPLICATION_JSON)
-    public Response save(@PathParam("id") String id, Recipe recipe) {
+    public Response save(@PathParam("id") String id, RecipeDto recipe) {
         logger.fine("PUT - Recipe: " + recipe);
         if (!id.equals(recipe.getId())) {
             logger.warning("Path-id '" + id + "' ist ungleich Recipe-id '" + recipe.getId() + "'");
@@ -74,7 +74,7 @@ public class RecipeResource {
             repository.save(recipe);
             return Response.ok().build();
         }
-        final Recipe savedRecipe = repository.save(recipe);
+        final RecipeDto savedRecipe = repository.save(recipe);
         final URI location = UriBuilder.fromResource(RecipeResource.class).path(savedRecipe.getId()).build();
         return Response.created(location).build();
     }

@@ -6,6 +6,8 @@ import static org.junit.Assert.assertThat;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
+import java.util.Set;
 
 import javax.json.JsonObject;
 import javax.json.JsonStructure;
@@ -14,7 +16,9 @@ import javax.json.JsonValue.ValueType;
 import org.anderes.edu.appengine.cookbook.ObjectifyTestRule.CleanupStrategy;
 import org.anderes.edu.appengine.cookbook.ObjectifyTestRule.Strategy;
 import org.anderes.edu.appengine.cookbook.ObjectifyTestRule.UsingDataSet;
-import org.anderes.edu.appengine.cookbook.dto.Recipe;
+import org.anderes.edu.appengine.cookbook.objectify.Image;
+import org.anderes.edu.appengine.cookbook.objectify.Ingredient;
+import org.anderes.edu.appengine.cookbook.objectify.Recipe;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -27,6 +31,8 @@ public class ObjectifyTestRuleTest {
 
     static {
         ObjectifyService.register(Recipe.class);
+        ObjectifyService.register(Ingredient.class);
+        ObjectifyService.register(Image.class);
     }
     
     @Test
@@ -41,16 +47,20 @@ public class ObjectifyTestRuleTest {
         assertThat(recipe.getTags().size(), is(2));
         assertThat(recipe.getAddingDate().getTime(), is(1250959818424L));
         assertThat(recipe.getEditingDate().getTime(), is(1421863647087L));
-        assertThat(recipe.getImage(), is(notNullValue()));
-        assertThat(recipe.getIngredients(), is(notNullValue()));
-        assertThat(recipe.getIngredients().size(), is(8));
+        final Optional<Image> image = rule.mapImage((JsonObject)recipeObject);
+        assertThat(image, is(notNullValue()));
+        assertThat(image.isPresent(), is(true));
+        final Set<Ingredient> ingredients = rule.mapIngredients((JsonObject)recipeObject);
+        assertThat(ingredients, is(notNullValue()));
+        assertThat(ingredients.size(), is(8));
     }
     
     @Test
     @CleanupStrategy(value = Strategy.BEFORE)
     @UsingDataSet(value = { "/recipe2.json" })
     public void shouldBeUsingdataSet() {
-        assertThat(rule.findOne("c0e5582e-252f-4e94-8a49-e12b4b047afb"), is(notNullValue()));
+        Recipe findOne = rule.findOne("c0e5582e-252f-4e94-8a49-e12b4b047afb");
+		assertThat(findOne, is(notNullValue()));
     }
     
     @Test
@@ -59,4 +69,5 @@ public class ObjectifyTestRuleTest {
     public void shouldBeUsingdataSetAndCleanup() {
         assertThat(rule.findAll().size(), is(44));
     }
+ 
 }

@@ -3,18 +3,18 @@ package org.anderes.edu.appengine.cookbook.dto;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.text.StrBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
-public class Ingredient {
+public class IngredientDto {
 
     private String portion;
     private String description;
     private String comment;
 
-    public Ingredient() {
+    public IngredientDto() {
     }
 
-    public Ingredient(final String portion, final String description, final String comment) {
+    public IngredientDto(final String portion, final String description, final String comment) {
         super();
         this.portion = portion;
         this.description = description;
@@ -61,12 +61,12 @@ public class Ingredient {
         if (obj.getClass() != getClass()) {
             return false;
         }
-        Ingredient rhs = (Ingredient) obj;
+        IngredientDto rhs = (IngredientDto) obj;
         return new EqualsBuilder().append(portion, rhs.portion).append(description, rhs.description).append(comment, rhs.comment).isEquals();
     }
 
     @Override
     public String toString() {
-    	return new StrBuilder().append(portion).append(description).append(comment).build();
+    	return new ToStringBuilder(this).append(portion).append(description).append(comment).build();
     }
 }

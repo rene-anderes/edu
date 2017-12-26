@@ -2,47 +2,54 @@
 	"id": "c0e5582e-252f-4e94-8a49-e12b4b047afb",
 	"noOfPeople": "2",
 	"ingredients": [{
+		"id": "c1e5582e-252f-4e94-8a49-e12b4b047afb",
 		"description": "Pouletfleisch",
 		"portion": "150 g",
 		"comment": ""
 	},
 	{
+		"id": "c2e5582e-252f-4e94-8a49-e12b4b047afb",
 		"description": "Sultaninen",
 		"portion": "2 EL",
 		"comment": ""
 	},
 	{
+		"id": "c3e5582e-252f-4e94-8a49-e12b4b047afb",
 		"description": "Knoblizehen",
 		"portion": "2",
 		"comment": ""
 	},
 	{
+		"id": "c4e5582e-252f-4e94-8a49-e12b4b047afb",
 		"description": "Spaghetti",
 		"portion": "250",
 		"comment": ""
 	},
 	{
+		"id": "c5e5582e-252f-4e94-8a49-e12b4b047afb",
 		"description": "Curry",
 		"portion": "",
 		"comment": ""
 	},
 	{
+		"id": "c6e5582e-252f-4e94-8a49-e12b4b047afb",
 		"description": "Salz, Pfeffer und Olivenöl",
 		"portion": "",
 		"comment": ""
 	},
 	{
+		"id": "c7e5582e-252f-4e94-8a49-e12b4b047afb",
 		"description": "Zwiebel",
 		"portion": "1",
 		"comment": ""
 	},
 	{
+		"id": "c8e5582e-252f-4e94-8a49-e12b4b047afb",
 		"description": "Kokosmilch",
 		"portion": "200 mL",
 		"comment": ""
 	}],
-	"tags": ["fleisch",
-	"pasta"],
+	"tags": ["fleisch",	"pasta"],
 	"title": "Arabische Spaghetti",
 	"preparation": "<p>Pouletfleisch in schmale Streifen schneiden und kurz anbraten. Aus der Pfanne nehmen und bei Seite stellen.<br />\n<br />\nWasser aufsetzen, salzen und Spaghetti al dente kochen.<br />\n<br />\nIn der Zwischenzeit die fein gehackte Zwiebel und den in Würfelchen geschnittenen Knobli andämpfen. Den Curry dazu geben und kurz mitdämpfen (nicht zu heiss). Anschliessend die Kokosmilch dazu geben, aufkochen lassen, Hitze reduzieren und ca. 10 Min köcheln lassen. Ca. 2 Minuten bevor die Pasta al dente sind das Pouletfleisch in die Sauce geben und nur noch warm werden lassen. Kurz bevor die Spaghetti mit der Sauce vermischt wird, die Sultaninen in die Sauce geben. Die Sauce und die Spaghetti nach dem mischen zugedeckt ziehen lassen.<br />\n<br />\nDie Konsistenz kann -je nach Geschmack- etwas zu flüssig sein. Dann einfach mit einem Teelöffel Maisstärke (mit etwas kaltem Wasser anrühren) in die Sauce geben und kurz aufkochen.</p>\n",
 	"preamble": "<p>Da bei diesem Rezept das Scharfe (Curry) mit dem Süssen (Sultaninen) gemischt wird, habe ich diese Rezept \"Arabische Spaghetti\" benannt.</p>\n",

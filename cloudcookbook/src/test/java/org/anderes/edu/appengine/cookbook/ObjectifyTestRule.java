@@ -15,6 +15,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -25,9 +28,9 @@ import javax.json.JsonStructure;
 import javax.json.JsonValue;
 import javax.json.JsonValue.ValueType;
 
-import org.anderes.edu.appengine.cookbook.dto.Image;
-import org.anderes.edu.appengine.cookbook.dto.Ingredient;
-import org.anderes.edu.appengine.cookbook.dto.Recipe;
+import org.anderes.edu.appengine.cookbook.objectify.Image;
+import org.anderes.edu.appengine.cookbook.objectify.Ingredient;
+import org.anderes.edu.appengine.cookbook.objectify.Recipe;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
@@ -98,7 +101,7 @@ public class ObjectifyTestRule implements TestRule {
     }
 
     private void persistJsonFileData(final Path jsonFile) throws FileNotFoundException {
-        JsonStructure jsonValue = readJsonFile(jsonFile);
+        final JsonStructure jsonValue = readJsonFile(jsonFile);
         if (jsonValue.getValueType() == ValueType.OBJECT) {
             persistRecipe((JsonObject) jsonValue);
         } else if (jsonValue.getValueType() == ValueType.ARRAY) {
@@ -117,18 +120,48 @@ public class ObjectifyTestRule implements TestRule {
         for (JsonValue value : jsonArray) {
             persistRecipe((JsonObject)value);
         }
-        
     }
 
     private void persistRecipe(final JsonObject recipeObject) {
+    	final Optional<Image> optionalImage = mapImage(recipeObject);
+    	optionalImage.ifPresent(image -> ofy().save().entity(image).now());
+    	final Set<Ingredient> ingredients = mapIngredients(recipeObject);
+    	ingredients.stream().forEach(ingredient -> ofy().save().entity(ingredient).now());
         final Recipe recipe = mapRecipe(recipeObject);
+        optionalImage.ifPresent(image -> recipe.setImage(image));
+        ingredients.stream().forEach(ingredient -> recipe.addIngredient(ingredient));
         ofy().save().entity(recipe).now();
     }
 
-    /* package */ Recipe mapRecipe(final JsonObject recipeObject) {
+    /* package */ Set<Ingredient> mapIngredients(JsonObject recipeObject) {
+    	final JsonArray ingredientsArray = recipeObject.getJsonArray("ingredients");
+    	Set<Ingredient> ingredients = new TreeSet<>();
+        for (JsonValue ingredient : ingredientsArray) {
+            final String description = ((JsonObject) ingredient).getString("description");
+            final String portion = ((JsonObject) ingredient).getString("portion");
+            final String comment = ((JsonObject) ingredient).getString("comment");
+            if (((JsonObject) ingredient).containsKey("id")) {
+            	final String ingredientId = ((JsonObject) ingredient).getString("id");
+            	ingredients.add(new Ingredient(ingredientId, portion, description, comment));
+            } else {
+            	ingredients.add(new Ingredient(portion, description, comment));
+            }
+        }
+		return ingredients;
+	}
+
+	/* package */ Optional<Image> mapImage(JsonObject recipeObject) {
+    	if (!recipeObject.isNull("image")) {
+            final JsonObject imageObject = ((JsonObject)recipeObject.get("image"));
+            return Optional.of(new Image(imageObject.getString("url"), imageObject.getString("description")));
+        }
+		return Optional.empty();
+	}
+
+	/* package */ Recipe mapRecipe(final JsonObject recipeObject) {
         final Recipe recipe = new Recipe();
         if (recipeObject.isNull("id")) {
-            throw new IllegalArgumentException("Die id des rezepts darf nicht null sein");
+            throw new IllegalArgumentException("Die id des Rezepts darf nicht null sein");
         }
         recipe.setId(recipeObject.getString("id"));
         recipe.setTitle(recipeObject.getString("title"));
@@ -149,19 +182,6 @@ public class ObjectifyTestRule implements TestRule {
             for (JsonValue tag : tags) {
                 recipe.addTag(((JsonString)tag).getString());
             }
-        }
-        if (!recipeObject.isNull("image")) {
-            final JsonObject imageObject = ((JsonObject)recipeObject.get("image"));
-            recipe.setImage(new Image());
-            recipe.getImage().setDescription(imageObject.getString("description"));
-            recipe.getImage().setUrl(imageObject.getString("url"));
-        }
-        final JsonArray ingredientsArray = recipeObject.getJsonArray("ingredients");
-        for (JsonValue ingredient : ingredientsArray) {
-            final String description = ((JsonObject) ingredient).getString("description");
-            final String portion = ((JsonObject) ingredient).getString("portion");
-            final String comment = ((JsonObject) ingredient).getString("comment");
-            recipe.addIngredient(new Ingredient(portion, description, comment));
         }
         return recipe;
     }

@@ -32,7 +32,7 @@
     </filter-mapping>
     
     <listener>
-      <listener-class>org.anderes.edu.appengine.cookbook.OfyHelper</listener-class>
+      <listener-class>org.anderes.edu.appengine.cookbook.objectify.OfyHelper</listener-class>
     </listener>
        
     <security-constraint>

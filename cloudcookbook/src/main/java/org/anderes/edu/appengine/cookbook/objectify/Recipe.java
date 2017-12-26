@@ -1,35 +1,49 @@
-package org.anderes.edu.appengine.cookbook.dto;
+package org.anderes.edu.appengine.cookbook.objectify;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.TreeSet;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import com.googlecode.objectify.annotation.Cache;
+import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
 @Entity
-@Cache
 public class Recipe {
 
     private @Id String id;
 	private @Index String title;
-	private Image image;
-	private Set<Ingredient> ingredients = new HashSet<Ingredient>();
+	private Ref<Image> image;
+	private List<Ref<Ingredient>> ingredients = new ArrayList<>();
 	private String preparation;
 	private String preamble;
 	private String noOfPeople;
-	private Set<String> tags = new HashSet<String>();
+	private Set<String> tags = new TreeSet<String>();
 	private Date editingDate;
 	private Date addingDate;
 	private Integer rating;
 
+	public Recipe() {
+		super();
+		this.id = UUID.randomUUID().toString();
+	}
+
+    public Recipe setId(String id) {
+        this.id = id;
+        return this;
+    }
+    
 	public Date getEditingDate() {
         return editingDate;
     }
@@ -57,12 +71,15 @@ public class Recipe {
         return this;
     }
 
-    public Image getImage() {
-		return image;
+    public Optional<Image> getImage() {
+    	if (image == null) {
+    		return Optional.empty();
+    	}
+		return Optional.of(image.get());
 	}
 
 	public Recipe setImage(Image image) {
-		this.image = image;
+		this.image = Ref.create(image);
 		return this;
 	}
 
@@ -80,16 +97,19 @@ public class Recipe {
 	}
 
 	public Recipe addIngredient(final Ingredient ingredient) {
-		ingredients.add(ingredient);
+		ingredients.add(Ref.create(ingredient));
 		return this;
 	}
 	
 	public void removeIngredient(final Ingredient ingredient) {
-		ingredients.remove(ingredient);
+		ingredients.remove(Ref.create(ingredient));
 	}
 
 	public Set<Ingredient> getIngredients() {
-		return Collections.unmodifiableSet(ingredients);
+		return ingredients.stream()
+				.map(ref -> ref.get())
+				.filter(i -> i != null)
+				.collect(Collectors.toCollection(TreeSet::new));
 	}
 
 	public String getPreparation() {
@@ -123,13 +143,18 @@ public class Recipe {
 		return Collections.unmodifiableSet(tags);
 	}
 
+	public void setTags(final Set<String> tags) {
+		this.tags = tags;
+	}
+
 	public Recipe addTag(final String tag) {
 		this.tags.add(tag);
 		return this;
 	}
 	
-	public void removeTag(final String tag) {
+	public Recipe removeTag(final String tag) {
 		this.tags.remove(tag);
+		return this;
 	}
 
 	@Override
@@ -164,7 +189,4 @@ public class Recipe {
 	            .append("ingredients", ingredients).append("preparation", preparation).append("tags", tags).build();
 	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
 }

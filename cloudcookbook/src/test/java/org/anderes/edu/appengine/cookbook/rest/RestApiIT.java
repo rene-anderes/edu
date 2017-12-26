@@ -41,7 +41,7 @@ public class RestApiIT {
     
     private final static Logger logger = Logger.getLogger(RestApiIT.class.getName());
     private final static UriBuilder uri = UriBuilder.fromResource(MyApplication.class)
-                    .scheme("http").host("localhost").port(8089).path(RecipeResource.class);
+                    .scheme("http").host("localhost").port(8080).path(RecipeResource.class);
     private Client client;
     
     @Before
