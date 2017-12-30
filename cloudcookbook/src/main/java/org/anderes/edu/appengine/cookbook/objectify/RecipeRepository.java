@@ -17,6 +17,7 @@ import org.anderes.edu.appengine.cookbook.dto.IngredientDto;
 import org.anderes.edu.appengine.cookbook.dto.RecipeDto;
 import org.anderes.edu.appengine.cookbook.dto.RecipeShort;
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.time.StopWatch;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.NotFoundException;
@@ -36,8 +37,11 @@ public class RecipeRepository {
 	 */
 	public RecipeDto findOne(final String id) {
 		Validate.notNull(id, "Parameter id darf nicht null sein");
-		
+		final StopWatch watch = new StopWatch();
+	    watch.start();
 		final Recipe recipe = ofy().load().type(Recipe.class).id(id).safe();
+		watch.stop();
+	    logger.fine("Verarbeitung (findOne): " + watch.getTime() + " ms");
 		return mapToNewRecipeDto(recipe);
 	}
 
@@ -63,12 +67,11 @@ public class RecipeRepository {
 	public RecipeDto save(final RecipeDto recipeDto) {
 		Validate.notNull(recipeDto, "Parameter recipeDto darf nicht null sein");
 		final Recipe recipe = mapToRecipe(recipeDto, new Recipe());
-		if (isBlank(recipeDto.getId())) {
-		} else {
+		if (!isBlank(recipeDto.getId())) {
 			Recipe r = ofy().load().type(Recipe.class).id(recipeDto.getId()).now();
 			if (r != null) {
-				r.getImage().ifPresent(i -> deleteImage(i));
-				r.getIngredients().stream().forEach(i -> deleteIngredient(i));
+				r.getImage().ifPresent(i -> deleteEntity(i));
+				r.getIngredients().stream().forEach(i -> deleteEntity(i));
 			} else {
 				recipe.setId(recipeDto.getId());
 			}
@@ -91,14 +94,6 @@ public class RecipeRepository {
 		logger.fine("Rezept mit Key '" + key.toWebSafeString() + "' gespeichert.");
 		final Recipe newRecipe = ofy().load().type(Recipe.class).id(recipe.getId()).safe();
 		return mapToNewRecipeDto(newRecipe);
-	}
-	
-	private void deleteIngredient(final Ingredient ingredient) {
-		ofy().delete().entity(ingredient).now();
-	}
-
-	private void deleteImage(final Image image) {
-		ofy().delete().entity(image).now();
 	}
 
 	private Recipe mapToRecipe(final RecipeDto recipeDto, final Recipe recipe) {
@@ -145,12 +140,15 @@ public class RecipeRepository {
 	}
 
 	public List<RecipeShort> getRecipeCollection() {
-	    
+	    final StopWatch watch = new StopWatch();
+	    watch.start();
 	    final List<Recipe> iterator = ofy().load().type(Recipe.class).list();
 	    final List<RecipeShort> recipes = iterator.stream()
 	    		.map(recipe -> new RecipeShort(recipe.getTitle(), recipe.getId(), recipe.getEditingDate()))
 	    		.sorted()
 	    		.collect(Collectors.toList());
+	    watch.stop();
+	    logger.fine("Verarbeitung (getRecipeCollection): " + watch.getTime() + " ms");
 		return recipes;
 	}
 
