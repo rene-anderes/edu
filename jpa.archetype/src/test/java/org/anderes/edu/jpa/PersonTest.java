@@ -8,6 +8,8 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.Calendar;
 import java.util.Collection;
 
@@ -96,10 +98,10 @@ public class PersonTest {
         return person;
     }
 
-    private Calendar january(int day, int year) {
+    private LocalDate january(int day, int year) {
     	final Calendar birthday = Calendar.getInstance();
     	birthday.clear();
     	birthday.set(year, JANUARY, day);
-    	return birthday;
+    	return LocalDate.of(year, Month.JANUARY, day);
     }
 }
