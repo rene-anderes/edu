@@ -85,7 +85,7 @@ public class ByteStreamsTest {
     /**
      * Serialisiere mittels einem {@code ObjectOutputStream} ein String-Objekt in
      * ein File "info.obj" in den Pfad "target/test-classes/".
-     * Lese das File "info.obj" mittels einem {@code InputStream} wieder ein
+     * Lese das File "info.obj" mittels einem {@code ObjectInputStream} wieder ein
      * und überprüfe den Inhalt. 
      * 
      * @throws IOException
