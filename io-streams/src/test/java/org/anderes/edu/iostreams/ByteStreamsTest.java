@@ -54,7 +54,7 @@ public class ByteStreamsTest {
     /**
      * Erstelle ein ZIP-File mit dem Namen "myTest.zip" im Pfad "target/test-classes/".
      * Dieses Zip soll aus zwei Einträgen bestehen: Dem File "java_logo.png" und dem File "LoremIpsum.txt".
-     * Überprüfe die Existenz des Files.
+     * überprüfe die Existenz und die Grösse des Files.
      * 
      * @throws IOException
      */
@@ -92,18 +92,18 @@ public class ByteStreamsTest {
      * @throws ClassNotFoundException
      */
     @Test
-    public void objectStreams() throws IOException, ClassNotFoundException {
+    public void objectStreams() throws IOException {
         final File infoObjFile = Paths.get("target", "test-classes", "info.obj").toFile();
         final FileOutputStream outputStream = new FileOutputStream(infoObjFile);
         try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream)) {
-            objectOutputStream.writeObject("ObjectStreamTest");
+            objectOutputStream.writeUTF("ObjectStreamTest");
         }   // der äussere Stream schliesst auch den inneren Stream
         
         final FileInputStream inputStream = new FileInputStream(infoObjFile);
-        assertThat(inputStream.available(), is(23));
+        assertThat(inputStream.available(), is(24));
         
         try (ObjectInputStream objectInputStream = new ObjectInputStream(inputStream)) {
-            String value = (String) objectInputStream.readObject();
+            String value = objectInputStream.readUTF();
             assertThat(value, is("ObjectStreamTest"));
         }   // der äussere Stream schliesst auch den inneren Stream
     }
