@@ -13,6 +13,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Collectors;
 
@@ -50,12 +53,28 @@ public class CharStreamsTest {
         }
     }
     
+    /**
+     * Lese das File "ISO-8859-1 Text.txt" aus dem Pfad "target/text-classes/" ein
+     * und überprüfe den Inhalt. Korrekt ist: "Fix, Schwyz! quäkt Jürgen blöd vom Paß."
+     * Beachte, dass das File im Encoding ISO-8859-1 vorliegt.
+     * 
+     * @throws IOException
+     */
     @Test
     public void readFile() throws IOException {
         final File txtFile = Paths.get("target", "test-classes", "ISO-8859-1 Text.txt").toFile();
         try (InputStream inputStream = new FileInputStream(txtFile);
-                        Reader inputReader = new InputStreamReader(inputStream, Charset.forName("ISO-8859-1"));
+                        Reader inputReader = new InputStreamReader(inputStream, StandardCharsets.ISO_8859_1);
                         BufferedReader reader = new BufferedReader(inputReader)) {
+            final String msg = reader.lines().collect(Collectors.joining());
+            assertThat(msg, is("Fix, Schwyz! quäkt Jürgen blöd vom Paß."));
+        }
+    }
+    
+    @Test
+    public void readFileSecondVersion() throws IOException {
+        final Path txtFile = Paths.get("target", "test-classes", "ISO-8859-1 Text.txt");
+        try (BufferedReader reader = Files.newBufferedReader(txtFile, Charset.forName("ISO-8859-1"))) {
             final String msg = reader.lines().collect(Collectors.joining());
             assertThat(msg, is("Fix, Schwyz! quäkt Jürgen blöd vom Paß."));
         }
