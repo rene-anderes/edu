@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class MeasuredValuesImport {
     
-    private final static Pattern pattern = Pattern.compile("(\\w+)\\s+([-]?\\d+[.]?\\d*)\\s+(\\w+)");
+    private final static Pattern PATTERN = Pattern.compile("(\\w+)\\s+([-]?\\d+[.]?\\d*)\\s+(\\w+)");
 
     public static MeasuredValuesImport build() {
         return new MeasuredValuesImport();
@@ -20,9 +20,9 @@ public class MeasuredValuesImport {
     public Map<Integer, MeasuredValue> read(final Path xmlPath) throws IOException {
         try(LineNumberReader reader = new LineNumberReader(new FileReader(xmlPath.toFile()))) {
             return reader.lines()
-                .filter(line -> pattern.matcher(line).matches())
+                .filter(line -> PATTERN.matcher(line).matches())
                 .map(line -> {
-                    Matcher matcher = pattern.matcher(line);
+                    Matcher matcher = PATTERN.matcher(line);
                     matcher.find();
                     return new MeasuredValue(reader.getLineNumber(), matcher.group(1), matcher.group(2), matcher.group(3));
                 })
