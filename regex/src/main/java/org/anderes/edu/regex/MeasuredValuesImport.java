@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 import java.nio.file.Path;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class MeasuredValuesImport {
     
@@ -18,17 +18,17 @@ public class MeasuredValuesImport {
     }
 
     public Map<Integer, MeasuredValue> read(final Path xmlPath) throws IOException {
-        final TreeMap<Integer, MeasuredValue> map = new TreeMap<>();
         try(LineNumberReader reader = new LineNumberReader(new FileReader(xmlPath.toFile()))) {
-            reader.lines().map(line -> {
-                final Matcher matcher = pattern.matcher(line);
-                if(matcher.find()) {
+            return reader.lines()
+                .filter(line -> pattern.matcher(line).matches())
+                .peek(System.out::println)
+                .map(line -> {
+                    Matcher matcher = pattern.matcher(line);
+                    matcher.find();
                     return new MeasuredValue(reader.getLineNumber(), matcher.group(1), matcher.group(2), matcher.group(3));
-                }
-                return null;
-            }).forEach(m -> { if (m != null) { map.put(m.getIndex(), m); }});
+                })
+                .collect(Collectors.toMap(k -> k.getIndex(), m -> m));
         }
-        return map;
     }
 
 }
