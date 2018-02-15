@@ -21,7 +21,6 @@ public class MeasuredValuesImport {
         try(LineNumberReader reader = new LineNumberReader(new FileReader(xmlPath.toFile()))) {
             return reader.lines()
                 .filter(line -> pattern.matcher(line).matches())
-                .peek(System.out::println)
                 .map(line -> {
                     Matcher matcher = pattern.matcher(line);
                     matcher.find();
