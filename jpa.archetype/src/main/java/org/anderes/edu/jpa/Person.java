@@ -1,7 +1,7 @@
 package org.anderes.edu.jpa;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
+import java.time.LocalDate;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -11,8 +11,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 /**
@@ -41,8 +39,7 @@ public class Person {
 	@Column(precision=8, scale=2)
 	private BigDecimal salary;
 	
-	@Temporal(TemporalType.DATE)
-	private Calendar birthday;
+	private LocalDate birthday;
 	
     @Enumerated(EnumType.STRING)
     private Gender gender;
@@ -76,11 +73,11 @@ public class Person {
 		this.salary = salary;
 	}
 
-	public Calendar getBirthday() {
+	public LocalDate getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(Calendar birthday) {
+	public void setBirthday(LocalDate birthday) {
 		this.birthday = birthday;
 	}
 

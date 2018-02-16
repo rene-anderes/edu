@@ -1,4 +1,4 @@
-package org.anderes.edu.regex;
+package org.anderes.logging;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,10 +14,15 @@ public class MeasuredValuesImport {
     private final static Pattern PATTERN = Pattern.compile("(\\w+)\\s+([-]?\\d+[.]?\\d*)\\s+(\\w+)");
 
     public static MeasuredValuesImport build() {
+        System.out.println("Neuer Importer instanziert.");
         return new MeasuredValuesImport();
     }
 
     public Map<Integer, MeasuredValue> read(final Path xmlPath) throws IOException {
+        if (xmlPath == null) {
+            System.err.println("Programmierfehler: Der Parameter 'xmlPath' darf nicht null sein.");
+            throw new IllegalArgumentException();
+        }
         try(LineNumberReader reader = new LineNumberReader(new FileReader(xmlPath.toFile()))) {
             return reader.lines()
                 .filter(line -> PATTERN.matcher(line).matches())

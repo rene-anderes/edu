@@ -111,6 +111,8 @@
                 ALL: This level currently logs at the same level as FINEST. 
             -->
             <property name="eclipselink.logging.level" value="FINE" />
+            <!-- Note: Setting eclipselink.logging.level to FINE is not sufficient (as of EclipseLink 2.4.0 - Juno),
+                you have to set eclipselink.logging.level.sql to FINE.  -->
             <property name="eclipselink.logging.level.sql" value="FINE" />
             <!-- The logging of SQL parameters can be enabled, or disabled through the following properties -->
             <property name="eclipselink.logging.parameters" value="true" />

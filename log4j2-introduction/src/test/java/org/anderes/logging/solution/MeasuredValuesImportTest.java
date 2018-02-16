@@ -1,4 +1,4 @@
-package org.anderes.edu.regex;
+package org.anderes.logging.solution;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -10,13 +10,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 
+import org.anderes.logging.MeasuredValue;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 public class MeasuredValuesImportTest {
     
-    final private Path TXTPATH = Paths.get(".\\", "target", "classes", "org", "anderes", "edu", "regex", "measured_values.txt");
+    final private Path TXTPATH = Paths.get("target", "classes", "data", "measured_values.txt");
     @Rule
     public ExpectedException thrown = ExpectedException.none();
     
@@ -68,10 +69,17 @@ public class MeasuredValuesImportTest {
     }
 
     @Test
-    public void shouldBeException() throws IOException {
+    public void shouldBeFileNotFoundException() throws IOException {
         thrown.expect(FileNotFoundException.class);
         thrown.expectMessage("wrong_path (Das System kann die angegebene Datei nicht finden)");
         
         MeasuredValuesImport.build().read(Paths.get("wrong_path"));
+    }
+    
+    @Test
+    public void shouldBeIllegalArgumentException() throws IOException {
+        thrown.expect(IllegalArgumentException.class);
+        
+        MeasuredValuesImport.build().read(null);
     }
 }
