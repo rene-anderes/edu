@@ -12,7 +12,8 @@
 
     <modules>
         <module>gae-cookbook</module>
-    </modules>
+    <module>gae-service</module>
+  </modules>
 
     <properties>
         <app.id>primeval-falcon-839</app.id>
