@@ -13,7 +13,7 @@
     <packaging>war</packaging>
 
     <url>https://primeval-falcon-839.appspot.com/</url>
-
+    
     <build>
         <!-- for hot reload of the web application -->
         <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
