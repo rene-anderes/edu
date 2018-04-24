@@ -16,6 +16,7 @@ public class TheCreatorTest {
   
     private TheCreator creator;
     private final Path logFile = Paths.get("target", "error.log");
+    private final Path csvFile = Paths.get("target", "sha-1.csv");
     
     @Before
     public void setup() {
@@ -24,20 +25,7 @@ public class TheCreatorTest {
         if (log.exists()) {
             assertThat(log.delete(), is(true));
         }
-        creator.setErrorLogFile(logFile);
-    }
-    
-    @Test
-    public void shouldBeCreateSha1ForOneFile() throws Exception {
-        // given
-        final Path theFile = Paths.get("target", "test-classes", "testdata", "Kata-Testdaten.pdf");
-        
-        // when
-        final ResultData sha1 = creator.createSha1(theFile);
-        
-        // then
-        assertThat(sha1, not(nullValue()));
-        assertThat(sha1.getValue(), is("7F746EBE0D61189A8BB2185C82C82AB8B1EEFB2C"));
+        creator.setErrorLogFile(logFile).setCsvFilePath(csvFile);
     }
     
     @Test
@@ -53,6 +41,7 @@ public class TheCreatorTest {
         assertThat(sha1, not(nullValue()));
         assertThat(sha1, is(2L));
         assertThat(logFile.toFile().exists(), is(false));
+        assertThat(csvFile.toFile().exists(), is(true));
     }
     
     @Test
@@ -66,6 +55,7 @@ public class TheCreatorTest {
         // then
         assertThat(creator.queueSize(), is(1l));
         assertThat(logFile.toFile().exists(), is(false));
+        assertThat(csvFile.toFile().exists(), is(true));
     }
     
     @Test
