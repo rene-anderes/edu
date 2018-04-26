@@ -25,7 +25,7 @@ public class TheCreatorTest {
         if (log.exists()) {
             assertThat(log.delete(), is(true));
         }
-        creator.setErrorLogFile(logFile).setCsvFilePath(csvFile);
+        creator.setCsvFilePath(csvFile);
     }
     
     @Test
@@ -39,7 +39,7 @@ public class TheCreatorTest {
         final long sha1 = creator.createSha1FromPath(theDirectory);
         
         assertThat(sha1, not(nullValue()));
-        assertThat(sha1, is(2L));
+        assertThat(sha1, is(3L));
         assertThat(logFile.toFile().exists(), is(false));
         assertThat(csvFile.toFile().exists(), is(true));
     }

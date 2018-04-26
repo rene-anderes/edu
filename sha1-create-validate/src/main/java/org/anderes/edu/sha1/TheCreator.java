@@ -2,17 +2,14 @@ package org.anderes.edu.sha1;
 
 import static java.lang.Integer.MAX_VALUE;
 import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
-import static java.time.format.DateTimeFormatter.ISO_DATE_TIME;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
@@ -21,15 +18,18 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class TheCreator {
 
     private ExecutorService executorService = Executors.newSingleThreadExecutor();
     private ConcurrentLinkedQueue<ResultData> queue = new ConcurrentLinkedQueue<>();
     private AtomicBoolean filesReaderFinish = new AtomicBoolean(false);
-    private OutputStream infoLog = System.out;
-    private Path errorLogPath = Paths.get("error.log");
     private Path csvFilePath = Paths.get("sha1.csv");
     private TheCalculator calculator = new TheSHA1Calculator();
+    private final Logger logger = LogManager.getLogger();
+    private final Logger loggerFile = LogManager.getLogger("FileWithError");
     
     public static TheCreator build() {
         return new TheCreator();
@@ -38,7 +38,7 @@ public class TheCreator {
     private TheCreator() {};
       
     public long createSha1FromPath(Path theDirectory) throws IOException {
-        logInfo(infoLog, "Programm started");
+        logger.debug("TheCreator 'createSha1FromPath' started");
         
         if (!Files.isDirectory(theDirectory, NOFOLLOW_LINKS)) {
             throw new IOException("not a directory (" + theDirectory + ")");
@@ -52,14 +52,15 @@ public class TheCreator {
                         .count();
         
         filesReaderFinish.set(true);
-        logInfo(infoLog, "Reader finished");
+        logger.debug("Reader finished");
+        logger.info("read {} files.", count);
         try {
-            logInfo(infoLog, String.format("Writer write %s SHA-1 files", command.get()));
+            logger.info("write {} SHA-1 files.", command.get());
         } catch (InterruptedException | ExecutionException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
         }
         executorService.shutdown();
-        logInfo(infoLog, "Programm finished");
+        logger.debug("TheCreator 'createSha1FromPath' finished");
         return count;
     }
 
@@ -68,43 +69,14 @@ public class TheCreator {
         try {
             queue.add(calculator.eval(theFile));
         } catch (IOException e) {
-            final String errorMsg = String.format("File: '%s', error-message: %s", theFile, e.getMessage());
-            logError(errorLogPath, errorMsg);
+            loggerFile.info("The file '{}' was not processed.", theFile);
+            logger.warn(e);
         }
         
     }
 
     /*package*/long queueSize() {
         return queue.size();
-    }
-    
-    /*package*/void logInfo(final OutputStream out, final String message) {
-        final String msg = String.format("%s | %s", dateTimeNow(), message);
-        try {
-            out.write(msg.getBytes());
-            out.write(System.lineSeparator().getBytes());
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
-    }
-    
-    /*package*/void logError(final Path logFile, final String message) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(logFile.toFile(), true))) {
-            final String msg = String.format("%s | %s", dateTimeNow(), message);
-            writer.write(msg);
-            writer.write(System.lineSeparator());
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
-    }
-    
-    private String dateTimeNow() {
-        return LocalDateTime.now().format(ISO_DATE_TIME);
-    }
-    
-    public TheCreator setErrorLogFile(final Path logFile) {
-        errorLogPath = logFile;
-        return this;
     }
     
     public TheCreator setCsvFilePath(final Path theFile) {
@@ -129,9 +101,9 @@ public class TheCreator {
                     writer.flush();
                 }
             } catch (IOException e) {
-                logError(errorLogPath, e.getMessage());
+                logger.error(e.getMessage());
             }
-            logInfo(infoLog, "Writer finished");
+            logger.debug("Writer finished");
             return c;
         }
     }
