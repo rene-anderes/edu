@@ -7,9 +7,17 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.PathMatcher;
 import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
@@ -17,6 +25,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.BiPredicate;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,6 +37,7 @@ public class TheCreator {
     private ConcurrentLinkedQueue<ResultData> queue = new ConcurrentLinkedQueue<>();
     private AtomicBoolean filesReaderFinish = new AtomicBoolean(false);
     private Path csvFilePath = Paths.get("sha1.csv");
+    private Optional<Path> blacklist = Optional.empty();
     private TheCalculator calculator = new TheSHA1Calculator();
     private final Logger logger = LogManager.getLogger();
     private final Logger loggerFile = LogManager.getLogger("FileWithError");
@@ -43,10 +54,13 @@ public class TheCreator {
         if (!Files.isDirectory(theDirectory, NOFOLLOW_LINKS)) {
             throw new IOException("not a directory (" + theDirectory + ")");
         }
+        
         final FutureTask<Long> command = new FutureTask<Long>(new CsvFileWriter());
         executorService.execute(command);
-        
-        long count = Files.find(theDirectory, MAX_VALUE, (path, basicFileAttributes) -> basicFileAttributes.isRegularFile())
+
+        final BiPredicate<Path, BasicFileAttributes> biPredicate = 
+                        (path, basicFileAttributes) -> (!isInBlacklist(path) && basicFileAttributes.isRegularFile());
+        long count = Files.find(theDirectory, MAX_VALUE, biPredicate)
                         .parallel()
                         .peek(p -> handleFile(p))
                         .count();
@@ -64,8 +78,21 @@ public class TheCreator {
         return count;
     }
 
+    private List<String> createBlacklist() {
+        if (!blacklist.isPresent()) {
+            return new ArrayList<>(0);
+        }
+        try {
+            return Files.lines(blacklist.get()).collect(Collectors.toList());
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+        }
+        return new ArrayList<>(0);
+    }
+
     /*package*/void handleFile(Path theFile) {
 
+        logger.trace("processed path: {}", theFile);
         try {
             queue.add(calculator.eval(theFile));
         } catch (IOException e) {
@@ -82,6 +109,19 @@ public class TheCreator {
     public TheCreator setCsvFilePath(final Path theFile) {
         csvFilePath = theFile;
         return this;
+    }
+    
+    public TheCreator setBlacklist(final Path blacklistFile) {
+        blacklist = Optional.ofNullable(blacklistFile);
+        return this;
+    }
+    
+    /*package*/boolean isInBlacklist(Path theFile) {
+        return createBlacklist().stream().filter(regex -> {
+                final PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("regex:" + regex);
+                return pathMatcher.matches(theFile);
+            })
+            .count() > 0;
     }
 
     private class CsvFileWriter implements Callable<Long> {

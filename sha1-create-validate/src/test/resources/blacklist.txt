@@ -1,0 +1,4 @@
+.*other\\.*
+.*\\another.*
+.*\\?[$]RECYCLE[.]BIN\\.*
+.*\\?System Volume Information\\.*
