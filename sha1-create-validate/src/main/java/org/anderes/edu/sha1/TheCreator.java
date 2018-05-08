@@ -1,6 +1,5 @@
 package org.anderes.edu.sha1;
 
-import static java.lang.Integer.MAX_VALUE;
 import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 
 import java.io.BufferedWriter;
@@ -12,8 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.PathMatcher;
 import java.nio.file.Paths;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Callable;
@@ -23,11 +22,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.google.common.collect.FluentIterable;
 
 public class TheCreator {
 
@@ -56,14 +56,7 @@ public class TheCreator {
         final FutureTask<Long> command = new FutureTask<Long>(new CsvFileWriter());
         executorService.execute(command);
 
-        final BiPredicate<Path, BasicFileAttributes> biPredicate = 
-                        (path, basicFileAttributes) -> (!isInBlacklist(path) && basicFileAttributes.isRegularFile());
-        long count = Files.find(theDirectory, MAX_VALUE, biPredicate)
-                        .parallel()
-                        .peek(p -> handleFile(p))
-                        .count();
-        
-//        long count = createCheckSumFromPath(theDirectory);
+        long count = createCheckSumFromPath(theDirectory);
         
         filesReaderFinish.set(true);
         logger.debug("Reader finished");
@@ -79,10 +72,17 @@ public class TheCreator {
     }
     
     public long createCheckSumFromPath(Path theDirectory) throws IOException {
-       
-        return 0L;
-    }
 
+        final FluentIterable<File> files = com.google.common.io.Files.fileTreeTraverser()
+                        .breadthFirstTraversal(theDirectory.toFile())
+                            .filter(file -> file.isFile())
+                            .filter(file -> !isInBlacklist(file.toPath()));
+        
+        final HashSet<Path> paths = new HashSet<>(files.size());
+        files.forEach(f -> paths.add(f.toPath()));
+        return paths.stream().parallel().peek(file -> handleFile(file)).count();
+    }
+    
     private List<String> createBlacklist() {
         if (!blacklist.isPresent()) {
             return new ArrayList<>(0);
