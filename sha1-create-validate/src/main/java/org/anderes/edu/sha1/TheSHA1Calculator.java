@@ -18,6 +18,7 @@ public class TheSHA1Calculator implements TheCalculator {
     public ResultData eval(Path theFile) throws FileNotFoundException, IOException {
 
         try (final InputStream input = Files.newInputStream(theFile)) {
+            
             MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
 
             byte[] buffer = new byte[8192];

@@ -1,6 +1,5 @@
 package org.anderes.edu.sha1;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;

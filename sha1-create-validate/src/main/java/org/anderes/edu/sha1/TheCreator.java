@@ -8,12 +8,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.FileSystems;
-import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.PathMatcher;
 import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +63,8 @@ public class TheCreator {
                         .peek(p -> handleFile(p))
                         .count();
         
+//        long count = createCheckSumFromPath(theDirectory);
+        
         filesReaderFinish.set(true);
         logger.debug("Reader finished");
         logger.info("read {} files.", count);
@@ -76,6 +76,11 @@ public class TheCreator {
         executorService.shutdown();
         logger.debug("TheCreator 'createSha1FromPath' finished");
         return count;
+    }
+    
+    public long createCheckSumFromPath(Path theDirectory) throws IOException {
+       
+        return 0L;
     }
 
     private List<String> createBlacklist() {
