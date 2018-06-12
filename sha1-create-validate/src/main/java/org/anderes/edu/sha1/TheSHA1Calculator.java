@@ -9,6 +9,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
+import static com.google.common.base.Preconditions.*;
 
 public class TheSHA1Calculator implements TheCalculator {
 
@@ -16,7 +17,8 @@ public class TheSHA1Calculator implements TheCalculator {
 
     @Override
     public ResultData eval(Path theFile) throws FileNotFoundException, IOException {
-
+        checkNotNull(theFile);
+        
         try (final InputStream input = Files.newInputStream(theFile)) {
             
             MessageDigest sha1 = MessageDigest.getInstance("SHA-1");

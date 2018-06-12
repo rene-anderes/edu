@@ -28,6 +28,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.google.common.collect.FluentIterable;
+import static com.google.common.base.Preconditions.*;
+
 
 public class TheCreator {
 
@@ -47,6 +49,7 @@ public class TheCreator {
     private TheCreator() {};
       
     public long createSha1FromPath(Path theDirectory) throws IOException {
+        checkNotNull(theDirectory);
         logger.debug("TheCreator 'createSha1FromPath' started");
         
         if (!Files.isDirectory(theDirectory, NOFOLLOW_LINKS)) {
@@ -72,7 +75,8 @@ public class TheCreator {
     }
     
     public long createCheckSumFromPath(Path theDirectory) throws IOException {
-
+        checkNotNull(theDirectory);
+        
         final FluentIterable<File> files = com.google.common.io.Files.fileTreeTraverser()
                         .breadthFirstTraversal(theDirectory.toFile())
                             .filter(file -> file.isFile())
@@ -112,12 +116,14 @@ public class TheCreator {
     }
     
     public TheCreator setCsvFilePath(final Path theFile) {
+        checkNotNull(theFile);
         csvFilePath = theFile;
         return this;
     }
     
     public TheCreator setBlacklist(final Path blacklistFile) {
-        blacklist = Optional.ofNullable(blacklistFile);
+        checkNotNull(blacklistFile);
+        blacklist = Optional.of(blacklistFile);
         return this;
     }
     

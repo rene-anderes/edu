@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import static com.google.common.base.Preconditions.*;
 
 public class TheValidator {
 
@@ -22,7 +23,8 @@ public class TheValidator {
     private TheValidator() {}
 
     public void validateAlt(final Path csvFile) throws IOException {
-
+        checkNotNull(csvFile);
+        
         try(LineNumberReader reader = new LineNumberReader(new FileReader(csvFile.toFile()))) {
             String line = reader.readLine();
             while(line != null) {
@@ -43,7 +45,8 @@ public class TheValidator {
     }
     
     public void validate(final Path csvFile) throws IOException {
-
+        checkNotNull(csvFile);
+        
         Files.lines(csvFile).map(l -> l.split(";"))
                 .parallel()
                 .filter(values -> {
