@@ -1,4 +1,4 @@
-package org.anderes.edu.sha1;
+package org.anderes.edu.checksum;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -8,6 +8,9 @@ import static org.junit.Assert.assertThat;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.anderes.edu.checksum.ResultData;
+import org.anderes.edu.checksum.TheCalculator;
+import org.anderes.edu.checksum.TheSHA1Calculator;
 import org.junit.Test;
 
 public class TheSHA1CalculatorTest {

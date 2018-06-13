@@ -1,8 +1,9 @@
-package org.anderes.edu.sha1;
+package org.anderes.edu.checksum;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.anderes.edu.checksum.TheValidator;
 import org.junit.Test;
 
 public class TheValidatorTest {

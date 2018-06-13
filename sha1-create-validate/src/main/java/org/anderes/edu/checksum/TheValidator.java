@@ -1,4 +1,4 @@
-package org.anderes.edu.sha1;
+package org.anderes.edu.checksum;
 
 import java.io.FileReader;
 import java.io.IOException;

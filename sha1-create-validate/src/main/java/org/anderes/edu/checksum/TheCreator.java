@@ -1,4 +1,4 @@
-package org.anderes.edu.sha1;
+package org.anderes.edu.checksum;
 
 import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 
@@ -36,7 +36,7 @@ public class TheCreator {
     private ExecutorService executorService = Executors.newSingleThreadExecutor();
     private ConcurrentLinkedQueue<ResultData> queue = new ConcurrentLinkedQueue<>();
     private AtomicBoolean filesReaderFinish = new AtomicBoolean(false);
-    private Path csvFilePath = Paths.get("sha1.csv");
+    private Path csvFilePath = Paths.get("checksum.csv");
     private Optional<Path> blacklist = Optional.empty();
     private TheCalculator calculator = new TheSHA1Calculator();
     private final Logger logger = LogManager.getLogger();
@@ -48,9 +48,9 @@ public class TheCreator {
     
     private TheCreator() {};
       
-    public long createSha1FromPath(Path theDirectory) throws IOException {
+    public long createChecksumFromPath(final Path theDirectory) throws IOException {
         checkNotNull(theDirectory);
-        logger.debug("TheCreator 'createSha1FromPath' started");
+        logger.debug("TheCreator started");
         
         if (!Files.isDirectory(theDirectory, NOFOLLOW_LINKS)) {
             throw new IOException("not a directory (" + theDirectory + ")");
@@ -63,9 +63,10 @@ public class TheCreator {
         
         filesReaderFinish.set(true);
         logger.debug("Reader finished");
-        logger.info("read {} files.", count);
+        logger.info("... {} files were processed", count);
         try {
-            logger.info("write {} SHA-1 files.", command.get());
+            final Long writerCount = command.get();
+            logger.info("The checksum of {} files were written in the file '{}'", writerCount, csvFilePath.toAbsolutePath().toString());
         } catch (InterruptedException | ExecutionException e) {
             logger.error(e.getMessage());
         }
@@ -74,14 +75,14 @@ public class TheCreator {
         return count;
     }
     
-    public long createCheckSumFromPath(Path theDirectory) throws IOException {
+    public long createCheckSumFromPath(final Path theDirectory) throws IOException {
         checkNotNull(theDirectory);
         
         final FluentIterable<File> files = com.google.common.io.Files.fileTreeTraverser()
                         .breadthFirstTraversal(theDirectory.toFile())
                             .filter(file -> file.isFile())
                             .filter(file -> !isInBlacklist(file.toPath()));
-        
+        logger.info("{} files are processed...", files.size());
         final HashSet<Path> paths = new HashSet<>(files.size());
         files.forEach(f -> paths.add(f.toPath()));
         return paths.stream().parallel().peek(file -> handleFile(file)).count();
@@ -123,6 +124,7 @@ public class TheCreator {
     
     public TheCreator setBlacklist(final Path blacklistFile) {
         checkNotNull(blacklistFile);
+        logger.info("Blacklist-File is '{}'", blacklistFile.toAbsolutePath().toString());
         blacklist = Optional.of(blacklistFile);
         return this;
     }
@@ -146,7 +148,7 @@ public class TheCreator {
                 while(!filesReaderFinish.get()) {
                     while(!queue.isEmpty()) {
                         final ResultData data = queue.poll();
-                        writer.write(String.format("%s;%s%n", data.getPath(), data.getValue()));
+                        writer.write(String.format("%s;%s%n", data.getPath().toAbsolutePath(), data.getValue()));
                         c++;
                     }
                     writer.flush();

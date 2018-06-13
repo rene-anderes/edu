@@ -1,4 +1,4 @@
-package org.anderes.edu.sha1;
+package org.anderes.edu.checksum;
 
 import java.nio.file.Path;
 import static com.google.common.base.Preconditions.*;

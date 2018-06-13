@@ -1,4 +1,4 @@
-package org.anderes.edu.sha1;
+package org.anderes.edu.checksum;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,12 +16,12 @@ public class TheSHA1Calculator implements TheCalculator {
     private final HexBinaryAdapter hexBinaryAdapter = new HexBinaryAdapter();
 
     @Override
-    public ResultData eval(Path theFile) throws FileNotFoundException, IOException {
+    public ResultData eval(final Path theFile) throws FileNotFoundException, IOException {
         checkNotNull(theFile);
         
         try (final InputStream input = Files.newInputStream(theFile)) {
             
-            MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
+            final MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
 
             byte[] buffer = new byte[8192];
             int len = input.read(buffer);
