@@ -1,5 +1,0 @@
-.*other\\.*
-.*\\another.*
-.*\\?[$]RECYCLE[.]BIN\\.*
-.*\\?System Volume Information\\.*
-.*\\?9a53592ccaa63dc1db70d5\\.*
