@@ -41,7 +41,7 @@ public class TheCreatorTest {
         
         // then
         assertThat(count, not(nullValue()));
-        assertThat(count, is(5L));
+        assertThat(count, is(6L));
         assertThat(csvFile.toFile().exists(), is(true));
     }
     
@@ -56,7 +56,7 @@ public class TheCreatorTest {
         
         // then
         assertThat(sha1, not(nullValue()));
-        assertThat(sha1, is(3L));
+        assertThat(sha1, is(4L));
         assertThat(defaultCsvFile.toFile().exists(), is(true));
     }
     

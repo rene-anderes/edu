@@ -16,13 +16,13 @@ public class StarterTest {
     @Rule
     public final ExpectedSystemExit exit = ExpectedSystemExit.none();
     private final Path theDirectory = Paths.get("target", "test-classes", "testdata");
-    private final Path defaultCsvFile = Paths.get("checksum.csv");
     private final Path csvFile = Paths.get("target", "test-sha1.csv");
+    private final Path toValidate = Paths.get("target", "test-classes", "testdata", "toValidate.csv");
+    private final Path wrongSha1 = Paths.get("target", "test-classes", "testdata", "wrongSha1.csv");
 
     @After
     public void shutdown() {
         csvFile.toFile().delete();
-        defaultCsvFile.toFile().delete();
     }
     
     @Test
@@ -70,5 +70,24 @@ public class StarterTest {
         // when
         Starter.main(parameter);
     }
+    
+    @Test
+    public void shouldBeValidate() {
+        // given
+        exit.expectSystemExitWithStatus(0);
+        final String[] parameter = { "-v", toValidate.toString() };
+        
+        // when
+        Starter.main(parameter);
+    }
 
+    @Test
+    public void shouldBeNotValidate() {
+        // given
+        exit.expectSystemExitWithStatus(3);
+        final String[] parameter = { "-v", wrongSha1.toString() };
+        
+        // when
+        Starter.main(parameter);
+    }
 }

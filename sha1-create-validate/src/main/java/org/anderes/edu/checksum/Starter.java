@@ -24,19 +24,34 @@ public class Starter {
     
     public static void main(String[] commandLineArguments) {
         final Logger logger = LogManager.getLogger();
-        logger.info("-------------------- ChecksumNG startet --------------------");
+        logger.info("-------------------- ChecksumNG startet ---------------------");
         logger.info("Application-Log path: '{}'", APPLICATIONLOGPATH.toAbsolutePath());
         logger.info("Error-Log path: '{}'", ERRORLOGPATH.toAbsolutePath());
         logger.info("used algorithm: {}", "SHA1");
-        final TheCreator creator = TheCreator.build();
         try {
             final CommandLine cmdLine = generateCommandLine(generateOptions(), commandLineArguments);
-            final Path theDirectory = Paths.get(cmdLine.getOptionValue('d'));
-            if (cmdLine.hasOption('b')) {
-                final Path theBlacklist = Paths.get(cmdLine.getOptionValue('b'));
-                creator.setBlacklist(theBlacklist);
+            if (!cmdLine.hasOption('d') && !cmdLine.hasOption('v')) {
+                logger.error("Invalid specification of the parameters");
+                logger.warn("-------------------- ChecksumNG completed NOT successfully --\n");
+                System.exit(1);
             }
-            creator.createChecksumFromPath(theDirectory);
+            if (cmdLine.hasOption('d')) {
+                final Path theDirectory = Paths.get(cmdLine.getOptionValue('d'));
+                final TheCreator creator = TheCreator.build();
+                if (cmdLine.hasOption('b')) {
+                    final Path theBlacklist = Paths.get(cmdLine.getOptionValue('b'));
+                    creator.setBlacklist(theBlacklist);
+                }
+                creator.createChecksumFromPath(theDirectory);
+            } else if (cmdLine.hasOption('v')) {
+                final Path theChecksumFile = Paths.get(cmdLine.getOptionValue('v'));
+                final boolean allFilesValid = TheValidator.build().validate(theChecksumFile);
+                if (!allFilesValid) {
+                    logger.warn("Please check the error log file.");
+                    logger.info("-------------------- ChecksumNG completed -------------------\n");
+                    System.exit(3);
+                }
+            }
         } catch (ParseException parseException) {
             logger.error("Unable to parse command-line arguments " 
                     + Arrays.toString(commandLineArguments) + " due to: " + parseException.getMessage());
@@ -44,10 +59,11 @@ public class Starter {
             System.exit(1);
         } catch (IOException e) {
             logger.error(e.getMessage());
+            logger.warn("Please check the error log file.");
             logger.warn("-------------------- ChecksumNG completed NOT successfully --\n");
             System.exit(2);
         }
-        logger.info("-------------------- ChecksumNG completed successfully -----\n");
+        logger.info("-------------------- ChecksumNG completed successfully ------\n");
         System.exit(0);
     }
 
@@ -64,11 +80,18 @@ public class Starter {
     private static Options generateOptions() {
 
        final Option directoryOption = Option.builder("d")
-              .required()
+              .required(false)
               .hasArg()
               .longOpt("directory")
-              .desc("start / home directory.")
+              .desc("start / home directory")
               .build();
+       
+       final Option validateOption = Option.builder("v")
+               .required(false)
+               .hasArg()
+               .longOpt("validate")
+               .desc("validate the file")
+               .build();
 
        final Option errorLogFileOption = Option.builder("el")
               .required(false)
@@ -95,6 +118,7 @@ public class Starter {
        options.addOption(errorLogFileOption);
        options.addOption(applicationLogFileOption);
        options.addOption(blacklistOption);
+       options.addOption(validateOption);
        return options;
 
     }
