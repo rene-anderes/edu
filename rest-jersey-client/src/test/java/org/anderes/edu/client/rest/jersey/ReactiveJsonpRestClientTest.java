@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import javax.json.Json;
@@ -22,10 +23,14 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
 import org.glassfish.jersey.CommonProperties;
+import org.glassfish.jersey.client.rx.rxjava2.RxFlowableInvoker;
+import org.glassfish.jersey.client.rx.rxjava2.RxFlowableInvokerProvider;
 import org.glassfish.jersey.jsonp.JsonProcessingFeature;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import io.reactivex.Flowable;
 
 /**
  * Beispiel für einen REST-Client der JSON mittels JOSN-P low level verarbeitet.
@@ -43,7 +48,9 @@ public class ReactiveJsonpRestClientTest {
     @Before
     public void setUp() throws Exception {
       
-        restUrl = UriBuilder.fromPath("resources-api").path("recipes-repository").host("www.anderes.org").scheme("http");
+        restUrl = UriBuilder.fromPath("resources-api").path("recipes-repository").host("www.anderes.org").scheme("http")
+                .queryParam("sort", "title")
+                .queryParam("size", "200");
         
         /** 
          * Hier wird explizit das JSON-P Feature registriert. Dies ist nicht notwendig, da Jersey
@@ -56,6 +63,7 @@ public class ReactiveJsonpRestClientTest {
                         .register(JsonProcessingFeature.class)
                         .property(CommonProperties.FEATURE_AUTO_DISCOVERY_DISABLE_CLIENT, TRUE)
                         .build();
+        
     }
 
     @After
@@ -63,6 +71,21 @@ public class ReactiveJsonpRestClientTest {
         client.close();
     }
 
+    @Test
+    public void shouldBeFlowable() {
+        /** We register the appropriate provider for using RxJava Flowable */
+        client.register(RxFlowableInvokerProvider.class);
+        
+        final Flowable<JsonObject> content = client.target(restUrl)
+                .request(APPLICATION_JSON_TYPE)
+                .rx(RxFlowableInvoker.class)
+                .get(JsonObject.class);
+        final JsonArray array = content.blockingSingle().getJsonArray("content");
+        final List<Optional<String>> urlList = toUrlList(array);
+        
+        assertThat(array.size(), is(urlList.size()));
+    }
+    
     @Test
     public void shouldBeFindAllRecipe() {
         CompletionStage<Response> recipeList = client.target(restUrl)
@@ -82,17 +105,7 @@ public class ReactiveJsonpRestClientTest {
             System.out.println(throwable); 
             return Json.createArrayBuilder().build();
         })
-        .thenApply((array) -> {
-                        array.stream()
-                            .peek(element -> System.out.println(element))
-                            .forEach(element -> assertThat(((JsonObject)element).containsKey("uuid"), is(true)));
-                        return array.stream()
-                                      .map(element -> ((JsonObject)element).getJsonArray("links").stream()
-                                                          .filter(link -> ((JsonObject)link).getString("rel").equals("self"))
-                                                          .map(link -> ((JsonObject)link).getString("href"))
-                                                          .findFirst())
-                                      .collect(Collectors.toList());
-        })
+        .thenApply(fnRecipesToRecipeUrls)
         .thenApply(urls -> handleRecipes(urls))
         .whenComplete((list, throwable) -> {
             if (throwable == null) {
@@ -103,6 +116,23 @@ public class ReactiveJsonpRestClientTest {
                 throwable.printStackTrace();
             }
         });
+    }
+    
+    private Function<? super JsonArray, ? extends List<Optional<String>>> fnRecipesToRecipeUrls =
+        (array) -> {
+            array.stream()
+                .peek(element -> System.out.println(element))
+                .forEach(element -> assertThat(((JsonObject)element).containsKey("uuid"), is(true)));
+            return toUrlList(array);
+        };
+
+    private List<Optional<String>> toUrlList(final JsonArray array) {
+        return array.stream()
+                  .map(element -> ((JsonObject)element).getJsonArray("links").stream()
+                                      .filter(link -> ((JsonObject)link).getString("rel").equals("self"))
+                                      .map(link -> ((JsonObject)link).getString("href"))
+                                      .findFirst())
+                  .collect(Collectors.toList());
     }
     
     private List<CompletableFuture<JsonObject>> handleRecipes(List<Optional<String>> urls) {
